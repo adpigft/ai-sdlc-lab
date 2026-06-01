@@ -13,7 +13,7 @@
 | Domain | Payments |
 | Capability | KHQR Payment Reversal |
 | MVP Scope | Operations-initiated full reversal of completed, not-finally-settled KHQR payments due to processor, ledger, or system error |
-| Status | Draft for implementation start review |
+| Status | Slice 1 approved for implementation |
 | Created | 2026-06-01 |
 
 ## Source Artifacts
@@ -26,13 +26,13 @@
 | Architecture Context | `domains/payments/capabilities/khqr-payment-reversal/context/context.md` | Approved |
 | API Contract | `domains/payments/capabilities/khqr-payment-reversal/contracts/openapi.yaml` | Approved |
 | Acceptance Tests | `domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature` | Approved |
-| Traceability Matrix | `traceability/traceability-matrix.md` | Draft updated for KHQR reversal; approval required before code |
+| Traceability Matrix | `traceability/traceability-matrix.md` | Approved for KHQR reversal |
 
 ## Implementation Decision
 
 Do not add application code yet.
 
-The capability is ready for implementation planning, but not ready for source-code changes. Code is blocked until KHQR reversal traceability rows are approved, implementation start approval is granted, the first slice is approved, and target stack / CI expectations are available. The current repository also has no existing application implementation under `src/`, so the first code slice must establish the minimal approved application structure only after build readiness approval.
+The capability is ready for implementation planning, and Slice 1 is approved for implementation. The lab stack is Java 21 with a plain Java package structure, compiled with `javac`, and tested with executable `main`-method tests until Maven/Gradle and CI are added later. The current repository also has no existing application implementation under `src/`, so the first code slice must establish the minimal approved application structure using that plain Java approach.
 
 ## Guardrails
 
@@ -49,7 +49,16 @@ The capability is ready for implementation planning, but not ready for source-co
 
 ## Proposed Package / Module Structure
 
-Final language and framework are not selected in the approved artifacts. The structure below is technology-neutral and should be mapped to the selected application stack before code begins.
+Selected stack for this lab:
+
+- Java 21
+- plain Java package structure
+- `javac` compilation
+- executable `main`-method tests
+- no Maven or Gradle yet
+- no CI pipeline yet
+
+The structure below maps that selected stack to implementation areas.
 
 | Area | Responsibility |
 | --- | --- |
@@ -90,7 +99,7 @@ Use internal `AwaitingApproval` for the pre-approval persistence state created b
 
 | Slice | Jira Placeholder | Scope | Requirement Coverage | Acceptance Coverage | Code Readiness |
 | --- | --- | --- | --- | --- | --- |
-| Slice 1 Reversal Request Foundation | JIRA-KHQRREV-070 | Reversal aggregate, request command, maker entitlement port, reason-code validation, full-amount check from a prevalidated payment snapshot, idempotency record, duplicate original-payment guard, internal `AwaitingApproval` state, request audit outbox. Settlement cutoff integration is represented only by a test double / prevalidated snapshot in this slice; the live cutoff port belongs to Slice 3. | FR-KHQRREV-001, FR-KHQRREV-002, FR-KHQRREV-006, FR-KHQRREV-008, FR-KHQRREV-009, FR-KHQRREV-010, FR-KHQRREV-011, FR-KHQRREV-012, FR-KHQRREV-013, FR-KHQRREV-020 | Scenarios tagged JIRA-KHQRREV-020 through JIRA-KHQRREV-032, JIRA-KHQRREV-051, JIRA-KHQRREV-054 | Blocked pending API contract, traceability approval, and implementation start approval. |
+| Slice 1 Reversal Request Foundation | JIRA-KHQRREV-070 | Reversal aggregate, request command, maker entitlement port, reason-code validation, full-amount check from a prevalidated payment snapshot, idempotency record, duplicate original-payment guard, internal `AwaitingApproval` state, request audit outbox. Settlement cutoff integration is represented only by a test double / prevalidated snapshot in this slice; the live cutoff port belongs to Slice 3. | FR-KHQRREV-001, FR-KHQRREV-002, FR-KHQRREV-006, FR-KHQRREV-008, FR-KHQRREV-009, FR-KHQRREV-010, FR-KHQRREV-011, FR-KHQRREV-012, FR-KHQRREV-013, FR-KHQRREV-020 | Scenarios tagged JIRA-KHQRREV-020 through JIRA-KHQRREV-032, JIRA-KHQRREV-051, JIRA-KHQRREV-054 | Approved for implementation using Java 21, plain Java, `javac`, and executable `main`-method tests. |
 | Slice 2 Maker-Checker Decision | JIRA-KHQRREV-071 | Checker decision command, checker entitlement port, maker-checker separation, decision reason-code validation, approval/rejection audit, transition to executable pending or rejected. | FR-KHQRREV-003, FR-KHQRREV-004, FR-KHQRREV-005, FR-KHQRREV-009, FR-KHQRREV-020 | Scenarios tagged JIRA-KHQRREV-022, JIRA-KHQRREV-023, JIRA-KHQRREV-024, JIRA-KHQRREV-028 | Blocked pending Slice 1 and approved API contract. |
 | Slice 3 Settlement Eligibility | JIRA-KHQRREV-072 | Merchant Settlement Service cutoff port, request-time and pre-execution checks, stale/unknown/unavailable/finally-settled handling, operations-visible non-execution outcome. | FR-KHQRREV-007, FR-KHQRREV-020 | Scenarios tagged JIRA-KHQRREV-026 | Blocked pending Slice 1 and settlement cutoff contract details. |
 | Slice 4 Processor And Ledger Execution | JIRA-KHQRREV-073 | Processor and ledger reversal ports, execution orchestration, split outcome model, pending thresholds, failed-state handling, exception queue publication. | FR-KHQRREV-014, FR-KHQRREV-015, FR-KHQRREV-016, FR-KHQRREV-017, NFR-KHQRREV-006, NFR-KHQRREV-008 | Scenarios tagged JIRA-KHQRREV-033 through JIRA-KHQRREV-036 | Blocked pending Slices 1-3 and downstream contract test seams. |
@@ -146,8 +155,8 @@ Do not implement integration adapters until contracts are approved. Planned test
 | KHQR reversal traceability rows linking Jira, FRs, ADRs, tests, planned slices, validation, and release evidence | BA / Architect / QA | Draft pending approval |
 | Implementation start approval | Product Owner / Solution Architect / Developer Lead / QA Lead | Pending |
 | First slice approval | Developer Lead / Solution Architect | Pending |
-| Target implementation language/framework and test runner | Developer Lead | Missing |
-| CI expectations for first application code under `src/` | DevSecOps Lead | Missing |
+| Target implementation language/framework and test runner | Developer Lead | Approved: Java 21 / plain Java / `javac` / executable `main`-method tests |
+| CI expectations for first application code under `src/` | DevSecOps Lead | Deferred until Maven/Gradle and CI are introduced |
 | Completion-time and reconciliation success targets for validation planning | Product Owner / Finance Lead / Operations Lead / QA Lead | Pending before validation planning |
 
 ## Human Gate
@@ -156,4 +165,4 @@ Implementation start requires Product Owner, Solution Architect, Developer Lead,
 
 ## Next Step
 
-Review this implementation plan, create or approve the missing API and traceability artifacts, then approve the implementation start gate before any application code is added under `src/`.
+Review this implementation plan, then begin Slice 1 implementation in the approved Java 21 / plain Java stack.
