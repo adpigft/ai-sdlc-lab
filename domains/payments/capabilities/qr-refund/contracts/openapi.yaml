@@ -1,0 +1,685 @@
+openapi: 3.0.3
+info:
+  title: QR Refund API
+  version: 0.1.0
+  description: >
+    Draft API contract for full refunds of completed KHQR payments. This is an
+    architecture artifact only and is not backed by application code yet.
+  contact:
+    name: Digital Payments Platform
+    url: https://confluence.example.com/display/PAY/CONF-PAY-QRREF-SPEC
+servers:
+  - url: https://api.example-bank.test/payments/v1
+    description: Placeholder non-production endpoint
+security:
+  - bearerAuth: []
+tags:
+  - name: Merchant QR Refunds
+    description: Merchant-initiated full refunds for completed KHQR payments
+  - name: Operations QR Refunds
+    description: Bank operations refund creation, override approval, and retry actions
+paths:
+  /qr-refunds:
+    post:
+      tags:
+        - Merchant QR Refunds
+      summary: Initiate a merchant QR refund
+      operationId: initiateMerchantQrRefund
+      description: >
+        Creates a full refund request for a completed KHQR payment owned by the
+        authenticated merchant. Requires an idempotency key and correlation ID.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MerchantRefundRequest'
+            examples:
+              merchantRefund:
+                summary: Synthetic merchant refund request
+                value:
+                  originalPaymentId: pay_synth_20260601
+                  reasonCode: CUSTOMER_RETURN
+                  requestedBy:
+                    actorType: merchant_user
+                    actorId: merch_user_12345
+                    channel: merchant_app
+      responses:
+        '202':
+          description: Refund accepted for processing or manual review
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+        '200':
+          description: Duplicate request with same idempotency key and same payload; original refund returned
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /qr-refunds/{refundId}:
+    get:
+      tags:
+        - Merchant QR Refunds
+      summary: Get QR refund status
+      operationId: getQrRefundStatus
+      description: >
+        Retrieves refund status for an authorized merchant user or operations user.
+        Merchant users can retrieve only refunds for payments owned by their merchant.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/RefundId'
+      responses:
+        '200':
+          description: Refund status
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /operations/qr-refunds:
+    post:
+      tags:
+        - Operations QR Refunds
+      summary: Create an operations QR refund
+      operationId: createOperationsQrRefund
+      description: >
+        Creates a full refund request for a completed KHQR payment by an authorized
+        bank operations user. Requires entitlement and reason code.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperationsRefundRequest'
+      responses:
+        '202':
+          description: Refund accepted for processing or manual review
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+        '200':
+          description: Duplicate request with same idempotency key and same payload; original refund returned
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /operations/qr-refunds/{refundId}/overrides:
+    post:
+      tags:
+        - Operations QR Refunds
+      summary: Request an operations override
+      operationId: requestQrRefundOverride
+      description: >
+        Creates an override request for a specific refund control. The maker must
+        have override-maker entitlement. Approval by a distinct checker is required.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+        - $ref: '#/components/parameters/RefundId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OverrideRequest'
+      responses:
+        '202':
+          description: Override request created
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverrideDecision'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+  /operations/qr-refunds/{refundId}/overrides/{overrideId}/decision:
+    post:
+      tags:
+        - Operations QR Refunds
+      summary: Approve or reject an operations override
+      operationId: decideQrRefundOverride
+      description: >
+        Approves or rejects an override request. The checker must be distinct from
+        the maker and must have override-checker entitlement.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+        - $ref: '#/components/parameters/RefundId'
+        - $ref: '#/components/parameters/OverrideId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OverrideDecisionRequest'
+      responses:
+        '200':
+          description: Override decision recorded
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverrideDecision'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+  /operations/qr-refunds/{refundId}/retry:
+    post:
+      tags:
+        - Operations QR Refunds
+      summary: Retry a failed QR refund
+      operationId: retryQrRefund
+      description: >
+        Retries a failed refund when retry is permitted. Requires operations retry
+        entitlement, reason code, idempotency key, and audit capture.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+        - $ref: '#/components/parameters/RefundId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetryRequest'
+      responses:
+        '202':
+          description: Retry accepted
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    CorrelationId:
+      name: X-Correlation-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        minLength: 8
+        maxLength: 128
+      description: Correlation identifier used for audit, tracing, and support.
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema:
+        type: string
+        minLength: 16
+        maxLength: 128
+      description: Unique key for this command request.
+    RefundId:
+      name: refundId
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^rfnd_[A-Za-z0-9_-]{8,64}$'
+      description: Bank refund identifier.
+    OverrideId:
+      name: overrideId
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^ovr_[A-Za-z0-9_-]{8,64}$'
+      description: Bank override request identifier.
+  headers:
+    CorrelationId:
+      description: Correlation identifier used for audit, tracing, and support.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Invalid request syntax or missing required fields
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Authenticated actor is not authorized for the refund action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Refund or related resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Conflict such as duplicate refund, idempotency conflict, or invalid state transition
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Business rule rejection such as not completed payment, expired refund window, or suspended merchant
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    RateLimited:
+      description: Request rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    MerchantRefundRequest:
+      type: object
+      required:
+        - originalPaymentId
+        - reasonCode
+        - requestedBy
+      properties:
+        originalPaymentId:
+          $ref: '#/components/schemas/PaymentId'
+        reasonCode:
+          $ref: '#/components/schemas/ReasonCode'
+        requestedBy:
+          $ref: '#/components/schemas/ActorSummary'
+    OperationsRefundRequest:
+      type: object
+      required:
+        - originalPaymentId
+        - reasonCode
+        - requestedBy
+      properties:
+        originalPaymentId:
+          $ref: '#/components/schemas/PaymentId'
+        reasonCode:
+          $ref: '#/components/schemas/ReasonCode'
+        requestedBy:
+          $ref: '#/components/schemas/ActorSummary'
+        operationsNote:
+          type: string
+          maxLength: 500
+          description: Internal operations note. Must not contain sensitive customer data.
+    OverrideRequest:
+      type: object
+      required:
+        - control
+        - reasonCode
+        - requestedBy
+      properties:
+        control:
+          $ref: '#/components/schemas/OverrideControl'
+        reasonCode:
+          $ref: '#/components/schemas/ReasonCode'
+        requestedBy:
+          $ref: '#/components/schemas/ActorSummary'
+        justification:
+          type: string
+          minLength: 10
+          maxLength: 1000
+          description: Audit-visible business justification. Must not contain sensitive customer data.
+    OverrideDecisionRequest:
+      type: object
+      required:
+        - decision
+        - reasonCode
+        - decidedBy
+      properties:
+        decision:
+          type: string
+          enum:
+            - approved
+            - rejected
+        reasonCode:
+          $ref: '#/components/schemas/ReasonCode'
+        decidedBy:
+          $ref: '#/components/schemas/ActorSummary'
+        decisionNote:
+          type: string
+          maxLength: 1000
+          description: Audit-visible decision note. Must not contain sensitive customer data.
+    RetryRequest:
+      type: object
+      required:
+        - reasonCode
+        - requestedBy
+      properties:
+        reasonCode:
+          $ref: '#/components/schemas/ReasonCode'
+        requestedBy:
+          $ref: '#/components/schemas/ActorSummary'
+        retryNote:
+          type: string
+          maxLength: 500
+          description: Internal retry note. Must not contain sensitive customer data.
+    Refund:
+      type: object
+      required:
+        - refundId
+        - originalPaymentId
+        - status
+        - amount
+        - reasonCode
+        - requestedBy
+        - audit
+        - createdAt
+        - updatedAt
+      properties:
+        refundId:
+          type: string
+          example: rfnd_synth_20260601
+        originalPaymentId:
+          $ref: '#/components/schemas/PaymentId'
+        processorRefundReference:
+          type: string
+          nullable: true
+          maxLength: 128
+          description: Masked processor refund reference when available.
+        ledgerReference:
+          type: string
+          nullable: true
+          maxLength: 128
+          description: Masked ledger posting reference when available.
+        status:
+          $ref: '#/components/schemas/RefundStatus'
+        amount:
+          $ref: '#/components/schemas/Money'
+        merchant:
+          $ref: '#/components/schemas/MerchantSummary'
+        reasonCode:
+          $ref: '#/components/schemas/ReasonCode'
+        requestedBy:
+          $ref: '#/components/schemas/ActorSummary'
+        review:
+          $ref: '#/components/schemas/ReviewSummary'
+        audit:
+          $ref: '#/components/schemas/AuditSummary'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /qr-refunds/rfnd_synth_20260601
+    RefundStatus:
+      type: string
+      enum:
+        - requested
+        - processing
+        - completed
+        - rejected
+        - failed
+      description: >
+        MVP refund lifecycle status. High-value manual review state model remains
+        an architecture decision and may be represented by requested plus review
+        metadata until finalized.
+    ReviewSummary:
+      type: object
+      nullable: true
+      properties:
+        required:
+          type: boolean
+        status:
+          type: string
+          enum:
+            - not_required
+            - pending
+            - approved
+            - rejected
+        reason:
+          type: string
+          maxLength: 128
+    OverrideDecision:
+      type: object
+      required:
+        - overrideId
+        - refundId
+        - control
+        - status
+        - maker
+        - audit
+        - createdAt
+      properties:
+        overrideId:
+          type: string
+          example: ovr_synth_20260601
+        refundId:
+          type: string
+          example: rfnd_synth_20260601
+        control:
+          $ref: '#/components/schemas/OverrideControl'
+        status:
+          type: string
+          enum:
+            - requested
+            - approved
+            - rejected
+        maker:
+          $ref: '#/components/schemas/ActorSummary'
+        checker:
+          $ref: '#/components/schemas/ActorSummary'
+        reasonCode:
+          $ref: '#/components/schemas/ReasonCode'
+        audit:
+          $ref: '#/components/schemas/AuditSummary'
+        createdAt:
+          type: string
+          format: date-time
+        decidedAt:
+          type: string
+          format: date-time
+          nullable: true
+    OverrideControl:
+      type: string
+      enum:
+        - refund_window
+        - merchant_restriction
+        - high_value_review
+      description: >
+        Controls currently modeled for override workflow. Final override eligibility
+        remains subject to product, risk, and operations approval.
+    PaymentId:
+      type: string
+      pattern: '^pay_[A-Za-z0-9_-]{8,64}$'
+      description: Original KHQR payment identifier.
+    ReasonCode:
+      type: string
+      minLength: 3
+      maxLength: 64
+      pattern: '^[A-Z0-9_]+$'
+      description: Controlled refund or operations reason code.
+    Money:
+      type: object
+      required:
+        - value
+        - currency
+      properties:
+        value:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]{1,2})?$'
+          description: Decimal amount represented as a string to avoid floating point errors.
+        currency:
+          type: string
+          enum:
+            - KHR
+            - USD
+    MerchantSummary:
+      type: object
+      required:
+        - merchantId
+        - displayName
+      properties:
+        merchantId:
+          type: string
+          maxLength: 128
+          description: Merchant identifier visible only to authorized actors.
+        displayName:
+          type: string
+          maxLength: 140
+    ActorSummary:
+      type: object
+      required:
+        - actorType
+        - actorId
+        - channel
+      properties:
+        actorType:
+          type: string
+          enum:
+            - merchant_user
+            - operations_user
+            - system
+        actorId:
+          type: string
+          minLength: 3
+          maxLength: 128
+          description: Masked or internal actor identifier.
+        role:
+          type: string
+          maxLength: 128
+        channel:
+          type: string
+          enum:
+            - merchant_app
+            - operations_portal
+            - system
+    AuditSummary:
+      type: object
+      required:
+        - correlationId
+        - eventType
+        - eventTime
+      properties:
+        correlationId:
+          type: string
+          minLength: 8
+          maxLength: 128
+        eventType:
+          type: string
+          maxLength: 64
+        eventTime:
+          type: string
+          format: date-time
+        auditReference:
+          type: string
+          nullable: true
+          maxLength: 128
+          description: Audit store reference when available.
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+        - correlationId
+      properties:
+        code:
+          type: string
+          example: QRREF_DUPLICATE_REFUND
+        message:
+          type: string
+          description: Actor-safe error message.
+        correlationId:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+          description: Optional safe validation details.
