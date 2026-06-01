@@ -7,6 +7,7 @@ This repository demonstrates an AI-native SDLC for banking delivery using Codex,
 ## Important Directories
 
 - `.codex/skills/`: the only canonical Codex-native project skill path. Each skill is a folder with `SKILL.md`.
+- `.codex/archive/skills/`: archived skills retained for future reuse. They are not recommended for normal use.
 - `framework/`: AI SDLC governance, standards, templates, and lifecycle orchestration. Legacy role skill files were removed after migration to canonical `.codex/skills/`.
 - `framework/workflows/`: lifecycle workflows and orchestration notes.
 - `framework/standards/`: engineering, API, security, and testing standards.
@@ -31,30 +32,86 @@ This repository demonstrates an AI-native SDLC for banking delivery using Codex,
 
 Do not jump directly to code.
 
+Normal users should use these orchestration skills:
+
+- `$new` for a new capability or new feature flow.
+- `$change` for change requests.
+- `$defect` for bugs and defects.
+- `$decision` for architecture decisions and ADRs.
+- `$release` for release readiness and release management.
+
+Specialists can use these stage-level entry points:
+
+- `$intent`
+- `$specification`
+- `$architecture`
+- `$test-design`
+- `$implementation`
+- `$validation`
+
+Expert users may still invoke existing specialist skills directly.
+
+Core specialist skills are internal building blocks used by the user-facing and stage-level skills:
+
+- `ba-intent`
+- `ba-specification`
+- `architect-context`
+- `developer-implementation`
+- `qa-test-design`
+- `qa-validation`
+- `traceability`
+- `feedback`
+- `devsecops-release`
+
+Archived skills under `.codex/archive/skills/` are retained for future reuse, but they are not recommended for normal use.
+
 For any new feature, follow this order:
 
-1. `.codex/skills/ba-intent/SKILL.md`
-2. `.codex/skills/ba-specification/SKILL.md`
-3. `.codex/skills/architect-context/SKILL.md`
-4. `.codex/skills/architect-api/SKILL.md`
-5. `.codex/skills/qa-test-design/SKILL.md`
+1. `.codex/skills/new/SKILL.md`
+2. `.codex/skills/intent/SKILL.md`
+3. `.codex/skills/specification/SKILL.md`
+4. `.codex/skills/architecture/SKILL.md`
+5. `.codex/skills/test-design/SKILL.md`
 6. `.codex/skills/traceability/SKILL.md`
-7. `.codex/skills/developer-implementation/SKILL.md`
-8. `.codex/skills/qa-validation/SKILL.md`
-9. `.codex/skills/devsecops-release/SKILL.md`
+7. `.codex/skills/implementation/SKILL.md`
+8. `.codex/skills/validation/SKILL.md`
+9. `.codex/skills/release/SKILL.md`
 10. `.codex/skills/feedback/SKILL.md`
+
+The stage-level orchestration skills wrap the specialist skills:
+
+- `$intent` uses `ba-intent`.
+- `$specification` uses `ba-specification`.
+- `$architecture` uses `architect-context` and identifies any decision or API work through the active orchestration flow.
+- `$test-design` uses `qa-test-design`.
+- `$implementation` uses `developer-implementation`.
+- `$validation` uses `qa-validation`.
 
 ## Interaction Rule
 
 When the user says `Start new feature: <feature name>`:
 
-1. Use `ba-intent` first.
-2. Ask discovery questions.
-3. Do not create artifacts until sufficient intent is captured.
-4. Summarize understanding.
-5. Ask for approval.
-6. Create or update only the artifact owned by the active skill.
-7. Move to the next skill only after human approval.
+1. Use `$new` first.
+2. Create or reference a lightweight Jira Epic shell if Jira is available.
+3. Begin with intent discovery using `$intent` / `ba-intent`.
+4. Ask discovery questions.
+5. Do not create Git artifacts until sufficient intent is captured.
+6. Summarize understanding.
+7. Ask for approval.
+8. Create or update only the artifact owned by the active skill.
+9. Move to the next skill only after human approval.
+
+Jira lifecycle:
+
+Jira Epic -> Intent -> Specification -> Jira Stories -> Architecture/API/Tests -> Implementation Slices -> PR/Validation/Release
+
+- Jira Epic can exist before intent as a lightweight discovery container.
+- Intent is created in Git after discovery.
+- Specification is created after intent approval.
+- Jira Stories are created after specification approval.
+- Jira Tasks/Subtasks are created after implementation slices are defined.
+- Git remains source of truth for intent/spec/design/tests/code/traceability.
+- Jira is work management and approval tracking.
 
 ## Human Approval Gates
 

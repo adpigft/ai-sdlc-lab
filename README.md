@@ -9,6 +9,7 @@ The baseline shows how a payment capability moves from business intent to specif
 | Path | Purpose |
 | --- | --- |
 | `.codex/skills/` | Canonical active execution skills for Codex. Each skill is a folder with `SKILL.md`. |
+| `.codex/archive/skills/` | Archived skills retained for future reuse. They are not recommended for normal use. |
 | `framework/` | AI SDLC governance, standards, templates, and lifecycle orchestration. Legacy role skill files were removed after migration to canonical `.codex/skills/`. |
 | `framework/standards/` | Delivery standards that AI and humans must apply when creating specs, APIs, tests, secure designs, and code. |
 | `framework/templates/` | Reusable artifact templates for intent, specs, review gates, validation, release, feedback, and traceability. |
@@ -27,69 +28,75 @@ The baseline shows how a payment capability moves from business intent to specif
 
 ## AI-Native SDLC Skill Library
 
-The repository organizes AI-native delivery into practical skill families. Some skills are active today; others are planned placeholders in the broader delivery model.
+The repository keeps the active skill library intentionally small. Normal users use the orchestration skills, specialists use stage-level entry points, and core specialist skills remain as internal building blocks.
 
-### Core Delivery Skills
+### Normal User Skills
+
+Normal users use:
+
+- `$new` for a new capability or feature flow
+- `$change` for change requests
+- `$defect` for bugs and defects
+- `$decision` for architecture decisions and ADRs
+- `$release` for release readiness and release management
+
+### Specialist Skills
+
+Specialists use:
+
+- `$intent`
+- `$specification`
+- `$architecture`
+- `$test-design`
+- `$implementation`
+- `$validation`
+
+### Core Specialist Building Blocks
+
+Core specialist skills are internal building blocks used by the user-facing and specialist entry points:
 
 - `ba-intent`
 - `ba-specification`
 - `architect-context`
-- `architect-api`
+- `developer-implementation`
 - `qa-test-design`
 - `qa-validation`
 - `traceability`
-- `developer-implementation`
-- `devsecops-release`
 - `feedback`
+- `devsecops-release`
 
-### Review Skills
-
-- `requirements-review`
-- `architecture-review`
-- `api-review`
-- `code-review`
-
-### ADR Skills
-
-- `adr-creation`
-- `adr-review`
-- `adr-approval`
-- `adr-impact-analysis`
-
-### Change & Defect Skills
-
-- `change-impact-analysis`
-- `change-design`
-- `change-implementation`
-- `defect-analysis`
-- `root-cause-analysis`
-- `production-feedback`
-- `incident-analysis`
-
-### Enterprise Skills
-
-- `jira-lifecycle`
-- `confluence-publisher`
-- `sprint-planning`
-- `dependency-management`
-- `risk-management`
-- `release-management`
-- `governance-reporting`
+Archived skills are retained under `.codex/archive/skills/` for future reuse, but they are not recommended for normal use.
 
 ## Using Skills in Codex
 
 - Run `/skills` to view the available repository skills.
 - Type `$` to mention or invoke a skill in chat.
 - Examples:
-  - `$ba-intent Start new feature: QR Refund`
-  - `$change-impact-analysis Analyze CR: Support partial refunds`
-  - `$defect-analysis Analyze defect: duplicate refund`
+  - `$new Start new feature: QR Refund`
+  - `$change Analyze CR: Support partial refunds`
+  - `$defect Analyze defect: duplicate refund`
+  - `$decision Create ADR for refund idempotency`
+  - `$release Prepare release readiness for QR Refund`
 
 ## Supported Delivery Flows
 
 ### New Feature Flow
 
+Jira Epic -> Intent -> Specification -> Jira Stories -> Architecture/API/Tests -> Implementation Slices -> PR/Validation/Release
+
+Detailed flow:
+
 Intent -> Specification -> Architecture -> ADR -> API Contract -> Acceptance Tests -> Traceability -> Validation Plan -> Implementation Plan -> Controlled Slice Delivery -> Validation -> Release -> Feedback
+
+Jira lifecycle guidance:
+
+- A Jira Epic can exist before intent as a lightweight discovery container.
+- Intent is created in Git after discovery.
+- Specification is created after intent approval.
+- Jira Stories are created after specification approval.
+- Jira Tasks and Subtasks are created after implementation slices are defined.
+- Git remains the source of truth for intent, specification, design, tests, code, traceability, and release artifacts.
+- Jira is used for work management and approval tracking.
 
 ### Change Request Flow
 
@@ -127,15 +134,16 @@ AI drafts and validates. Humans approve.
 ## Operating Principles
 
 1. Business intent is captured before solution design.
-2. Jira is the delivery system of record for work items and approvals.
+2. Jira is the work management and approval tracking system, not the source of truth for delivery artifacts.
 3. Git is the source of truth for specs, tests, code, traceability, release artifacts, standards, workflows, and ADRs.
 4. Confluence mirrors approved operating-model content for stakeholder consumption, but it is not the source of truth.
 5. AI may draft, compare, summarize, and validate artifacts, but humans approve risk, scope, architecture, release, and customer-impacting decisions.
 6. Every material requirement must trace to acceptance criteria, tests, validation evidence, and release notes.
 7. GitHub Actions is the system of record for CI gates.
 8. Jira, Confluence, and GitHub MCP integrations are optional enterprise collaboration aids.
-9. `.codex/skills/` is the only canonical Codex skill location for this repository.
+9. `.codex/skills/` is the active Codex skill location for this repository.
 10. Subagents are for parallel review only, not the normal sequential workflow.
+11. `.codex/archive/skills/` retains old or advanced skills for future reuse, but normal users should not start there.
 
 ## Example Capability
 
