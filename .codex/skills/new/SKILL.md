@@ -27,14 +27,18 @@ Use `$new` when a user wants to start a new product capability, feature, or busi
 5. Ask discovery questions before creating Git artifacts.
 6. Summarize users, outcomes, scope, constraints, risks, success measures, domain-context reuse, and domain-specific controls.
 7. Stop for PO / BA approval before creating or updating intent.
-8. After intent approval, update or prepare `workflow-state.yaml` to move from `intent_review` to `specification_review` when workflow-state is adopted.
-9. After intent approval, continue to specification using `ba-specification`.
-10. Stop at every approval gate and do not generate code.
+8. When intent is created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml` using `framework/workflow/workflow-state-template.yaml`.
+9. Set workflow state to `intent_review`, current artifact to `intent/intent.md`, pending gate to `intent_approval`, next state to `specification_review`, and next skill to `specification`.
+10. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
+11. After intent approval, update `workflow-state.yaml` to move from `intent_review` to `specification_review`.
+12. After intent approval, continue to specification using `ba-specification`.
+13. Stop at every approval gate and do not generate code.
 
 ## Outputs
 - Optional Jira Epic shell or Epic reference
 - Intent discovery summary
 - Approved `domains/**/intent/intent.md` only after approval
+- Created or updated `domains/**/workflow-state.yaml` after intent artifact creation
 - Specification handoff only after intent approval
 
 ## Quality checks
@@ -44,7 +48,8 @@ Use `$new` when a user wants to start a new product capability, feature, or busi
 - No source code is generated.
 - Approval evidence is recorded in chat, Jira, or artifact metadata.
 - Domain context was reviewed when available.
-- Workflow-state update guidance is provided after approval.
+- Workflow state is created or updated when intent is created.
+- `Review.`, `Approved.`, and `Status.` can be resolved from workflow state or inferred from artifacts.
 
 ## Human gate
 PO / BA approval is required before intent is created or updated, and again before specification starts.

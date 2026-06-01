@@ -27,14 +27,18 @@ Use `$architecture` after specification approval and before implementation. Norm
 5. Identify ADR needs and route material unresolved decisions to `$decision`.
 6. Include integration, data, security, observability, error handling, operational considerations, and reusable domain patterns.
 7. Define implementation slices only after architecture and API decisions are approved.
-8. After architecture approval, update or prepare `workflow-state.yaml` to move from `architecture_review` to `test_review` when workflow-state is adopted.
-9. Ask for Architect approval before downstream implementation.
+8. When architecture context, API guidance, ADR draft, or implementation planning artifact is created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml`.
+9. Set workflow state to `architecture_review`, current artifact to the architecture-owned draft, pending gate to `architecture_approval`, next state to `test_review`, and next skill to `test-design`.
+10. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
+11. After architecture approval, update `workflow-state.yaml` to move from `architecture_review` to `test_review`.
+12. Ask for Architect approval before downstream implementation.
 
 ## Outputs
 - Architecture context or design updates
 - API contract guidance when needed
 - ADR candidates or approved ADR links
 - Integration, data, security, and implementation planning notes
+- Created or updated `domains/**/workflow-state.yaml` after architecture artifact creation
 
 ## Quality checks
 - Approved requirements drive the design.
@@ -43,7 +47,7 @@ Use `$architecture` after specification approval and before implementation. Norm
 - ADRs are created for material decisions.
 - Implementation does not start while blocking decisions are unresolved.
 - Domain context was reviewed when available.
-- Workflow-state update guidance is provided after approval.
+- Workflow state points `Review.` to the architecture draft and blocks implementation while material decisions are unresolved.
 
 ## Human gate
 Architect approval is required for architecture and API contract changes.

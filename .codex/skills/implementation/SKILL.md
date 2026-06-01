@@ -26,14 +26,19 @@ Use `$implementation` only after intent, specification, architecture, API where 
 4. Use TDD for the approved slice: failing test, implementation, passing test, refactor.
 5. Keep changes limited to the approved slice.
 6. Stop and report gaps instead of coding around missing or conflicting approved artifacts.
-7. After implementation slice approval, update or prepare `workflow-state.yaml` to move from `implementation_in_progress` to `validation_ready` when workflow-state is adopted.
-8. Prepare the slice for review and validation.
+7. When implementation slice planning, build readiness, code, unit tests, or PR evidence are created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml`.
+8. For build readiness or slice planning, set workflow state to `implementation_ready`, pending gate to `implementation_start_approval`, next state to `implementation_in_progress`, and next skill to `implementation`.
+9. For an implemented slice or PR evidence, set workflow state to `implementation_in_progress`, current artifact to the slice/PR evidence, pending gate to `implementation_slice_approval`, next state to `validation_ready`, and next skill to `validation`.
+10. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
+11. After implementation slice approval, update `workflow-state.yaml` to move from `implementation_in_progress` to `validation_ready`.
+12. Prepare the slice for review and validation.
 
 ## Outputs
 - Unit tests and implementation code for the approved slice
 - Focused refactoring where needed
 - Developer notes for validation
 - PR readiness summary
+- Created or updated `domains/**/workflow-state.yaml` after implementation planning or slice evidence creation
 
 ## Quality checks
 - One approved slice is implemented at a time.
@@ -42,7 +47,8 @@ Use `$implementation` only after intent, specification, architecture, API where 
 - No secrets are committed.
 - Missing upstream approval blocks implementation.
 - Domain context was reviewed when available.
-- Workflow-state update guidance is provided after approval.
+- Workflow state distinguishes build readiness from implemented-slice review.
+- `Review.`, `Approved.`, and `Status.` can identify the active slice or blocker from workflow state.
 
 ## Human gate
 Developer and Architect review is required before QA validation.

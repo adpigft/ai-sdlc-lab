@@ -25,13 +25,17 @@ Use `$validation` after implementation is ready for QA or when release evidence 
 4. Compare results to approved requirements and traceability.
 5. Record defects, waivers, risks, and blocked evidence.
 6. Produce validation report and release readiness evidence.
-7. Ask for QA approval before release readiness.
+7. When validation report or QA evidence summary is created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml`.
+8. Set workflow state to `validation_ready`, current artifact to `validation/validation-report.md`, pending gate to `validation_approval`, next state to `release_ready`, and next skill to `release`.
+9. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
+10. Ask for QA approval before release readiness.
 
 ## Outputs
 - Validation report
 - Test execution evidence summary
 - Defect and risk summary
 - Release readiness evidence
+- Created or updated `domains/**/workflow-state.yaml` after validation report creation
 
 ## Quality checks
 - Evidence maps to approved requirements and tests.
@@ -39,6 +43,7 @@ Use `$validation` after implementation is ready for QA or when release evidence 
 - Defects are linked to correction workflow.
 - CI gate status is referenced where applicable.
 - QA approval evidence is captured.
+- Workflow state points `Review.` to validation evidence and `Approved.` to release readiness.
 
 ## Human gate
 QA approval is required before `$release`.
