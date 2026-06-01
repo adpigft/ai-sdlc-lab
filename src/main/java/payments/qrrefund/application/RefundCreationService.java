@@ -8,6 +8,7 @@ import payments.qrrefund.application.port.AuditOutboxPort;
 import payments.qrrefund.application.port.IdempotencyStorePort;
 import payments.qrrefund.application.port.OriginalPaymentLookupPort;
 import payments.qrrefund.application.port.RefundIdGenerator;
+import payments.qrrefund.application.port.RefundCreationUnitOfWorkPort;
 import payments.qrrefund.application.port.RefundRepositoryPort;
 import payments.qrrefund.domain.audit.AuditEvent;
 import payments.qrrefund.domain.audit.AuditEventType;
@@ -29,6 +30,7 @@ public final class RefundCreationService {
     private final IdempotencyStorePort idempotencyStorePort;
     private final AuditOutboxPort auditOutboxPort;
     private final RefundIdGenerator refundIdGenerator;
+    private final RefundCreationUnitOfWorkPort unitOfWorkPort;
     private final IdempotencyHasher idempotencyHasher;
     private final Clock clock;
 
@@ -38,6 +40,7 @@ public final class RefundCreationService {
             IdempotencyStorePort idempotencyStorePort,
             AuditOutboxPort auditOutboxPort,
             RefundIdGenerator refundIdGenerator,
+            RefundCreationUnitOfWorkPort unitOfWorkPort,
             IdempotencyHasher idempotencyHasher,
             Clock clock) {
         this.originalPaymentLookupPort = Objects.requireNonNull(originalPaymentLookupPort);
@@ -45,11 +48,16 @@ public final class RefundCreationService {
         this.idempotencyStorePort = Objects.requireNonNull(idempotencyStorePort);
         this.auditOutboxPort = Objects.requireNonNull(auditOutboxPort);
         this.refundIdGenerator = Objects.requireNonNull(refundIdGenerator);
+        this.unitOfWorkPort = Objects.requireNonNull(unitOfWorkPort);
         this.idempotencyHasher = Objects.requireNonNull(idempotencyHasher);
         this.clock = Objects.requireNonNull(clock);
     }
 
     public RefundCreationResult createMerchantRefund(InitiateMerchantRefundCommand command) {
+        return unitOfWorkPort.required(() -> createMerchantRefundInUnitOfWork(command));
+    }
+
+    private RefundCreationResult createMerchantRefundInUnitOfWork(InitiateMerchantRefundCommand command) {
         validateCommandWithAudit(command);
         ReasonCode reasonCode = reasonCodeWithAudit(command);
 

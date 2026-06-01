@@ -7,5 +7,10 @@ public interface RefundRepositoryPort {
 
     Refund findByRefundId(String refundId);
 
+    /*
+     * Implementations must enforce a unique originalPaymentId constraint for
+     * full refunds and optimistic locking, row versioning, or an equivalent
+     * aggregate-version check for refund writes.
+     */
     void saveNew(Refund refund);
 }

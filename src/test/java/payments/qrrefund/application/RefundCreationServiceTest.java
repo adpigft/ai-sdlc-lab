@@ -16,13 +16,14 @@ import payments.qrrefund.application.command.InitiateMerchantRefundCommand;
 import payments.qrrefund.application.port.AuditOutboxPort;
 import payments.qrrefund.application.port.IdempotencyStorePort;
 import payments.qrrefund.application.port.OriginalPaymentLookupPort;
+import payments.qrrefund.application.port.RefundCreationUnitOfWorkPort;
 import payments.qrrefund.application.port.RefundRepositoryPort;
 import payments.qrrefund.domain.audit.AuditEvent;
 import payments.qrrefund.domain.audit.AuditEventType;
 import payments.qrrefund.domain.error.RefundException;
 import payments.qrrefund.domain.error.RefundRejectionCode;
+import payments.qrrefund.domain.idempotency.HmacSha256IdempotencyHasher;
 import payments.qrrefund.domain.idempotency.IdempotencyRecord;
-import payments.qrrefund.domain.idempotency.Sha256IdempotencyHasher;
 import payments.qrrefund.domain.model.OriginalPaymentSnapshot;
 import payments.qrrefund.domain.model.Refund;
 import payments.qrrefund.domain.model.RefundStatus;
@@ -30,10 +31,16 @@ import payments.qrrefund.domain.value.PaymentStatus;
 import payments.qrrefund.domain.value.SettlementState;
 
 public final class RefundCreationServiceTest {
+    /*
+     * Current repository has no build tool yet. Keep this executable main until
+     * CI adds JUnit or an equivalent test runner.
+     */
     private static final Clock CLOCK = Clock.fixed(
             Instant.parse("2026-06-01T02:00:00Z"),
             ZoneOffset.UTC);
     private static final Currency USD = Currency.getInstance("USD");
+    private static final byte[] SYNTHETIC_HMAC_KEY =
+            "synthetic-test-hmac-key-32-bytes-minimum".getBytes(java.nio.charset.StandardCharsets.UTF_8);
 
     public static void main(String[] args) {
         RefundCreationServiceTest test = new RefundCreationServiceTest();
@@ -46,6 +53,7 @@ public final class RefundCreationServiceTest {
         test.replaysSameIdempotencyKeyAndPayload();
         test.rejectsSameIdempotencyKeyWithConflictingPayload();
         test.storesHashedIdempotencyKeyOnly();
+        test.usesKeyedHmacForIdempotencyHashing();
         test.auditFailurePreventsRefundStateCreation();
         test.rejectsMissingIdempotencyKey();
         test.rejectsInvalidReasonCode();
@@ -224,6 +232,19 @@ public final class RefundCreationServiceTest {
                 "raw-idempotency-key").normalizedPayload(), record.requestPayloadHash(), "payload hash only");
     }
 
+    void usesKeyedHmacForIdempotencyHashing() {
+        byte[] firstKey = "synthetic-test-hmac-key-32-bytes-minimum".getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        byte[] secondKey = "different-test-hmac-key-32-bytes-minimum".getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        HmacSha256IdempotencyHasher firstHasher = new HmacSha256IdempotencyHasher(firstKey);
+        HmacSha256IdempotencyHasher secondHasher = new HmacSha256IdempotencyHasher(secondKey);
+
+        String firstHash = firstHasher.hashKey("idem-qrref-hmac");
+        String secondHash = secondHasher.hashKey("idem-qrref-hmac");
+
+        assertEquals(64, firstHash.length(), "hmac sha-256 hex length");
+        assertNotEquals(firstHash, secondHash, "same key material must not be implied by raw SHA-256");
+    }
+
     void auditFailurePreventsRefundStateCreation() {
         TestFixture fixture = TestFixture.withPayment(completedPayment("pay_synth_20260601"));
         fixture.audit.failOnAppend = true;
@@ -385,7 +406,8 @@ public final class RefundCreationServiceTest {
                     idempotency,
                     audit,
                     new SequentialRefundIdGenerator(),
-                    new Sha256IdempotencyHasher(),
+                    new ImmediateUnitOfWork(),
+                    new HmacSha256IdempotencyHasher(SYNTHETIC_HMAC_KEY),
                     CLOCK);
         }
 
@@ -402,6 +424,13 @@ public final class RefundCreationServiceTest {
         @Override
         public Optional<OriginalPaymentSnapshot> findByPaymentId(String originalPaymentId) {
             return Optional.ofNullable(records.get(originalPaymentId));
+        }
+    }
+
+    private static final class ImmediateUnitOfWork implements RefundCreationUnitOfWorkPort {
+        @Override
+        public <T> T required(java.util.function.Supplier<T> work) {
+            return work.get();
         }
     }
 
