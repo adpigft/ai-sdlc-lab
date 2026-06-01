@@ -4,7 +4,8 @@
 This repository demonstrates an AI-native SDLC for banking delivery using Codex, skills, Jira, Confluence, GitHub, GitHub Actions, SonarCloud, traceability, feedback, and human approval gates.
 
 ## Important directories
-- `skills/`: Codex-native project skills. Each skill is a folder with `SKILL.md`.
+- `skills/`: the only canonical Codex-native project skill path. Each skill is a folder with `SKILL.md`.
+- `.ai/skills/` and `.ai/skills-legacy/`: legacy/reference notes only. Do not use these for active skill execution.
 - `.ai/workflows/`: lifecycle workflows and orchestration notes.
 - `.ai/standards/`: engineering, API, security, and testing standards.
 - `.ai/templates/`: reusable artifact templates.
@@ -49,6 +50,10 @@ When the user says `Start new feature: <feature name>`:
 - Implementation requires Developer and Architect review.
 - Validation requires QA approval.
 - Release requires PO, QA, Architect, and DevSecOps approval.
+
+Approval evidence:
+- For lab work in this repository, explicit user confirmation in chat is acceptable approval evidence.
+- For real delivery, approval must be backed by Jira status, pull request approval, or signed artifact approval.
 
 ## File ownership
 - Intent: `domains/**/intent/intent.md`

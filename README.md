@@ -8,8 +8,9 @@ The baseline shows how a payment capability moves from business intent to specif
 
 | Path | Purpose |
 | --- | --- |
-| `skills/` | Canonical Codex project skills. Each skill is a folder with `SKILL.md`. |
-| `.ai/skills-legacy/` | Legacy/reference role instructions only. Do not treat this as the active Codex skill source. |
+| `skills/` | The only canonical Codex project skill path. Each skill is a folder with `SKILL.md`. |
+| `.ai/skills/` | Legacy/reference role instructions only. Do not use for active skill execution. |
+| `.ai/skills-legacy/` | Legacy/reference role instructions only. Do not use for active skill execution. |
 | `.ai/standards/` | Delivery standards that AI and humans must apply when creating specs, APIs, tests, secure designs, and code. |
 | `.ai/templates/` | Reusable artifact templates for intent, specs, review gates, validation, release, feedback, and traceability. |
 | `.ai/workflows/` | Step-by-step lifecycle workflows from intent capture through release. |
@@ -31,7 +32,7 @@ The baseline shows how a payment capability moves from business intent to specif
 5. AI may draft, compare, summarize, and validate artifacts, but humans approve risk, scope, architecture, release, and customer-impacting decisions.
 6. Every material requirement must trace to acceptance criteria, tests, validation evidence, and release notes.
 7. GitHub Actions validation and placeholder CI/SonarCloud configuration exist before application code is introduced.
-8. `skills/` is the canonical Codex skill location for this repository.
+8. `skills/` is the only canonical Codex skill location for this repository.
 
 ## Example Capability
 
@@ -56,8 +57,10 @@ Before implementation starts:
 
 Before release:
 
-- GitHub Actions has passed build, test, lint, security, and traceability checks.
-- SonarCloud quality gate has passed.
+- Current repository state: GitHub Actions artifact validation must pass.
+- Current repository state: build, test, security, and SonarCloud jobs are placeholders until application code exists.
+- Future application release state: GitHub Actions must pass build, test, lint, security, and traceability checks.
+- Future application release state: SonarCloud quality gate must pass.
 - Release notes identify scope, risks, rollback, monitoring, and known limitations.
 - Human release approval is recorded in Jira and referenced in this repository.
 
@@ -69,7 +72,7 @@ Already set up:
 
 - Codex project instructions in `AGENTS.md`.
 - Canonical Codex skills under `skills/`.
-- Legacy/reference role notes under `.ai/skills-legacy/`.
+- Legacy/reference role notes under `.ai/skills/` and `.ai/skills-legacy/`.
 - AI SDLC standards, templates, and workflows under `.ai/`.
 - KHQR payment intent, context, specification, OpenAPI contract, acceptance tests, validation report, and release notes under `domains/payments/capabilities/khqr-payment/`.
 - Traceability and feedback artifacts.
