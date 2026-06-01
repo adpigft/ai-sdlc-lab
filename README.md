@@ -8,8 +8,8 @@ The baseline shows how a payment capability moves from business intent to specif
 
 | Path | Purpose |
 | --- | --- |
-| `skills/` | Canonical active execution skills for Codex. Each skill is a folder with `SKILL.md`. |
-| `framework/` | AI SDLC governance, standards, templates, and lifecycle orchestration. Legacy role skill files were removed after migration to canonical `skills/`. |
+| `.codex/skills/` | Canonical active execution skills for Codex. Each skill is a folder with `SKILL.md`. |
+| `framework/` | AI SDLC governance, standards, templates, and lifecycle orchestration. Legacy role skill files were removed after migration to canonical `.codex/skills/`. |
 | `framework/standards/` | Delivery standards that AI and humans must apply when creating specs, APIs, tests, secure designs, and code. |
 | `framework/templates/` | Reusable artifact templates for intent, specs, review gates, validation, release, feedback, and traceability. |
 | `framework/workflows/` | Step-by-step lifecycle workflows from intent capture through release. |
@@ -76,6 +76,15 @@ The repository organizes AI-native delivery into practical skill families. Some 
 - `release-management`
 - `governance-reporting`
 
+## Using Skills in Codex
+
+- Run `/skills` to view the available repository skills.
+- Type `$` to mention or invoke a skill in chat.
+- Examples:
+  - `$ba-intent Start new feature: QR Refund`
+  - `$change-impact-analysis Analyze CR: Support partial refunds`
+  - `$defect-analysis Analyze defect: duplicate refund`
+
 ## Supported Delivery Flows
 
 ### New Feature Flow
@@ -125,7 +134,7 @@ AI drafts and validates. Humans approve.
 6. Every material requirement must trace to acceptance criteria, tests, validation evidence, and release notes.
 7. GitHub Actions is the system of record for CI gates.
 8. Jira, Confluence, and GitHub MCP integrations are optional enterprise collaboration aids.
-9. `skills/` is the only canonical Codex skill location for this repository.
+9. `.codex/skills/` is the only canonical Codex skill location for this repository.
 10. Subagents are for parallel review only, not the normal sequential workflow.
 
 ## Example Capability
@@ -217,8 +226,8 @@ This is a baseline AI SDLC governance repository. The current focus is the AI-na
 Already set up:
 
 - Codex project instructions in `AGENTS.md`.
-- Canonical Codex skills under `skills/`.
-- Legacy role skill files were removed after migration to canonical `skills/`.
+- Canonical Codex skills under `.codex/skills/`.
+- Legacy role skill files were removed after migration to canonical `.codex/skills/`.
 - AI SDLC standards, templates, and workflows under `framework/`.
 - Optional MCP placeholders for Jira, Confluence, and GitHub.
 - Subagent review workflow guidance.

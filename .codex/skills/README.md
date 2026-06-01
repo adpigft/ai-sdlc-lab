@@ -1,6 +1,6 @@
 # Codex Skills
 
-This folder contains project-local Codex skills for the AI SDLC.
+This folder contains the canonical project-local Codex skills under `.codex/skills/` for the AI SDLC.
 
 Each skill follows the Codex folder-based structure:
 

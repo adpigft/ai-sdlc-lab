@@ -6,8 +6,8 @@ This repository demonstrates an AI-native SDLC for banking delivery using Codex,
 
 ## Important Directories
 
-- `skills/`: the only canonical Codex-native project skill path. Each skill is a folder with `SKILL.md`.
-- `framework/`: AI SDLC governance, standards, templates, and lifecycle orchestration. Legacy role skill files were removed after migration to canonical `skills/`.
+- `.codex/skills/`: the only canonical Codex-native project skill path. Each skill is a folder with `SKILL.md`.
+- `framework/`: AI SDLC governance, standards, templates, and lifecycle orchestration. Legacy role skill files were removed after migration to canonical `.codex/skills/`.
 - `framework/workflows/`: lifecycle workflows and orchestration notes.
 - `framework/standards/`: engineering, API, security, and testing standards.
 - `framework/templates/`: reusable artifact templates.
@@ -33,16 +33,16 @@ Do not jump directly to code.
 
 For any new feature, follow this order:
 
-1. `skills/ba-intent/SKILL.md`
-2. `skills/ba-specification/SKILL.md`
-3. `skills/architect-context/SKILL.md`
-4. `skills/architect-api/SKILL.md`
-5. `skills/qa-test-design/SKILL.md`
-6. `skills/traceability/SKILL.md`
-7. `skills/developer-implementation/SKILL.md`
-8. `skills/qa-validation/SKILL.md`
-9. `skills/devsecops-release/SKILL.md`
-10. `skills/feedback/SKILL.md`
+1. `.codex/skills/ba-intent/SKILL.md`
+2. `.codex/skills/ba-specification/SKILL.md`
+3. `.codex/skills/architect-context/SKILL.md`
+4. `.codex/skills/architect-api/SKILL.md`
+5. `.codex/skills/qa-test-design/SKILL.md`
+6. `.codex/skills/traceability/SKILL.md`
+7. `.codex/skills/developer-implementation/SKILL.md`
+8. `.codex/skills/qa-validation/SKILL.md`
+9. `.codex/skills/devsecops-release/SKILL.md`
+10. `.codex/skills/feedback/SKILL.md`
 
 ## Interaction Rule
 
