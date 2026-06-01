@@ -26,11 +26,11 @@ These gaps do not block a draft specification, but they must be resolved before 
 
 | Gap ID | Gap | Required Resolution |
 | --- | --- | --- |
-| GAP-KHQRREV-001 | Exact definition of "not yet finally settled" is not approved. | Product, Finance, and Architecture decision before specification approval. |
+| GAP-KHQRREV-001 | Exact definition of "not yet finally settled" was required before specification approval. | Resolved in this specification by the settlement eligibility rule. |
 | GAP-KHQRREV-002 | Settlement cutoff source of truth is not approved. | Architecture and Finance decision before architecture approval. |
 | GAP-KHQRREV-003 | Processor-ledger split outcome behavior is not approved. | Architecture, Finance, and Operations decision before implementation. |
 | GAP-KHQRREV-004 | Retry rules for `Reversal Pending` and `Reversal Failed` are not approved. | Operations and Architecture decision before test design finalization. |
-| GAP-KHQRREV-005 | Reversal reason-code catalog is not approved. | Product and Operations decision before specification approval. |
+| GAP-KHQRREV-005 | Reversal reason-code catalog was required before specification approval. | Resolved in this specification by the MVP reversal reason-code catalog. |
 | GAP-KHQRREV-006 | Customer or merchant notification scope is not approved. | Product and Compliance decision before test design finalization. |
 | GAP-KHQRREV-007 | Reversal completion time and reconciliation success targets are not approved. | Product, Finance, Operations, and QA decision before validation planning. |
 
@@ -52,6 +52,34 @@ These gaps do not block a draft specification, but they must be resolved before 
 | Reversal Failed | Reversal execution failed or reached an unresolved state requiring operations investigation. | Yes |
 | Reversal Rejected | Reversal request failed authorization, eligibility, approval, reason-code, duplicate, settlement, or control checks. | Yes |
 
+## Settlement Eligibility Rule
+
+For MVP, a KHQR payment is not yet finally settled only when all of the following are true:
+
+- Original payment status is `Completed`.
+- Original payment has not been included in a closed merchant settlement batch.
+- Original payment has no final merchant settlement confirmation.
+- Original payment has no final settlement ledger posting.
+- Settlement cutoff check returns `not_finally_settled` at reversal request time and again immediately before execution.
+
+If any settlement check is unavailable, stale, contradictory, or returns `finally_settled`, the reversal request must be rejected or held from execution and made visible to operations. Architecture must identify the approved settlement cutoff source of truth before implementation.
+
+## MVP Reversal Reason Codes
+
+The following reason codes are approved for MVP reversal request and checker decision flows:
+
+| Reason Code | Meaning | Allowed For |
+| --- | --- | --- |
+| `PROCESSOR_DUPLICATE_EXECUTION` | Processor created or confirmed duplicate payment execution requiring correction. | Request, approval, rejection |
+| `PROCESSOR_STATUS_CORRECTION` | Processor status was corrected after the payment was marked completed incorrectly. | Request, approval, rejection |
+| `LEDGER_POSTING_ERROR` | Ledger or core banking posting is incorrect and requires reversal before final settlement. | Request, approval, rejection |
+| `SYSTEM_PROCESSING_ERROR` | Bank system error created an incorrect completed payment state or downstream instruction. | Request, approval, rejection |
+| `RECONCILIATION_BREAK_CORRECTION` | Operations or finance identified a reconciliation break requiring pre-settlement reversal. | Request, approval, rejection |
+| `CHECKER_REJECTED_INSUFFICIENT_EVIDENCE` | Checker rejects because evidence does not support reversal. | Rejection only |
+| `CHECKER_REJECTED_NOT_ELIGIBLE` | Checker rejects because eligibility, settlement, or control criteria are not met. | Rejection only |
+
+Free-text reason notes may be captured for operations evidence, but they do not replace the required reason code.
+
 ## Functional Requirements
 
 | Req ID | Jira | Requirement | Priority | Acceptance Criteria |
@@ -62,9 +90,9 @@ These gaps do not block a draft specification, but they must be resolved before 
 | FR-KHQRREV-004 | JIRA-KHQRREV-023 | The system shall enforce maker-checker separation. | Must | Given a maker submitted the reversal request, when the same user attempts to approve it as checker, then the approval is rejected and the reversal remains unexecuted. |
 | FR-KHQRREV-005 | JIRA-KHQRREV-024 | The system shall allow an authorized operations checker to approve or reject a reversal request. | Must | Given an authorized checker who is not the maker, when the checker approves the request, then the reversal is accepted for execution; when the checker rejects it, then the reversal is marked `Reversal Rejected`. |
 | FR-KHQRREV-006 | JIRA-KHQRREV-025 | The system shall allow reversal only for original KHQR payments in `Completed` status. | Must | Given an original KHQR payment in any status other than `Completed`, when a reversal is requested, then the request is rejected and no reversal execution occurs. |
-| FR-KHQRREV-007 | JIRA-KHQRREV-026 | The system shall allow reversal only before final settlement. | Must | Given a completed KHQR payment that is finally settled, when a reversal is requested, then the request is rejected and no reversal execution occurs. |
+| FR-KHQRREV-007 | JIRA-KHQRREV-026 | The system shall allow reversal only before final settlement. | Must | Given a completed KHQR payment that fails any MVP settlement eligibility check, when a reversal is requested or about to execute, then the request is rejected or held from execution and no reversal execution occurs. |
 | FR-KHQRREV-008 | JIRA-KHQRREV-027 | The system shall support full amount reversal only for MVP. | Must | Given a reversal request for less than the full original payment amount, when submitted, then the request is rejected. |
-| FR-KHQRREV-009 | JIRA-KHQRREV-028 | The system shall require a reversal reason code for every reversal request and approval decision. | Must | Given a reversal request or approval decision without a valid reason code, when submitted, then it is rejected and no reversal execution occurs. |
+| FR-KHQRREV-009 | JIRA-KHQRREV-028 | The system shall require an approved MVP reversal reason code for every reversal request and checker decision. | Must | Given a reversal request or checker decision without one of the approved MVP reason codes, when submitted, then it is rejected and no reversal execution occurs. |
 | FR-KHQRREV-010 | JIRA-KHQRREV-029 | The system shall require idempotency for reversal request and reversal execution commands. | Must | Given a reversal command without an idempotency key, when submitted, then the command is rejected. |
 | FR-KHQRREV-011 | JIRA-KHQRREV-030 | The system shall prevent duplicate reversal execution for the same original payment. | Must | Given an original KHQR payment with an existing pending or completed reversal, when another reversal is requested, then no second reversal execution is created. |
 | FR-KHQRREV-012 | JIRA-KHQRREV-031 | The system shall return the prior reversal result for repeated requests with the same idempotency key and same request fingerprint. | Must | Given a repeated reversal command with the same idempotency key and same payload, when submitted, then the system returns the existing reversal reference and current status. |
@@ -103,10 +131,10 @@ These gaps do not block a draft specification, but they must be resolved before 
 | BR-KHQRREV-002 | Intent | A reversal requires maker-checker approval before execution. | FR-KHQRREV-003, FR-KHQRREV-005 |
 | BR-KHQRREV-003 | Intent | Maker and checker must be separate users. | FR-KHQRREV-004 |
 | BR-KHQRREV-004 | Intent | A reversal is allowed only for a completed KHQR payment. | FR-KHQRREV-006 |
-| BR-KHQRREV-005 | Intent | A reversal is allowed only before final settlement. | FR-KHQRREV-007 |
+| BR-KHQRREV-005 | Intent | A reversal is allowed only when all MVP settlement eligibility checks prove the payment is not yet finally settled. | FR-KHQRREV-007 |
 | BR-KHQRREV-006 | Intent | MVP supports full amount reversal only. | FR-KHQRREV-008 |
 | BR-KHQRREV-007 | Intent | Processor reversal and ledger reversal are both required for a completed reversal. | FR-KHQRREV-014, FR-KHQRREV-015 |
-| BR-KHQRREV-008 | Intent | A reversal reason code is required. | FR-KHQRREV-009 |
+| BR-KHQRREV-008 | Intent | An approved MVP reversal reason code is required for every reversal request and checker decision. | FR-KHQRREV-009 |
 | BR-KHQRREV-009 | Intent | Reversal commands must be idempotent. | FR-KHQRREV-010, FR-KHQRREV-011, FR-KHQRREV-012, FR-KHQRREV-013 |
 | BR-KHQRREV-010 | Intent | Reversal must preserve references for reconciliation. | FR-KHQRREV-019, FR-KHQRREV-022 |
 | BR-KHQRREV-011 | Specification | Reversal is not refund and must be identified separately. | FR-KHQRREV-021 |
@@ -145,7 +173,7 @@ These gaps do not block a draft specification, but they must be resolved before 
 | Scenario ID | Scenario | Expected Outcome |
 | --- | --- | --- |
 | EDGE-KHQRREV-001 | Reversal requested for payment in `Pending`, `Failed`, `Rejected`, or `Expired` state. | Request is rejected; no reversal execution occurs. |
-| EDGE-KHQRREV-002 | Reversal requested after final settlement. | Request is rejected with settlement-cutoff reason. |
+| EDGE-KHQRREV-002 | Reversal requested after final settlement or when settlement status is unavailable, stale, or contradictory. | Request is rejected or held from execution with settlement-cutoff reason and operations visibility. |
 | EDGE-KHQRREV-003 | Reversal requested for partial amount. | Request is rejected because MVP supports full amount only. |
 | EDGE-KHQRREV-004 | Maker attempts to approve own reversal. | Approval is rejected; reversal remains unexecuted. |
 | EDGE-KHQRREV-005 | Duplicate reversal request with same idempotency key and same payload. | Existing reversal reference and status are returned. |
@@ -218,11 +246,11 @@ Create Jira Stories only after specification approval. Suggested Story candidate
 
 | Question | Owner | Jira | Required Before | Status |
 | --- | --- | --- | --- | --- |
-| What is the exact definition of "not yet finally settled"? | Finance Lead / Payments Architect | JIRA-KHQRREV-004 | Specification approval | Open |
+| What is the exact definition of "not yet finally settled"? | Finance Lead / Payments Architect | JIRA-KHQRREV-004 | Specification approval | Resolved in settlement eligibility rule |
 | Which system is the settlement cutoff source of truth? | Finance Lead / Payments Architect | JIRA-KHQRREV-004 | Architecture approval | Open |
 | What should happen when processor reversal succeeds but ledger reversal fails, or ledger reversal succeeds but processor reversal fails? | Payments Architect / Finance Lead / Operations Lead | JIRA-KHQRREV-033 | Architecture approval | Open |
 | Are retries allowed for `Reversal Pending` or `Reversal Failed`, and what limits apply? | Operations Lead / Payments Architect | JIRA-KHQRREV-042 | Test design finalization | Open |
-| What reversal reason codes are required for MVP? | Product Owner / Operations Lead | JIRA-KHQRREV-028 | Specification approval | Open |
+| What reversal reason codes are required for MVP? | Product Owner / Operations Lead | JIRA-KHQRREV-028 | Specification approval | Resolved in MVP reversal reason-code catalog |
 | Are customer or merchant notifications in scope for MVP reversal outcomes? | Product Owner / Compliance Lead | JIRA-KHQRREV-043 | Test design finalization | Open |
 | What completion-time and reconciliation-rate targets apply? | Product Owner / Finance Lead / QA Lead | JIRA-KHQRREV-050 | Validation planning | Open |
 

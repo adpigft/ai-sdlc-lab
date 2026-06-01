@@ -180,11 +180,11 @@ Reconciliation must identify matched, mismatched, pending, and failed reversal o
 
 | Question | Owner | Required Before |
 | --- | --- | --- |
-| What is the exact definition of "not yet finally settled"? | Finance Lead / Payments Architect | Specification approval |
+| What is the exact definition of "not yet finally settled"? | Finance Lead / Payments Architect | Resolved in `SPEC-KHQRREV-001` settlement eligibility rule |
 | Which system is the settlement cutoff source of truth? | Finance Lead / Payments Architect | Architecture approval |
 | What should happen when processor reversal succeeds but ledger reversal fails, or ledger reversal succeeds but processor reversal fails? | Payments Architect / Finance Lead / Operations Lead | Architecture approval |
 | Are retries allowed for `Reversal Pending` or `Reversal Failed`, and what limits apply? | Operations Lead / Payments Architect | Specification approval |
-| What reversal reason codes are required for MVP? | Product Owner / Operations Lead | Specification approval |
+| What reversal reason codes are required for MVP? | Product Owner / Operations Lead | Resolved in `SPEC-KHQRREV-001` MVP reason-code catalog |
 | Are customer or merchant notifications in scope for MVP reversal outcomes? | Product Owner / Compliance Lead | Specification approval |
 | What completion-time and reconciliation-rate targets apply? | Product Owner / Finance Lead / QA Lead | Specification approval |
 

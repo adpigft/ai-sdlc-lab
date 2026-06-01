@@ -1,0 +1,141 @@
+capability:
+  domain: payments
+  name: KHQR Payment Reversal
+  capability_id: khqr-payment-reversal
+  path: domains/payments/capabilities/khqr-payment-reversal
+  jira_epic: JIRA-KHQRREV-001
+  confluence_page: CONF-PAY-KHQRREV-SPEC
+
+workflow:
+  current_state: specification_review
+  previous_state: intent_review
+  current_skill: specification
+  next_state: architecture_review
+  next_skill: architecture
+  blocked: false
+  blocked_reason: ""
+  conditions:
+    - Settlement cutoff source of truth must be approved before architecture approval.
+    - Processor-ledger split outcome behavior must be approved before implementation.
+    - Retry rules must be approved before test design finalization.
+    - Notification scope must be approved before test design finalization.
+    - Reversal completion and reconciliation success targets must be approved before validation planning.
+
+current_artifact:
+  type: specification
+  path: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
+  status: draft
+  owner_role: Product Owner / Business Analyst
+
+artifacts:
+  intent: domains/payments/capabilities/khqr-payment-reversal/intent/intent.md
+  specification: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
+  architecture: ""
+  api_contract: ""
+  test_design: ""
+  implementation_plan: ""
+  validation_report: ""
+  release_notes: ""
+  traceability: traceability/traceability-matrix.md
+
+pending_gate:
+  gate: specification_approval
+  artifact_type: specification
+  artifact_path: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
+  required_approvers:
+    - Product Owner
+    - Business Analyst
+  status: pending
+  approval_reference: JIRA-KHQRREV-060
+  approved_at: ""
+  conditions: []
+
+approval_gates:
+  intent_approval:
+    status: approved
+    required_approvers:
+      - Product Owner
+      - Business Analyst
+    approval_reference: chat-approval-2026-06-01
+    approved_at: "2026-06-01"
+    conditions: []
+  specification_approval:
+    status: pending
+    required_approvers:
+      - Product Owner
+      - Business Analyst
+    approval_reference: JIRA-KHQRREV-060
+    approved_at: ""
+    conditions: []
+  architecture_approval:
+    status: pending
+    required_approvers:
+      - Solution Architect
+    approval_reference: JIRA-KHQRREV-062
+    approved_at: ""
+    conditions: []
+  test_design_approval:
+    status: pending
+    required_approvers:
+      - QA Lead
+    approval_reference: JIRA-KHQRREV-063
+    approved_at: ""
+    conditions: []
+  implementation_start_approval:
+    status: pending
+    required_approvers:
+      - Product Owner
+      - Solution Architect
+      - Developer Lead
+      - QA Lead
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  implementation_slice_approval:
+    status: pending
+    required_approvers:
+      - Developer Lead
+      - Solution Architect
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  validation_approval:
+    status: pending
+    required_approvers:
+      - QA Lead
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  release_approval:
+    status: pending
+    required_approvers:
+      - Product Owner
+      - QA Lead
+      - Solution Architect
+      - DevSecOps Lead
+      - Release Manager
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+
+blockers: []
+
+history:
+  - state: intent_review
+    event: intent_artifact_created
+    actor: Codex
+    reference: chat-approval-2026-06-01
+    timestamp: "2026-06-01"
+    notes: Intent approved and created.
+  - state: specification_review
+    event: specification_artifact_created
+    actor: Codex
+    reference: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
+    timestamp: "2026-06-01"
+    notes: Draft specification created from approved intent.
+  - state: specification_review
+    event: specification_blockers_resolved
+    actor: Codex
+    reference: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
+    timestamp: "2026-06-01"
+    notes: Settlement eligibility rule and MVP reversal reason-code catalog added.
