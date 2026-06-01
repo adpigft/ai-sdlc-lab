@@ -11,7 +11,7 @@
 | Domain | Payments |
 | Capability | KHQR Payment Reversal |
 | MVP Scope | Operations-initiated full reversal of completed, not-finally-settled KHQR payments due to processor, ledger, or system error |
-| Status | Draft pending BA / PO approval |
+| Status | Specification approved with conditions for architecture review |
 | Source Intent | `domains/payments/capabilities/khqr-payment-reversal/intent/intent.md` |
 
 ## Summary
@@ -258,8 +258,8 @@ Create Jira Stories only after specification approval. Suggested Story candidate
 
 | Gate | Jira Placeholder | Required Approver | Status |
 | --- | --- | --- | --- |
-| Product specification approval | JIRA-KHQRREV-060 | Product Owner | Pending |
-| BA specification approval | JIRA-KHQRREV-061 | Business Analyst | Pending |
+| Product specification approval | JIRA-KHQRREV-060 | Product Owner | Approved |
+| BA specification approval | JIRA-KHQRREV-061 | Business Analyst | Approved |
 | Architecture feasibility review | JIRA-KHQRREV-062 | Payments Architect | Pending |
 | QA testability review | JIRA-KHQRREV-063 | QA Lead | Pending |
 | Security and risk review | JIRA-KHQRREV-064 | Security and Risk Lead | Pending |

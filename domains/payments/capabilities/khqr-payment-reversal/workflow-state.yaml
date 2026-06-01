@@ -7,46 +7,44 @@ capability:
   confluence_page: CONF-PAY-KHQRREV-SPEC
 
 workflow:
-  current_state: specification_review
-  previous_state: intent_review
-  current_skill: specification
-  next_state: architecture_review
-  next_skill: architecture
+  current_state: implementation_ready
+  previous_state: test_review
+  current_skill: implementation
+  next_state: implementation_in_progress
+  next_skill: implementation
   blocked: false
   blocked_reason: ""
   conditions:
-    - Settlement cutoff source of truth must be approved before architecture approval.
-    - Processor-ledger split outcome behavior must be approved before implementation.
-    - Retry rules must be approved before test design finalization.
-    - Notification scope must be approved before test design finalization.
     - Reversal completion and reconciliation success targets must be approved before validation planning.
 
 current_artifact:
-  type: specification
-  path: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
-  status: draft
-  owner_role: Product Owner / Business Analyst
+  type: test_design
+  path: domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature
+  status: approved
+  owner_role: QA Lead
 
 artifacts:
   intent: domains/payments/capabilities/khqr-payment-reversal/intent/intent.md
   specification: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
-  architecture: ""
+  architecture: domains/payments/capabilities/khqr-payment-reversal/context/context.md
   api_contract: ""
-  test_design: ""
+  test_design: domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature
   implementation_plan: ""
   validation_report: ""
   release_notes: ""
   traceability: traceability/traceability-matrix.md
 
 pending_gate:
-  gate: specification_approval
-  artifact_type: specification
-  artifact_path: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
+  gate: implementation_start_approval
+  artifact_type: implementation_plan
+  artifact_path: ""
   required_approvers:
     - Product Owner
-    - Business Analyst
+    - Solution Architect
+    - Developer Lead
+    - QA Lead
   status: pending
-  approval_reference: JIRA-KHQRREV-060
+  approval_reference: ""
   approved_at: ""
   conditions: []
 
@@ -60,26 +58,34 @@ approval_gates:
     approved_at: "2026-06-01"
     conditions: []
   specification_approval:
-    status: pending
+    status: approved
     required_approvers:
       - Product Owner
       - Business Analyst
     approval_reference: JIRA-KHQRREV-060
-    approved_at: ""
-    conditions: []
+    approved_at: "2026-06-01"
+    conditions:
+      - Settlement cutoff source of truth must be defined during architecture.
+      - Processor-ledger split-outcome behavior must be defined during architecture.
+      - Retry rules must be clarified before final test design.
+      - Notification scope must be clarified before final test design.
+      - Completion-time and reconciliation targets must be set before validation planning.
   architecture_approval:
-    status: pending
+    status: approved
     required_approvers:
       - Solution Architect
     approval_reference: JIRA-KHQRREV-062
-    approved_at: ""
-    conditions: []
+    approved_at: "2026-06-01"
+    conditions:
+      - Retry remains out of MVP and must be covered as disabled until a future retry policy is approved.
+      - Notifications remain out of MVP and must not be required for MVP acceptance until Product and Compliance approve scope.
+      - Reversal completion and reconciliation success targets must be approved before validation planning.
   test_design_approval:
-    status: pending
+    status: approved
     required_approvers:
       - QA Lead
     approval_reference: JIRA-KHQRREV-063
-    approved_at: ""
+    approved_at: "2026-06-01"
     conditions: []
   implementation_start_approval:
     status: pending
@@ -139,3 +145,45 @@ history:
     reference: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
     timestamp: "2026-06-01"
     notes: Settlement eligibility rule and MVP reversal reason-code catalog added.
+  - state: architecture_review
+    event: specification_approval
+    actor: User
+    reference: JIRA-KHQRREV-060
+    timestamp: "2026-06-01"
+    notes: Specification approved with conditions carried into architecture and downstream design.
+  - state: architecture_review
+    event: architecture_artifact_created
+    actor: Codex
+    reference: domains/payments/capabilities/khqr-payment-reversal/context/context.md
+    timestamp: "2026-06-01"
+    notes: Architecture context created with settlement cutoff and processor-ledger split outcome decisions proposed for review.
+  - state: architecture_review
+    event: architecture_blockers_resolved
+    actor: Codex
+    reference: domains/payments/capabilities/khqr-payment-reversal/context/context.md
+    timestamp: "2026-06-01"
+    notes: Settlement cutoff interface, settlement stale-age threshold, and processor/ledger pending-to-failed thresholds added.
+  - state: test_review
+    event: architecture_approval
+    actor: User
+    reference: JIRA-KHQRREV-062
+    timestamp: "2026-06-01"
+    notes: Architecture approved and workflow transitioned to test design review.
+  - state: test_review
+    event: test_design_artifact_created
+    actor: Codex
+    reference: domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature
+    timestamp: "2026-06-01"
+    notes: QA acceptance test design created from approved specification and architecture. Retry and notifications are covered as MVP exclusions; completion-time and reconciliation targets remain conditional before validation planning.
+  - state: test_review
+    event: test_design_review_findings_resolved
+    actor: Codex
+    reference: domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature
+    timestamp: "2026-06-01"
+    notes: Resolved QA review findings for checker decision reason codes, request-time settlement cutoff rejection, processor/ledger failure combinations, and deterministic reconciliation mismatch examples.
+  - state: implementation_ready
+    event: test_design_approval
+    actor: User
+    reference: JIRA-KHQRREV-063
+    timestamp: "2026-06-01"
+    notes: QA test design approved and workflow transitioned to implementation readiness.
