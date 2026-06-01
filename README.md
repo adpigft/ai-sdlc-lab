@@ -8,7 +8,8 @@ The baseline shows how a payment capability moves from business intent to specif
 
 | Path | Purpose |
 | --- | --- |
-| `.ai/skills/` | Role instructions for AI-assisted BA, architect, developer, QA, and DevSecOps work. |
+| `skills/` | Canonical Codex project skills. Each skill is a folder with `SKILL.md`. |
+| `.ai/skills-legacy/` | Legacy/reference role instructions only. Do not treat this as the active Codex skill source. |
 | `.ai/standards/` | Delivery standards that AI and humans must apply when creating specs, APIs, tests, secure designs, and code. |
 | `.ai/templates/` | Reusable artifact templates for intent, specs, review gates, validation, release, feedback, and traceability. |
 | `.ai/workflows/` | Step-by-step lifecycle workflows from intent capture through release. |
@@ -17,8 +18,9 @@ The baseline shows how a payment capability moves from business intent to specif
 | `feedback/` | Feedback loop for defects, user validation, production observations, and prompt/process improvements. |
 | `docs/confluence/` | Source-controlled Confluence-ready operating-model documents. |
 | `decisions/` | Architecture Decision Records for SDLC governance decisions. |
-| `.github/workflows/` | Reserved for GitHub Actions automation. No workflows are implemented in this baseline. |
-| `src/` | Reserved for future application code. Do not use until an approved spec and build gate exist. |
+| `.github/workflows/` | GitHub Actions governance automation. Artifact validation exists; CI jobs are placeholders until application code exists. |
+| `sonar-project.properties` | SonarCloud placeholder configuration. Complete it when application code, binaries, and coverage paths exist. |
+| `src/` | Intentionally empty. Do not add application code until specs, tests, traceability, and human gates are approved. |
 
 ## Operating Principles
 
@@ -28,7 +30,8 @@ The baseline shows how a payment capability moves from business intent to specif
 4. Confluence mirrors approved operating-model content for stakeholder consumption.
 5. AI may draft, compare, summarize, and validate artifacts, but humans approve risk, scope, architecture, release, and customer-impacting decisions.
 6. Every material requirement must trace to acceptance criteria, tests, validation evidence, and release notes.
-7. GitHub Actions and SonarCloud gates must be added before application code is introduced.
+7. GitHub Actions validation and placeholder CI/SonarCloud configuration exist before application code is introduced.
+8. `skills/` is the canonical Codex skill location for this repository.
 
 ## Example Capability
 
@@ -60,4 +63,19 @@ Before release:
 
 ## Current Status
 
-This is a baseline AI SDLC repository. It contains operating content and templates only. Application code, CI workflow files, Jira automation, Confluence publishing automation, and SonarCloud scanner configuration are intentionally not yet implemented.
+This is a baseline AI SDLC governance repository. The current focus is AI SDLC governance artifacts and the KHQR feature specification package.
+
+Already set up:
+
+- Codex project instructions in `AGENTS.md`.
+- Canonical Codex skills under `skills/`.
+- Legacy/reference role notes under `.ai/skills-legacy/`.
+- AI SDLC standards, templates, and workflows under `.ai/`.
+- KHQR payment intent, context, specification, OpenAPI contract, acceptance tests, validation report, and release notes under `domains/payments/capabilities/khqr-payment/`.
+- Traceability and feedback artifacts.
+- GitHub Actions workflows for AI SDLC artifact validation and placeholder CI.
+- SonarCloud placeholder configuration in `sonar-project.properties`.
+
+Application code is intentionally not created yet. The `src/` folder must remain empty until approved specifications, tests, traceability, and human gates are in place.
+
+Jira automation and Confluence publishing automation are not implemented yet.
