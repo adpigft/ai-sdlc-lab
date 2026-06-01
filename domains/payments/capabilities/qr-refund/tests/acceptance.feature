@@ -25,6 +25,29 @@ Feature: QR Refund for completed KHQR payments
     And the refund is linked to original payment "pay_synth_20260601"
     And an audit event is recorded for the refund request
 
+  @JIRA-QRREF-021 @JIRA-QRREF-027 @JIRA-QRREF-028 @FR-QRREF-002 @FR-QRREF-008 @FR-QRREF-009
+  Scenario: Successful operations full refund creation
+    Given operations user "ops-create-001" has refund create entitlement
+    And original KHQR payment "pay_synth_20260601" is eligible for refund
+    And the operations refund request includes reason code "MERCHANT_SUPPORT_REQUEST"
+    And the request includes idempotency key "idem-qrref-ops-001"
+    And the request includes correlation ID "corr-qrref-ops-001"
+    When operations user "ops-create-001" creates a full refund for original payment "pay_synth_20260601"
+    Then the refund request is accepted
+    And the refund response contains a refund ID beginning with "rfnd_"
+    And the refund amount equals the full original payment amount
+    And the refund is linked to original payment "pay_synth_20260601"
+    And an audit event is recorded for the operations refund request
+
+  @JIRA-QRREF-021 @FR-QRREF-002
+  Scenario: Reject operations full refund creation without entitlement
+    Given operations user "ops-create-002" does not have refund create entitlement
+    And original KHQR payment "pay_synth_20260601" is eligible for refund
+    When operations user "ops-create-002" creates a full refund for original payment "pay_synth_20260601"
+    Then the refund request is rejected as forbidden
+    And no refund transaction is created
+    And an authorization failure audit event is recorded
+
   @JIRA-QRREF-022 @FR-QRREF-003
   Scenario Outline: Reject refund when original payment is not completed
     Given original KHQR payment "pay_non_completed" belongs to merchant "MERCH-001"
@@ -59,6 +82,16 @@ Feature: QR Refund for completed KHQR payments
     Then the response contains refund ID "rfnd_synth_dup_001"
     And no second refund transaction is created
 
+  @JIRA-QRREF-028 @FR-QRREF-009
+  Scenario: Reject refund initiation without idempotency key
+    Given merchant user "merchant-user-001" is authenticated for merchant "MERCH-001"
+    And the refund request includes reason code "CUSTOMER_RETURN"
+    And the request includes correlation ID "corr-qrref-missing-idem-001"
+    When the merchant submits a full refund without an idempotency key for original payment "pay_synth_20260601"
+    Then the refund request is rejected for missing idempotency key
+    And no refund transaction is created
+    And the rejection is audited
+
   @JIRA-QRREF-029 @FR-QRREF-010
   Scenario: Reject duplicate idempotency key with conflicting payload
     Given merchant user "merchant-user-001" submitted a refund with idempotency key "idem-qrref-conflict-001"
@@ -66,6 +99,16 @@ Feature: QR Refund for completed KHQR payments
     Then the refund request is rejected with idempotency conflict
     And no refund transaction is created for the conflicting request
     And the conflict is audited
+
+  @JIRA-QRREF-044 @NFR-QRREF-005
+  Scenario: Concurrent refund submissions for the same payment do not create duplicate refunds
+    Given merchant user "merchant-user-001" is authenticated for merchant "MERCH-001"
+    And original KHQR payment "pay_synth_20260601" has not been refunded
+    When two refund requests for original payment "pay_synth_20260601" are submitted at the same time with different idempotency keys
+    Then only one refund transaction is created
+    And the second refund request is rejected as already refunded or duplicate in progress
+    And both attempts are traceable by correlation ID
+    And duplicate-prevention audit events are recorded
 
   @JIRA-QRREF-024 @FR-QRREF-005
   Scenario: Reject refund outside the 30-day refund window
@@ -77,6 +120,36 @@ Feature: QR Refund for completed KHQR payments
     And no refund transaction is created
     And the rejection is audited
 
+  @JIRA-QRREF-025 @FR-QRREF-006
+  Scenario: Allow refund after merchant settlement
+    Given original KHQR payment "pay_settled_001" belongs to merchant "MERCH-001"
+    And original KHQR payment "pay_settled_001" has status "Completed"
+    And original KHQR payment "pay_settled_001" was created within 30 calendar days
+    And original KHQR payment "pay_settled_001" has already settled to the merchant
+    And original KHQR payment "pay_settled_001" has not been refunded
+    And merchant user "merchant-user-001" is authenticated for merchant "MERCH-001"
+    And the refund request includes reason code "CUSTOMER_RETURN"
+    And the request includes idempotency key "idem-qrref-settled-001"
+    When the merchant submits a full refund for original payment "pay_settled_001"
+    Then the refund request is accepted
+    And settlement state alone does not block refund eligibility
+    And an audit event is recorded for the refund request
+
+  @JIRA-QRREF-025 @FR-QRREF-006
+  Scenario: Merchant balance availability is not required for MVP refund eligibility
+    Given original KHQR payment "pay_balance_001" belongs to merchant "MERCH-001"
+    And original KHQR payment "pay_balance_001" has status "Completed"
+    And original KHQR payment "pay_balance_001" was created within 30 calendar days
+    And merchant balance availability cannot be confirmed
+    And original KHQR payment "pay_balance_001" has not been refunded
+    And merchant user "merchant-user-001" is authenticated for merchant "MERCH-001"
+    And the refund request includes reason code "CUSTOMER_RETURN"
+    And the request includes idempotency key "idem-qrref-balance-001"
+    When the merchant submits a full refund for original payment "pay_balance_001"
+    Then the refund request is not rejected because of merchant balance availability
+    And the refund remains eligible for normal refund processing
+    And an audit event is recorded for the refund request
+
   @JIRA-QRREF-026 @FR-QRREF-007
   Scenario: Reject refund for suspended merchant
     Given merchant "MERCH-001" is suspended
@@ -85,6 +158,22 @@ Feature: QR Refund for completed KHQR payments
     Then the refund request is rejected for suspended merchant
     And no refund transaction is created
     And the rejection is audited
+
+  @JIRA-QRREF-027 @FR-QRREF-008
+  Scenario Outline: Reject refund request with missing or invalid reason code
+    Given merchant user "merchant-user-001" is authenticated for merchant "MERCH-001"
+    And the request includes idempotency key "<idempotencyKey>"
+    And the request includes correlation ID "<correlationId>"
+    When the merchant submits a full refund for original payment "pay_synth_20260601" with reason code "<reasonCode>"
+    Then the refund request is rejected for invalid reason code
+    And no refund transaction is created
+    And the rejection is audited
+
+    Examples:
+      | reasonCode | idempotencyKey        | correlationId         |
+      |            | idem-qrref-reason-001 | corr-qrref-reason-001 |
+      | lowercase  | idem-qrref-reason-002 | corr-qrref-reason-002 |
+      | X          | idem-qrref-reason-003 | corr-qrref-reason-003 |
 
   @JIRA-QRREF-030 @FR-QRREF-011
   Scenario: Route high-value refund to manual review
@@ -107,6 +196,16 @@ Feature: QR Refund for completed KHQR payments
     Then an override request is created
     And the override status is "requested"
     And an immutable audit event is recorded for the override request
+
+  @JIRA-QRREF-031 @FR-QRREF-012
+  Scenario: Reject override for a control not approved for override
+    Given operations user "ops-maker-001" has override-maker entitlement
+    And refund "rfnd_non_overrideable_001" is rejected for a non-overrideable control
+    When operations user "ops-maker-001" requests an override for the non-overrideable control
+    And the override request includes reason code "BANK_APPROVED_EXCEPTION"
+    Then the override request is rejected
+    And the refund does not continue under override
+    And the rejected override attempt is audited
 
   @JIRA-QRREF-031 @FR-QRREF-012
   Scenario: Maker-checker approval allows permitted override to continue
@@ -201,6 +300,16 @@ Feature: QR Refund for completed KHQR payments
       | completion |
       | failure    |
       | override   |
+
+  @JIRA-QRREF-039 @JIRA-QRREF-047 @FR-QRREF-020 @NFR-QRREF-008
+  Scenario: Audit failure prevents unaudited material refund state change
+    Given a refund request for original payment "pay_synth_20260601" passed eligibility checks
+    And the audit platform cannot confirm durable capture for the material state change
+    When the system attempts to move the refund into processing
+    Then the refund does not complete without audit evidence
+    And the refund remains traceable by refund ID or correlation ID
+    And the failure is visible to operations
+    And an audit failure metric or alert is emitted
 
   @JIRA-QRREF-037 @FR-QRREF-018
   Scenario: End-of-day reconciliation identifies matched refund records
