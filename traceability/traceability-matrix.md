@@ -193,7 +193,7 @@ Source artifacts:
 | Resolved coverage gap | FR-QRREF-009 | Requirement now has missing idempotency key acceptance coverage. | No further test correction required before implementation. |
 | Resolved coverage gap | NFR-QRREF-005 | Concurrent same-payment refund race is now covered by acceptance design. | Implementation must prove the concurrency control. |
 | Resolved coverage gap | FR-QRREF-012 | Non-approved override control rejection is now covered by acceptance design. | Final overrideable control list still requires product, risk, and operations approval. |
-| Resolved coverage gap | FR-QRREF-020 / NFR-QRREF-008 | Audit failure behavior is now covered at acceptance level. | Architecture still must decide fail-closed versus durable buffering design. |
+| Resolved coverage gap | FR-QRREF-020 / NFR-QRREF-008 | Audit failure behavior is now covered at acceptance level. | Implementation plan selects durable transactional audit outbox as the MVP reliability pattern; full audit event contract remains internal/out-of-contract unless separately approved. |
 | Partial API coverage | FR-QRREF-013 | Retry flow references exception queue, but API has no exception queue list/read operation. | Decide whether exception queue is outside API contract or add operation. |
 | Partial API coverage | FR-QRREF-015 | Notification behavior covered by scenario but no event contract. | Document notification event as out-of-contract or add event schema. |
 | Partial API coverage | FR-QRREF-018 | Reconciliation scenarios exist, but no reconciliation feed/extract contract. | Document feed as out-of-contract or add contract. |

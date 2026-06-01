@@ -90,6 +90,7 @@ Responsibilities:
 - Capture reason code, initiator, timestamps, and correlation ID.
 - Expose state changes that must produce audit events.
 - Support safe retry only from eligible failed states.
+- Own all refund invariants and state-transition rules. Application services and repositories must not duplicate refund transition logic.
 
 Expected state transitions:
 
@@ -121,6 +122,8 @@ Rules:
 
 The idempotency record must be created or locked before creating or mutating a refund. Concurrent same-payment refund attempts must be serialized by a unique original-payment refund constraint and command-level idempotency.
 
+Refund persistence must include optimistic locking, aggregate versioning, or an equivalent row-locking strategy so concurrent state changes cannot overwrite each other.
+
 ## 4. Service Responsibilities
 
 | Service / Component | Responsibilities |
@@ -128,15 +131,15 @@ The idempotency record must be created or locked before creating or mutating a r
 | RefundApplicationService | Coordinates command flow for merchant creation, operations creation, status inquiry, override request, override decision, and retry. |
 | RefundEligibilityService | Applies completed-payment, ownership, 30-day window, post-settlement, merchant suspension, duplicate-refund, reason-code, and high-value review rules. |
 | IdempotencyService | Validates idempotency key presence, computes request fingerprints, returns replay results, rejects conflicting payloads, and protects concurrent command execution. |
-| RefundStateService | Creates, updates, and queries refund aggregate state. |
+| RefundRepository / RefundStatePort | Persists and loads refund aggregates. It must not own or duplicate state-transition logic; `Refund` aggregate methods own invariants and transitions. |
 | OverrideApprovalService | Enforces operations entitlement, maker-checker separation, reason code, and approved override control rules. |
 | RefundExecutionService | Coordinates processor and ledger execution according to approved safe-degradation and accounting decisions. |
 | RetryService | Validates failed refund retry eligibility and coordinates retry attempt state. |
-| AuditService | Produces immutable audit events and prevents unaudited material state changes unless durable audit buffering is approved. |
-| NotificationPublisher | Emits completed and failed refund notification events without changing authoritative refund outcome when notification fails. |
-| ExceptionQueuePublisher | Publishes failed or stuck refunds to operations exception handling. |
-| ReconciliationPublisher | Publishes or exposes refund records for end-of-day reconciliation. |
-| ReportingPublisher | Publishes or exposes approved reporting data once reporting delivery model is finalized. |
+| AuditOutboxService | Writes durable transactional audit outbox records for every material state change and privileged action. |
+| NotificationPort | Emits completed and failed refund notification events when the notification integration decision is approved; until then keep as an outbound port with minimal adapter. |
+| ExceptionQueuePort | Publishes failed or stuck refunds to operations exception handling when the queue design is approved; until then keep as an outbound port with minimal adapter. |
+| ReconciliationPort | Publishes or exposes refund records for end-of-day reconciliation when the feed/extract decision is approved; until then keep as projection seam. |
+| ReportingProjectionPort | Projection seam only for MVP. Do not implement a concrete reporting publisher until `ADR-QRREF-008` is approved. |
 
 ## 5. API Layer Design
 
@@ -169,11 +172,11 @@ Persistence must support refund consistency, idempotency, audit traceability, re
 
 | Store / Table | Purpose | Key Constraints |
 | --- | --- | --- |
-| `refunds` | Canonical refund lifecycle records. | Unique `refundId`; unique active/full-refund constraint on `originalPaymentId`; indexed `merchantId`, `status`, `createdAt`, `correlationId`. |
-| `refund_idempotency_records` | Command idempotency and replay records. | Unique `operation + idempotencyKey`; request fingerprint required; maps to refund/override/retry result. |
+| `refunds` | Canonical refund lifecycle records. | Unique `refundId`; unique active/full-refund constraint on `originalPaymentId`; aggregate `version` or equivalent optimistic-lock field; indexed `merchantId`, `status`, `createdAt`, `correlationId`. |
+| `refund_idempotency_records` | Command idempotency and replay records. | Unique `operation + idempotencyKeyHash`; raw idempotency keys must not be persisted; request fingerprint required; maps to refund/override/retry result. |
 | `refund_overrides` | Maker-checker override workflow records. | Unique `overrideId`; maker/checker separation enforced; `refundId` indexed. |
 | `refund_retry_attempts` | Retry attempt metadata. | `refundId`, retry sequence, actor, reason, outcome, timestamp. |
-| `refund_audit_outbox` | Durable audit event publishing buffer if approved. | Append-only semantics; no sensitive unmasked customer data. |
+| `refund_audit_outbox` | MVP audit reliability pattern. Durable transactional audit outbox records must be written in the same unit of work as material refund state changes. | Append-only semantics; aggregate version/correlation reference; no sensitive unmasked customer data. |
 | `refund_domain_outbox` | Notification, exception, reconciliation, and reporting event publication. | Idempotent event keys; replayable publication state. |
 | `refund_reconciliation_projection` | End-of-day reconciliation extract or projection. | `refundId`, original payment, processor, ledger, merchant settlement references. |
 
@@ -181,7 +184,7 @@ Implementation must not rely on merchant balance availability for MVP refund eli
 
 ## 7. Event Design
 
-Events are integration contracts or internal outbox records depending on final platform decisions. Event payloads must use synthetic/masked-safe fields in tests and logs.
+Events are internal outbox records or integration contracts depending on final platform decisions. MVP implementation should define outbound ports/interfaces first and add concrete publishers only after the corresponding integration decision is approved. Event payloads must use synthetic/masked-safe fields in tests and logs.
 
 | Event | Trigger | Consumers |
 | --- | --- | --- |
@@ -201,7 +204,7 @@ Open event-contract decisions:
 - Notification event schema remains out-of-contract until notification integration is approved.
 - Reconciliation feed/extract contract remains out-of-contract until `ADR-QRREF-007`.
 - Reporting delivery event/extract remains out-of-contract until `ADR-QRREF-008`.
-- Full audit event schema remains an internal contract unless API/architecture approval requires external publication.
+- Full audit events must be written to the durable transactional audit outbox for MVP. External audit publication remains an integration detail behind the audit port.
 
 ## 8. Error Handling Design
 
@@ -219,6 +222,17 @@ Error handling must be explicit and actor-safe.
 
 Refund processing must never silently swallow failures that affect money movement, audit, reconciliation, or duplicate prevention. Notification failure must not change the authoritative refund outcome.
 
+Dependency-specific failure behavior:
+
+| Dependency | Failure Behavior |
+| --- | --- |
+| KHQR payment lookup | Do not create a refund if original payment eligibility cannot be confirmed. Return a safe retryable rejection or dependency error, emit an operational signal, and record an audit event where request context is sufficient. |
+| Payment processor | Preserve refund state and idempotency record. If outcome is unknown, do not submit duplicate processor refunds; keep the refund traceable and operations-visible for investigation or approved retry. |
+| Ledger / Core Banking | Preserve refund state, processor reference if available, and correlation ID. Do not duplicate ledger postings; route unresolved or failed postings to operations exception handling and reconciliation. |
+| Audit outbox | Material state changes must be committed only with a durable transactional audit outbox record. If the audit outbox write fails, abort the material state change and emit an operational alert. |
+| Notification service | Do not change authoritative refund outcome because of notification failure. Record notification failure for recovery, emit metrics/alerts, and avoid sensitive customer details in logs. |
+| Reconciliation feed/extract | Keep canonical refund records replayable or re-extractable, emit operations alert, and do not mutate refund outcome solely because reconciliation publication failed. |
+
 ## 9. Idempotency Design
 
 Idempotency is required for every command API.
@@ -226,6 +240,7 @@ Idempotency is required for every command API.
 Rules:
 
 - `Idempotency-Key` is mandatory for merchant refund creation, operations refund creation, override request, override decision, and retry.
+- Raw idempotency keys must be treated as sensitive replay controls. Store only a keyed hash or approved tokenized representation; never log raw idempotency keys.
 - Request fingerprint must include operation name, actor scope, original payment/refund ID, reason code, control or decision where applicable, and normalized payload.
 - Same key and same fingerprint returns the original result without creating a second refund or second operation.
 - Same key and different fingerprint returns an idempotency conflict.
@@ -237,7 +252,7 @@ Recommended implementation approach:
 
 1. Validate required command headers.
 2. Start transaction or equivalent unit of work.
-3. Insert or lock idempotency record for `operation + idempotencyKey`.
+3. Insert or lock idempotency record for `operation + idempotencyKeyHash`.
 4. Compare fingerprint for replay or conflict.
 5. Enforce original-payment refund uniqueness.
 6. Execute domain command.
@@ -291,10 +306,11 @@ Required audit fields:
 - Event type.
 - Masked sensitive identifiers.
 
-Audit failure behavior:
+Audit reliability pattern:
 
-- A material refund state change must not complete without durable audit evidence unless a durable audit buffering architecture is explicitly approved.
-- If audit persistence fails, the refund must remain traceable by refund ID or correlation ID, be operations-visible, and emit an alert.
+- MVP uses a durable transactional audit outbox. A material refund state change and its audit outbox record must commit in the same unit of work.
+- A material refund state change must not complete without a durable audit outbox record.
+- If audit outbox persistence fails, abort the material state change, keep the request traceable by correlation ID, make the failure operations-visible, and emit an alert.
 - Audit records must be immutable and retention-ready once compliance confirms retention requirements.
 
 ## 12. Testing Strategy
@@ -304,7 +320,7 @@ Audit failure behavior:
 | Unit tests | Domain rules for eligibility, status transitions, duplicate prevention, reason code validation, high-value review routing, override controls, maker-checker separation, retry eligibility, and audit-required state changes. |
 | Application service tests | Command orchestration for merchant create, operations create, status inquiry, override request/decision, retry, dependency failure handling, and outbox publication. |
 | Repository tests | Unique original-payment refund constraint, idempotency replay/conflict, transactional consistency, refund state updates, and projections. |
-| Contract tests | OpenAPI request/response schemas, required headers, response codes, and actor-safe error responses. |
+| Contract tests | OpenAPI request/response schemas, required headers, documented `400`, `401`, `403`, `404`, `409`, `422`, and `429` responses where applicable, and actor-safe error responses. |
 | Acceptance tests | All scenarios in `acceptance.feature`, mapped to Jira and requirement IDs. |
 | Security tests | Authentication, merchant authorization, operations entitlements, maker-checker separation, safe errors, and masking. |
 | Failure-mode tests | Processor timeout, ledger timeout, notification failure, audit failure, reconciliation feed failure, stuck processing visibility. |
@@ -365,7 +381,7 @@ src/
           security/
 ```
 
-Package names and framework-specific conventions must be adjusted to the final application stack when code is approved.
+Package names and framework-specific conventions must be adjusted to the final application stack when code is approved. For MVP, outbound packages should start as ports/interfaces with minimal adapters or stubs; concrete notification, exception queue, reconciliation, and reporting publishers should be added only after their integration decisions are approved.
 
 ## 14. Build Plan
 
@@ -374,38 +390,63 @@ Build automation must align with existing GitHub Actions and SonarCloud placehol
 | Build Step | Required Behavior |
 | --- | --- |
 | Compile/build | Compile implementation and fail on warnings where project standard requires. |
+| OpenAPI validation | Validate `openapi.yaml` syntax and implementation compatibility. |
+| Gherkin validation | Validate `acceptance.feature` syntax and scenario/tag integrity. |
 | Unit tests | Run domain and application service tests. |
 | Integration tests | Run persistence, idempotency, dependency adapter, outbox, and failure-mode tests. |
 | Contract tests | Validate implementation against `openapi.yaml`. |
 | Acceptance tests | Execute `acceptance.feature` scenarios or mapped automated acceptance tests. |
-| Security scan | Run dependency, secret, and static security scanning. |
+| Secret scan | Verify no secrets, tokens, or raw credentials are committed. |
+| Dependency scan | Check third-party dependencies for known vulnerabilities. |
+| Static analysis | Run lint/static analysis and fail on configured quality thresholds. |
 | SonarCloud | Run quality gate once application code exists. |
-| Traceability check | Verify requirements map to code/tests and validation evidence. |
+| Traceability validation | Verify requirements map to code/tests and validation evidence. |
 | Evidence publication | Store build/test/security/Sonar evidence for validation and release artifacts. |
 
 CI remains the system of record for build and quality gates. Jira and Confluence remain collaboration channels, not the source of truth.
 
 ## 15. Implementation Slices
 
-Implementation should proceed in small, reviewable slices. Each slice requires tests and traceability updates before merge.
+Implementation should proceed in small, reviewable slices. Each slice requires tests and traceability updates before merge. Concrete publishers and external adapters should be minimal in MVP and added only when the corresponding integration decision is approved.
+
+### Startable Now
+
+These slices can start after implementation plan approval because they do not require unresolved accounting, processor, ledger, reporting, reconciliation, or high-value threshold decisions.
 
 | Slice | Scope | Requirements | Acceptance / Evidence |
 | --- | --- | --- | --- |
-| 1. Domain foundation | Domain model, statuses, value objects, reason code validation, domain errors. | FR-QRREF-008, FR-QRREF-017 | Unit tests for values, statuses, reason codes, safe errors. |
+| 1. Domain foundation | Domain model, statuses, value objects, reason code validation, domain errors, aggregate version field. | FR-QRREF-008, FR-QRREF-017 | Unit tests for values, statuses, reason codes, safe errors, and aggregate version behavior. |
 | 2. Eligibility validation | Completed-payment-only, 30-day window, post-settlement eligibility, merchant balance non-blocking, suspended merchant rejection. | FR-QRREF-003, FR-QRREF-005, FR-QRREF-006, FR-QRREF-007 | Eligibility unit tests and acceptance mappings. |
-| 3. Merchant refund command | `POST /qr-refunds` orchestration, merchant ownership, accepted/rejected outcomes. | FR-QRREF-001, FR-QRREF-020 | API/contract tests and merchant success/rejection scenarios. |
-| 4. Operations refund command | `POST /operations/qr-refunds`, operations entitlement, forbidden rejection. | FR-QRREF-002, FR-QRREF-008 | Operations happy path and entitlement rejection tests. |
-| 5. Idempotency and concurrency | Mandatory idempotency key, replay, conflict, same-payment concurrency lock/constraint. | FR-QRREF-004, FR-QRREF-009, FR-QRREF-010, NFR-QRREF-005 | Idempotency, conflict, and concurrency tests. |
-| 6. High-value review routing | Configurable threshold routing and review metadata without automatic processor submission. | FR-QRREF-011 | High-value review tests; threshold config evidence. |
-| 7. Override workflow | Override request, non-approved control rejection, maker-checker decision, same-user rejection. | FR-QRREF-012 | Override acceptance and security tests. |
-| 8. Processor and ledger execution | Refund execution, downstream references, timeout/failure handling. | FR-QRREF-014, FR-QRREF-017, NFR-QRREF-008 | Processor/ledger integration and failure-mode tests; depends on ADR-QRREF-001 and ADR-QRREF-006. |
-| 9. Retry and exception queue | Failed refund visibility and authorized retry. | FR-QRREF-013, FR-QRREF-014 | Exception queue and retry tests; retry policy evidence. |
-| 10. Audit integration | Immutable material-event audit, audit failure handling, masked fields. | FR-QRREF-020, NFR-QRREF-006, NFR-QRREF-007 | Audit completeness and failure tests. |
-| 11. Notification integration | Completed/failed customer-safe notification event and failure handling. | FR-QRREF-015 | Notification success/failure tests; template/channel approval. |
-| 12. Status inquiry | `GET /qr-refunds/{refundId}`, merchant ownership, safe response masking. | FR-QRREF-016, NFR-QRREF-007 | Status access and cross-merchant rejection tests. |
-| 13. Reconciliation projection | EOD reconciliation data and match/mismatch support. | FR-QRREF-018 | Reconciliation tests; depends on ADR-QRREF-007. |
-| 14. Reporting projection | Refund history, failed refunds, pending refunds, daily totals through approved channel. | FR-QRREF-019 | Reporting validation; depends on ADR-QRREF-008. |
-| 15. Observability and release evidence | Metrics, logs, traces, alerts, CI/Sonar evidence, validation hooks. | NFR-QRREF-002, NFR-QRREF-003, NFR-QRREF-004 | Operational readiness and validation-plan evidence. |
+| 3. Merchant refund command shell | `POST /qr-refunds` orchestration through ports, merchant ownership checks, accepted/rejected outcomes before downstream execution. | FR-QRREF-001, FR-QRREF-020 | API/contract tests and merchant success/rejection scenarios using stubbed ports. |
+| 4. Operations refund command shell | `POST /operations/qr-refunds`, operations entitlement, forbidden rejection before downstream execution. | FR-QRREF-002, FR-QRREF-008 | Operations happy path and entitlement rejection tests using stubbed ports. |
+| 5. Idempotency and concurrency | Mandatory idempotency key, hashed key storage, replay, conflict, original-payment uniqueness, optimistic locking or equivalent versioning. | FR-QRREF-004, FR-QRREF-009, FR-QRREF-010, NFR-QRREF-005 | Idempotency, conflict, hashed-storage, and concurrency tests. |
+| 6. Durable audit outbox | Transactional audit outbox for material state changes, audit failure abort behavior, masked audit payloads. | FR-QRREF-020, NFR-QRREF-006, NFR-QRREF-007 | Audit completeness, masking, and audit-outbox failure tests. |
+| 7. Status inquiry | `GET /qr-refunds/{refundId}`, merchant ownership, operations visibility, safe response masking. | FR-QRREF-016, NFR-QRREF-007 | Status access and cross-merchant rejection tests. |
+| 8. Minimum CI gates | OpenAPI validation, Gherkin validation, unit tests, integration tests, secret scan, dependency scan, static analysis, traceability validation, SonarCloud once code exists. | NFR-QRREF-004 | GitHub Actions evidence and validation-plan evidence. |
+
+### Blocked Pending ADR / Configuration Approval
+
+These slices must not begin until listed decisions or configuration approvals are completed.
+
+| Slice | Scope | Requirements | Blocker / Approval Required |
+| --- | --- | --- | --- |
+| 9. High-value review routing | Configurable threshold routing and review metadata without automatic processor submission. | FR-QRREF-011 | `ADR-QRREF-004`, `JIRA-QRREF-013`; Product Owner / Risk Lead / Payments Architect approval. |
+| 10. Override workflow finalization | Override request, approved/non-approved control behavior, maker-checker decision, same-user rejection. | FR-QRREF-012 | `JIRA-QRREF-015`; Product Owner / Risk Lead / Operations Lead approval for overrideable controls. |
+| 11. Processor and ledger execution | Refund execution, downstream references, timeout/failure handling, settlement/accounting behavior. | FR-QRREF-014, FR-QRREF-017, NFR-QRREF-008 | `ADR-QRREF-001`, `ADR-QRREF-006`; Payments Architect / Finance / DevSecOps approval. |
+| 12. Retry and exception queue concrete adapter | Failed refund visibility, authorized retry, queue publication/read model. | FR-QRREF-013, FR-QRREF-014 | `ADR-QRREF-005`; Operations / Payments Architect approval. |
+| 13. Notification concrete adapter | Completed/failed customer-safe notification event and failure recovery. | FR-QRREF-015 | `JIRA-QRREF-012`; Product / Compliance approval for templates and channels. |
+| 14. Reconciliation concrete feed/extract | EOD reconciliation data, match/mismatch support, replay/re-extract behavior. | FR-QRREF-018 | `ADR-QRREF-007`; Operations / Finance approval. |
+
+### Future Phase / Projection Seam Only
+
+These items remain ports, projection seams, or data-shape placeholders for MVP. Do not implement concrete publishers or platform integration until approved.
+
+| Slice | MVP Treatment | Requirements | Future Approval |
+| --- | --- | --- | --- |
+| Reporting projection | Keep as projection seam only. Capture refund fields needed for future reporting, but do not implement reporting platform integration or concrete reporting publisher in MVP. | FR-QRREF-019 | `ADR-QRREF-008`; Product / Operations approval. |
+| Rejected refund notifications | Do not implement unless product expands MVP notification scope. | FR-QRREF-015 | `JIRA-QRREF-014`; Product approval. |
+| Intraday reconciliation | Out of scope for MVP. | N/A | Future phase approval. |
+| Partial refunds | Out of scope for MVP. | N/A | Future phase approval. |
 
 ## Implementation Blockers Before Coding
 
