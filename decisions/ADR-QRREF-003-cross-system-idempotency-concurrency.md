@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed
+Accepted with conditions
 
 ## Date
 
@@ -45,6 +45,13 @@ Concurrency controls:
 - If external systems do not support idempotency or inquiry, Slice 2 remains high risk and may require manual operations controls before coding.
 - Retry design in Slice 4 must consume the same attempt records and unknown-outcome classification.
 - CI/integration tests must prove duplicate prevention across inbound and downstream execution paths.
+
+## Conditions
+
+- Payments Architecture confirms processor and ledger client reference formats.
+- Payments Architecture confirms inquiry support or an approved manual-control fallback.
+- Operations confirms attempt sequencing before Slice 4 retry exists.
+- Compliance confirms retention period for downstream attempt records.
 
 ## Impacted Requirements
 
@@ -96,4 +103,3 @@ Concurrency controls:
 | DevSecOps Lead | `JIRA-QRREF-093` |
 | Operations Lead | `JIRA-QRREF-093` |
 | Finance Lead | `JIRA-QRREF-094` |
-

@@ -580,6 +580,16 @@ Additional future-phase items:
 | Intraday reconciliation | Out of scope for MVP. | Future phase approval. |
 | Partial refunds | Out of scope for MVP. | Future phase approval. |
 
+## Slice 2 Blocked Conditions
+
+Slice 2 remains blocked until the following conditions are closed:
+
+- Finance confirms settlement adjustment rules, receivable fallback conditions, and ledger account mappings for `ADR-QRREF-001`.
+- Payments Architecture confirms processor and ledger client reference formats, inquiry support, and downstream attempt retention for `ADR-QRREF-003`.
+- Payments Architecture, DevSecOps, and Operations confirm processor and ledger status mapping, timeout thresholds, and unresolved-state visibility for `ADR-QRREF-006`.
+- Slice 4 retry and exception handling remains out of scope until `ADR-QRREF-005` is approved.
+- No OpenAPI contract update is approved yet.
+
 ## Implementation Blockers Before Coding
 
 | Blocker | Source | Required Approval |

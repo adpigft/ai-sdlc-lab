@@ -149,12 +149,12 @@ Source artifacts:
 
 | Architecture Decision | Component(s) Affected | Related Requirements | Status |
 | --- | --- | --- | --- |
-| ADR-QRREF-001 Accounting treatment and settlement adjustment | QR Refund Orchestrator, Ledger/Core Banking, Reconciliation Data Publisher | FR-QRREF-006, FR-QRREF-018, NFR-QRREF-008 | Required before implementation |
+| ADR-QRREF-001 Accounting treatment and settlement adjustment | QR Refund Orchestrator, Ledger/Core Banking, Reconciliation Data Publisher | FR-QRREF-006, FR-QRREF-018, NFR-QRREF-008 | Accepted with conditions; Slice 2 blocked until settlement-adjustment conditions close |
 | ADR-QRREF-002 Refund state ownership and payment-state relationship | QR Refund Orchestrator, Refund State Store, KHQR Payment Service | FR-QRREF-003, FR-QRREF-004, FR-QRREF-016 | Required before API finalization / implementation |
-| ADR-QRREF-003 Idempotency and concurrency boundary | Idempotency Store, Refund State Store, QR Refund Orchestrator | FR-QRREF-004, FR-QRREF-009, FR-QRREF-010, NFR-QRREF-005 | Slice 1 baseline selected; cross-system changes require approval |
+| ADR-QRREF-003 Idempotency and concurrency boundary | Idempotency Store, Refund State Store, QR Refund Orchestrator | FR-QRREF-004, FR-QRREF-009, FR-QRREF-010, NFR-QRREF-005 | Accepted with conditions; Slice 2 blocked until processor/ledger conditions close |
 | ADR-QRREF-004 High-value manual review state model | Refund Eligibility Validator, Override Approval Control, Refund State Store | FR-QRREF-011, FR-QRREF-012 | Required before test finalization |
 | ADR-QRREF-005 Retry and exception queue design | Exception Queue Publisher, QR Refund Orchestrator, Refund State Store | FR-QRREF-013, FR-QRREF-014, NFR-QRREF-008 | Required before validation design |
-| ADR-QRREF-006 Safe degradation behavior | QR Refund Orchestrator, Payment Processor integration, Ledger/Core Banking integration, Notification Service integration, Audit Event Producer | NFR-QRREF-008 | Required before implementation |
+| ADR-QRREF-006 Safe degradation behavior | QR Refund Orchestrator, Payment Processor integration, Ledger/Core Banking integration, Notification Service integration, Audit Event Producer | NFR-QRREF-008 | Accepted with conditions; Slice 2 blocked until timeout and unresolved-state conditions close |
 | ADR-QRREF-007 Reconciliation mismatch handling | Reconciliation Data Publisher, Reconciliation Platform, Operations Portal | FR-QRREF-018 | Required before release readiness |
 | ADR-QRREF-008 Reporting data delivery model | Reconciliation Data Publisher, Reporting Platform, Refund State Store | FR-QRREF-019 | Required before release readiness |
 
@@ -210,8 +210,9 @@ Source artifacts:
 | Partial API coverage | FR-QRREF-015 | Notification behavior covered by scenario but no event contract. | Document notification event as out-of-contract or add event schema. |
 | Partial API coverage | FR-QRREF-018 | Reconciliation scenarios exist, but no reconciliation feed/extract contract. | Document feed as out-of-contract or add contract. |
 | Partial API coverage | FR-QRREF-020 | Audit scenario exists, but OpenAPI only exposes `AuditSummary`; no full audit event contract. | Add audit event schema or mark audit integration as internal/out-of-contract. |
-| Open design gap | ADR-QRREF-001 | Accounting/settlement adjustment unresolved. | Resolve before implementation. |
-| Open design gap | ADR-QRREF-003 | Slice 1 idempotency and concurrency baseline is selected, but cross-system behavior beyond hashed idempotency keys, original-payment uniqueness, and aggregate versioning remains unresolved. | Do not block Slice 1; resolve before expanding beyond the approved Slice 1 boundary. |
+| Conditional approval | ADR-QRREF-001 | Accounting and settlement treatment accepted with conditions, but finance posting rules and completion criteria remain open. | Keep Slice 2 blocked until conditions are closed. |
+| Conditional approval | ADR-QRREF-003 | Cross-system idempotency and concurrency accepted with conditions, but processor/ledger client reference and inquiry rules remain open. | Keep Slice 2 blocked until conditions are closed. |
+| Conditional approval | ADR-QRREF-006 | Processor and ledger failure behavior accepted with conditions, but timeout mapping and unresolved-state rules remain open. | Keep Slice 2 blocked until conditions are closed. |
 | Open design gap | ADR-QRREF-004 | High-value review state model unresolved. | Resolve before final API/test baseline. |
 | Open compliance gap | JIRA-QRREF-008 | Retention policy unresolved. | Resolve before implementation if persistence design depends on retention controls; otherwise resolve before release readiness. |
 

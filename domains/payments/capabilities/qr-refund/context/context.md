@@ -125,14 +125,22 @@ QR Refund does not own:
 
 | Decision ID | Decision Needed | Options To Evaluate | Owner | Required Before |
 | --- | --- | --- | --- | --- |
-| ADR-QRREF-001 | Accounting treatment and settlement adjustment for refunds after merchant settlement. | Merchant receivable, settlement adjustment, ledger reversal model, processor-led refund settlement. | Payments Architect / Finance Lead | Implementation |
+| ADR-QRREF-001 | Accounting treatment and settlement adjustment for refunds after merchant settlement. | Merchant receivable, settlement adjustment, ledger reversal model, processor-led refund settlement. | Payments Architect / Finance Lead | Accepted with conditions; Slice 2 remains blocked until conditions close |
 | ADR-QRREF-002 | Refund state ownership and relationship to KHQR payment state. | Separate refund aggregate, extension of payment aggregate, payment-service-owned refund module. | Payments Architect | API design |
 | ADR-QRREF-003 | Idempotency and concurrency control boundary. | API gateway, QR Refund service, payment service, ledger lock, database uniqueness. | Payments Architect | API design |
 | ADR-QRREF-004 | High-value manual review state model. | Add explicit review state, model as `Requested`, or model through exception/approval queue. | Payments Architect / Risk Lead | API and test design |
 | ADR-QRREF-005 | Retry and exception queue design. | Manual-only retry, bounded automatic retry, hybrid retry, retry event queue. | Payments Architect / Operations Lead | Validation design |
-| ADR-QRREF-006 | Safe degradation behavior during processor, ledger, notification, and reconciliation outages. | Synchronous failure, durable async processing, pending/stuck processing with operational alerting. | Payments Architect / DevSecOps | Implementation |
+| ADR-QRREF-006 | Safe degradation behavior during processor, ledger, notification, and reconciliation outages. | Synchronous failure, durable async processing, pending/stuck processing with operational alerting. | Payments Architect / DevSecOps | Accepted with conditions; Slice 2 remains blocked until conditions close |
 | ADR-QRREF-007 | Reconciliation mismatch handling. | Operations queue, finance workflow, manual case management, existing reconciliation platform. | Operations Lead / Finance Lead | Release readiness |
 | ADR-QRREF-008 | Reporting data delivery model. | Reporting extract, event stream, database view, reporting platform integration. | Product Owner / Operations Lead | Release readiness |
+
+## Decisions Accepted With Conditions
+
+| Decision ID | Conditions | Status |
+| --- | --- | --- |
+| ADR-QRREF-001 | Finance must confirm settlement adjustment rules, receivable fallback conditions, and ledger account mappings. | Accepted with conditions |
+| ADR-QRREF-003 | Payments Architecture must confirm processor and ledger client reference formats, inquiry support, and downstream attempt retention. | Accepted with conditions |
+| ADR-QRREF-006 | Payments Architecture, DevSecOps, and Operations must confirm processor/ledger status mapping, timeout thresholds, and unresolved-state visibility. | Accepted with conditions |
 
 ## Integration Assumptions
 
@@ -219,6 +227,9 @@ Required metrics and alerts should include:
 
 | Question | Owner | Source | Status |
 | --- | --- | --- | --- |
+| Which settlement adjustment and ledger posting rules are approved for Slice 2? | Finance Lead | ADR-QRREF-001 | Open as condition closure |
+| What processor and ledger status mapping applies to timeouts and unknown outcomes? | Payments Architect / Finance Lead | ADR-QRREF-006 | Open as condition closure |
+| What processor and ledger client reference formats are required for idempotency? | Payments Architect | ADR-QRREF-003 | Open as condition closure |
 | What regulatory retention period applies to refund evidence and audit records? | Compliance Lead | JIRA-QRREF-008 | Open |
 | What is the approved reconciliation mismatch handling workflow? | Operations Lead / Finance Lead | JIRA-QRREF-009 | Open |
 | Which reporting platform or extract mechanism will provide refund reports? | Product Owner / Operations Lead | JIRA-QRREF-010 | Open |

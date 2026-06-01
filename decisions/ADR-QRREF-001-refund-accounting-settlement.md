@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed
+Accepted with conditions
 
 ## Date
 
@@ -38,6 +38,13 @@ Do not block refund eligibility on merchant balance availability. Do not mark a 
 - Reconciliation must match original payment, refund, processor refund reference, ledger reference, and settlement adjustment or receivable reference.
 - Merchant reporting and operations views must expose safe status and references, not internal ledger details.
 - Slice 2 remains blocked until finance confirms posting events, account mappings, and reference model.
+
+## Conditions
+
+- Finance confirms settlement adjustment rules and receivable fallback conditions.
+- Finance approves ledger account mappings and posting codes.
+- Payments Architecture confirms whether settlement adjustment and ledger references are synchronous.
+- Product confirms whether a refund may be customer-visible as completed before settlement adjustment finalization.
 
 ## Impacted Requirements
 
@@ -80,4 +87,3 @@ Do not block refund eligibility on merchant balance availability. Do not mark a 
 | Finance Lead | `JIRA-QRREF-094` |
 | Operations Lead | `JIRA-QRREF-093` |
 | Product Owner | `JIRA-QRREF-001` |
-

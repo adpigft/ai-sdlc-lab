@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed
+Accepted with conditions
 
 ## Date
 
@@ -45,6 +45,13 @@ For Slice 2:
 - Retry remains blocked until Slice 4 and `ADR-QRREF-005`.
 - Operations may see unresolved processing status before full exception queue support exists.
 - API response semantics may stay as accepted/processing, but documented timeout behavior must be validated.
+
+## Conditions
+
+- Payments Architecture confirms processor and ledger status mapping.
+- Payments Architecture confirms processor and ledger inquiry support, or an explicit manual-control fallback is approved.
+- DevSecOps confirms timeout thresholds and alert requirements.
+- Operations confirms the maximum age before unresolved processing becomes operations-visible.
 
 ## Impacted Requirements
 
@@ -92,4 +99,3 @@ For Slice 2:
 | Operations Lead | `JIRA-QRREF-093` |
 | Finance Lead | `JIRA-QRREF-094` |
 | QA Lead | `JIRA-QRREF-080` |
-
