@@ -1,0 +1,293 @@
+openapi: 3.0.3
+info:
+  title: KHQR Payment API
+  version: 0.1.0
+  description: >
+    Draft contract for KHQR payment initiation and status inquiry. This is an
+    SDLC artifact only and is not backed by application code yet.
+  contact:
+    name: Digital Payments Platform
+    url: https://confluence.example.com/display/PAY/CONF-PAY-KHQR-SPEC
+servers:
+  - url: https://api.example-bank.test/payments/v1
+    description: Placeholder non-production endpoint
+security:
+  - bearerAuth: []
+tags:
+  - name: KHQR Payments
+    description: Mobile banking KHQR merchant payments
+paths:
+  /khqr/payments:
+    post:
+      tags:
+        - KHQR Payments
+      summary: Initiate a KHQR payment
+      operationId: initiateKhqrPayment
+      description: >
+        Creates a KHQR payment instruction for an authenticated customer.
+        Requires an idempotency key to prevent duplicate execution.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KhqrPaymentInitiationRequest'
+            examples:
+              validRequest:
+                summary: Synthetic valid KHQR payment
+                value:
+                  qrPayload: "KHQR_SYNTHETIC_MASKED_PAYLOAD"
+                  fundingAccountId: "acct_tok_12345"
+                  amount:
+                    value: "25.50"
+                    currency: "USD"
+                  customerConfirmationId: "confirm_20260601_001"
+      responses:
+        '202':
+          description: Payment accepted for processing or currently pending
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KhqrPayment'
+        '200':
+          description: Duplicate request with same idempotency key and same payload; original payment returned
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KhqrPayment'
+        '400':
+          description: Invalid request, invalid QR, or missing required values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Customer is not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Customer is not authorized for the funding account or payment action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Duplicate idempotency key with conflicting payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Business rule rejection such as limit breach or expired QR
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /khqr/payments/{paymentId}:
+    get:
+      tags:
+        - KHQR Payments
+      summary: Get KHQR payment status
+      operationId: getKhqrPaymentStatus
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - name: paymentId
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: '^pay_[A-Za-z0-9_-]{8,64}$'
+          description: Bank payment reference returned during initiation.
+      responses:
+        '200':
+          description: Payment status for the authenticated customer
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KhqrPayment'
+        '401':
+          description: Customer is not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Customer is not authorized to view this payment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Payment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    CorrelationId:
+      name: X-Correlation-Id
+      in: header
+      required: false
+      schema:
+        type: string
+        minLength: 8
+        maxLength: 128
+      description: Correlation identifier for tracing and support.
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema:
+        type: string
+        minLength: 16
+        maxLength: 128
+      description: Unique key for this customer payment attempt.
+  headers:
+    CorrelationId:
+      description: Correlation identifier for tracing and support.
+      schema:
+        type: string
+  schemas:
+    KhqrPaymentInitiationRequest:
+      type: object
+      required:
+        - qrPayload
+        - fundingAccountId
+        - amount
+        - customerConfirmationId
+      properties:
+        qrPayload:
+          type: string
+          minLength: 12
+          maxLength: 2048
+          description: Masked or encoded KHQR payload submitted by the mobile channel.
+        fundingAccountId:
+          type: string
+          minLength: 8
+          maxLength: 128
+          description: Tokenized funding account reference.
+        amount:
+          $ref: '#/components/schemas/Money'
+        customerConfirmationId:
+          type: string
+          minLength: 8
+          maxLength: 128
+          description: Identifier proving the customer confirmed displayed payment details.
+    Money:
+      type: object
+      required:
+        - value
+        - currency
+      properties:
+        value:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]{1,2})?$'
+          description: Decimal amount represented as a string to avoid floating point errors.
+        currency:
+          type: string
+          enum:
+            - KHR
+            - USD
+    KhqrPayment:
+      type: object
+      required:
+        - paymentId
+        - status
+        - amount
+        - merchant
+        - createdAt
+        - links
+      properties:
+        paymentId:
+          type: string
+          example: pay_synth_20260601
+        processorReference:
+          type: string
+          nullable: true
+          description: Masked processor reference when available.
+        status:
+          $ref: '#/components/schemas/PaymentStatus'
+        amount:
+          $ref: '#/components/schemas/Money'
+        merchant:
+          $ref: '#/components/schemas/MerchantSummary'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /khqr/payments/pay_synth_20260601
+    MerchantSummary:
+      type: object
+      required:
+        - displayName
+      properties:
+        displayName:
+          type: string
+          maxLength: 140
+        merchantId:
+          type: string
+          nullable: true
+          description: Masked merchant identifier when available.
+    PaymentStatus:
+      type: string
+      enum:
+        - received
+        - pending_screening
+        - pending_processor
+        - completed
+        - rejected
+        - failed
+        - expired
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+        - correlationId
+      properties:
+        code:
+          type: string
+          example: KHQR_DUPLICATE_CONFLICT
+        message:
+          type: string
+          description: Customer-safe or channel-safe error message.
+        correlationId:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+          description: Optional safe validation details.
