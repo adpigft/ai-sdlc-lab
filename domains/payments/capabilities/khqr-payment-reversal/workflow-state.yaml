@@ -8,28 +8,28 @@ capability:
 
 workflow:
   current_state: implementation_ready
-  previous_state: test_review
-  current_skill: implementation
+  previous_state: architecture_review
+  current_skill: traceability
   next_state: implementation_in_progress
   next_skill: implementation
-  blocked: false
-  blocked_reason: ""
+  blocked: true
+  blocked_reason: "Implementation code is blocked until KHQR reversal traceability approval is complete, implementation start approval is granted, first slice approval is granted, and target stack/CI expectations are available."
   conditions:
     - Reversal completion and reconciliation success targets must be approved before validation planning.
 
 current_artifact:
-  type: test_design
-  path: domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature
+  type: traceability
+  path: traceability/traceability-matrix.md
   status: approved
-  owner_role: QA Lead
+  owner_role: Business Analyst / Solution Architect / QA Lead
 
 artifacts:
   intent: domains/payments/capabilities/khqr-payment-reversal/intent/intent.md
   specification: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
   architecture: domains/payments/capabilities/khqr-payment-reversal/context/context.md
-  api_contract: ""
+  api_contract: domains/payments/capabilities/khqr-payment-reversal/contracts/openapi.yaml
   test_design: domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature
-  implementation_plan: ""
+  implementation_plan: domains/payments/capabilities/khqr-payment-reversal/design/implementation-plan.md
   validation_report: ""
   release_notes: ""
   traceability: traceability/traceability-matrix.md
@@ -37,7 +37,7 @@ artifacts:
 pending_gate:
   gate: implementation_start_approval
   artifact_type: implementation_plan
-  artifact_path: ""
+  artifact_path: domains/payments/capabilities/khqr-payment-reversal/design/implementation-plan.md
   required_approvers:
     - Product Owner
     - Solution Architect
@@ -74,18 +74,34 @@ approval_gates:
     status: approved
     required_approvers:
       - Solution Architect
-    approval_reference: JIRA-KHQRREV-062
-    approved_at: "2026-06-01"
+    approval_reference: JIRA-KHQRREV-062 / JIRA-KHQRREV-062-API
+    approved_at: "2026-06-02"
     conditions:
       - Retry remains out of MVP and must be covered as disabled until a future retry policy is approved.
       - Notifications remain out of MVP and must not be required for MVP acceptance until Product and Compliance approve scope.
       - Reversal completion and reconciliation success targets must be approved before validation planning.
+  api_contract_approval:
+    status: approved
+    required_approvers:
+      - Solution Architect
+    approval_reference: JIRA-KHQRREV-062-API
+    approved_at: "2026-06-02"
+    conditions: []
   test_design_approval:
     status: approved
     required_approvers:
       - QA Lead
     approval_reference: JIRA-KHQRREV-063
     approved_at: "2026-06-01"
+    conditions: []
+  traceability_approval:
+    status: approved
+    required_approvers:
+      - Business Analyst
+      - Solution Architect
+      - QA Lead
+    approval_reference: JIRA-KHQRREV-080
+    approved_at: "2026-06-02"
     conditions: []
   implementation_start_approval:
     status: pending
@@ -124,7 +140,19 @@ approval_gates:
     approved_at: ""
     conditions: []
 
-blockers: []
+blockers:
+  - id: BLOCK-KHQRREV-IMPL-002
+    description: KHQR reversal traceability rows are approved; source-code work still awaits implementation start approval.
+    owner_role: Business Analyst / Solution Architect / QA Lead
+    required_before: implementation_start_approval
+  - id: BLOCK-KHQRREV-IMPL-003
+    description: Target implementation language/framework, test runner, and CI expectations are not approved.
+    owner_role: Developer Lead / DevSecOps Lead
+    required_before: implementation_start_approval
+  - id: BLOCK-KHQRREV-IMPL-004
+    description: First implementation slice is not yet approved for TDD/code work.
+    owner_role: Developer Lead / Solution Architect
+    required_before: implementation_in_progress
 
 history:
   - state: intent_review
@@ -187,3 +215,45 @@ history:
     reference: JIRA-KHQRREV-063
     timestamp: "2026-06-01"
     notes: QA test design approved and workflow transitioned to implementation readiness.
+  - state: implementation_ready
+    event: implementation_plan_created
+    actor: Codex
+    reference: domains/payments/capabilities/khqr-payment-reversal/design/implementation-plan.md
+    timestamp: "2026-06-01"
+    notes: Developer implementation slice plan created. Source-code work is blocked pending API contract, traceability approval, implementation start approval, first slice approval, and target stack/CI expectations.
+  - state: implementation_ready
+    event: implementation_plan_review_findings_resolved
+    actor: Codex
+    reference: domains/payments/capabilities/khqr-payment-reversal/design/implementation-plan.md
+    timestamp: "2026-06-01"
+    notes: Resolved implementation-plan findings by scoping Slice 1 to a prevalidated payment eligibility snapshot and making internal AwaitingApproval explicit before external Reversal Pending.
+  - state: architecture_review
+    event: api_contract_artifact_created
+    actor: Codex
+    reference: domains/payments/capabilities/khqr-payment-reversal/contracts/openapi.yaml
+    timestamp: "2026-06-01"
+    notes: Draft operations OpenAPI contract created for reversal request, status, and checker decision endpoints. Implementation remains blocked until architecture approval and downstream readiness gates are complete.
+  - state: architecture_review
+    event: api_contract_review_findings_resolved
+    actor: Codex
+    reference: domains/payments/capabilities/khqr-payment-reversal/contracts/openapi.yaml
+    timestamp: "2026-06-02"
+    notes: Resolved API review findings for decision reason-code constraints, internal workflow status naming, external reversal status distinction, and safe settlement-cutoff error details.
+  - state: implementation_ready
+    event: api_contract_approval
+    actor: User
+    reference: JIRA-KHQRREV-062-API
+    timestamp: "2026-06-02"
+    notes: Operations OpenAPI contract approved and workflow returned to implementation readiness. Implementation remains blocked by traceability approval, implementation start approval, first slice approval, and target stack/CI expectations.
+  - state: implementation_ready
+    event: traceability_matrix_updated
+    actor: Codex
+    reference: traceability/traceability-matrix.md
+    timestamp: "2026-06-02"
+    notes: KHQR Payment Reversal traceability section added, mapping intent, FRs, NFRs, ADRs, API operations, acceptance scenarios, implementation slices, gaps, and approval gates. Implementation remains blocked pending traceability approval.
+  - state: implementation_ready
+    event: traceability_approval
+    actor: User
+    reference: JIRA-KHQRREV-080
+    timestamp: "2026-06-02"
+    notes: KHQR reversal traceability approved; workflow remains in implementation readiness pending implementation start approval and slice approval.

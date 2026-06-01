@@ -224,3 +224,122 @@ Source artifacts:
 | API coverage review | JIRA-QRREF-071 | API Architect | Pending |
 | Test coverage review | JIRA-QRREF-072 | QA Lead | Pending |
 | Security coverage review | JIRA-QRREF-073 | Security Architect | Pending |
+
+## Capability: KHQR Payment Reversal
+
+Traceability ID: TRACE-KHQRREV-001
+
+Source artifacts:
+
+- Intent: `domains/payments/capabilities/khqr-payment-reversal/intent/intent.md`
+- Specification: `domains/payments/capabilities/khqr-payment-reversal/specs/spec.md`
+- Architecture context: `domains/payments/capabilities/khqr-payment-reversal/context/context.md`
+- API contract: `domains/payments/capabilities/khqr-payment-reversal/contracts/openapi.yaml`
+- Acceptance tests: `domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature`
+- Implementation plan: `domains/payments/capabilities/khqr-payment-reversal/design/implementation-plan.md`
+- Workflow state: `domains/payments/capabilities/khqr-payment-reversal/workflow-state.yaml`
+
+### Intent To Functional Requirements
+
+| Intent | Jira | Outcome / Scope | Functional Requirements | Status | Owner |
+| --- | --- | --- | --- | --- | --- |
+| INT-KHQRREV-001 | JIRA-KHQRREV-001 | Operations-only full reversal before final settlement | FR-KHQRREV-001, FR-KHQRREV-006, FR-KHQRREV-007, FR-KHQRREV-008 | Ready | Product Owner / Operations Lead |
+| INT-KHQRREV-001 | JIRA-KHQRREV-001 | Maker-checker control | FR-KHQRREV-003, FR-KHQRREV-004, FR-KHQRREV-005 | Ready | Operations Lead / Security and Risk Lead |
+| INT-KHQRREV-001 | JIRA-KHQRREV-001 | Duplicate reversal prevention and idempotency | FR-KHQRREV-010, FR-KHQRREV-011, FR-KHQRREV-012, FR-KHQRREV-013 | Ready | Payments Architect |
+| INT-KHQRREV-001 | JIRA-KHQRREV-001 | Processor and ledger reversal execution | FR-KHQRREV-014, FR-KHQRREV-015, FR-KHQRREV-016, FR-KHQRREV-017 | Ready | Payments Architect / Finance Lead |
+| INT-KHQRREV-001 | JIRA-KHQRREV-001 | Status, audit, reconciliation, and reversal/refund separation | FR-KHQRREV-018, FR-KHQRREV-019, FR-KHQRREV-020, FR-KHQRREV-021, FR-KHQRREV-022 | Ready | Operations Lead / Finance Lead |
+| INT-KHQRREV-001 | JIRA-KHQRREV-001 | Deferred retry and notification scope | FR-KHQRREV-023, FR-KHQRREV-024 | Ready as MVP exclusions | Product Owner / Compliance Lead |
+
+### Functional Requirements To APIs And Acceptance Tests
+
+| Requirement | Jira | API Operations / Interfaces | Acceptance Scenarios | Coverage | Notes |
+| --- | --- | --- | --- | --- | --- |
+| FR-KHQRREV-001 Operations maker request | JIRA-KHQRREV-020 | `POST /operations/khqr-payment-reversals` | Operations maker creates reversal request for eligible completed payment | Covered | Request creates an internal awaiting-approval workflow state, not downstream execution. |
+| FR-KHQRREV-002 Entitlement rejection | JIRA-KHQRREV-021 | `POST /operations/khqr-payment-reversals` | Reject reversal request without operations reversal entitlement | Covered | API returns actor-safe `403`. |
+| FR-KHQRREV-003 Approval required before execution | JIRA-KHQRREV-022 | `POST /operations/khqr-payment-reversals/{reversalId}/decision` | Processor and ledger execution does not start before checker approval | Covered | No downstream commands before checker approval. |
+| FR-KHQRREV-004 Maker-checker separation | JIRA-KHQRREV-023 | `POST /operations/khqr-payment-reversals/{reversalId}/decision` | Reject maker self-approval | Covered | API returns actor-safe `403` or conflict per implementation standard. |
+| FR-KHQRREV-005 Checker approve/reject | JIRA-KHQRREV-024 | `POST /operations/khqr-payment-reversals/{reversalId}/decision` | Checker rejects reversal request; Checker approval starts controlled reversal execution | Covered | Approval and rejection reason-code constraints are represented in OpenAPI. |
+| FR-KHQRREV-006 Completed payment only | JIRA-KHQRREV-025 | `POST /operations/khqr-payment-reversals`; KHQR Payment Service lookup port | Reject reversal when original payment is not completed | Covered | Scenario outline covers non-completed states. |
+| FR-KHQRREV-007 Before final settlement only | JIRA-KHQRREV-026 | `POST /operations/khqr-payment-reversals`; `POST /operations/khqr-payment-reversals/{reversalId}/decision`; Merchant Settlement Service cutoff port | Reject request-time ineligible cutoff; Re-check settlement cutoff immediately before execution | Covered | OpenAPI has safe structured settlement-cutoff error details. |
+| FR-KHQRREV-008 Full amount only | JIRA-KHQRREV-027 | `POST /operations/khqr-payment-reversals` | Reject partial reversal request in MVP | Covered | API request requires amount; implementation must compare to original payment amount. |
+| FR-KHQRREV-009 Reason code required | JIRA-KHQRREV-028 | Command APIs | Reject missing/invalid request reason code; Reject checker decision with missing/invalid decision reason code | Covered | Approval and rejection reason-code enums are separated. |
+| FR-KHQRREV-010 Idempotency required | JIRA-KHQRREV-029 | Command APIs with `Idempotency-Key` | Reject reversal command without idempotency key | Covered | OpenAPI requires idempotency key on command operations. |
+| FR-KHQRREV-011 Duplicate prevention | JIRA-KHQRREV-030 | `POST /operations/khqr-payment-reversals`; idempotency and reversal uniqueness store | Prevent duplicate reversal for same original payment; Concurrent reversal submissions do not create duplicate execution | Covered | Implementation must enforce unique active reversal per original payment. |
+| FR-KHQRREV-012 Idempotency replay | JIRA-KHQRREV-031 | Command APIs with `Idempotency-Key` | Same idempotency key and same payload returns existing reversal | Covered | API returns `200` for replay. |
+| FR-KHQRREV-013 Idempotency conflict | JIRA-KHQRREV-032 | Command APIs with `409 Conflict` | Same idempotency key and different payload is rejected | Covered | Error category `idempotency` available in structured details. |
+| FR-KHQRREV-014 Processor and ledger execution | JIRA-KHQRREV-033 | Processor reversal port; ledger reversal port | Checker approval starts controlled reversal execution; Processor and ledger success marks reversal reversed | Covered | Ports are out-of-process interfaces, not public OpenAPI operations. |
+| FR-KHQRREV-015 Reversed only after both complete | JIRA-KHQRREV-034 | Processor reversal port; ledger reversal port; status API | Processor and ledger success marks reversal reversed | Covered | Response status uses approved business outcome values. |
+| FR-KHQRREV-016 Pending for non-final outcomes | JIRA-KHQRREV-035 | Processor and ledger ports; `GET /operations/khqr-payment-reversals/{reversalId}` | Processor success and ledger unknown remains pending; Ledger success and processor unknown remains pending; Pending threshold handling | Covered | Operations detail includes pending age and next action. |
+| FR-KHQRREV-017 Failed execution | JIRA-KHQRREV-036 | Processor and ledger ports; exception queue port; status API | Terminal processor or ledger failure marks reversal failed; Pending threshold handling | Covered | No automatic compensation without approved retry policy. |
+| FR-KHQRREV-018 Status tracking | JIRA-KHQRREV-037 | `GET /operations/khqr-payment-reversals/{reversalId}` | Authorized operations user views reversal status; Reject reversal status view without entitlement | Covered | Sensitive fields must be masked unless authorized. |
+| FR-KHQRREV-019 Reference preservation | JIRA-KHQRREV-038 | Reversal state store; reconciliation projection | Preserve references needed for reconciliation | Covered | API status exposes safe references; full reconciliation record is internal/projection. |
+| FR-KHQRREV-020 Audit evidence | JIRA-KHQRREV-039 | Audit outbox / Audit Store port | Audit material reversal events; Do not complete material state change when audit persistence fails | Covered | Audit integration is internal/out-of-contract; status exposes `AuditSummary`. |
+| FR-KHQRREV-021 Reversal is not refund | JIRA-KHQRREV-040 | Reversal state store; reporting/reconciliation projections | Reversal is not reported as refund | Covered | Boundary enforced by separate capability and API paths. |
+| FR-KHQRREV-022 Reconciliation outcomes | JIRA-KHQRREV-041 | Reconciliation projection / extract | Reconciliation identifies reversal outcomes | Covered | Feed/extract contract is an internal projection, not public OpenAPI. |
+| FR-KHQRREV-023 Retry after approved policy only | JIRA-KHQRREV-042 | Future retry command; currently disabled | Retry is disabled until retry policy is approved | Covered as MVP exclusion | No retry API in approved MVP contract. |
+| FR-KHQRREV-024 Notifications if approved only | JIRA-KHQRREV-043 | Future notification event integration | Notifications are not required for MVP until scope is approved | Covered as MVP exclusion | No notification event contract for MVP. |
+
+### NFRs To Validation Requirements
+
+| NFR | Jira | Validation Requirement | Acceptance / Evidence Placeholder | Status |
+| --- | --- | --- | --- | --- |
+| NFR-KHQRREV-001 Completion time | JIRA-KHQRREV-050 | Validate reversal completion time once Product, Finance, Operations, and QA approve target. | Reversal completion time target requires approved threshold before validation | Blocked by target approval |
+| NFR-KHQRREV-002 Idempotency and concurrency | JIRA-KHQRREV-051 | Validate duplicate and concurrent reversal submissions cannot create duplicate execution. | Duplicate prevention, idempotency replay/conflict, concurrent submissions | Covered by acceptance design |
+| NFR-KHQRREV-003 Reconciliation support | JIRA-KHQRREV-052 | Validate required original payment, reversal, processor, ledger, settlement, amount, status, actor, approval, and correlation references. | Preserve references; reconciliation identifies outcomes | Covered by acceptance design |
+| NFR-KHQRREV-004 Audit completeness | JIRA-KHQRREV-053 | Validate 100% material reversal events and approval decisions have immutable audit evidence. | Audit material events; audit fail-closed scenario | Covered by acceptance design |
+| NFR-KHQRREV-005 Sensitive data protection | JIRA-KHQRREV-054 | Validate masking in logs, views, audit, reporting, notifications, and test evidence. | Status masking; reversal command evidence protects sensitive data | Covered by acceptance design; security validation pending |
+| NFR-KHQRREV-006 Safe degradation | JIRA-KHQRREV-055 | Validate unknown or partial processor/ledger outcomes remain traceable and do not duplicate execution. | Processor/ledger split outcomes; operational observability | Covered by acceptance design |
+| NFR-KHQRREV-007 Observability | JIRA-KHQRREV-056 | Validate metrics, logs, traces, alerts, and queue visibility for lifecycle outcomes. | Operational observability exists for reversal lifecycle | Pending validation evidence |
+| NFR-KHQRREV-008 Operations visibility | JIRA-KHQRREV-057 | Validate pending and failed reversals expose safe owner, age, reason, and next action. | Pending threshold handling; authorized status view | Covered by acceptance design |
+| NFR-KHQRREV-009 Pipeline evidence | JIRA-KHQRREV-058 | Validate GitHub Actions, relevant tests, security checks, and quality gates once code exists. | Future validation report / CI evidence | Blocked until source code exists |
+
+### Architecture Decisions To Components
+
+| Architecture Decision | Component(s) Affected | Related Requirements | Status |
+| --- | --- | --- | --- |
+| ADR-KHQRREV-001 Merchant Settlement Service cutoff source | Settlement Cutoff Adapter, Reversal Eligibility Validator, Operations API errors | FR-KHQRREV-007, FR-KHQRREV-020 | Accepted; API and tests cover unavailable, stale, contradictory, and finally-settled outcomes. |
+| ADR-KHQRREV-002 Separate reversal aggregate | Reversal State Store, Reporting, Reconciliation, QR Refund boundary | FR-KHQRREV-021, FR-KHQRREV-022 | Accepted; implementation must keep reversal separate from refund. |
+| ADR-KHQRREV-003 Idempotency and reversal uniqueness owned by reversal capability | Reversal Idempotency Store, Reversal State Store, Reversal Orchestrator | FR-KHQRREV-010, FR-KHQRREV-011, FR-KHQRREV-012, FR-KHQRREV-013, NFR-KHQRREV-002 | Accepted; Slice 1 must prove duplicate prevention. |
+| ADR-KHQRREV-004 Processor-ledger split outcomes visible and traceable | Processor Adapter, Ledger Adapter, Exception Queue, Reversal State Store | FR-KHQRREV-014, FR-KHQRREV-015, FR-KHQRREV-016, FR-KHQRREV-017, NFR-KHQRREV-006 | Accepted; no automatic compensation without approved policy. |
+| ADR-KHQRREV-005 Retry excluded from MVP | Future Retry Service, Operations API, Audit | FR-KHQRREV-023 | Accepted as MVP exclusion; no retry API in MVP contract. |
+| ADR-KHQRREV-006 Notifications out of MVP | Notification integration, Product/Compliance scope | FR-KHQRREV-024 | Accepted as MVP exclusion; no notification evidence required for MVP. |
+
+### API Coverage
+
+| API Operation | Requirement Coverage | Acceptance Coverage | Status |
+| --- | --- | --- | --- |
+| `POST /operations/khqr-payment-reversals` | FR-KHQRREV-001, FR-KHQRREV-002, FR-KHQRREV-006, FR-KHQRREV-007, FR-KHQRREV-008, FR-KHQRREV-009, FR-KHQRREV-010, FR-KHQRREV-011, FR-KHQRREV-012, FR-KHQRREV-013, FR-KHQRREV-020 | Maker request, entitlement rejection, payment status rejection, settlement cutoff rejection, partial amount rejection, reason-code rejection, idempotency replay/conflict/missing key, duplicate prevention, audit | Covered |
+| `GET /operations/khqr-payment-reversals/{reversalId}` | FR-KHQRREV-016, FR-KHQRREV-017, FR-KHQRREV-018, FR-KHQRREV-019, NFR-KHQRREV-005, NFR-KHQRREV-008 | Authorized status view, forbidden status view, pending/failed operations visibility, reference preservation | Covered |
+| `POST /operations/khqr-payment-reversals/{reversalId}/decision` | FR-KHQRREV-003, FR-KHQRREV-004, FR-KHQRREV-005, FR-KHQRREV-007, FR-KHQRREV-009, FR-KHQRREV-014, FR-KHQRREV-020 | No execution before approval, maker self-approval rejection, checker approval/rejection, pre-execution settlement cutoff, decision reason-code rejection, audit | Covered |
+
+### Implementation Slice Traceability
+
+| Slice | Status | Requirements | APIs / Interfaces | Acceptance / Test Coverage |
+| --- | --- | --- | --- | --- |
+| Slice 1 - Reversal Request Foundation | Blocked pending implementation start approval, first slice approval, and target stack/CI expectations | FR-KHQRREV-001, FR-KHQRREV-002, FR-KHQRREV-006, FR-KHQRREV-008, FR-KHQRREV-009, FR-KHQRREV-010, FR-KHQRREV-011, FR-KHQRREV-012, FR-KHQRREV-013, FR-KHQRREV-020, NFR-KHQRREV-002, NFR-KHQRREV-004, NFR-KHQRREV-005 | `POST /operations/khqr-payment-reversals`; maker entitlement port; payment snapshot port; idempotency store; reversal state store; audit outbox | Maker request, entitlement rejection, non-completed rejection, partial amount rejection, request reason-code rejection, missing idempotency, replay/conflict, duplicate prevention, concurrent submissions, audit, sensitive data masking. |
+| Slice 2 - Maker-Checker Decision | Blocked pending Slice 1 | FR-KHQRREV-003, FR-KHQRREV-004, FR-KHQRREV-005, FR-KHQRREV-009, FR-KHQRREV-020 | `POST /operations/khqr-payment-reversals/{reversalId}/decision`; checker entitlement port; audit outbox | No execution before approval, maker self-approval rejection, checker approval/rejection, decision reason-code rejection. |
+| Slice 3 - Settlement Eligibility | Blocked pending Slice 1 and Slice 2 | FR-KHQRREV-007, FR-KHQRREV-020 | Merchant Settlement Service cutoff port; structured API error details | Request-time settlement cutoff rejection; pre-execution settlement cutoff re-check. |
+| Slice 4 - Processor And Ledger Execution | Blocked pending Slices 1-3 | FR-KHQRREV-014, FR-KHQRREV-015, FR-KHQRREV-016, FR-KHQRREV-017, NFR-KHQRREV-006, NFR-KHQRREV-008 | Processor reversal port; ledger reversal port; exception queue port; status API | Both success -> reversed, split unknown outcomes -> pending, terminal failures -> failed, pending thresholds. |
+| Slice 5 - Status, Audit, Reconciliation, Observability | Blocked pending Slices 1-4 | FR-KHQRREV-018, FR-KHQRREV-019, FR-KHQRREV-020, FR-KHQRREV-021, FR-KHQRREV-022, NFR-KHQRREV-003, NFR-KHQRREV-004, NFR-KHQRREV-005, NFR-KHQRREV-007, NFR-KHQRREV-008 | `GET /operations/khqr-payment-reversals/{reversalId}`; audit outbox; reconciliation projection; metrics/logs/traces/alerts | Status view, forbidden status, reference preservation, audit material events, reversal-not-refund, reconciliation outcomes, operational observability. |
+| Slice 6 - MVP Exclusions And Release Guards | Blocked pending Product/Compliance/QA validation target decisions | FR-KHQRREV-023, FR-KHQRREV-024, NFR-KHQRREV-001, NFR-KHQRREV-009 | No MVP retry API; no MVP notification event; validation hooks | Retry disabled; notifications not required; completion target conditional; pipeline evidence once code exists. |
+
+### Orphans And Coverage Gaps
+
+| Type | Item | Finding | Recommended Resolution |
+| --- | --- | --- | --- |
+| No orphan requirement | FR-KHQRREV-001 through FR-KHQRREV-024 | All functional requirements map to API operations, internal interfaces, acceptance scenarios, or explicit MVP exclusions. | Keep mappings current as artifacts change. |
+| No orphan API | Approved OpenAPI operations | All three operations map to approved requirements and acceptance scenarios. | Keep API coverage under architecture review if endpoints change. |
+| MVP exclusion | FR-KHQRREV-023 Retry | Requirement is `Should`; retry is excluded from MVP until policy approval. | Keep disabled behavior covered; create change request if retry enters MVP. |
+| MVP exclusion | FR-KHQRREV-024 Notifications | Requirement is `Should`; notifications are excluded from MVP until Product/Compliance approval. | Keep release readiness from requiring notification evidence. |
+| Validation blocker | NFR-KHQRREV-001 | Completion-time target is not approved. | Product, Finance, Operations, and QA approve target before validation planning. |
+| Release blocker | NFR-KHQRREV-009 | Pipeline evidence cannot exist until source code exists. | Populate validation report after implementation and CI setup. |
+| Implementation readiness blocker | Target stack / CI expectations | Implementation language, test runner, and CI expectations are not approved. | Developer Lead and DevSecOps approve before source-code work. |
+
+### Traceability Approval Gates
+
+| Gate | Jira Placeholder | Required Approver | Status |
+| --- | --- | --- | --- |
+| Traceability review | JIRA-KHQRREV-080 | BA / Architect / QA Lead | Approved |
+| API coverage review | JIRA-KHQRREV-081 | Solution Architect | Approved via JIRA-KHQRREV-062-API |
+| Test coverage review | JIRA-KHQRREV-082 | QA Lead | Pending |
+| Security coverage review | JIRA-KHQRREV-083 | Security Architect | Pending |

@@ -19,7 +19,7 @@
 
 KHQR Payment Reversal is an operations-only correction capability for completed KHQR payments that must be reversed before final settlement due to processor, ledger, or system error. The capability owns reversal request orchestration, maker-checker control, reversal lifecycle state, idempotency and duplicate prevention, operational visibility, audit event production, and reconciliation evidence.
 
-This context does not define application code, final OpenAPI contracts, QA test design, or release evidence.
+This context does not define application code, QA test design, or release evidence. The approved OpenAPI contract is maintained separately under `contracts/openapi.yaml`.
 
 ## System Boundary
 
@@ -179,9 +179,9 @@ If the interface returns `unknown` or `unavailable`, if required evidence is mis
 
 ## API Design Guidance
 
-Architecture expects operations-only APIs, but final OpenAPI is not created by this context.
+Architecture expects operations-only APIs. The approved OpenAPI contract is captured in `domains/payments/capabilities/khqr-payment-reversal/contracts/openapi.yaml`.
 
-Likely operations:
+Operations:
 
 - `POST /operations/khqr-payment-reversals`
 - `GET /operations/khqr-payment-reversals/{reversalId}`

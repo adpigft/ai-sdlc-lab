@@ -1,0 +1,589 @@
+openapi: 3.0.3
+info:
+  title: KHQR Payment Reversal Operations API
+  version: 0.1.0
+  description: >
+    Draft operations-only API contract for KHQR Payment Reversal. This is an
+    architecture artifact and is not backed by application code yet.
+  contact:
+    name: Digital Payments Platform
+    url: https://confluence.example.com/display/PAY/CONF-PAY-KHQRREV-SPEC
+servers:
+  - url: https://api.example-bank.test/payments/v1
+    description: Placeholder non-production endpoint
+security:
+  - bearerAuth: []
+tags:
+  - name: Operations KHQR Payment Reversals
+    description: Bank operations reversal request, checker decision, and status actions
+paths:
+  /operations/khqr-payment-reversals:
+    post:
+      tags:
+        - Operations KHQR Payment Reversals
+      summary: Request a KHQR payment reversal
+      operationId: requestKhqrPaymentReversal
+      description: >
+        Creates an operations maker request for full reversal of a completed,
+        not-finally-settled KHQR payment. The request does not execute processor
+        or ledger reversal until a distinct authorized checker approves it and
+        pre-execution settlement cutoff validation passes.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReversalRequest'
+            examples:
+              processorStatusCorrection:
+                summary: Synthetic operations reversal request
+                value:
+                  originalPaymentId: pay_khqrrev_20260601
+                  amount:
+                    value: "100.00"
+                    currency: USD
+                  reasonCode: PROCESSOR_STATUS_CORRECTION
+                  evidenceReference: evidence-khqrrev-001
+      responses:
+        '202':
+          description: Reversal request created and awaiting checker approval
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReversalRequestRecord'
+        '200':
+          description: Duplicate request with same idempotency key and same payload; existing request returned
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReversalRequestRecord'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /operations/khqr-payment-reversals/{reversalId}:
+    get:
+      tags:
+        - Operations KHQR Payment Reversals
+      summary: Get KHQR payment reversal status
+      operationId: getKhqrPaymentReversalStatus
+      description: >
+        Retrieves operations-safe reversal status and workflow detail for an
+        authorized operations status-view user. Sensitive customer, merchant,
+        processor, ledger, and settlement details are masked unless explicitly
+        authorized by policy.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/ReversalId'
+      responses:
+        '200':
+          description: Reversal status and safe operations detail
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReversalStatusResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /operations/khqr-payment-reversals/{reversalId}/decision:
+    post:
+      tags:
+        - Operations KHQR Payment Reversals
+      summary: Approve or reject a KHQR payment reversal
+      operationId: decideKhqrPaymentReversal
+      description: >
+        Records a checker decision for a reversal request. The checker must have
+        reversal-checker entitlement and must be different from the maker. Approval
+        starts controlled reversal execution only after pre-execution settlement
+        cutoff validation passes.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+        - $ref: '#/components/parameters/ReversalId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReversalDecisionRequest'
+            examples:
+              approve:
+                summary: Synthetic approval
+                value:
+                  decision: approve
+                  reasonCode: PROCESSOR_STATUS_CORRECTION
+              reject:
+                summary: Synthetic rejection
+                value:
+                  decision: reject
+                  reasonCode: CHECKER_REJECTED_INSUFFICIENT_EVIDENCE
+      responses:
+        '202':
+          description: Approval accepted and reversal execution started or remains pending
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReversalStatusResponse'
+        '200':
+          description: Decision recorded without execution, or duplicate decision replay returned
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReversalStatusResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    CorrelationId:
+      name: X-Correlation-Id
+      in: header
+      required: true
+      description: Correlation ID used across APIs, logs, audit, and support evidence.
+      schema:
+        type: string
+        minLength: 8
+        maxLength: 128
+        example: corr-khqrrev-001
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      description: Idempotency key for duplicate-safe command handling. Raw values must not be logged or persisted.
+      schema:
+        type: string
+        minLength: 8
+        maxLength: 128
+        example: idem-khqrrev-001
+    ReversalId:
+      name: reversalId
+      in: path
+      required: true
+      description: KHQR payment reversal identifier.
+      schema:
+        type: string
+        pattern: '^rev-[A-Za-z0-9_-]+$'
+        example: rev-khqrrev-001
+  headers:
+    CorrelationId:
+      description: Correlation ID echoed from the request.
+      schema:
+        type: string
+        example: corr-khqrrev-001
+  responses:
+    BadRequest:
+      description: Malformed request, missing required header, missing idempotency key, or invalid reason code.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid authentication.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Actor lacks required operations entitlement or violates maker-checker separation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Reversal not found or not visible to the actor.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Duplicate reversal, idempotency conflict, or invalid state transition.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Business rule rejection such as non-completed payment, partial amount, or ineligible settlement cutoff.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ReversalRequest:
+      type: object
+      required:
+        - originalPaymentId
+        - amount
+        - reasonCode
+        - evidenceReference
+      additionalProperties: false
+      properties:
+        originalPaymentId:
+          type: string
+          minLength: 1
+          maxLength: 80
+          example: pay_khqrrev_20260601
+        amount:
+          $ref: '#/components/schemas/Money'
+        reasonCode:
+          $ref: '#/components/schemas/ReversalReasonCode'
+        evidenceReference:
+          type: string
+          minLength: 1
+          maxLength: 120
+          description: Reference to operations evidence supporting the reversal request.
+          example: evidence-khqrrev-001
+        reasonNotes:
+          type: string
+          maxLength: 500
+          description: Optional operations notes. Free text does not replace the required reason code.
+    ReversalDecisionRequest:
+      oneOf:
+        - $ref: '#/components/schemas/ReversalApprovalDecisionRequest'
+        - $ref: '#/components/schemas/ReversalRejectionDecisionRequest'
+      discriminator:
+        propertyName: decision
+        mapping:
+          approve: '#/components/schemas/ReversalApprovalDecisionRequest'
+          reject: '#/components/schemas/ReversalRejectionDecisionRequest'
+    ReversalApprovalDecisionRequest:
+      type: object
+      required:
+        - decision
+        - reasonCode
+      additionalProperties: false
+      properties:
+        decision:
+          type: string
+          enum:
+            - approve
+        reasonCode:
+          $ref: '#/components/schemas/ApprovalReasonCode'
+        decisionNotes:
+          type: string
+          maxLength: 500
+          description: Optional checker notes. Free text does not replace the required reason code.
+    ReversalRejectionDecisionRequest:
+      type: object
+      required:
+        - decision
+        - reasonCode
+      additionalProperties: false
+      properties:
+        decision:
+          type: string
+          enum:
+            - reject
+        reasonCode:
+          $ref: '#/components/schemas/RejectionReasonCode'
+        decisionNotes:
+          type: string
+          maxLength: 500
+          description: Optional checker notes. Free text does not replace the required reason code.
+    ReversalRequestRecord:
+      type: object
+      required:
+        - reversalId
+        - originalPaymentId
+        - amount
+        - workflowStatus
+        - reasonCode
+        - maker
+        - createdAt
+        - correlationId
+      additionalProperties: false
+      properties:
+        reversalId:
+          type: string
+          example: rev-khqrrev-001
+        originalPaymentId:
+          type: string
+          example: pay_khqrrev_20260601
+        amount:
+          $ref: '#/components/schemas/Money'
+        workflowStatus:
+          type: string
+          enum:
+            - awaiting_approval
+            - rejected_before_execution
+          description: Internal operations workflow state before downstream reversal execution. This is not the external reversal business outcome.
+        reversalStatus:
+          $ref: '#/components/schemas/ReversalStatus'
+        reasonCode:
+          $ref: '#/components/schemas/ReversalReasonCode'
+        maker:
+          $ref: '#/components/schemas/ActorSummary'
+        checker:
+          $ref: '#/components/schemas/ActorSummary'
+        createdAt:
+          type: string
+          format: date-time
+        correlationId:
+          type: string
+          example: corr-khqrrev-001
+    ReversalStatusResponse:
+      type: object
+      required:
+        - reversalId
+        - originalPaymentId
+        - amount
+        - workflowStatus
+        - status
+        - reasonCode
+        - references
+        - audit
+        - correlationId
+      additionalProperties: false
+      properties:
+        reversalId:
+          type: string
+          example: rev-khqrrev-001
+        originalPaymentId:
+          type: string
+          example: pay_khqrrev_20260601
+        amount:
+          $ref: '#/components/schemas/Money'
+        workflowStatus:
+          type: string
+          enum:
+            - awaiting_approval
+            - execution_in_progress
+            - terminal
+          description: Internal operations workflow state used for routing and operational handling. Use `status` for the external reversal business outcome.
+        status:
+          $ref: '#/components/schemas/ReversalStatus'
+        reasonCode:
+          $ref: '#/components/schemas/DecisionReasonCode'
+        maker:
+          $ref: '#/components/schemas/ActorSummary'
+        checker:
+          $ref: '#/components/schemas/ActorSummary'
+        references:
+          $ref: '#/components/schemas/ReversalReferences'
+        audit:
+          $ref: '#/components/schemas/AuditSummary'
+        operationsDetail:
+          $ref: '#/components/schemas/OperationsDetail'
+        correlationId:
+          type: string
+          example: corr-khqrrev-001
+    ReversalStatus:
+      type: string
+      nullable: true
+      enum:
+        - Reversal Pending
+        - Reversed
+        - Reversal Failed
+        - Reversal Rejected
+    ReversalReasonCode:
+      type: string
+      enum:
+        - PROCESSOR_DUPLICATE_EXECUTION
+        - PROCESSOR_STATUS_CORRECTION
+        - LEDGER_POSTING_ERROR
+        - SYSTEM_PROCESSING_ERROR
+        - RECONCILIATION_BREAK_CORRECTION
+    ApprovalReasonCode:
+      type: string
+      enum:
+        - PROCESSOR_DUPLICATE_EXECUTION
+        - PROCESSOR_STATUS_CORRECTION
+        - LEDGER_POSTING_ERROR
+        - SYSTEM_PROCESSING_ERROR
+        - RECONCILIATION_BREAK_CORRECTION
+    RejectionReasonCode:
+      type: string
+      enum:
+        - PROCESSOR_DUPLICATE_EXECUTION
+        - PROCESSOR_STATUS_CORRECTION
+        - LEDGER_POSTING_ERROR
+        - SYSTEM_PROCESSING_ERROR
+        - RECONCILIATION_BREAK_CORRECTION
+        - CHECKER_REJECTED_INSUFFICIENT_EVIDENCE
+        - CHECKER_REJECTED_NOT_ELIGIBLE
+    DecisionReasonCode:
+      type: string
+      enum:
+        - PROCESSOR_DUPLICATE_EXECUTION
+        - PROCESSOR_STATUS_CORRECTION
+        - LEDGER_POSTING_ERROR
+        - SYSTEM_PROCESSING_ERROR
+        - RECONCILIATION_BREAK_CORRECTION
+        - CHECKER_REJECTED_INSUFFICIENT_EVIDENCE
+        - CHECKER_REJECTED_NOT_ELIGIBLE
+    Money:
+      type: object
+      required:
+        - value
+        - currency
+      additionalProperties: false
+      properties:
+        value:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]{2})$'
+          example: "100.00"
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+          example: USD
+    ActorSummary:
+      type: object
+      required:
+        - actorId
+        - role
+      additionalProperties: false
+      properties:
+        actorId:
+          type: string
+          example: ops-maker-001
+        role:
+          type: string
+          enum:
+            - operations_maker
+            - operations_checker
+            - operations_status_viewer
+    ReversalReferences:
+      type: object
+      additionalProperties: false
+      properties:
+        processorReference:
+          type: string
+          nullable: true
+          example: proc-rev-001
+        ledgerReference:
+          type: string
+          nullable: true
+          example: ledger-rev-001
+        settlementReference:
+          type: string
+          nullable: true
+          example: settle-cutoff-001
+        maskedMerchantReference:
+          type: string
+          nullable: true
+          example: merch_***_001
+    AuditSummary:
+      type: object
+      required:
+        - latestAuditEventId
+        - materialEventsRecorded
+      additionalProperties: false
+      properties:
+        latestAuditEventId:
+          type: string
+          example: audit-khqrrev-001
+        materialEventsRecorded:
+          type: boolean
+    OperationsDetail:
+      type: object
+      additionalProperties: false
+      properties:
+        pendingAgeSeconds:
+          type: integer
+          minimum: 0
+          nullable: true
+        nextAction:
+          type: string
+          nullable: true
+          example: exception_queue_case_created
+        safeMessage:
+          type: string
+          example: Reversal pending ledger outcome.
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+        - correlationId
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          example: KHQR_REVERSAL_INVALID_REASON_CODE
+        message:
+          type: string
+          example: Request cannot be processed.
+        correlationId:
+          type: string
+          example: corr-khqrrev-001
+        details:
+          type: array
+          description: Optional actor-safe structured details. Sensitive processor, ledger, customer, merchant, and risk details must not be exposed.
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+    ErrorDetail:
+      type: object
+      additionalProperties: false
+      properties:
+        reasonCategory:
+          type: string
+          enum:
+            - entitlement
+            - maker_checker
+            - payment_status
+            - settlement_cutoff
+            - partial_amount
+            - reason_code
+            - idempotency
+            - duplicate_reversal
+            - invalid_state
+            - dependency_unavailable
+          example: settlement_cutoff
+        settlementCutoffStatus:
+          type: string
+          nullable: true
+          enum:
+            - not_finally_settled
+            - finally_settled
+            - unknown
+            - unavailable
+            - stale
+            - contradictory
+          example: finally_settled
+        evidenceReference:
+          type: string
+          nullable: true
+          maxLength: 120
+          description: Actor-safe reference to settlement, audit, or operations evidence.
+          example: settle-cutoff-001

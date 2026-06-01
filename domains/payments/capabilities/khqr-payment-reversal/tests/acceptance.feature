@@ -155,7 +155,7 @@ Feature: KHQR Payment Reversal
       | approve  |                               |
       | approve  | CUSTOMER_RETURN               |
       | reject   |                               |
-      | reject   | PROCESSOR_STATUS_CORRECTION   |
+      | reject   | CUSTOMER_RETURN                |
       | reject   | free_text_rejection_reason    |
 
   @JIRA-KHQRREV-029 @FR-KHQRREV-010
