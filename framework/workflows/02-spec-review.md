@@ -26,7 +26,7 @@ Assess whether a specification is complete, testable, secure, operable, and read
 ## Outputs
 
 - Reviewed specification.
-- Review gate record using `.ai/templates/review-gate-template.md`.
+- Review gate record using `framework/templates/review-gate-template.md`.
 - Updated traceability matrix.
 - ADR request if a major architecture decision is discovered.
 

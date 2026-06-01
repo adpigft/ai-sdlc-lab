@@ -15,7 +15,7 @@ Use after API contract is approved.
 - spec.md
 - openapi.yaml
 - context.md
-- .ai/standards/testing-standards.md
+- framework/standards/testing-standards.md
 
 ## Process
 1. Review requirements.

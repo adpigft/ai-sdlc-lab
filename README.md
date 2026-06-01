@@ -9,12 +9,10 @@ The baseline shows how a payment capability moves from business intent to specif
 | Path | Purpose |
 | --- | --- |
 | `skills/` | Canonical active execution skills for Codex. Each skill is a folder with `SKILL.md`. |
-| `.ai/` | AI SDLC governance, standards, templates, and lifecycle orchestration. Future additions include `skill-governance.md`, `skill-orchestration.md`, and `skills-legacy/`. |
-| `.ai/standards/` | Delivery standards that AI and humans must apply when creating specs, APIs, tests, secure designs, and code. |
-| `.ai/templates/` | Reusable artifact templates for intent, specs, review gates, validation, release, feedback, and traceability. |
-| `.ai/workflows/` | Step-by-step lifecycle workflows from intent capture through release. |
-| `.ai/skills/` | Legacy/reference role instructions only. Do not use for active skill execution. |
-| `.ai/skills-legacy/` | Legacy/reference role instructions only. Do not use for active skill execution. |
+| `framework/` | AI SDLC governance, standards, templates, and lifecycle orchestration. Legacy role skill files were removed after migration to canonical `skills/`. |
+| `framework/standards/` | Delivery standards that AI and humans must apply when creating specs, APIs, tests, secure designs, and code. |
+| `framework/templates/` | Reusable artifact templates for intent, specs, review gates, validation, release, feedback, and traceability. |
+| `framework/workflows/` | Step-by-step lifecycle workflows from intent capture through release. |
 | `.codex/config.toml` | Optional enterprise MCP integration placeholders using environment variables only. |
 | `domains/` | Domain-oriented product artifacts. The current scaffold contains a `payments/khqr-payment` capability. |
 | `traceability/` | Cross-artifact mapping from business intent to Jira, specs, tests, controls, and release evidence. |
@@ -220,8 +218,8 @@ Already set up:
 
 - Codex project instructions in `AGENTS.md`.
 - Canonical Codex skills under `skills/`.
-- Legacy/reference role notes under `.ai/skills/` and `.ai/skills-legacy/`.
-- AI SDLC standards, templates, and workflows under `.ai/`.
+- Legacy role skill files were removed after migration to canonical `skills/`.
+- AI SDLC standards, templates, and workflows under `framework/`.
 - Optional MCP placeholders for Jira, Confluence, and GitHub.
 - Subagent review workflow guidance.
 - KHQR payment intent, context, specification, OpenAPI contract, acceptance tests, validation report, and release notes under `domains/payments/capabilities/khqr-payment/`.

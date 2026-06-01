@@ -19,7 +19,7 @@ Prove that the implemented capability satisfies approved requirements and is rea
 3. Execute acceptance, regression, security, and operational checks.
 4. Validate traceability from every mandatory requirement to test or review evidence.
 5. Record defects, limitations, and accepted risks in Jira.
-6. Complete the validation report using `.ai/templates/validation-report-template.md`.
+6. Complete the validation report using `framework/templates/validation-report-template.md`.
 7. Request release readiness review.
 
 ## Outputs

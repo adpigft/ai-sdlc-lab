@@ -7,10 +7,10 @@ This repository demonstrates an AI-native SDLC for banking delivery using Codex,
 ## Important Directories
 
 - `skills/`: the only canonical Codex-native project skill path. Each skill is a folder with `SKILL.md`.
-- `.ai/skills/` and `.ai/skills-legacy/`: legacy/reference notes only. Do not use these for active skill execution.
-- `.ai/workflows/`: lifecycle workflows and orchestration notes.
-- `.ai/standards/`: engineering, API, security, and testing standards.
-- `.ai/templates/`: reusable artifact templates.
+- `framework/`: AI SDLC governance, standards, templates, and lifecycle orchestration. Legacy role skill files were removed after migration to canonical `skills/`.
+- `framework/workflows/`: lifecycle workflows and orchestration notes.
+- `framework/standards/`: engineering, API, security, and testing standards.
+- `framework/templates/`: reusable artifact templates.
 - `.codex/config.toml`: optional enterprise MCP placeholders. Environment variables only; no tokens in files.
 - `docs/automation/`: automation and MCP setup notes.
 - `docs/subagents/`: subagent review workflow notes.

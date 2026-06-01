@@ -65,4 +65,4 @@ Define allowed states and transitions.
 
 ## Review Gate
 
-Use `.ai/templates/review-gate-template.md` and link the approval evidence here.
+Use `framework/templates/review-gate-template.md` and link the approval evidence here.

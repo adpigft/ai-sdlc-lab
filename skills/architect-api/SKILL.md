@@ -14,8 +14,8 @@ Use after architecture context is approved.
 ## Inputs
 - spec.md
 - context.md
-- .ai/standards/api-standards.md
-- .ai/standards/security-standards.md
+- framework/standards/api-standards.md
+- framework/standards/security-standards.md
 
 ## Process
 1. Identify API operations.
