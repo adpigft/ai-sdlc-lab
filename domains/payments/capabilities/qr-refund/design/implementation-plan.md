@@ -39,6 +39,8 @@
 - Do not log unmasked customer, account, processor, ledger, or sensitive payment identifiers.
 - Do not hardcode secrets, credentials, thresholds, service URLs, or tokens.
 - Every implementation slice must map to Jira placeholders, requirement IDs, acceptance scenarios, and traceability entries.
+- Codex and developers must implement only one approved slice at a time.
+- If a requested implementation depends on a blocked slice, stop and report the dependency instead of coding around it.
 
 ## 1. Bounded Context
 
@@ -68,7 +70,7 @@ External bounded contexts and systems remain outside QR Refund ownership:
 | RefundRequest | Command input for merchant or operations refund creation. | `originalPaymentId`, `reasonCode`, `actor`, `idempotencyKey`, `correlationId`, `channel`. |
 | Actor | Initiator or approver identity summary. | `actorType`, `actorId`, `role`, `channel`, `merchantId` where applicable. |
 | ReasonCode | Controlled reason for refund, override, retry, approval, or rejection. | Uppercase code, configured catalog reference. |
-| IdempotencyRecord | Command fingerprint and replay result. | `idempotencyKey`, `operation`, `requestFingerprint`, `refundId`, `status`, `createdAt`, `expiresAt`. |
+| IdempotencyRecord | Command fingerprint and replay result. | `idempotencyKeyHash`, `operationType`, `merchantId`, `originalPaymentId`, `requestPayloadHash`, `refundId`, `status`, `createdAt`, `expiresAt`. |
 | OverrideRequest | Maker-checker request for an explicitly permitted control. | `overrideId`, `refundId`, `control`, `maker`, `checker`, `status`, `reasonCode`, `createdAt`, `decidedAt`. |
 | ReviewDecision | High-value review metadata. | `required`, `status`, `reason`, `thresholdConfigReference`. |
 | AuditEvent | Immutable material-event payload. | `eventType`, `originalPaymentId`, `refundId`, `initiator`, `userRole`, `reasonCode`, `timestamp`, `approvalUser`, `correlationId`. |
@@ -241,7 +243,8 @@ Rules:
 
 - `Idempotency-Key` is mandatory for merchant refund creation, operations refund creation, override request, override decision, and retry.
 - Raw idempotency keys must be treated as sensitive replay controls. Store only a keyed hash or approved tokenized representation; never log raw idempotency keys.
-- Request fingerprint must include operation name, actor scope, original payment/refund ID, reason code, control or decision where applicable, and normalized payload.
+- Idempotency records must bind the hashed idempotency key to merchant ID where applicable, original payment ID, request payload hash, and operation type.
+- Request fingerprint must include operation type, actor scope, merchant ID where applicable, original payment/refund ID, reason code, control or decision where applicable, and normalized payload hash.
 - Same key and same fingerprint returns the original result without creating a second refund or second operation.
 - Same key and different fingerprint returns an idempotency conflict.
 - Concurrent refund submissions for the same original payment must be protected by both idempotency record locking and a unique original-payment refund constraint.
@@ -407,53 +410,182 @@ CI remains the system of record for build and quality gates. Jira and Confluence
 
 ## 15. Implementation Slices
 
-Implementation should proceed in small, reviewable slices. Each slice requires tests and traceability updates before merge. Concrete publishers and external adapters should be minimal in MVP and added only when the corresponding integration decision is approved.
+Implementation must proceed in small, reviewable slices. Codex and developers must implement only one approved slice at a time. If a requested implementation depends on a blocked slice, stop and report the dependency instead of coding around it.
+
+All six slices are defined upfront so scope, sequencing, and traceability are explicit before code begins. Concrete publishers and external adapters should be minimal in MVP and added only when the corresponding integration decision is approved.
 
 ### Startable Now
 
-These slices can start after implementation plan approval because they do not require unresolved accounting, processor, ledger, reporting, reconciliation, or high-value threshold decisions.
+These slices can start after implementation plan approval because they do not require unresolved processor, ledger, operations override, retry, reconciliation, or reporting decisions.
 
-| Slice | Scope | Requirements | Acceptance / Evidence |
-| --- | --- | --- | --- |
-| 1. Domain foundation | Domain model, statuses, value objects, reason code validation, domain errors, aggregate version field. | FR-QRREF-008, FR-QRREF-017 | Unit tests for values, statuses, reason codes, safe errors, and aggregate version behavior. |
-| 2. Eligibility validation | Completed-payment-only, 30-day window, post-settlement eligibility, merchant balance non-blocking, suspended merchant rejection. | FR-QRREF-003, FR-QRREF-005, FR-QRREF-006, FR-QRREF-007 | Eligibility unit tests and acceptance mappings. |
-| 3. Merchant refund command shell | `POST /qr-refunds` orchestration through ports, merchant ownership checks, accepted/rejected outcomes before downstream execution. | FR-QRREF-001, FR-QRREF-020 | API/contract tests and merchant success/rejection scenarios using stubbed ports. |
-| 4. Operations refund command shell | `POST /operations/qr-refunds`, operations entitlement, forbidden rejection before downstream execution. | FR-QRREF-002, FR-QRREF-008 | Operations happy path and entitlement rejection tests using stubbed ports. |
-| 5. Idempotency and concurrency | Mandatory idempotency key, hashed key storage, replay, conflict, original-payment uniqueness, optimistic locking or equivalent versioning. | FR-QRREF-004, FR-QRREF-009, FR-QRREF-010, NFR-QRREF-005 | Idempotency, conflict, hashed-storage, and concurrency tests. |
-| 6. Durable audit outbox | Transactional audit outbox for material state changes, audit failure abort behavior, masked audit payloads. | FR-QRREF-020, NFR-QRREF-006, NFR-QRREF-007 | Audit completeness, masking, and audit-outbox failure tests. |
-| 7. Status inquiry | `GET /qr-refunds/{refundId}`, merchant ownership, operations visibility, safe response masking. | FR-QRREF-016, NFR-QRREF-007 | Status access and cross-merchant rejection tests. |
-| 8. Minimum CI gates | OpenAPI validation, Gherkin validation, unit tests, integration tests, secret scan, dependency scan, static analysis, traceability validation, SonarCloud once code exists. | NFR-QRREF-004 | GitHub Actions evidence and validation-plan evidence. |
+#### Slice 1 - Refund Creation Foundation
+
+Status: Can start now.
+
+Scope:
+
+- Refund aggregate.
+- Refund creation command.
+- Original payment lookup port.
+- Merchant eligibility validation.
+- Completed payment validation.
+- 30-day refund window validation.
+- Duplicate refund prevention.
+- Idempotency handling.
+- Basic refund status creation.
+- Unit tests.
+
+Excludes:
+
+- Processor posting.
+- Ledger posting.
+- Notifications.
+- Retry.
+- Operations override.
+- Reconciliation.
+- Reporting.
+
+Traceability:
+
+| Requirements | APIs | Tests |
+| --- | --- | --- |
+| FR-QRREF-001, FR-QRREF-003, FR-QRREF-004, FR-QRREF-005, FR-QRREF-006, FR-QRREF-007, FR-QRREF-008, FR-QRREF-009, FR-QRREF-010, FR-QRREF-016, FR-QRREF-020, NFR-QRREF-005, NFR-QRREF-006, NFR-QRREF-007 | `POST /qr-refunds`, `GET /qr-refunds/{refundId}` | Successful merchant full refund; non-completed payment rejection; duplicate refund prevention; idempotency replay/conflict/missing key; concurrent same-payment submissions; 30-day window rejection; post-settlement eligibility; merchant balance non-blocking; suspended merchant rejection; missing/invalid reason code; merchant status inquiry; audit event creation; audit outbox failure tests. |
 
 ### Blocked Pending ADR / Configuration Approval
 
 These slices must not begin until listed decisions or configuration approvals are completed.
 
-| Slice | Scope | Requirements | Blocker / Approval Required |
-| --- | --- | --- | --- |
-| 9. High-value review routing | Configurable threshold routing and review metadata without automatic processor submission. | FR-QRREF-011 | `ADR-QRREF-004`, `JIRA-QRREF-013`; Product Owner / Risk Lead / Payments Architect approval. |
-| 10. Override workflow finalization | Override request, approved/non-approved control behavior, maker-checker decision, same-user rejection. | FR-QRREF-012 | `JIRA-QRREF-015`; Product Owner / Risk Lead / Operations Lead approval for overrideable controls. |
-| 11. Processor and ledger execution | Refund execution, downstream references, timeout/failure handling, settlement/accounting behavior. | FR-QRREF-014, FR-QRREF-017, NFR-QRREF-008 | `ADR-QRREF-001`, `ADR-QRREF-006`; Payments Architect / Finance / DevSecOps approval. |
-| 12. Retry and exception queue concrete adapter | Failed refund visibility, authorized retry, queue publication/read model. | FR-QRREF-013, FR-QRREF-014 | `ADR-QRREF-005`; Operations / Payments Architect approval. |
-| 13. Notification concrete adapter | Completed/failed customer-safe notification event and failure recovery. | FR-QRREF-015 | `JIRA-QRREF-012`; Product / Compliance approval for templates and channels. |
-| 14. Reconciliation concrete feed/extract | EOD reconciliation data, match/mismatch support, replay/re-extract behavior. | FR-QRREF-018 | `ADR-QRREF-007`; Operations / Finance approval. |
+#### Slice 2 - Processor and Ledger Integration
+
+Status: Blocked pending ADR/config approval.
+
+Scope:
+
+- Processor refund port.
+- Ledger refund posting port.
+- Timeout handling.
+- Failure handling.
+- Integration tests.
+
+Blocked by:
+
+- Post-settlement accounting decision.
+- Processor refund behavior confirmation.
+- Ledger posting design.
+
+Traceability:
+
+| Requirements | APIs | Tests |
+| --- | --- | --- |
+| FR-QRREF-014, FR-QRREF-017, NFR-QRREF-008 | `POST /qr-refunds`, `POST /operations/qr-refunds`, `POST /operations/qr-refunds/{refundId}/retry` | Processor timeout; ledger timeout; downstream reference capture; failure-mode integration tests. |
+
+#### Slice 3 - Operations Refund and Override
+
+Status: Blocked pending override policy approval.
+
+Scope:
+
+- Operations refund creation.
+- Override request.
+- Override decision.
+- Maker-checker approval.
+- Reason code validation.
+- Authorization checks.
+- Audit trail.
+
+Blocked by:
+
+- Operations entitlement policy.
+- Override approval policy.
+
+Traceability:
+
+| Requirements | APIs | Tests |
+| --- | --- | --- |
+| FR-QRREF-002, FR-QRREF-008, FR-QRREF-012, FR-QRREF-020, NFR-QRREF-006, NFR-QRREF-007 | `POST /operations/qr-refunds`, `POST /operations/qr-refunds/{refundId}/overrides`, `POST /operations/qr-refunds/{refundId}/overrides/{overrideId}/decision` | Successful operations full refund creation; operations create entitlement rejection; override request; non-approved override rejection; maker-checker approval; same-user maker/checker rejection; audit event creation. |
+
+#### Slice 4 - Retry and Exception Handling
+
+Status: Starts after Slice 2.
+
+Scope:
+
+- Failed refund exception queue.
+- Retry failed refund.
+- Retry audit events.
+- Retry eligibility rules.
+- Retry test scenarios.
+
+Depends on:
+
+- Processor and ledger integration behavior.
+
+Traceability:
+
+| Requirements | APIs | Tests |
+| --- | --- | --- |
+| FR-QRREF-013, FR-QRREF-014, FR-QRREF-020, NFR-QRREF-003, NFR-QRREF-008 | `POST /operations/qr-refunds/{refundId}/retry` | Retry failed refund from operations exception queue; processor timeout operations visibility; ledger timeout operations visibility; retry audit events. |
+
+#### Slice 5 - Reconciliation
+
+Status: Blocked pending reconciliation design.
+
+Scope:
+
+- End-of-day reconciliation feed.
+- Match/mismatch handling.
+- Reconciliation evidence.
+- Reconciliation validation.
+
+Blocked by:
+
+- Reconciliation mismatch workflow.
+- Reconciliation feed contract.
+
+Traceability:
+
+| Requirements | APIs | Tests |
+| --- | --- | --- |
+| FR-QRREF-018, NFR-QRREF-008 | Reconciliation feed/extract, not currently in OpenAPI | End-of-day reconciliation matched records; end-of-day reconciliation mismatch for investigation; reconciliation feed failure validation. |
 
 ### Future Phase / Projection Seam Only
 
 These items remain ports, projection seams, or data-shape placeholders for MVP. Do not implement concrete publishers or platform integration until approved.
 
-| Slice | MVP Treatment | Requirements | Future Approval |
-| --- | --- | --- | --- |
-| Reporting projection | Keep as projection seam only. Capture refund fields needed for future reporting, but do not implement reporting platform integration or concrete reporting publisher in MVP. | FR-QRREF-019 | `ADR-QRREF-008`; Product / Operations approval. |
-| Rejected refund notifications | Do not implement unless product expands MVP notification scope. | FR-QRREF-015 | `JIRA-QRREF-014`; Product approval. |
-| Intraday reconciliation | Out of scope for MVP. | N/A | Future phase approval. |
-| Partial refunds | Out of scope for MVP. | N/A | Future phase approval. |
+#### Slice 6 - Reporting
+
+Status: Future phase / projection seam only.
+
+Scope:
+
+- Reporting event/interface placeholder only.
+- No reporting platform implementation.
+- No reporting API implementation.
+
+Blocked by:
+
+- Reporting platform decision.
+
+Traceability:
+
+| Requirements | APIs | Tests |
+| --- | --- | --- |
+| FR-QRREF-019 | Reporting event/interface placeholder only; no API in MVP | Future reporting validation after `ADR-QRREF-008`; no MVP acceptance execution beyond projection seam review. |
+
+Additional future-phase items:
+
+| Item | MVP Treatment | Future Approval |
+| --- | --- | --- |
+| Rejected refund notifications | Do not implement unless product expands MVP notification scope. | `JIRA-QRREF-014`; Product approval. |
+| Intraday reconciliation | Out of scope for MVP. | Future phase approval. |
+| Partial refunds | Out of scope for MVP. | Future phase approval. |
 
 ## Implementation Blockers Before Coding
 
 | Blocker | Source | Required Approval |
 | --- | --- | --- |
 | Accounting treatment and settlement adjustment mechanism. | ADR-QRREF-001 | Payments Architect / Finance Lead |
-| Idempotency and concurrency boundary. | ADR-QRREF-003 | Payments Architect |
+| Cross-system idempotency or concurrency behavior beyond the Slice 1 hashed-key, unique original-payment constraint, and aggregate versioning rules. | ADR-QRREF-003 | Payments Architect |
 | High-value manual review state model and review queues. | ADR-QRREF-004 / JIRA-QRREF-013 | Product Owner / Risk Lead / Payments Architect |
 | Safe degradation behavior for processor, ledger, notification, audit, and reconciliation failures. | ADR-QRREF-006 | Payments Architect / DevSecOps Lead |
 | Overrideable versus non-overrideable controls. | JIRA-QRREF-015 | Product Owner / Risk Lead / Operations Lead |

@@ -151,7 +151,7 @@ Source artifacts:
 | --- | --- | --- | --- |
 | ADR-QRREF-001 Accounting treatment and settlement adjustment | QR Refund Orchestrator, Ledger/Core Banking, Reconciliation Data Publisher | FR-QRREF-006, FR-QRREF-018, NFR-QRREF-008 | Required before implementation |
 | ADR-QRREF-002 Refund state ownership and payment-state relationship | QR Refund Orchestrator, Refund State Store, KHQR Payment Service | FR-QRREF-003, FR-QRREF-004, FR-QRREF-016 | Required before API finalization / implementation |
-| ADR-QRREF-003 Idempotency and concurrency boundary | Idempotency Store, Refund State Store, QR Refund Orchestrator | FR-QRREF-004, FR-QRREF-009, FR-QRREF-010, NFR-QRREF-005 | Required before implementation |
+| ADR-QRREF-003 Idempotency and concurrency boundary | Idempotency Store, Refund State Store, QR Refund Orchestrator | FR-QRREF-004, FR-QRREF-009, FR-QRREF-010, NFR-QRREF-005 | Slice 1 baseline selected; cross-system changes require approval |
 | ADR-QRREF-004 High-value manual review state model | Refund Eligibility Validator, Override Approval Control, Refund State Store | FR-QRREF-011, FR-QRREF-012 | Required before test finalization |
 | ADR-QRREF-005 Retry and exception queue design | Exception Queue Publisher, QR Refund Orchestrator, Refund State Store | FR-QRREF-013, FR-QRREF-014, NFR-QRREF-008 | Required before validation design |
 | ADR-QRREF-006 Safe degradation behavior | QR Refund Orchestrator, Payment Processor integration, Ledger/Core Banking integration, Notification Service integration, Audit Event Producer | NFR-QRREF-008 | Required before implementation |
@@ -182,6 +182,17 @@ Source artifacts:
 | `POST /operations/qr-refunds/{refundId}/overrides/{overrideId}/decision` | FR-QRREF-012, FR-QRREF-020 | Maker-checker approval allows permitted override; Reject override approval when maker/checker same user | Covered |
 | `POST /operations/qr-refunds/{refundId}/retry` | FR-QRREF-014, FR-QRREF-020, NFR-QRREF-008 | Retry failed refund from operations exception queue | Covered |
 
+### Implementation Slice Traceability
+
+| Slice | Status | Requirements | APIs / Interfaces | Acceptance / Test Coverage |
+| --- | --- | --- | --- | --- |
+| Slice 1 - Refund Creation Foundation | Can start now | FR-QRREF-001, FR-QRREF-003, FR-QRREF-004, FR-QRREF-005, FR-QRREF-006, FR-QRREF-007, FR-QRREF-008, FR-QRREF-009, FR-QRREF-010, FR-QRREF-016, FR-QRREF-020, NFR-QRREF-005, NFR-QRREF-006, NFR-QRREF-007 | `POST /qr-refunds`, `GET /qr-refunds/{refundId}`, original payment lookup port | Successful merchant full refund; non-completed rejection; duplicate prevention; idempotency replay/conflict/missing key; concurrent same-payment submissions; 30-day window rejection; post-settlement eligibility; merchant balance non-blocking; suspended merchant rejection; missing/invalid reason code; merchant status inquiry; audit event creation. |
+| Slice 2 - Processor and Ledger Integration | Blocked pending ADR/config approval | FR-QRREF-014, FR-QRREF-017, NFR-QRREF-008 | Processor refund port; ledger refund posting port; `POST /qr-refunds`; `POST /operations/qr-refunds`; `POST /operations/qr-refunds/{refundId}/retry` | Processor timeout; ledger timeout; downstream reference capture; integration and failure-mode tests. |
+| Slice 3 - Operations Refund and Override | Blocked pending override policy approval | FR-QRREF-002, FR-QRREF-008, FR-QRREF-012, FR-QRREF-020, NFR-QRREF-006, NFR-QRREF-007 | `POST /operations/qr-refunds`; `POST /operations/qr-refunds/{refundId}/overrides`; `POST /operations/qr-refunds/{refundId}/overrides/{overrideId}/decision` | Successful operations full refund creation; entitlement rejection; override request; non-approved override rejection; maker-checker approval; same-user rejection; audit event creation. |
+| Slice 4 - Retry and Exception Handling | Starts after Slice 2 | FR-QRREF-013, FR-QRREF-014, FR-QRREF-020, NFR-QRREF-003, NFR-QRREF-008 | `POST /operations/qr-refunds/{refundId}/retry`; failed refund exception queue interface | Retry failed refund from operations exception queue; processor timeout operations visibility; ledger timeout operations visibility; retry audit events. |
+| Slice 5 - Reconciliation | Blocked pending reconciliation design | FR-QRREF-018, NFR-QRREF-008 | Reconciliation feed/extract, not currently in OpenAPI | End-of-day reconciliation matched records; end-of-day mismatch for investigation; reconciliation feed failure validation. |
+| Slice 6 - Reporting | Future phase / projection seam only | FR-QRREF-019 | Reporting event/interface placeholder only; no reporting API in MVP | Future reporting validation after `ADR-QRREF-008`; no MVP acceptance execution beyond projection seam review. |
+
 ### Orphans And Coverage Gaps
 
 | Type | Item | Finding | Recommended Resolution |
@@ -199,7 +210,7 @@ Source artifacts:
 | Partial API coverage | FR-QRREF-018 | Reconciliation scenarios exist, but no reconciliation feed/extract contract. | Document feed as out-of-contract or add contract. |
 | Partial API coverage | FR-QRREF-020 | Audit scenario exists, but OpenAPI only exposes `AuditSummary`; no full audit event contract. | Add audit event schema or mark audit integration as internal/out-of-contract. |
 | Open design gap | ADR-QRREF-001 | Accounting/settlement adjustment unresolved. | Resolve before implementation. |
-| Open design gap | ADR-QRREF-003 | Idempotency and concurrency boundary unresolved. | Resolve before implementation. |
+| Open design gap | ADR-QRREF-003 | Slice 1 idempotency and concurrency baseline is selected, but cross-system behavior beyond hashed idempotency keys, original-payment uniqueness, and aggregate versioning remains unresolved. | Do not block Slice 1; resolve before expanding beyond the approved Slice 1 boundary. |
 | Open design gap | ADR-QRREF-004 | High-value review state model unresolved. | Resolve before final API/test baseline. |
 | Open compliance gap | JIRA-QRREF-008 | Retention policy unresolved. | Resolve before implementation if persistence design depends on retention controls; otherwise resolve before release readiness. |
 
