@@ -13,13 +13,15 @@ Prepare implementation work from an approved specification without starting appl
 
 ## Steps
 
-1. Split the approved specification into Jira stories that each deliver testable value.
-2. Link each story to requirement IDs and acceptance scenarios.
-3. Identify implementation dependencies, data migrations, feature flags, observability, and rollback needs.
-4. Confirm GitHub branch, pull request, review, and CI expectations.
-5. Define required tests and SonarCloud quality gate expectations before implementation starts.
-6. Update traceability with planned code, test, and validation evidence placeholders.
-7. Hold a build readiness gate.
+1. Read `domains/<domain>/domain-context.md` when available.
+2. Split the approved specification into Jira stories that each deliver testable value.
+3. Link each story to requirement IDs and acceptance scenarios.
+4. Identify implementation dependencies, data migrations, feature flags, observability, and rollback needs.
+5. Confirm GitHub branch, pull request, review, and CI expectations.
+6. Define required tests and SonarCloud quality gate expectations before implementation starts.
+7. Update traceability with planned code, test, and validation evidence placeholders.
+8. Hold a build readiness gate.
+9. After architecture and test design approvals, update or prepare `workflow-state.yaml` so the capability can move through `test_review`, `implementation_ready`, and `implementation_in_progress` when workflow-state is adopted.
 
 ## Outputs
 

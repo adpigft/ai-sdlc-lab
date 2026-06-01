@@ -20,7 +20,8 @@ Prove that the implemented capability satisfies approved requirements and is rea
 4. Validate traceability from every mandatory requirement to test or review evidence.
 5. Record defects, limitations, and accepted risks in Jira.
 6. Complete the validation report using `framework/templates/validation-report-template.md`.
-7. Request release readiness review.
+7. After QA approval, update or prepare `workflow-state.yaml` so the capability can move from `validation_ready` to `release_ready` when workflow-state is adopted.
+8. Request release readiness review.
 
 ## Outputs
 

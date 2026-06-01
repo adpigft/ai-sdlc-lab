@@ -15,13 +15,15 @@ Assess whether a specification is complete, testable, secure, operable, and read
 
 ## Steps
 
-1. Check every requirement has an ID, source, acceptance criteria, priority, and Jira reference.
-2. Review payment flows for pending states, duplicate handling, limits, fraud screening, customer messaging, and reconciliation.
-3. Review non-functional requirements for latency, availability, security, auditability, observability, and recoverability.
-4. Validate API contract completeness where an API is in scope.
-5. Confirm tests can be derived from the acceptance criteria.
-6. Update traceability for reviewed requirements, controls, and review evidence.
-7. Record approvals, required changes, or rejected scope in Jira.
+1. Read `domains/<domain>/domain-context.md` when available.
+2. Check every requirement has an ID, source, acceptance criteria, priority, and Jira reference.
+3. Review payment flows for pending states, duplicate handling, limits, fraud screening, customer messaging, and reconciliation.
+4. Review non-functional requirements for latency, availability, security, auditability, observability, and recoverability.
+5. Validate API contract completeness where an API is in scope.
+6. Confirm tests can be derived from the acceptance criteria.
+7. Update traceability for reviewed requirements, controls, and review evidence.
+8. Record approvals, required changes, or rejected scope in Jira.
+9. After approval, update or prepare `workflow-state.yaml` so the capability can move from `specification_review` to `architecture_review` when workflow-state is adopted.
 
 ## Outputs
 

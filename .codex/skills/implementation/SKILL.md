@@ -14,17 +14,20 @@ Use `$implementation` only after intent, specification, architecture, API where 
 ## Inputs
 - Approved intent, specification, architecture, API, tests, and traceability
 - Approved implementation slice
+- Domain context, such as `domains/<domain>/domain-context.md`, when available
 - Coding, security, and testing standards
 - Existing source and test code
 - Jira Task or Subtask if available
 
 ## Process
 1. Confirm all upstream approvals and traceability are present.
-2. Use `developer-implementation`.
-3. Use TDD for the approved slice: failing test, implementation, passing test, refactor.
-4. Keep changes limited to the approved slice.
-5. Stop and report gaps instead of coding around missing or conflicting approved artifacts.
-6. Prepare the slice for review and validation.
+2. Read `domains/<domain>/domain-context.md` when the domain is known and the file exists.
+3. Use `developer-implementation`.
+4. Use TDD for the approved slice: failing test, implementation, passing test, refactor.
+5. Keep changes limited to the approved slice.
+6. Stop and report gaps instead of coding around missing or conflicting approved artifacts.
+7. After implementation slice approval, update or prepare `workflow-state.yaml` to move from `implementation_in_progress` to `validation_ready` when workflow-state is adopted.
+8. Prepare the slice for review and validation.
 
 ## Outputs
 - Unit tests and implementation code for the approved slice
@@ -38,6 +41,8 @@ Use `$implementation` only after intent, specification, architecture, API where 
 - Code maps to approved requirements and test design.
 - No secrets are committed.
 - Missing upstream approval blocks implementation.
+- Domain context was reviewed when available.
+- Workflow-state update guidance is provided after approval.
 
 ## Human gate
 Developer and Architect review is required before QA validation.

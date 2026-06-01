@@ -12,13 +12,15 @@ Convert a stakeholder request into an approved, traceable specification candidat
 
 ## Steps
 
-1. Capture intent using `framework/templates/intent-template.md`.
-2. Identify stakeholders, customers, operations teams, risk owners, and approval owners.
-3. Record payment-specific assumptions, such as rails, limits, currency, QR format, settlement behavior, fees, notifications, and reconciliation needs.
-4. Convert intent into requirements and acceptance criteria using `framework/templates/spec-template.md`.
-5. Add Jira references to the traceability matrix.
-6. List open questions and classify them as product, architecture, QA, security, legal, compliance, or operations.
-7. Request human approval to proceed to spec review.
+1. Read `domains/<domain>/domain-context.md` when available.
+2. Capture intent using `framework/templates/intent-template.md`.
+3. Identify stakeholders, customers, operations teams, risk owners, and approval owners.
+4. Record payment-specific assumptions, such as rails, limits, currency, QR format, settlement behavior, fees, notifications, and reconciliation needs.
+5. Convert intent into requirements and acceptance criteria using `framework/templates/spec-template.md`.
+6. Add Jira references to the traceability matrix.
+7. List open questions and classify them as product, architecture, QA, security, legal, compliance, or operations.
+8. Request human approval to proceed to spec review.
+9. After approval, update or prepare `workflow-state.yaml` so the capability can move from `intent_review` to `specification_review` when workflow-state is adopted.
 
 ## Outputs
 

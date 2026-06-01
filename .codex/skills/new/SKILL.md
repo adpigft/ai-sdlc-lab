@@ -15,18 +15,21 @@ Use `$new` when a user wants to start a new product capability, feature, or busi
 - Feature or capability name
 - Business problem or opportunity
 - Known domain, channel, user, or customer segment
+- Domain context, such as `domains/<domain>/domain-context.md`, when available
 - Optional Jira Epic reference
 - Optional Confluence or stakeholder notes
 
 ## Process
 1. If Jira is available, create or reference a lightweight Jira Epic shell as a discovery container.
 2. Confirm that Git remains the source of truth and Jira is used for work management and approval tracking.
-3. Begin intent discovery using `ba-intent`.
-4. Ask discovery questions before creating Git artifacts.
-5. Summarize users, outcomes, scope, constraints, risks, and success measures.
-6. Stop for PO / BA approval before creating or updating intent.
-7. After intent approval, continue to specification using `ba-specification`.
-8. Stop at every approval gate and do not generate code.
+3. Read `domains/<domain>/domain-context.md` when the domain is known and the file exists.
+4. Begin intent discovery using `ba-intent`.
+5. Ask discovery questions before creating Git artifacts.
+6. Summarize users, outcomes, scope, constraints, risks, success measures, domain-context reuse, and domain-specific controls.
+7. Stop for PO / BA approval before creating or updating intent.
+8. After intent approval, update or prepare `workflow-state.yaml` to move from `intent_review` to `specification_review` when workflow-state is adopted.
+9. After intent approval, continue to specification using `ba-specification`.
+10. Stop at every approval gate and do not generate code.
 
 ## Outputs
 - Optional Jira Epic shell or Epic reference
@@ -40,6 +43,8 @@ Use `$new` when a user wants to start a new product capability, feature, or busi
 - Specification is created only after intent approval.
 - No source code is generated.
 - Approval evidence is recorded in chat, Jira, or artifact metadata.
+- Domain context was reviewed when available.
+- Workflow-state update guidance is provided after approval.
 
 ## Human gate
 PO / BA approval is required before intent is created or updated, and again before specification starts.
