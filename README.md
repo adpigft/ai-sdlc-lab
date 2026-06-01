@@ -8,12 +8,13 @@ The baseline shows how a payment capability moves from business intent to specif
 
 | Path | Purpose |
 | --- | --- |
-| `skills/` | The only canonical Codex project skill path. Each skill is a folder with `SKILL.md`. |
-| `.ai/skills/` | Legacy/reference role instructions only. Do not use for active skill execution. |
-| `.ai/skills-legacy/` | Legacy/reference role instructions only. Do not use for active skill execution. |
+| `skills/` | Canonical active execution skills for Codex. Each skill is a folder with `SKILL.md`. |
+| `.ai/` | AI SDLC governance, standards, templates, and lifecycle orchestration. Future additions include `skill-governance.md`, `skill-orchestration.md`, and `skills-legacy/`. |
 | `.ai/standards/` | Delivery standards that AI and humans must apply when creating specs, APIs, tests, secure designs, and code. |
 | `.ai/templates/` | Reusable artifact templates for intent, specs, review gates, validation, release, feedback, and traceability. |
 | `.ai/workflows/` | Step-by-step lifecycle workflows from intent capture through release. |
+| `.ai/skills/` | Legacy/reference role instructions only. Do not use for active skill execution. |
+| `.ai/skills-legacy/` | Legacy/reference role instructions only. Do not use for active skill execution. |
 | `.codex/config.toml` | Optional enterprise MCP integration placeholders using environment variables only. |
 | `domains/` | Domain-oriented product artifacts. The current scaffold contains a `payments/khqr-payment` capability. |
 | `traceability/` | Cross-artifact mapping from business intent to Jira, specs, tests, controls, and release evidence. |
@@ -25,6 +26,96 @@ The baseline shows how a payment capability moves from business intent to specif
 | `.github/workflows/` | GitHub Actions governance automation. Artifact validation exists; CI jobs are placeholders until application code exists. |
 | `sonar-project.properties` | SonarCloud placeholder configuration. Complete it when application code, binaries, and coverage paths exist. |
 | `src/` | Intentionally empty. Do not add application code until specs, tests, traceability, and human gates are approved. |
+
+## AI-Native SDLC Skill Library
+
+The repository organizes AI-native delivery into practical skill families. Some skills are active today; others are planned placeholders in the broader delivery model.
+
+### Core Delivery Skills
+
+- `ba-intent`
+- `ba-specification`
+- `architect-context`
+- `architect-api`
+- `qa-test-design`
+- `qa-validation`
+- `traceability`
+- `developer-implementation`
+- `devsecops-release`
+- `feedback`
+
+### Review Skills
+
+- `requirements-review`
+- `architecture-review`
+- `api-review`
+- `code-review`
+
+### ADR Skills
+
+- `adr-creation`
+- `adr-review`
+- `adr-approval`
+- `adr-impact-analysis`
+
+### Change & Defect Skills
+
+- `change-impact-analysis`
+- `change-design`
+- `change-implementation`
+- `defect-analysis`
+- `root-cause-analysis`
+- `production-feedback`
+- `incident-analysis`
+
+### Enterprise Skills
+
+- `jira-lifecycle`
+- `confluence-publisher`
+- `sprint-planning`
+- `dependency-management`
+- `risk-management`
+- `release-management`
+- `governance-reporting`
+
+## Supported Delivery Flows
+
+### New Feature Flow
+
+Intent -> Specification -> Architecture -> ADR -> API Contract -> Acceptance Tests -> Traceability -> Validation Plan -> Implementation Plan -> Controlled Slice Delivery -> Validation -> Release -> Feedback
+
+### Change Request Flow
+
+Feedback -> Change Impact Analysis -> Impacted Artifact Update -> Targeted Implementation -> Validation -> Release
+
+### Defect Flow
+
+Defect Analysis -> Root Cause Analysis -> Targeted Fix -> Validation -> Release
+
+### Production Incident Flow
+
+Incident Analysis -> Root Cause Analysis -> Corrective Action -> Preventive Action
+
+### ADR Flow
+
+ADR Creation -> ADR Review -> ADR Approval -> Architecture Update
+
+## Human Approval Gates
+
+Required approvals:
+
+- Intent
+- Specification
+- Architecture
+- API Contract
+- Test Design
+- Implementation Plan
+- Validation
+- Release
+
+Principle:
+
+AI drafts and validates. Humans approve.
 
 ## Operating Principles
 
@@ -71,6 +162,8 @@ Before release:
 
 ## Enterprise MCP
 
+Git is the source of truth. Jira is for work management. Confluence is for publishing. GitHub is for source control and CI/CD.
+
 Optional MCP placeholders are documented in `.codex/config.toml` and `docs/automation/mcp-setup.md` for Jira, Confluence, and GitHub.
 
 Rules:
@@ -82,13 +175,46 @@ Rules:
 
 ## Subagents
 
-Subagent guidance is documented in `docs/subagents/subagent-workflows.md`. Subagents may be used for parallel review of existing artifacts, such as security review, QA coverage review, architecture consistency review, release readiness review, or documentation consistency review.
+Subagents are used only for parallel review.
 
-Subagents must not skip the sequential AI SDLC workflow, bypass human approval gates, create application code early, or override GitHub Actions and SonarCloud evidence.
+Examples:
+
+- Architecture Review
+- Security Review
+- QA Review
+- Release Readiness Review
+
+Subagents must not:
+
+- bypass approval gates
+- generate production code independently
+- override CI/CD evidence
+
+## Enterprise Automation Roadmap
+
+### Phase 1
+
+- Skills
+- Workflows
+- Traceability
+- Validation
+
+### Phase 2
+
+- Jira MCP
+- Confluence Publishing
+- GitHub Actions Enforcement
+- SonarCloud Gates
+
+### Phase 3
+
+- Automated Jira Lifecycle
+- Governance Reporting
+- Release Reporting
 
 ## Current Status
 
-This is a baseline AI SDLC governance repository. The current focus is AI SDLC governance artifacts and the KHQR feature specification package.
+This is a baseline AI SDLC governance repository. The current focus is the AI-native SDLC validation workflow, the slice-based implementation model, ADR-driven architecture governance, and the change-request and defect workflows planned for the next phase.
 
 Already set up:
 
