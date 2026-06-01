@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  build:
+    name: Build placeholder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build
+        shell: bash
+        run: |
+          echo "No application code exists yet."
+          echo "Replace this placeholder with the approved build command after the build readiness gate."
+
+  unit-tests:
+    name: Unit test placeholder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Unit tests
+        shell: bash
+        run: |
+          echo "No unit tests exist yet."
+          echo "Replace this placeholder after application code and test framework are approved."
+
+  integration-tests:
+    name: Integration test placeholder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Integration tests
+        shell: bash
+        run: |
+          echo "No integration tests exist yet."
+          echo "Replace this placeholder after integration boundaries and test environments are approved."
+
+  security-scan:
+    name: Security scan placeholder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Security scan
+        shell: bash
+        run: |
+          echo "Security scan placeholder."
+          echo "Add dependency, secret, SAST, and IaC scans before application release."
+
+  sonarcloud:
+    name: SonarCloud analysis placeholder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud analysis
+        shell: bash
+        run: |
+          echo "SonarCloud placeholder."
+          echo "Configure SONAR_TOKEN and replace this step with SonarSource/sonarcloud-github-action after application code exists."
