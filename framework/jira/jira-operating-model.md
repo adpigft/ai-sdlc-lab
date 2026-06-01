@@ -1,58 +1,111 @@
-# Jira Operating Model
+# Jira Operating Model For AI-Native SDLC
 
 ## Purpose
 
-Define how Jira supports the AI SDLC workflow while Git remains the source of truth for delivery artifacts.
+Define how Jira supports AI-native software delivery while Git remains the source of truth for approved delivery artifacts and Confluence remains the publishing channel for stakeholder-facing summaries.
 
-## Principle
+## Model
 
-Jira manages work, ownership, workflow status, and approval evidence. Git stores the approved content: intent, specification, architecture, contracts, tests, implementation, validation, release artifacts, traceability, standards, and decisions.
+### Source Of Truth
 
-## Lifecycle Flow
+| System | Source Of Truth For |
+| --- | --- |
+| Git | Intent, specification, architecture, API contracts, tests, ADRs, implementation plans, validation reports, release notes, traceability. |
+| Jira | Ownership, delivery status, approvals, sprint planning, dependencies, blockers, work management. |
+| Confluence | Stakeholder-facing published summaries, operating model pages, management communication. |
+
+### Recommended Lifecycle
 
 ```text
-Idea -> Epic -> Intent -> Specification -> Stories -> Implementation Slices -> Tasks/Subtasks -> PRs -> Validation -> Release
+Idea
+-> Epic
+-> Intent
+-> Specification
+-> Architecture
+-> Test Design
+-> Story Breakdown
+-> Implementation Slice Planning
+-> Tasks/Subtasks
+-> PR
+-> Validation
+-> Release
 ```
 
-## Jira Responsibilities
+### Jira Issue Types
 
-| Jira Area | Responsibility |
+| Issue Type | Purpose |
 | --- | --- |
-| Intake | Capture raw idea, requester, business area, urgency, and triage decision. |
-| Epic | Hold discovery scope, high-level outcome, owner, approvals, and links to Git artifacts. |
-| Story | Track approved business value after specification approval. |
-| Task | Track implementation, architecture, QA, DevSecOps, or documentation work. |
-| Subtask | Track small execution steps under a Story or Task. |
-| Defect | Track incorrect behavior, validation failures, production defects, and fixes. |
-| Release | Track release readiness, approval, deployment window, rollback, and known risks. |
+| Initiative | Optional container for large programs spanning multiple capabilities. |
+| Epic | Capability delivery container. |
+| Story | Business capability slice; not one functional requirement. |
+| Task | Implementation slice or engineering activity. |
+| Subtask | Detailed engineering work under a Task. |
+| Defect | Test, validation, or production defect. |
+| Release | Release or change package. |
+| Decision | Independent decision issue linked to affected Epics and capabilities. |
 
-## Git Responsibilities
+### Core Mapping
 
-| Git Artifact | Responsibility |
+| Jira | Git |
 | --- | --- |
-| `domains/**/intent/intent.md` | Approved business intent. |
-| `domains/**/specs/spec.md` | Approved functional and non-functional specification. |
-| `domains/**/context/context.md` | Approved architecture context and design assumptions. |
-| `domains/**/contracts/openapi.yaml` | Approved API contract. |
-| `domains/**/tests/acceptance.feature` | Approved acceptance test design. |
-| `domains/**/design/implementation-plan.md` | Approved implementation slices when used. |
-| `src/` | Approved application source code. |
-| `domains/**/validation/validation-report.md` | QA validation evidence and release recommendation. |
-| `domains/**/release/release-notes.md` | Release scope, risks, rollback, and approvals. |
-| `traceability/traceability-matrix.md` | End-to-end mapping from intent to release evidence. |
-| `feedback/feedback-log.md` | Feedback, defects, change requests, and learning loop. |
+| Epic | Capability folder |
+| Story | Group of functional requirements |
+| Task | Implementation slice |
+| Defect | Defect/RCA and validation evidence |
+| Decision | ADR |
+| Release | Validation report and release notes |
 
-## Confluence Responsibilities
+Important rules:
 
-Confluence publishes stakeholder-facing summaries of approved Git content. It may include capability summaries, operating model pages, release summaries, diagrams, and support notes, but it must link back to Git and Jira.
+- A Jira Story is not equal to one Functional Requirement.
+- A Story may contain multiple FRs.
+- FRs live in Git specification.
+- Implementation Slice sits between Story and Task.
+- The build breakdown is `Story -> Slice -> Tasks/Subtasks`.
 
-## Approval Evidence
+## Example
 
-Approval can be recorded in Jira status, Jira approval fields, PR approvals, signed artifacts, or lab chat confirmation. The Git artifact should reference the approval evidence when the approval affects lifecycle progress.
+QR Refund:
 
-## Non-Goals
+| Jira Level | Example |
+| --- | --- |
+| Epic | QR Refund |
+| Story | Merchant Refund Creation |
+| Story | Operations Refund and Override |
+| Story | Refund Status Tracking |
+| Story | Reconciliation and Reporting |
+| Slice | Slice 1 Refund Creation Foundation |
+| Slice | Slice 2 Processor and Ledger Integration |
+| Slice | Slice 3 Operations Override |
+| Slice | Slice 4 Retry and Exception Handling |
+| Slice | Slice 5 Reconciliation |
+| Slice | Slice 6 Reporting Projection Seam |
 
-- Do not store canonical specifications only in Jira.
-- Do not use Confluence as the source of truth for approved artifacts.
-- Do not create implementation Tasks before the relevant intent, specification, architecture, tests, and traceability are approved.
-- Do not use Jira status to override GitHub Actions, SonarCloud, or validation evidence.
+Example Git mapping:
+
+| Jira Item | Git Source |
+| --- | --- |
+| QR Refund Epic | `domains/payments/capabilities/qr-refund/` |
+| Merchant Refund Creation Story | `specs/spec.md` requirements such as `FR-QRREF-001`, `FR-QRREF-003`, `FR-QRREF-004`, `FR-QRREF-009`, `FR-QRREF-010` |
+| Slice 1 Task | `design/implementation-plan.md` Slice 1 |
+| Idempotency Decision | ADR or architecture decision linked to `ADR-QRREF-003` |
+| QR Refund Release | `validation/validation-report.md` and `release/release-notes.md` |
+
+## Do / Don't Rules
+
+Do:
+
+- Use Jira to show ownership, status, blockers, sprint scope, and approval evidence.
+- Link every meaningful Jira item to Git paths or stable artifact IDs.
+- Create Stories after specification approval.
+- Create Tasks after implementation slices are defined.
+- Use Decision issues for unresolved choices that block architecture, tests, implementation, validation, or release.
+- Keep Confluence summaries linked back to Git and Jira.
+
+Do not:
+
+- Use Jira as the canonical store for requirements.
+- Treat one Story as one FR.
+- Create implementation Tasks before approved intent, specification, architecture, tests, and traceability.
+- Use Jira status to override missing Git evidence, failed CI, failed quality gates, or missing validation.
+- Store secrets, credentials, customer data, or sensitive operational data in Jira.

@@ -1,80 +1,94 @@
-# Jira Traceability Model
+# Jira To Git Traceability Model
 
 ## Purpose
 
-Define how Jira issue references connect to Git-owned source-of-truth artifacts and end-to-end traceability.
+Define how Jira issues map to Git-owned source-of-truth artifacts and how delivery traceability is maintained across AI-native SDLC work.
 
-## Traceability Chain
+## Model
+
+Core mappings:
 
 ```text
-Epic -> Intent -> Specification -> Story -> Implementation Slice -> Task/Subtask -> PR -> Test -> Validation -> Release -> Feedback
+Epic -> Capability folder
+Story -> Group of FRs
+Task -> Implementation Slice
+Defect -> Defect/RCA and validation evidence
+Decision -> ADR
+Release -> Validation Report and Release Notes
 ```
 
-## Source Of Truth By Link Type
+End-to-end chain:
 
-| Trace Item | Jira Role | Git Source Of Truth |
+```text
+Initiative
+-> Epic
+-> Capability
+-> Intent
+-> Specification
+-> Story
+-> Implementation Slice
+-> Task/Subtask
+-> PR
+-> Test
+-> Validation
+-> Release
+-> Feedback
+```
+
+## Mapping Table
+
+| Jira Issue | Git Artifact | Required Stable IDs |
 | --- | --- | --- |
-| Epic | Capability container and approval tracking. | Intent/spec/design links in Git artifacts and traceability. |
-| Intent | Approval tracking and Epic linkage. | `domains/**/intent/intent.md` |
-| Requirement | Story linkage and delivery tracking. | `domains/**/specs/spec.md` |
-| Story | Work tracking for approved requirement scope. | Requirement IDs and acceptance criteria in Git. |
-| Implementation Slice | Work sequencing and readiness tracking. | `domains/**/design/implementation-plan.md` when used. |
-| Task/Subtask | Execution tracking. | Code, tests, design updates, validation evidence in Git. |
-| PR | Review and merge tracking. | GitHub PR, commits, and code in Git. |
-| Test | QA execution tracking. | `domains/**/tests/acceptance.feature` and validation evidence. |
-| Validation | Validation task and approval tracking. | `domains/**/validation/validation-report.md` |
-| Release | Change and release approval tracking. | `domains/**/release/release-notes.md` |
-| Feedback | Follow-up work and issue tracking. | `feedback/feedback-log.md` |
+| Initiative | Multiple capability folders or roadmap references | Initiative key, Epic keys |
+| Epic | `domains/<domain>/capabilities/<capability>/` | Epic key, capability ID |
+| Story | `domains/**/specs/spec.md` | Story key, `FR-*` group |
+| Task | `domains/**/design/implementation-plan.md` | Task key, Slice ID |
+| Subtask | Parent Task and affected Git path | Subtask key, parent Task key |
+| Defect | RCA artifact, validation evidence, feedback row | Defect key, RCA ID, validation evidence ID |
+| Decision | ADR or architecture decision record | Decision key, ADR ID |
+| Release | `validation-report.md`, `release-notes.md` | Release key, validation ID, release ID |
 
-## Minimum Traceability Fields
+## Story To FR Rule
 
-| Field | Description |
+A Jira Story is not equal to one Functional Requirement.
+
+Rules:
+
+- A Story is a business capability slice.
+- A Story may contain multiple FRs and NFRs.
+- FRs and NFRs live in Git specification.
+- Story acceptance criteria summarize Git acceptance tests.
+- If FR scope changes, use change control before implementation.
+
+## Example
+
+QR Refund traceability:
+
+| Jira Item | Git Mapping |
 | --- | --- |
-| Intent ID | Stable intent identifier. |
-| Jira Epic | Epic or intake reference. |
-| Requirement ID | Functional or non-functional requirement ID. |
-| Jira Story | Story linked to requirement delivery. |
-| Slice ID | Implementation slice identifier. |
-| Jira Task/Subtask | Delivery execution reference. |
-| PR | Pull request or commit evidence. |
-| API | API operation or contract path when applicable. |
-| Test Scenario | Acceptance, negative, integration, security, or NFR scenario. |
-| Validation Evidence | Validation report, test run, or evidence ID. |
-| Release | Release issue, version, or change record. |
-| Feedback/Defect | Feedback or Defect reference when applicable. |
-| Status | Draft, Ready, Implemented, Validated, Released, or Blocked. |
-| Owner | Responsible role or team. |
+| Epic: QR Refund | `domains/payments/capabilities/qr-refund/` |
+| Story: Merchant Refund Creation | `FR-QRREF-001`, `FR-QRREF-003`, `FR-QRREF-004`, `FR-QRREF-005`, `FR-QRREF-006`, `FR-QRREF-007`, `FR-QRREF-008`, `FR-QRREF-009`, `FR-QRREF-010`, `FR-QRREF-020` |
+| Story: Operations Refund and Override | `FR-QRREF-002`, `FR-QRREF-012`, `FR-QRREF-014`, `FR-QRREF-020` |
+| Story: Refund Status Tracking | `FR-QRREF-016`, `NFR-QRREF-007` |
+| Story: Reconciliation and Reporting | `FR-QRREF-018`, `FR-QRREF-019`, `NFR-QRREF-008` |
+| Task: Slice 1 Refund Creation Foundation | Slice 1 in `design/implementation-plan.md` |
+| Decision: Idempotency and concurrency boundary | `ADR-QRREF-003` |
+| Release: QR Refund MVP | validation report and release notes |
 
-## Jira Link Rules
+## Do / Don't Rules
 
-- Epic links to all Stories, major Tasks, Defects, and Release issues for a capability.
-- Story links to requirement IDs and acceptance scenarios.
-- Task links to implementation slice, Git paths, and PRs.
-- Subtask inherits parent traceability and adds execution detail only.
-- Defect links to failed requirement, failed test, validation evidence, and feedback entry.
-- Release links to approved Stories, Defects, PRs, validation report, release notes, and rollback plan.
+Do:
 
-## Git Reference Rules
+- Record Git paths and stable IDs on Jira issues.
+- Map every Story to one or more FRs.
+- Map every Task to one approved slice or approved artifact update.
+- Map every Defect to RCA, validation evidence, and feedback when applicable.
+- Map every Decision to ADR or decision record.
+- Map every Release to validation and release evidence.
 
-Every material Jira item should reference at least one Git path or stable artifact ID.
+Do not:
 
-Examples:
-
-| Jira Item | Required Git Reference |
-| --- | --- |
-| Epic | `intent.md`, `spec.md`, `traceability-matrix.md` when available. |
-| Story | Requirement ID in `spec.md` and acceptance scenario. |
-| Task | Implementation slice and affected Git path. |
-| Subtask | Parent Task plus affected Git path if different. |
-| Defect | Validation evidence, feedback row, test, or code path. |
-| Release | `validation-report.md`, `release-notes.md`, traceability row. |
-
-## Traceability Quality Checks
-
-- Every Must requirement has a Jira Story or explicitly documented deferral.
-- Every Story maps to at least one requirement ID.
-- Every implementation slice maps to requirements, tests, and Jira Tasks.
-- Every PR maps to a Task, Story, or Defect.
-- Every Defect maps to expected behavior and validation evidence.
-- Every Release maps to approved scope, validation evidence, known risks, and rollback.
-- Every blocked item has an owner, reason, and next action.
+- Treat Jira descriptions as canonical requirements.
+- Treat Story count as requirement count.
+- Close traceability gaps by adding Jira links only.
+- Implement a Task that has no approved slice or artifact reference.
