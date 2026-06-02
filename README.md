@@ -134,10 +134,14 @@ Target placement must be decided during architecture and implementation planning
 
 Use:
 
+- `framework/multi-squad/domain-ownership-model.md`
 - `framework/service-architecture/service-catalog-template.md`
 - `framework/frontend/frontend-catalog-template.md`
+- `framework/multi-squad/shared-asset-ownership-model.md`
 - `framework/service-architecture/implementation-placement-model.md`
+- `framework/service-architecture/domain-onboarding-model.md`
 - `framework/multi-squad/path-governance-model.md`
+- `framework/workflows/review-approval-flow.md`
 
 ---
 
