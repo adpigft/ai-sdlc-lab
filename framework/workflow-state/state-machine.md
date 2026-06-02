@@ -21,7 +21,7 @@ This state machine coordinates lifecycle progress only. It does not replace Git 
 | `implementation_in_progress` | One approved implementation slice is active. | `implementation` |
 | `validation_ready` | Implementation is ready for QA validation. | `validation` |
 | `release_ready` | QA validation is approved and release readiness can start. | `release` |
-| `released` | Release is approved and completed. | `feedback` |
+| `released` | Release is approved and completed. | `feedback-capture` |
 | `blocked` | Required approval, evidence, decision, dependency, or artifact is missing. | Current owner |
 
 ## Approval Transitions
@@ -35,7 +35,7 @@ This state machine coordinates lifecycle progress only. It does not replace Git 
 | `implementation_start_approval` | `implementation_ready` | `implementation_in_progress` | `implementation` |
 | `implementation_slice_approval` | `implementation_in_progress` | `validation_ready` | `validation` |
 | `validation_approval` | `validation_ready` | `release_ready` | `release` |
-| `release_approval` | `release_ready` | `released` | `feedback` |
+| `release_approval` | `release_ready` | `released` | `feedback-capture` |
 
 ## Runtime Behavior
 

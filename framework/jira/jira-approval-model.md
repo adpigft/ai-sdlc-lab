@@ -31,7 +31,7 @@ Jira records approval status and approver evidence. Git stores the approved arti
 | Specification approved | Story creation approval or approval issue | `specs/spec.md` | Product Owner / BA |
 | Architecture approved | Decision or architecture approval issue | `context/context.md`, ADRs, API guidance | Solution Architect |
 | Test design approved | QA approval Task | `tests/acceptance.feature` | QA Lead |
-| Traceability approved | Traceability review Task | `traceability/traceability-matrix.md` | BA / Architect / QA Lead |
+| Traceability approved | traceability-review task | `traceability/traceability-matrix.md` | BA / Architect / QA Lead |
 | Implementation slice approved | Build readiness Task | `design/implementation-plan.md` slice | Product Owner / Architect / QA Lead / Dev Lead as needed |
 | Validation approved | QA validation issue | `validation/validation-report.md` | QA Lead |
 | Release approved | Release issue or change record | `release/release-notes.md` | Product Owner / QA Lead / Architect / DevSecOps / Release Manager |
@@ -54,7 +54,7 @@ QR Refund approval examples:
 | Intent approved | `JIRA-QRREF-001` | `intent/intent.md` | Approved by chat confirmation in lab context. |
 | Specification approved | `JIRA-QRREF-050` | `specs/spec.md` | Approved by chat confirmation in lab context. |
 | Architecture approved | `JIRA-QRREF-060` | `context/context.md` | Approved by chat confirmation in lab context. |
-| Traceability review | `JIRA-QRREF-070` | `traceability/traceability-matrix.md` | Pending. |
+| traceability-review | `JIRA-QRREF-070` | `traceability/traceability-matrix.md` | Pending. |
 | Implementation plan approval | `JIRA-QRREF-090` | `design/implementation-plan.md` | Pending. |
 | Validation plan approval | `JIRA-QRREF-080` | `validation/validation-plan.md` | Pending. |
 

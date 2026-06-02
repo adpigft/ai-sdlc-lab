@@ -44,7 +44,7 @@ next_skill: specification
 | `implementation_start_approval` | Implementation plan and first approved slice | `implementation_ready` | `implementation_in_progress` | `implementation` |
 | `implementation_slice_approval` | Implemented slice, PR, unit tests, review evidence | `implementation_in_progress` | `validation_ready` | `validation` |
 | `validation_approval` | Validation report and evidence | `validation_ready` | `release_ready` | `release` |
-| `release_approval` | Release notes, rollback, risk acceptance, deployment approval | `release_ready` | `released` | `feedback` |
+| `release_approval` | Release notes, rollback, risk acceptance, deployment approval | `release_ready` | `released` | `feedback-capture` |
 
 ## Required Approval Evidence
 

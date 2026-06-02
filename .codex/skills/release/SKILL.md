@@ -26,7 +26,7 @@ Use `$release` when a capability, change, or defect fix is ready for release rea
 4. Confirm GitHub Actions status remains authoritative for CI gates.
 5. Record known risks, operational readiness, rollback, and support handoff.
 6. When release notes or release readiness evidence are created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml`.
-7. Set workflow state to `release_ready`, current artifact to `release/release-notes.md`, pending gate to `release_approval`, next state to `released`, and next skill to `feedback`.
+7. Set workflow state to `release_ready`, current artifact to `release/release-notes.md`, pending gate to `release_approval`, next state to `released`, and next skill to `feedback-capture`.
 8. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
 9. Stop for PO, QA, Architect, and DevSecOps approval.
 
@@ -50,7 +50,7 @@ Use `$release` when a capability, change, or defect fix is ready for release rea
 PO, QA, Architect, and DevSecOps approval is required before release.
 
 ## Next skill or next workflow step
-Use `feedback` or production feedback capture after release.
+Use `feedback-capture` or production feedback capture after release.
 
 ## Example usage
 `$release Prepare release readiness for QR refund pilot`

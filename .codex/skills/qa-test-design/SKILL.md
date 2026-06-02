@@ -40,4 +40,4 @@ Use after API contract is approved.
 QA approval is required before implementation.
 
 ## Next skill
-traceability
+traceability-review

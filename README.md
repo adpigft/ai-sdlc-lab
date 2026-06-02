@@ -2,7 +2,7 @@
 
 This repository defines a baseline operating model for using AI across a banking and digital payments software delivery lifecycle. It is intentionally documentation-first: no application code is included yet.
 
-The baseline shows how a payment capability moves from business intent to specification, implementation readiness, validation, release, and feedback while preserving human accountability, traceability, and audit evidence.
+The baseline shows how a payment capability moves from business intent to specification, implementation readiness, validation, release, and feedback-capture while preserving human accountability, traceability, and audit evidence.
 
 ## Repository Map
 
@@ -12,7 +12,7 @@ The baseline shows how a payment capability moves from business intent to specif
 | `.codex/archive/skills/` | Archived skills retained for future reuse. They are not recommended for normal use. |
 | `framework/` | AI SDLC governance, standards, templates, and lifecycle orchestration. Legacy role skill files were removed after migration to canonical `.codex/skills/`. |
 | `framework/standards/` | Delivery standards that AI and humans must apply when creating specs, APIs, tests, secure designs, and code. |
-| `framework/templates/` | Reusable artifact templates for intent, specs, review gates, validation, release, feedback, and traceability. |
+| `framework/templates/` | Reusable artifact templates for intent, specs, review gates, validation, release, feedback-capture, and traceability. |
 | `framework/workflows/` | Step-by-step lifecycle workflows from intent capture through release. |
 | `.codex/config.toml` | Optional enterprise MCP integration placeholders using environment variables only. |
 | `domains/` | Domain-oriented product artifacts. The current scaffold contains a `payments/khqr-payment` capability. |
@@ -35,10 +35,17 @@ The repository keeps the active skill library intentionally small. Normal users 
 Normal users use:
 
 - `$new` for a new capability or feature flow
-- `$change` for change requests
-- `$defect` for bugs and defects
+- `$change-request` for change requests
+- `$defect-fix` for bugs and defects
 - `$decision` for architecture decisions and ADRs
 - `$release` for release readiness and release management
+
+Temporary aliases remain available for one migration cycle:
+
+- `$change`
+- `$defect`
+- `$traceability`
+- `$feedback`
 
 ### Specialist Skills
 
@@ -61,8 +68,8 @@ Core specialist skills are internal building blocks used by the user-facing and 
 - `developer-implementation`
 - `qa-test-design`
 - `qa-validation`
-- `traceability`
-- `feedback`
+- `traceability-review`
+- `feedback-capture`
 - `devsecops-release`
 
 Archived skills are retained under `.codex/archive/skills/` for future reuse, but they are not recommended for normal use.
@@ -73,8 +80,8 @@ Archived skills are retained under `.codex/archive/skills/` for future reuse, bu
 - Type `$` to mention or invoke a skill in chat.
 - Examples:
   - `$new Start new feature: QR Refund`
-  - `$change Analyze CR: Support partial refunds`
-  - `$defect Analyze defect: duplicate refund`
+  - `$change-request Analyze CR: Support partial refunds`
+  - `$defect-fix Analyze defect: duplicate refund`
   - `$decision Create ADR for refund idempotency`
   - `$release Prepare release readiness for QR Refund`
 
@@ -229,7 +236,7 @@ Subagents must not:
 
 ## Current Status
 
-This is a baseline AI SDLC governance repository. The current focus is the AI-native SDLC validation workflow, the slice-based implementation model, ADR-driven architecture governance, and the change-request and defect workflows planned for the next phase.
+This is a baseline AI SDLC governance repository. The current focus is the AI-native SDLC validation workflow, the slice-based implementation model, ADR-driven architecture governance, and the change-request and defect-fix workflows planned for the next phase.
 
 Already set up:
 

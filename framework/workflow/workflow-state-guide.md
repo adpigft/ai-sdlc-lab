@@ -30,8 +30,8 @@ Git remains the source of truth for workflow state. Jira may mirror state later,
 | `implementation_ready` | Upstream artifacts are approved and slice planning is ready for build approval. | `design/implementation-plan.md` | `implementation_start_approval` | `implementation` |
 | `implementation_in_progress` | One approved implementation slice is active. | PR, unit tests, source changes, slice evidence | `implementation_slice_approval` | `validation` |
 | `validation_ready` | Implementation is ready for QA validation or validation evidence is drafted. | `validation/validation-report.md` | `validation_approval` | `release` |
-| `release_ready` | Validation is approved and release readiness is drafted. | `release/release-notes.md` | `release_approval` | `feedback` |
-| `released` | Release is approved and complete. | Release notes and release approval evidence | None | `feedback` |
+| `release_ready` | Validation is approved and release readiness is drafted. | `release/release-notes.md` | `release_approval` | `feedback-capture` |
+| `released` | Release is approved and complete. | Release notes and release approval evidence | None | `feedback-capture` |
 | `blocked` | Required approval, decision, evidence, dependency, or artifact is missing. | Current blocked artifact | Blocking gate | Current owner |
 
 ## Skill Responsibilities
@@ -67,7 +67,7 @@ The skill should preserve unrelated workflow fields and approval history.
 | approved slice plan / build readiness package | `implementation_ready` | `implementation` | `implementation_start_approval` | `implementation_in_progress` | `implementation` |
 | implemented slice / PR evidence | `implementation_in_progress` | `implementation` | `implementation_slice_approval` | `validation_ready` | `validation` |
 | `validation/validation-report.md` | `validation_ready` | `validation` | `validation_approval` | `release_ready` | `release` |
-| `release/release-notes.md` | `release_ready` | `release` | `release_approval` | `released` | `feedback` |
+| `release/release-notes.md` | `release_ready` | `release` | `release_approval` | `released` | `feedback-capture` |
 
 ## State-Aware Commands
 
@@ -122,7 +122,7 @@ Approval transitions:
 | `implementation_start_approval` | `implementation_ready` | `implementation_in_progress` | `implementation` |
 | `implementation_slice_approval` | `implementation_in_progress` | `validation_ready` | `validation` |
 | `validation_approval` | `validation_ready` | `release_ready` | `release` |
-| `release_approval` | `release_ready` | `released` | `feedback` |
+| `release_approval` | `release_ready` | `released` | `feedback-capture` |
 
 ### `Status.`
 

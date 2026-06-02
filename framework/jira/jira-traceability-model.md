@@ -44,7 +44,7 @@ Initiative
 | Story | `domains/**/specs/spec.md` | Story key, `FR-*` group |
 | Task | `domains/**/design/implementation-plan.md` | Task key, Slice ID |
 | Subtask | Parent Task and affected Git path | Subtask key, parent Task key |
-| Defect | RCA artifact, validation evidence, feedback row | Defect key, RCA ID, validation evidence ID |
+| Defect | RCA artifact, validation evidence, feedback-capture row | Defect key, RCA ID, validation evidence ID |
 | Decision | ADR or architecture decision record | Decision key, ADR ID |
 | Release | `validation-report.md`, `release-notes.md` | Release key, validation ID, release ID |
 
@@ -82,7 +82,7 @@ Do:
 - Record Git paths and stable IDs on Jira issues.
 - Map every Story to one or more FRs.
 - Map every Task to one approved slice or approved artifact update.
-- Map every Defect to RCA, validation evidence, and feedback when applicable.
+- Map every Defect to RCA, validation evidence, and feedback-capture when applicable.
 - Map every Decision to ADR or decision record.
 - Map every Release to validation and release evidence.
 

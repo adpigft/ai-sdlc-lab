@@ -11,7 +11,7 @@ workflow:
   previous_state: validation_ready
   current_skill: release
   next_state: released
-  next_skill: feedback
+  next_skill: feedback-capture
   blocked: false
   blocked_reason: ""
   conditions:

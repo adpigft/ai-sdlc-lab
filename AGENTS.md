@@ -2,7 +2,7 @@
 
 ## Repository Purpose
 
-This repository demonstrates an AI-native SDLC for banking delivery using Codex, skills, Jira, Confluence, GitHub, GitHub Actions, SonarCloud, traceability, feedback, optional MCP integrations, and human approval gates.
+This repository demonstrates an AI-native SDLC for banking delivery using Codex, skills, Jira, Confluence, GitHub, GitHub Actions, SonarCloud, traceability, feedback-capture, optional MCP integrations, and human approval gates.
 
 ## Important Directories
 
@@ -35,10 +35,17 @@ Do not jump directly to code.
 Normal users should use these orchestration skills:
 
 - `$new` for a new capability or new feature flow.
-- `$change` for change requests.
-- `$defect` for bugs and defects.
+- `$change-request` for change requests.
+- `$defect-fix` for bugs and defects.
 - `$decision` for architecture decisions and ADRs.
 - `$release` for release readiness and release management.
+
+Temporary aliases remain available for one migration cycle:
+
+- `$change`
+- `$defect`
+- `$traceability`
+- `$feedback`
 
 Specialists can use these stage-level entry points:
 
@@ -59,8 +66,8 @@ Core specialist skills are internal building blocks used by the user-facing and 
 - `developer-implementation`
 - `qa-test-design`
 - `qa-validation`
-- `traceability`
-- `feedback`
+- `traceability-review`
+- `feedback-capture`
 - `devsecops-release`
 
 Archived skills under `.codex/archive/skills/` are retained for future reuse, but they are not recommended for normal use.
@@ -72,11 +79,11 @@ For any new feature, follow this order:
 3. `.codex/skills/specification/SKILL.md`
 4. `.codex/skills/architecture/SKILL.md`
 5. `.codex/skills/test-design/SKILL.md`
-6. `.codex/skills/traceability/SKILL.md`
+6. `.codex/skills/traceability-review/SKILL.md`
 7. `.codex/skills/implementation/SKILL.md`
 8. `.codex/skills/validation/SKILL.md`
 9. `.codex/skills/release/SKILL.md`
-10. `.codex/skills/feedback/SKILL.md`
+10. `.codex/skills/feedback-capture/SKILL.md`
 
 The stage-level orchestration skills wrap the specialist skills:
 

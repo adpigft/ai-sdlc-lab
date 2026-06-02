@@ -135,7 +135,7 @@ Approval gate:
 
 | Gate | Jira ID | Approver | Evidence |
 | --- | --- | --- | --- |
-| Story breakdown approved | `JIRA-QRREF-070` | Product Owner / BA / QA Lead | Traceability review in `traceability/traceability-matrix.md` |
+| Story breakdown approved | `JIRA-QRREF-070` | Product Owner / BA / QA Lead | traceability-review in `traceability/traceability-matrix.md` |
 
 ## Slice Planning
 
