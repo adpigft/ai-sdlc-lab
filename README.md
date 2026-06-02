@@ -208,6 +208,7 @@ Intent
 
 | Command | Purpose |
 |----------|----------|
+| $domain-onboarding | Create new domain context before capability creation |
 | $new | Create new capability |
 | $change-request | Create change request |
 | $defect-fix | Create defect fix |

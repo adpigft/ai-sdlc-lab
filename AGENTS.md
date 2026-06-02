@@ -34,6 +34,7 @@ Do not jump directly to code.
 
 Normal users should use these orchestration skills:
 
+- `$domain-onboarding` for a new banking domain before creating capabilities.
 - `$new` for a new capability or new feature flow.
 - `$change-request` for change requests.
 - `$defect-fix` for bugs and defects.
