@@ -1,0 +1,14 @@
+{
+  "issueType": "Decision",
+  "externalId": "{{external_id}}",
+  "parentExternalId": "{{parent_external_id}}",
+  "summary": "{{summary}}",
+  "description": "{{description}}",
+  "labels": ["ai-sdlc", "adr", "{{capability_id}}"],
+  "fields": {
+    "domain": "{{domain}}",
+    "capability": "{{capability}}",
+    "decisionStatus": "{{decision_status}}",
+    "sourceArtifact": "{{source_artifact}}"
+  }
+}

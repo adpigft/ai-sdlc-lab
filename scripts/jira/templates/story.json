@@ -1,0 +1,15 @@
+{
+  "issueType": "Story",
+  "externalId": "{{external_id}}",
+  "parentExternalId": "{{parent_external_id}}",
+  "summary": "{{summary}}",
+  "description": "{{description}}",
+  "labels": ["ai-sdlc", "requirement", "{{capability_id}}"],
+  "fields": {
+    "domain": "{{domain}}",
+    "capability": "{{capability}}",
+    "priority": "{{priority}}",
+    "acceptanceCriteria": "{{acceptance_criteria}}",
+    "sourceArtifact": "{{source_artifact}}"
+  }
+}

@@ -1,4 +1,4 @@
-name: AI SDLC Artifact Validation
+name: AI SDLC Validation
 
 on:
   pull_request:
@@ -13,59 +13,38 @@ permissions:
   contents: read
 
 jobs:
-  validate-ai-sdlc-artifacts:
-    name: Validate required AI SDLC artifacts
+  validate:
+    name: Validate workflow state, artifacts, contracts, traceability, and Java
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Check required artifacts exist and are not empty
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Validate workflow state
         shell: bash
-        run: |
-          set -euo pipefail
+        run: scripts/validate-workflow-state.sh
 
-          required_files=(
-            "domains/payments/capabilities/khqr-payment/intent/intent.md"
-            "domains/payments/capabilities/khqr-payment/specs/spec.md"
-            "domains/payments/capabilities/khqr-payment/context/context.md"
-            "domains/payments/capabilities/khqr-payment/contracts/openapi.yaml"
-            "domains/payments/capabilities/khqr-payment/tests/acceptance.feature"
-            "traceability/traceability-matrix.md"
-            "feedback/feedback-log.md"
-            "domains/payments/capabilities/khqr-payment/validation/validation-report.md"
-            "domains/payments/capabilities/khqr-payment/release/release-notes.md"
-          )
-
-          missing_or_empty=0
-
-          for file in "${required_files[@]}"; do
-            if [[ ! -s "$file" ]]; then
-              echo "::error file=$file::Required AI SDLC artifact is missing or empty"
-              missing_or_empty=1
-            else
-              echo "OK: $file"
-            fi
-          done
-
-          if [[ "$missing_or_empty" -ne 0 ]]; then
-            echo "AI SDLC artifact validation failed."
-            exit 1
-          fi
-
-          echo "AI SDLC artifact validation passed."
-
-      - name: Check governance placeholders
+      - name: Validate required artifacts
         shell: bash
-        run: |
-          set -euo pipefail
+        run: scripts/validate-artifacts.sh
 
-          grep -q "JIRA-KHQR-" traceability/traceability-matrix.md
-          grep -q "CONF-PAY-KHQR-" traceability/traceability-matrix.md
-          grep -q "Human Approval" domains/payments/capabilities/khqr-payment/intent/intent.md
-          grep -q "Human Approval" domains/payments/capabilities/khqr-payment/specs/spec.md
-          grep -q "Human Approval" domains/payments/capabilities/khqr-payment/validation/validation-report.md
-          grep -q "Human Approval" domains/payments/capabilities/khqr-payment/release/release-notes.md
+      - name: Validate traceability
+        shell: bash
+        run: scripts/validate-traceability.sh
 
-          echo "Governance placeholders are present."
+      - name: Validate OpenAPI contracts
+        shell: bash
+        run: scripts/validate-openapi.sh
+
+      - name: Validate Java
+        shell: bash
+        run: scripts/validate-java.sh

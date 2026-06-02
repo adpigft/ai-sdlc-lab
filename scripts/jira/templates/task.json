@@ -1,0 +1,16 @@
+{
+  "issueType": "Task",
+  "externalId": "{{external_id}}",
+  "parentExternalId": "{{parent_external_id}}",
+  "summary": "{{summary}}",
+  "description": "{{description}}",
+  "labels": ["ai-sdlc", "implementation-slice", "{{capability_id}}"],
+  "fields": {
+    "domain": "{{domain}}",
+    "capability": "{{capability}}",
+    "requirementCoverage": "{{requirement_coverage}}",
+    "acceptanceCoverage": "{{acceptance_coverage}}",
+    "codeReadiness": "{{code_readiness}}",
+    "sourceArtifact": "{{source_artifact}}"
+  }
+}

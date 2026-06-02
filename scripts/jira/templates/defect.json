@@ -1,0 +1,14 @@
+{
+  "issueType": "Defect",
+  "externalId": "{{external_id}}",
+  "parentExternalId": "{{parent_external_id}}",
+  "summary": "{{summary}}",
+  "description": "{{description}}",
+  "labels": ["ai-sdlc", "defect", "{{capability_id}}"],
+  "fields": {
+    "domain": "{{domain}}",
+    "capability": "{{capability}}",
+    "validationStatus": "{{validation_status}}",
+    "sourceArtifact": "{{source_artifact}}"
+  }
+}

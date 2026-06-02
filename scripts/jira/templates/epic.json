@@ -1,0 +1,15 @@
+{
+  "issueType": "Epic",
+  "externalId": "{{external_id}}",
+  "summary": "{{summary}}",
+  "description": "{{description}}",
+  "labels": ["ai-sdlc", "capability", "{{capability_id}}"],
+  "fields": {
+    "domain": "{{domain}}",
+    "capability": "{{capability}}",
+    "workflowState": "{{workflow_state}}",
+    "workflowSkill": "{{workflow_skill}}",
+    "confluencePage": "{{confluence_page}}",
+    "sourceArtifact": "{{source_artifact}}"
+  }
+}
