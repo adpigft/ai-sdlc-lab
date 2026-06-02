@@ -129,26 +129,28 @@ is_allowed_for_skill() {
   esac
 }
 
-for changed_file in "${changed_files[@]}"; do
-  [[ -z "$changed_file" ]] && continue
+if [[ "${#changed_files[@]}" -gt 0 ]]; then
+  for changed_file in "${changed_files[@]}"; do
+    [[ -z "$changed_file" ]] && continue
 
-  case "$changed_file" in
-    domains/*)
-      skill="$(current_skill_for_path "$changed_file")"
-      if [[ -z "$skill" ]]; then
-        error "$changed_file" "Domain artifact changed without a matching capability workflow-state.yaml"
-      elif ! is_allowed_for_skill "$changed_file" "$skill"; then
-        error "$changed_file" "Path change is not allowed while capability workflow current_skill is '$skill'"
-      fi
-      ;;
-    traceability/*|feedback/*|src/*)
-      active_skill="$(awk -F': *' '/^[[:space:]]+current_skill:/{print $2; exit}' "${workflow_states[0]:-/dev/null}" 2>/dev/null || true)"
-      if ! is_allowed_for_skill "$changed_file" "$active_skill"; then
-        error "$changed_file" "Path change is not allowed while active workflow current_skill is '${active_skill:-unknown}'"
-      fi
-      ;;
-  esac
-done
+    case "$changed_file" in
+      domains/*)
+        skill="$(current_skill_for_path "$changed_file")"
+        if [[ -z "$skill" ]]; then
+          error "$changed_file" "Domain artifact changed without a matching capability workflow-state.yaml"
+        elif ! is_allowed_for_skill "$changed_file" "$skill"; then
+          error "$changed_file" "Path change is not allowed while capability workflow current_skill is '$skill'"
+        fi
+        ;;
+      traceability/*|feedback/*|src/*)
+        active_skill="$(awk -F': *' '/^[[:space:]]+current_skill:/{print $2; exit}' "${workflow_states[0]:-/dev/null}" 2>/dev/null || true)"
+        if ! is_allowed_for_skill "$changed_file" "$active_skill"; then
+          error "$changed_file" "Path change is not allowed while active workflow current_skill is '${active_skill:-unknown}'"
+        fi
+        ;;
+    esac
+  done
+fi
 
 if [[ "$failures" -ne 0 ]]; then
   exit 1
