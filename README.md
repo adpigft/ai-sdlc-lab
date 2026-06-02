@@ -122,7 +122,22 @@ src/main/java/
 src/test/java/
 ```
 
-Source code is created only after specifications and architecture are approved.
+Source code is created only after specifications, architecture, tests, traceability, and implementation slice approval are complete.
+
+---
+
+# Enterprise Multi-Squad Placement
+
+Current lab implementation may use `src/`. Enterprise delivery should place code under `apps/`, `services/`, and `libraries/` according to approved ownership and path catalogs.
+
+Target placement must be decided during architecture and implementation planning before `$implementation`. The service catalog and frontend catalog remove guesswork by defining owning squads, allowed paths, restricted paths, approvers, and regression scope.
+
+Use:
+
+- `framework/service-architecture/service-catalog-template.md`
+- `framework/frontend/frontend-catalog-template.md`
+- `framework/service-architecture/implementation-placement-model.md`
+- `framework/multi-squad/path-governance-model.md`
 
 ---
 
@@ -632,3 +647,5 @@ This is the recommended starting point for all new users.
 8. AI assists delivery but does not replace governance.
 9. Every requirement must trace to implementation and validation.
 10. Continuous validation is required before release.
+11. Do not write code outside implementation-plan `allowed_paths`.
+12. Do not modify shared libraries, events, platform code, or another squad's app/service without owner approval.
