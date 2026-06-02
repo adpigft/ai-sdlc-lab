@@ -8,8 +8,9 @@
   "fields": {
     "domain": "{{domain}}",
     "capability": "{{capability}}",
-    "priority": "{{priority}}",
-    "acceptanceCriteria": "{{acceptance_criteria}}",
-    "sourceArtifact": "{{source_artifact}}"
+    "mappedRequirementIds": "{{mapped_requirement_ids}}",
+    "acceptanceScenarioIds": "{{acceptance_scenario_ids}}",
+    "linkedImplementationSliceIds": "{{linked_implementation_slice_ids}}",
+    "sourceArtifacts": "{{source_artifacts}}"
   }
 }

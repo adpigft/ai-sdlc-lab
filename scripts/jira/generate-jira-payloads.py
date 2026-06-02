@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -16,6 +17,18 @@ from typing import Any
 SCRIPT_DIR = Path(__file__).resolve().parent
 TEMPLATE_DIR = SCRIPT_DIR / "templates"
 REPO_ROOT = SCRIPT_DIR.parents[1]
+
+
+SPECIAL_STORY_GROUP_NAMES = {
+    "khqr-payment-reversal": {
+        "Slice 1 Reversal Request Foundation": "Reversal Request Creation",
+        "Slice 2 Maker-Checker Decision": "Maker Checker Decision",
+        "Slice 3 Settlement Eligibility": "Settlement Eligibility",
+        "Slice 4 Processor And Ledger Execution": "Processor And Ledger Execution",
+        "Slice 5 Status, Audit, Reconciliation, Observability": "Status Audit Reconciliation Observability",
+        "Slice 6 MVP Exclusions And Release Guards": "MVP Exclusions And Release Guards",
+    }
+}
 
 
 def read_text(path: Path) -> str:
@@ -112,6 +125,82 @@ def rows_in_section(markdown: str, heading: str) -> list[dict[str, str]]:
     return parse_markdown_table(section(markdown, heading))
 
 
+def ids_from_text(text: str, prefixes: tuple[str, ...]) -> list[str]:
+    pattern = r"\b(?:" + "|".join(re.escape(prefix) for prefix in prefixes) + r")-[A-Z0-9]+-\d+\b"
+    return unique(re.findall(pattern, text))
+
+
+def unique(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for value in values:
+        if value not in seen:
+            seen.add(value)
+            result.append(value)
+    return result
+
+
+def expand_jira_ranges(text: str) -> list[str]:
+    ids = ids_from_text(text, ("JIRA",))
+    ranges = re.findall(r"\b(JIRA-[A-Z0-9]+-)(\d+)\s+through\s+\1(\d+)\b", text)
+    for prefix, start, end in ranges:
+        width = max(len(start), len(end))
+        for number in range(int(start), int(end) + 1):
+            ids.append(f"{prefix}{number:0{width}d}")
+    return sort_ids(unique(ids))
+
+
+def sort_ids(values: list[str]) -> list[str]:
+    def key(value: str) -> tuple[str, int, str]:
+        match = re.match(r"^(.+-)(\d+)$", value)
+        if match:
+            return (match.group(1), int(match.group(2)), value)
+        return (value, -1, value)
+
+    return sorted(values, key=key)
+
+
+def parse_acceptance_scenarios(feature_markdown: str) -> list[dict[str, Any]]:
+    scenarios: list[dict[str, Any]] = []
+    pending_tags: list[str] = []
+
+    for raw_line in feature_markdown.splitlines():
+        stripped = raw_line.strip()
+        if stripped.startswith("@"):
+            pending_tags = stripped.split()
+            continue
+
+        match = re.match(r"Scenario(?: Outline)?:\s*(.+)$", stripped)
+        if match:
+            scenarios.append(
+                {
+                    "name": match.group(1).strip(),
+                    "tags": pending_tags,
+                    "jira_ids": [tag.lstrip("@") for tag in pending_tags if tag.startswith("@JIRA-")],
+                    "requirement_ids": [
+                        tag.lstrip("@")
+                        for tag in pending_tags
+                        if tag.startswith("@FR-") or tag.startswith("@NFR-")
+                    ],
+                }
+            )
+            pending_tags = []
+
+    return scenarios
+
+
+def story_group_name(capability_id: str, slice_name: str) -> str:
+    special_name = SPECIAL_STORY_GROUP_NAMES.get(capability_id, {}).get(slice_name)
+    if special_name:
+        return special_name
+
+    return re.sub(r"^Slice\s+\d+\s+", "", slice_name).replace(",", "").strip()
+
+
+def story_external_id(capability_id: str, index: int) -> str:
+    return f"STORY-{capability_id.upper()}-{index:03d}"
+
+
 def load_template(name: str) -> dict[str, Any]:
     return json.loads(read_text(TEMPLATE_DIR / f"{name}.json"))
 
@@ -187,27 +276,57 @@ def build_epic(workflow_path: Path, workflow: dict[str, dict[str, str]], intent_
     return render(load_template("epic"), context)
 
 
-def build_stories(workflow_path: Path, workflow: dict[str, dict[str, str]], spec_path: Path, spec_markdown: str, intent_metadata: dict[str, str]) -> list[dict[str, Any]]:
+def build_stories(
+    workflow_path: Path,
+    workflow: dict[str, dict[str, str]],
+    spec_path: Path,
+    spec_markdown: str,
+    plan_path: Path,
+    plan_markdown: str,
+    acceptance_path: Path | None,
+    acceptance_markdown: str,
+    intent_metadata: dict[str, str],
+) -> list[dict[str, Any]]:
     context = base_context(workflow_path, workflow, intent_metadata)
     epic_key = workflow.get("capability", {}).get("jira_epic") or intent_metadata.get("Jira Epic", "")
     stories: list[dict[str, Any]] = []
+    acceptance_scenarios = parse_acceptance_scenarios(acceptance_markdown)
+    source_artifacts = ", ".join(
+        artifact
+        for artifact in [
+            relative_path(spec_path),
+            relative_path(plan_path),
+            relative_path(acceptance_path) if acceptance_path else "",
+        ]
+        if artifact
+    )
 
-    requirement_rows = rows_in_section(spec_markdown, "Functional Requirements")
-    requirement_rows.extend(rows_in_section(spec_markdown, "Non-Functional Requirements"))
+    for index, row in enumerate(rows_in_section(plan_markdown, "Proposed Implementation Slices"), start=1):
+        slice_name = row.get("Slice", f"Slice {index}")
+        group_name = story_group_name(context["capability_id"], slice_name)
+        requirement_ids = ids_from_text(row.get("Requirement Coverage", ""), ("FR", "NFR"))
+        scenario_ids = expand_jira_ranges(row.get("Acceptance Coverage", ""))
 
-    for index, row in enumerate(requirement_rows, start=1):
-        req_id = row.get("Req ID") or row.get("NFR ID") or row.get("Requirement ID") or f"REQ-{index:03d}"
-        requirement = row.get("Requirement", "")
-        jira = row.get("Jira", "")
+        if not scenario_ids and acceptance_scenarios:
+            mapped_scenario_ids = [
+                jira_id
+                for scenario in acceptance_scenarios
+                if set(requirement_ids).intersection(set(scenario["requirement_ids"]))
+                for jira_id in scenario["jira_ids"]
+            ]
+            scenario_ids = unique(mapped_scenario_ids)
+
+        linked_slice_id = row.get("Jira Placeholder", "")
         context_for_row = {
             **context,
-            "external_id": jira or req_id,
+            "external_id": story_external_id(context["capability_id"], index),
             "parent_external_id": epic_key,
-            "summary": f"{req_id} {requirement}".strip(),
-            "description": requirement,
-            "priority": row.get("Priority", ""),
-            "acceptance_criteria": row.get("Acceptance Criteria", row.get("Acceptance", "")),
-            "source_artifact": relative_path(spec_path),
+            "summary": group_name,
+            "description": row.get("Scope", ""),
+            "mapped_requirement_ids": ", ".join(requirement_ids),
+            "acceptance_scenario_ids": ", ".join(scenario_ids),
+            "linked_implementation_slice_ids": linked_slice_id,
+            "source_artifacts": source_artifacts,
         }
         stories.append(render(load_template("story"), context_for_row))
 
@@ -330,6 +449,15 @@ def build_release(workflow_path: Path, workflow: dict[str, dict[str, str]], vali
 
 def write_payloads(output_dir: Path, bundle: dict[str, Any]) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
+    for stale in ("stories", "tasks", "defects", "decisions"):
+        stale_dir = output_dir / stale
+        if stale_dir.exists():
+            shutil.rmtree(stale_dir)
+    for stale_file in ("payload-bundle.json", "epic.json", "release.json"):
+        stale_path = output_dir / stale_file
+        if stale_path.exists():
+            stale_path.unlink()
+
     (output_dir / "payload-bundle.json").write_text(json.dumps(bundle, indent=2) + "\n", encoding="utf-8")
     (output_dir / "epic.json").write_text(json.dumps(bundle["epic"], indent=2) + "\n", encoding="utf-8")
     (output_dir / "release.json").write_text(json.dumps(bundle["release"], indent=2) + "\n", encoding="utf-8")
@@ -350,6 +478,7 @@ def generate(workflow_state_path: Path) -> dict[str, Any]:
     spec_path = artifact_path(artifacts.get("specification", ""))
     plan_path = artifact_path(artifacts.get("implementation_plan", ""))
     validation_path = artifact_path(artifacts.get("validation_report", ""))
+    acceptance_path = artifact_path(artifacts.get("test_design", ""))
 
     missing = [
         str(path)
@@ -363,11 +492,22 @@ def generate(workflow_state_path: Path) -> dict[str, Any]:
     spec_markdown = read_text(spec_path)
     plan_markdown = read_text(plan_path)
     validation_markdown = read_text(validation_path)
+    acceptance_markdown = read_text(acceptance_path) if acceptance_path is not None and acceptance_path.exists() else ""
     intent_metadata = parse_metadata(intent_markdown)
 
     return {
         "epic": build_epic(workflow_state_path, workflow, intent_markdown),
-        "stories": build_stories(workflow_state_path, workflow, spec_path, spec_markdown, intent_metadata),
+        "stories": build_stories(
+            workflow_state_path,
+            workflow,
+            spec_path,
+            spec_markdown,
+            plan_path,
+            plan_markdown,
+            acceptance_path,
+            acceptance_markdown,
+            intent_metadata,
+        ),
         "tasks": build_tasks(workflow_state_path, workflow, plan_path, plan_markdown, intent_metadata),
         "defects": build_defects(workflow_state_path, workflow, validation_path, validation_markdown, intent_metadata),
         "decisions": build_decisions(workflow_state_path, workflow, intent_metadata),

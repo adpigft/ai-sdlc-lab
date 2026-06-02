@@ -9,7 +9,7 @@ The generator does not call Jira APIs. It reads approved artifact files, applies
 | Jira Issue Type | AI SDLC Source |
 | --- | --- |
 | Epic | Capability |
-| Story | Requirement group |
+| Story | Business requirement group / business capability slice |
 | Task | Implementation slice |
 | Defect | Defect / RCA finding |
 | Decision | ADR |
@@ -43,6 +43,24 @@ The generator resolves artifact paths from `workflow-state.yaml`:
 - `artifacts.release_notes`, when present
 
 It also scans `decisions/ADR-*.md` for local decision payloads.
+
+Functional and non-functional requirements are not generated as individual Stories. They are mapped into grouped Story payload fields.
+
+For KHQR Payment Reversal, the generated Story groups are:
+
+1. Reversal Request Creation
+2. Maker Checker Decision
+3. Settlement Eligibility
+4. Processor And Ledger Execution
+5. Status Audit Reconciliation Observability
+6. MVP Exclusions And Release Guards
+
+Each Story includes:
+
+- mapped FR/NFR IDs
+- acceptance scenario IDs
+- linked implementation slice IDs
+- source artifacts
 
 ## Outputs
 
