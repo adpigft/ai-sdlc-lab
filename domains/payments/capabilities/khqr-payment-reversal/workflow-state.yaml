@@ -7,13 +7,13 @@ capability:
   confluence_page: CONF-PAY-KHQRREV-SPEC
 
 workflow:
-  current_state: release_ready
-  previous_state: validation_ready
-  current_skill: release
-  next_state: released
-  next_skill: feedback-capture
-  blocked: false
-  blocked_reason: ""
+  current_state: blocked
+  previous_state: release_ready
+  current_skill: validation
+  next_state: implementation_in_progress
+  next_skill: ""
+  blocked: true
+  blocked_reason: "Release is blocked because only Slice 1 is validated; remaining slices, release notes, CI evidence, and release approval are not complete."
   conditions:
     - Reversal completion and reconciliation success targets must be approved before validation planning.
 
@@ -35,19 +35,20 @@ artifacts:
   traceability: traceability/traceability-matrix.md
 
 pending_gate:
-  gate: release_approval
-  artifact_type: release_notes
-  artifact_path: domains/payments/capabilities/khqr-payment-reversal/release/release-notes.md
+  gate: remaining_slice_implementation
+  artifact_type: implementation_plan
+  artifact_path: domains/payments/capabilities/khqr-payment-reversal/design/implementation-plan.md
   required_approvers:
-    - Product Owner
-    - QA Lead
     - Solution Architect
-    - DevSecOps Lead
-    - Release Manager
-  status: pending
+    - Developer Lead
+    - QA Lead
+  status: blocked
   approval_reference: ""
   approved_at: ""
-  conditions: []
+  conditions:
+    - Remaining implementation slices must be completed and validated before release readiness.
+    - Release notes must be created before release approval.
+    - CI evidence must be captured before release approval.
 
 approval_gates:
   intent_approval:
@@ -141,7 +142,11 @@ approval_gates:
     approved_at: ""
     conditions: []
 
-blockers: []
+blockers:
+  - "Only Slice 1 is validated; remaining implementation slices are incomplete."
+  - "Release notes are missing."
+  - "CI evidence is incomplete."
+  - "Release approval is not complete."
 
 history:
   - state: intent_review
@@ -276,3 +281,9 @@ history:
     reference: chat-approval-2026-06-02
     timestamp: "2026-06-02"
     notes: QA validation approved. Workflow moved to release readiness and awaits release note drafting and release approval.
+  - state: validation_ready
+    event: workflow_state_correction
+    actor: Codex
+    reference: domains/payments/capabilities/khqr-payment-reversal/validation/validation-report.md
+    timestamp: "2026-06-02"
+    notes: "previous_state: release_ready; corrected_to: blocked from validation_ready evidence; reason: validation report states release not ready and only Slice 1 is validated."

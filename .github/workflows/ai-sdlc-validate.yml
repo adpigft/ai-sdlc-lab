@@ -33,6 +33,10 @@ jobs:
         shell: bash
         run: scripts/validate-workflow-state.sh
 
+      - name: Validate workflow consistency
+        shell: bash
+        run: scripts/validate-workflow-consistency.sh
+
       - name: Validate required artifacts
         shell: bash
         run: scripts/validate-artifacts.sh
@@ -40,6 +44,10 @@ jobs:
       - name: Validate traceability
         shell: bash
         run: scripts/validate-traceability.sh
+
+      - name: Validate release readiness
+        shell: bash
+        run: scripts/validate-release-readiness.sh
 
       - name: Validate OpenAPI contracts
         shell: bash

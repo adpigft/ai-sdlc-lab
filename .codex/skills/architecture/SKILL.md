@@ -26,12 +26,29 @@ Use `$architecture` after specification approval and before implementation. Norm
 4. Identify API contract needs and document them through the active architecture workflow.
 5. Identify ADR needs and route material unresolved decisions to `$decision`.
 6. Include integration, data, security, observability, error handling, operational considerations, and reusable domain patterns.
-7. Define implementation slices only after architecture and API decisions are approved.
-8. When architecture context, API guidance, ADR draft, or implementation planning artifact is created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml`.
-9. Set workflow state to `architecture_review`, current artifact to the architecture-owned draft, pending gate to `architecture_approval`, next state to `test_review`, and next skill to `test-design`.
-10. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
-11. After architecture approval, update `workflow-state.yaml` to move from `architecture_review` to `test_review`.
-12. Ask for Architect approval before downstream implementation.
+7. Define target implementation placement before downstream implementation, or explicitly state that no code placement is required yet.
+8. Define implementation slices only after architecture and API decisions are approved.
+9. When architecture context, API guidance, ADR draft, or implementation planning artifact is created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml`.
+10. Set workflow state to `architecture_review`, current artifact to the architecture-owned draft, pending gate to `architecture_approval`, next state to `test_review`, and next skill to `test-design`.
+11. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
+12. After architecture approval, update `workflow-state.yaml` to move from `architecture_review` to `test_review`.
+13. Ask for Architect approval before downstream implementation.
+
+## Placement metadata
+Before implementation or a code-impacting change, architecture must check or produce placement metadata:
+
+- `target_app`, if frontend is impacted
+- `target_frontend_module`, if frontend is impacted
+- `target_service`, if backend is impacted
+- `target_library`, if shared library is impacted
+- `owning_squad`
+- `allowed_paths`
+- `restricted_paths`
+- `required_approvals`
+- `impacted_capabilities`
+- `regression_scope`
+
+Use `framework/service-architecture/implementation-placement-model.md`, `framework/service-architecture/service-catalog-template.md`, `framework/frontend/frontend-catalog-template.md`, and `framework/multi-squad/shared-asset-ownership-model.md`. If no code placement is required yet, say that explicitly in the architecture output.
 
 ## Outputs
 - Architecture context or design updates
@@ -46,6 +63,7 @@ Use `$architecture` after specification approval and before implementation. Norm
 - Security and data concerns are addressed.
 - ADRs are created for material decisions.
 - Implementation does not start while blocking decisions are unresolved.
+- Implementation placement is defined before implementation, or architecture explicitly says no code placement is required yet.
 - Domain context was reviewed when available.
 - Workflow state points `Review.` to the architecture draft and blocks implementation while material decisions are unresolved.
 

@@ -481,8 +481,10 @@ Run validations:
 
 ```bash
 bash scripts/validate-workflow-state.sh
+bash scripts/validate-workflow-consistency.sh
 bash scripts/validate-artifacts.sh
 bash scripts/validate-traceability.sh
+bash scripts/validate-release-readiness.sh
 bash scripts/validate-openapi.sh
 bash scripts/validate-java.sh
 ```
@@ -500,8 +502,10 @@ All validations passed
 Current capabilities:
 
 - Workflow state validation
+- Workflow consistency validation
 - Artifact validation
 - Traceability validation
+- Release readiness validation
 - OpenAPI validation
 - Java compilation
 - Test execution

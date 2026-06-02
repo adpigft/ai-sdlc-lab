@@ -26,14 +26,31 @@ Use `$defect-fix` when users report incorrect behavior, failed validation, escap
 3. Perform defect analysis within this orchestration skill.
 4. Classify the root cause as requirement, architecture, design, code, test, or operational issue.
 5. Identify impacted artifacts and whether upstream approvals are missing or obsolete.
-6. Identify required validation evidence and regression coverage.
-7. Identify traceability impact and feedback entry impact.
-8. Recommend a targeted correction path.
-9. Ask for approval before updating artifacts, tests, code, validation evidence, or release notes.
-10. Apply only approved targeted fixes.
-11. Update traceability and create or update the feedback entry after approval.
-12. Update or prepare `workflow-state.yaml` after approvals when workflow-state is adopted.
-13. Route to `$validation` for QA evidence after correction.
+6. Map the defect to the owning squad, allowed paths, impacted tests, and regression scope when code may be impacted.
+7. Identify required validation evidence and regression coverage.
+8. Identify traceability impact and feedback entry impact.
+9. Recommend a targeted correction path.
+10. Ask for approval before updating artifacts, tests, code, validation evidence, or release notes.
+11. Apply only approved targeted fixes.
+12. Update traceability and create or update the feedback entry after approval.
+13. Update or prepare `workflow-state.yaml` after approvals when workflow-state is adopted.
+14. Route to `$validation` for QA evidence after correction.
+
+## Placement metadata
+For any code-impacting defect fix, RCA must check or produce:
+
+- `target_app`, if frontend is impacted
+- `target_frontend_module`, if frontend is impacted
+- `target_service`, if backend is impacted
+- `target_library`, if shared library is impacted
+- `owning_squad`
+- `allowed_paths`
+- `restricted_paths`
+- `required_approvals`
+- `impacted_capabilities`
+- `regression_scope`
+
+Defect fixes must map the defect to the responsible owner, impacted tests, and regression scope. If `allowed_paths` or `restricted_paths` are missing for a code fix, stop for architecture or implementation planning before editing code.
 
 ## Outputs
 - Defect analysis summary
@@ -51,6 +68,7 @@ Use `$defect-fix` when users report incorrect behavior, failed validation, escap
 - Fixes do not bypass missing upstream approval.
 - Corrections are targeted and traceable.
 - Regression and negative test needs are identified.
+- Code-impacting fixes identify owner, allowed paths, impacted tests, and regression scope.
 - Validation evidence is identified before closure.
 - Feedback entry is created or explicitly marked not required.
 - Domain context was reviewed when available.

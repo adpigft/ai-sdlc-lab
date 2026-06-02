@@ -22,16 +22,34 @@ Use `$implementation` only after intent, specification, architecture, API where 
 ## Process
 1. Confirm all upstream approvals and traceability are present.
 2. Read `domains/<domain>/domain-context.md` when the domain is known and the file exists.
-3. Use `developer-implementation`.
-4. Use TDD for the approved slice: failing test, implementation, passing test, refactor.
-5. Keep changes limited to the approved slice.
-6. Stop and report gaps instead of coding around missing or conflicting approved artifacts.
-7. When implementation slice planning, build readiness, code, unit tests, or PR evidence are created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml`.
-8. For build readiness or slice planning, set workflow state to `implementation_ready`, pending gate to `implementation_start_approval`, next state to `implementation_in_progress`, and next skill to `implementation`.
-9. For an implemented slice or PR evidence, set workflow state to `implementation_in_progress`, current artifact to the slice/PR evidence, pending gate to `implementation_slice_approval`, next state to `validation_ready`, and next skill to `validation`.
-10. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
-11. After implementation slice approval, update `workflow-state.yaml` to move from `implementation_in_progress` to `validation_ready`.
-12. Prepare the slice for review and validation.
+3. Check implementation placement metadata before writing code.
+4. Stop if `allowed_paths` or `restricted_paths` are missing for a code-impacting slice.
+5. Use `developer-implementation`.
+6. Use TDD for the approved slice: failing test, implementation, passing test, refactor.
+7. Keep changes limited to the approved slice and do not write outside `allowed_paths`.
+8. Stop and report gaps instead of coding around missing or conflicting approved artifacts.
+9. When implementation slice planning, build readiness, code, unit tests, or PR evidence are created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml`.
+10. For build readiness or slice planning, set workflow state to `implementation_ready`, pending gate to `implementation_start_approval`, next state to `implementation_in_progress`, and next skill to `implementation`.
+11. For an implemented slice or PR evidence, set workflow state to `implementation_in_progress`, current artifact to the slice/PR evidence, pending gate to `implementation_slice_approval`, next state to `validation_ready`, and next skill to `validation`.
+12. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
+13. After implementation slice approval, update `workflow-state.yaml` to move from `implementation_in_progress` to `validation_ready`.
+14. Prepare the slice for review and validation.
+
+## Placement metadata
+Before implementation or a code-impacting change, the approved slice must define:
+
+- `target_app`, if frontend is impacted
+- `target_frontend_module`, if frontend is impacted
+- `target_service`, if backend is impacted
+- `target_library`, if shared library is impacted
+- `owning_squad`
+- `allowed_paths`
+- `restricted_paths`
+- `required_approvals`
+- `impacted_capabilities`
+- `regression_scope`
+
+Implementation must stop if `allowed_paths` or `restricted_paths` are missing. Implementation must not write outside `allowed_paths`; if work requires a restricted or unapproved path, stop for architecture and owner review.
 
 ## Outputs
 - Unit tests and implementation code for the approved slice
@@ -46,6 +64,8 @@ Use `$implementation` only after intent, specification, architecture, API where 
 - Code maps to approved requirements and test design.
 - No secrets are committed.
 - Missing upstream approval blocks implementation.
+- Missing placement metadata blocks code-impacting implementation.
+- Code changes stay inside approved `allowed_paths`.
 - Domain context was reviewed when available.
 - Workflow state distinguishes build readiness from implemented-slice review.
 - `Review.`, `Approved.`, and `Status.` can identify the active slice or blocker from workflow state.
