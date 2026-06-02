@@ -237,6 +237,7 @@ Source artifacts:
 - API contract: `domains/payments/capabilities/khqr-payment-reversal/contracts/openapi.yaml`
 - Acceptance tests: `domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature`
 - Implementation plan: `domains/payments/capabilities/khqr-payment-reversal/design/implementation-plan.md`
+- Validation report: `domains/payments/capabilities/khqr-payment-reversal/validation/validation-report.md`
 - Workflow state: `domains/payments/capabilities/khqr-payment-reversal/workflow-state.yaml`
 
 ### Intent To Functional Requirements
@@ -291,7 +292,7 @@ Source artifacts:
 | NFR-KHQRREV-006 Safe degradation | JIRA-KHQRREV-055 | Validate unknown or partial processor/ledger outcomes remain traceable and do not duplicate execution. | Processor/ledger split outcomes; operational observability | Covered by acceptance design |
 | NFR-KHQRREV-007 Observability | JIRA-KHQRREV-056 | Validate metrics, logs, traces, alerts, and queue visibility for lifecycle outcomes. | Operational observability exists for reversal lifecycle | Pending validation evidence |
 | NFR-KHQRREV-008 Operations visibility | JIRA-KHQRREV-057 | Validate pending and failed reversals expose safe owner, age, reason, and next action. | Pending threshold handling; authorized status view | Covered by acceptance design |
-| NFR-KHQRREV-009 Pipeline evidence | JIRA-KHQRREV-058 | Validate GitHub Actions, relevant tests, security checks, and quality gates once code exists. | Future validation report / CI evidence | Blocked until source code exists |
+| NFR-KHQRREV-009 Pipeline evidence | JIRA-KHQRREV-058 | Validate GitHub Actions, relevant tests, security checks, and quality gates once CI exists. | Future validation report / CI evidence | Blocked until CI/GitHub Actions evidence exists |
 
 ### Architecture Decisions To Components
 
