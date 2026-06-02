@@ -1,585 +1,668 @@
 # AI-Native SDLC Framework
 
-This repository is a spec-driven AI-native SDLC framework for banking delivery. It shows how Product Owners, Business Analysts, Solution Architects, QA, Developers, DevSecOps, platform teams, and domain squads can move from business intent to controlled implementation, validation, release, and feedback without losing traceability or human approval.
+## What Is This?
 
-The framework uses:
+This repository provides a **spec-driven AI-native delivery framework** for building banking and digital platform capabilities.
 
-- Git as the source of truth for intent, specs, architecture, APIs, tests, code, traceability, validation, release evidence, standards, and ADRs.
-- Jira as the workflow tracker for Epics, Stories, Tasks, defects, approvals, and work management.
-- Confluence as a published view for stakeholder summaries and operating-model pages.
-- GitHub Actions as the validation guardrail for workflow state, artifacts, traceability, OpenAPI, and test execution.
+The framework helps teams move from:
 
-AI can draft, compare, validate, and summarize. Humans approve scope, risk, architecture, implementation readiness, validation, and release.
+```text
+Idea
+→ Intent
+→ Specification
+→ Architecture
+→ API Contract
+→ Test Design
+→ Implementation
+→ Validation
+→ Release
+→ Feedback
+```
 
-## Quick Start
+The framework supports:
 
-1. Read this README once end to end.
-2. Pick an existing capability to inspect, such as `domains/payments/capabilities/khqr-payment-reversal/`.
-3. Run `Status.` in Codex to see the active lifecycle state from `workflow-state.yaml`.
-4. Run the local validation scripts listed in [Validation Commands](#validation-commands).
-5. For a new capability in an existing domain, start with `$new <Capability Name>`.
-6. For a new domain, create `domains/<domain>/domain-context.md` before running `$new`.
-7. Do not touch `src/` until an implementation slice has explicit approval.
+- Product Owners (PO)
+- Business Analysts (BA)
+- Solution Architects (SA)
+- Developers
+- QA Engineers
+- DevSecOps Engineers
 
-Jira and Confluence are optional/offline foundations for now. The scripts generate draft payloads and summaries, but they do not call Jira or Confluence APIs.
+### Source of Truth
+
+| Purpose | Tool |
+|----------|----------|
+| Delivery Artifacts | Git |
+| Workflow & Approvals | Jira |
+| Stakeholder Summaries | Confluence |
+| Validation & Automation | GitHub Actions |
+
+Git remains the single source of truth for all delivery artifacts.
+
+---
+
+# Repository Structure
+
+```text
+domains/
+├── <domain>/
+│   ├── domain-context.md
+│   └── capabilities/
+│       └── <capability>/
+│           ├── intent/
+│           ├── specs/
+│           ├── context/
+│           ├── contracts/
+│           ├── tests/
+│           ├── design/
+│           ├── validation/
+│           ├── release/
+│           └── workflow-state.yaml
+
+apps/
+├── mobile-banking-app/
+
+services/
+├── payments/
+├── cards/
+├── deposits/
+├── lending/
+├── operations/
+
+libraries/
+
+platform/
+
+framework/
+
+traceability/
+
+feedback/
+
+scripts/
+
+src/
+```
+
+---
+
+# First Time Setup
 
 ## Prerequisites
 
-Local tooling:
+Install:
 
 - Git
-- Bash
+- Java 21
 - Python 3
-- Ruby, for YAML/OpenAPI parsing in validation
-- Java/JDK, for Java compilation and executable tests where applicable
-- Codex with the repository skills available under `.codex/skills/`
+- Codex CLI
+- GitHub Account
 
-Optional tooling:
+Optional:
 
-- Jira access, when work tracking moves beyond offline payload review
-- Confluence access, when summary publishing moves beyond offline draft review
-- GitHub Actions access, for hosted CI validation
-- SonarCloud access, once application code and quality gates are configured
+- Jira Access
+- Confluence Access
 
-No Jira or Confluence credentials are required for the current offline foundations.
+## Validate Repository
 
-## Repository Structure
-
-| Path | Purpose |
-| --- | --- |
-| `domains/` | Delivery knowledge: domain-owned intent, requirements, architecture, contracts, tests, validation, release, and workflow state. |
-| `domains/<domain>/domain-context.md` | Domain glossary, boundaries, shared rules, integrations, events, APIs, risks, and patterns. New domains must create this first. |
-| `domains/<domain>/capabilities/<capability>/` | Capability lifecycle artifacts: intent, spec, context, contracts, tests, design, validation, release, and workflow state. |
-| `apps/` | Channel or product applications, such as a shared Flutter mobile banking app. |
-| `services/` | Backend services grouped by domain and service name. |
-| `libraries/` | Shared libraries governed separately from application and service squads. |
-| `platform/` | Platform templates, bootstrap assets, service templates, and platform enablement patterns. |
-| `framework/` | SDLC governance, standards, workflows, templates, events, frontend, libraries, service architecture, and multi-squad guidance. |
-| `.codex/skills/` | Canonical active Codex skills. These drive the AI-native lifecycle. |
-| `traceability/` | End-to-end traceability matrix from intent to Jira, requirements, architecture, APIs, tests, validation, release, and feedback. |
-| `feedback/` | Feedback log for findings, defects, change requests, stakeholder feedback, and corrections. |
-| `scripts/` | Local automation foundations for validation, Jira payload generation, and Confluence summary generation. |
-| `src/` | Implementation code and tests. This must not be touched before implementation slice approval. |
-
-## How `src/` Is Used
-
-`domains/` contains delivery knowledge. It describes what should be built, why it matters, which rules apply, which APIs and tests are approved, and what evidence is required.
-
-`src/` contains implementation code. It is used only after the lifecycle has approved:
-
-- intent
-- specification
-- architecture
-- API contract where applicable
-- test design
-- traceability
-- implementation plan
-- implementation slice approval
-
-Before slice approval, do not add, edit, or reorganize `src/`. If a gap appears in approved artifacts, stop and report the gap instead of coding around it.
-
-## First Exercise For New Users
-
-Use the existing payments example to learn the framework:
-
-1. Inspect `domains/payments/domain-context.md`.
-2. Inspect `domains/payments/capabilities/khqr-payment-reversal/workflow-state.yaml`.
-3. Run `Status.` in Codex.
-4. Read the intent, spec, context, OpenAPI contract, acceptance tests, implementation plan, validation report, and traceability rows for KHQR Payment Reversal.
-5. Run the validation scripts locally.
-6. Generate offline Jira payloads to `/tmp/jira-payloads-review`.
-7. Generate offline Confluence summaries to `/tmp/confluence-summaries-review`.
-8. Review the outputs and confirm Git artifacts remain the source of truth.
-
-Suggested commands:
+Run:
 
 ```bash
-scripts/validate-workflow-state.sh
-scripts/validate-artifacts.sh
-scripts/validate-traceability.sh
-scripts/validate-openapi.sh
-scripts/validate-java.sh
-
-python3 -B scripts/jira/generate-jira-payloads.py \
-  --workflow-state domains/payments/capabilities/khqr-payment-reversal/workflow-state.yaml \
-  --output-dir /tmp/jira-payloads-review
-
-python3 -B scripts/confluence/generate-summary.py \
-  --workflow-state domains/payments/capabilities/khqr-payment-reversal/workflow-state.yaml \
-  --output-dir /tmp/confluence-summaries-review
+bash scripts/validate-workflow-state.sh
+bash scripts/validate-artifacts.sh
+bash scripts/validate-traceability.sh
+bash scripts/validate-openapi.sh
+bash scripts/validate-java.sh
 ```
 
-## Existing Domain Usage
+Expected result:
+
+```text
+All validations passed.
+```
+
+---
+
+# Learn The Framework
+
+Start with the sample capability:
+
+```text
+domains/payments/capabilities/khqr-payment-reversal/
+```
+
+Review:
+
+```text
+intent/
+specs/
+context/
+contracts/
+tests/
+design/
+validation/
+workflow-state.yaml
+```
+
+Check current workflow state:
+
+```text
+Status.
+```
+
+---
+
+# Creating A New Capability
 
 Example:
 
-- Existing domain: `payments`
-- New capability: `KHQR Payment Reversal`
+```text
+Existing Domain:
+payments
 
-Typical command flow:
+New Capability:
+KHQR Payment Reversal
+```
+
+Workflow:
 
 ```text
 $new KHQR Payment Reversal
+
 Review.
 Approved.
+
 $specification
+
 Review.
 Approved.
+
 $architecture
+
 Review.
 Approved.
+
 $test-design
+
 Review.
 Approved.
+
 $implementation
+
 Review.
+Approved.
+
 $validation
+
+Review.
+Approved.
+
 $release
 ```
 
-Use `Status.` at any time to inspect the active capability, workflow state, current artifact, pending gate, blockers, next state, and next skill.
+---
 
-Use `Review.` when an artifact is ready for gate review. Findings should be resolved before approval.
-
-Use `Approved.` only when the current gate has human approval. Approval advances `workflow-state.yaml` to the next state.
-
-Use `Resolve findings.` or equivalent instructions to correct targeted review findings. Then use `Review.` again.
-
-Use `Proceed.` after the current gate is approved and the next lifecycle stage should begin.
-
-## New Domain Usage
+# Creating A New Domain
 
 Example:
 
-- New domain: `cards`
-- First capability: `Card Replacement`
+```text
+cards
+```
 
-Before creating capabilities, create:
+Create:
 
 ```text
 domains/cards/domain-context.md
 ```
 
-The domain context should define:
+Define:
 
-- glossary and domain language
-- domain boundaries
-- integrations and third parties
-- events and ownership
-- APIs and shared contracts
-- shared business rules
-- data and security patterns
-- operational and observability patterns
+- Domain glossary
+- Business boundaries
+- Shared APIs
+- Shared Events
+- Integrations
+- Security requirements
+- Ownership
 
-Only after `domain-context.md` exists should you start the first capability:
+Then create the first capability:
 
 ```text
 $new Card Replacement
 ```
 
-New domains need a domain context first so capabilities reuse the same language, integration model, ownership rules, and constraints.
+---
 
-## New Feature Flow
-
-The normal lifecycle for a new capability is:
-
-1. Intent: capture the business problem, users, outcomes, scope, assumptions, risks, and approval gate.
-2. Specification: define functional requirements, non-functional requirements, business rules, data needs, edge cases, and acceptance criteria.
-3. Architecture: define system boundary, components, integrations, data ownership, security, observability, risks, and ADR needs.
-4. API Contract: define `contracts/openapi.yaml` when APIs are needed.
-5. Test Design: create QA-owned acceptance, negative, integration, security, and NFR scenarios.
-6. Traceability: map intent to requirements, APIs, tests, implementation slices, validation, release, Jira, and Confluence.
-7. Implementation Plan: define one or more approved implementation slices.
-8. Implementation Slice: implement one approved slice at a time using TDD and focused changes.
-9. Validation: capture QA evidence, test execution, CI evidence, defects, risks, and release readiness.
-10. Release: prepare release notes, rollback plan, monitoring checks, known risks, and approval evidence.
-
-Jira lifecycle:
-
-```text
-Epic -> Stories -> Tasks/Subtasks -> Validation/Release references
-```
-
-Git lifecycle:
-
-```text
-Intent -> Spec -> Architecture/API -> Tests -> Traceability -> Implementation -> Validation -> Release -> Feedback
-```
-
-Git remains authoritative. Jira tracks work. Confluence publishes stakeholder summaries.
-
-## Change Request Flow
+# Change Request Workflow
 
 Example:
 
 ```text
-$change-request Support Partial Refunds
+$change-request Support Partial Refund
 ```
 
-Change requests use impact analysis before edits:
+Workflow:
 
-1. Assign or confirm a Change ID.
-2. Read the relevant `domain-context.md`.
-3. Identify impacted intent, spec, architecture, API, tests, code, traceability, validation, release, and feedback artifacts.
-4. Identify impacted owners and approvals.
-5. Ask for approval before updates.
-6. Update only impacted files.
-7. Do not regenerate the whole solution.
-8. Update traceability and feedback after approved changes.
-9. Route to `$specification`, `$architecture`, `$test-design`, `$implementation`, `$validation`, or `$release` only where impacted.
+```text
+Impact Analysis
+→ Review
+→ Approval
+→ Update Impacted Artifacts
+→ Validation
+→ Release
+```
 
-Change requests preserve existing approved content that is not affected by the change.
+Only update impacted artifacts.
 
-## Defect Flow
+Do not regenerate the entire solution.
+
+---
+
+# Defect Workflow
 
 Example:
 
 ```text
-$defect-fix Duplicate Reversal Under Concurrency
+$defect-fix Duplicate Reversal
 ```
 
-Defect handling is RCA-led:
+Workflow:
 
-1. Assign or confirm a Defect ID.
-2. Capture observed behavior, expected behavior, environment, build, logs, tests, or reproduction evidence.
-3. Read the relevant `domain-context.md`.
-4. Classify root cause as requirement, architecture, design, code, test, or operational gap.
-5. Identify impacted artifacts and missing approvals.
-6. Propose a targeted correction path.
-7. Ask for approval before artifact, test, code, validation, or release changes.
-8. Apply only targeted fixes.
-9. Capture regression and validation evidence.
-10. Update traceability and feedback.
+```text
+Defect
+→ Root Cause Analysis
+→ Review
+→ Approval
+→ Fix
+→ Validation
+→ Release
+```
 
-Do not use a defect fix to bypass missing requirements, architecture, tests, traceability, or approval gates.
+Only update impacted artifacts.
 
-## Frontend Model
+---
 
-One shared Flutter app can support multiple domains and features:
+# Frontend Model
+
+Shared Flutter application:
 
 ```text
 apps/mobile-banking-app/
-apps/mobile-banking-app/features/payments/
-apps/mobile-banking-app/features/cards/
-apps/mobile-banking-app/shared/
 ```
 
-Ownership model:
-
-- The shared app shell is owned by the channel or platform squad.
-- Feature modules are owned by domain squads.
-- Shared UI components, navigation, authentication shell, analytics, and platform behavior require channel/platform approval.
-- Domain feature changes should stay within the owning feature module unless shared changes are explicitly approved.
-
-## Backend Microservices Model
-
-Backend services are organized by domain and service name:
+Feature modules:
 
 ```text
-services/<domain>/<service-name>/
+apps/mobile-banking-app/features/onboarding/
+apps/mobile-banking-app/features/payments/
+apps/mobile-banking-app/features/cards/
+apps/mobile-banking-app/features/deposits/
+apps/mobile-banking-app/features/lending/
+```
+
+### Ownership
+
+| Asset | Owner |
+|---------|---------|
+| App Shell | Channel Squad |
+| Payments Features | Payments Squad |
+| Cards Features | Cards Squad |
+| Deposits Features | Deposits Squad |
+| Lending Features | Lending Squad |
+
+---
+
+# Backend Model
+
+Services are organized by domain:
+
+```text
+services/payments/local-payment-service/
+services/payments/international-payment-service/
+services/payments/remittance-service/
+
+services/cards/card-management-service/
+
+services/deposits/account-service/
+
+services/lending/loan-service/
+
+services/operations/case-management-service/
+```
+
+### Ownership
+
+Each squad owns its services and APIs.
+
+---
+
+# APIs, Events, and Integrations
+
+## APIs
+
+API contracts are stored in:
+
+```text
+contracts/openapi.yaml
+```
+
+## Events
+
+Event definitions are stored under:
+
+```text
+events/
 ```
 
 Examples:
 
-- `services/payments/local-payment-service/`
-- `services/payments/international-payment-service/`
-- `services/payments/remittance-service/`
-- `services/cards/card-management-service/`
-- `services/onboarding/onboarding-service/`
-- `services/lending/lending-service/`
-- `services/operations/operations-service/`
-
-An implementation slice identifies its target service through:
-
-- service catalog entries
-- implementation plan slice metadata
-- slice ownership metadata
-- `CODEOWNERS`
-- allowed paths enforced by workflow validation
-- architecture and API ownership decisions
-
-Do not modify another squad's service without ownership approval.
-
-## APIs, Events, And Integrations
-
-APIs are captured in:
-
 ```text
-domains/<domain>/capabilities/<capability>/contracts/openapi.yaml
+PaymentCreated
+PaymentReversed
+CardIssued
+AccountOpened
+LoanApproved
 ```
 
-Events should be captured under capability or framework event areas, such as:
+## Integrations
+
+Examples:
 
 ```text
-domains/<domain>/capabilities/<capability>/events/
-framework/events/
+Core Banking
+Cards Processor
+AML
+Fraud
+Notifications
+Payment Rails
 ```
 
-Integration governance should identify:
+Integration details belong in:
 
-- third-party systems
-- internal producer and consumer ownership
-- event schemas and compatibility rules
-- API versioning and compatibility checks
-- consumer impact review
-- operational dependencies
-- failure modes and rollback behavior
+```text
+context/
+```
 
-Event producer and consumer ownership must be explicit before implementation and release.
+---
 
-## Bootstrap And Templates
+# Bootstrap Templates
 
-Platform teams can provide baseline templates:
+Platform teams provide reusable templates:
 
 ```text
 platform/templates/flutter-app-template/
+
 platform/templates/spring-boot-service-template/
+
 platform/templates/shared-library-template/
+
 platform/templates/kafka-service-template/
 ```
 
-Bootstrap rules:
+Use templates for consistency across squads.
 
-- A frontend app is created once from a baseline, then feature modules are added under domain folders.
-- Backend services are created from the approved microservice template.
-- Kafka/event services are created from the event-enabled template.
-- Shared libraries are governed separately and require library ownership, versioning, compatibility, and dependency review.
+---
 
-Templates accelerate setup. They do not replace lifecycle artifacts, ownership approval, or traceability.
+# Standards
 
-## Standards
+The framework follows shared standards for:
 
-Standards live under `framework/standards/` and related framework areas. Teams should apply:
+- Architecture
+- API Design
+- Security
+- Coding
+- Testing
+- Observability
+- Release Management
 
-- coding standards
-- API standards
-- security standards
-- testing standards
-- architecture and design standards
-- observability standards
-- release standards
+Standards are maintained under:
 
-Standards apply to both human-authored and AI-generated work.
-
-## Multi-Squad Governance
-
-Every material artifact or code area needs an owner:
-
-- domain owner
-- service owner
-- app owner
-- library owner
-- event owner
-- API owner
-- release owner
-
-Governance controls:
-
-- `CODEOWNERS` defines review ownership.
-- PRs should stay within approved capability, service, app, or library boundaries.
-- Dependency changes require review by affected owners.
-- Shared frontend changes require platform/channel approval.
-- Shared library changes require library owner approval.
-- Event and API changes require producer, consumer, and compatibility review.
-- Cross-squad impact should be reviewed before implementation.
-
-## Automation
-
-GitHub Actions validation foundation checks:
-
-- `workflow-state.yaml` exists
-- required artifacts exist
-- traceability matrix exists
-- OpenAPI contracts parse
-- Java compiles/tests pass where applicable
-- forbidden path changes are blocked by stage
-
-GitHub Actions can be tested locally with the same scripts:
-
-```bash
-scripts/validate-workflow-state.sh
-scripts/validate-artifacts.sh
-scripts/validate-traceability.sh
-scripts/validate-openapi.sh
-scripts/validate-java.sh
+```text
+framework/
 ```
 
-Jira automation foundation:
+---
 
-- `scripts/jira/generate-jira-payloads.py` generates offline Jira payload JSON.
-- Epic maps to capability.
-- Story maps to business requirement group or business capability slice.
-- Task maps to implementation slice.
-- No Jira API is called yet.
+# Multi-Squad Governance
 
-Confluence automation foundation:
+## Ownership Rules
 
-- `scripts/confluence/generate-summary.py` generates stakeholder Markdown summaries.
-- Confluence is a published view only.
-- No Confluence API is called yet.
+| Asset | Owner |
+|----------|----------|
+| Domain Context | Domain Owner |
+| Capability | Product Squad |
+| Service | Service Owner |
+| API Contract | Service Owner |
+| Event Schema | Producing Squad |
+| Shared Library | Platform Squad |
+| Flutter Shell | Channel Squad |
 
-Automation supports review. It does not replace Git, approvals, or GitHub Actions gate results.
+### Rules
 
-## Validation Commands
+- Squads own their domains.
+- Shared assets require owner approval.
+- APIs and events must be reviewed before breaking changes.
+- All changes must be traceable.
 
-Run all local validation guardrails:
+---
 
-```bash
-scripts/validate-workflow-state.sh
-scripts/validate-artifacts.sh
-scripts/validate-traceability.sh
-scripts/validate-openapi.sh
-scripts/validate-java.sh
+# When Can Code Be Created?
+
+Application code must not be created until:
+
+- Intent Approved
+- Specification Approved
+- Architecture Approved
+- API Contract Approved
+- Test Design Approved
+- Traceability Reviewed
+- Implementation Slice Approved
+
+Only then may teams modify:
+
+```text
+src/
+services/
+apps/
+libraries/
 ```
 
-Generate Jira payloads offline:
+---
 
-```bash
-python3 -B scripts/jira/generate-jira-payloads.py \
-  --workflow-state domains/payments/capabilities/khqr-payment-reversal/workflow-state.yaml \
-  --output-dir /tmp/jira-payloads-review
+# What Is Stored In src?
+
+The framework separates delivery artifacts from implementation code.
+
+## Delivery Artifacts
+
+```text
+domains/
 ```
 
-Generate Confluence summaries offline:
+Contains:
 
-```bash
-python3 -B scripts/confluence/generate-summary.py \
-  --workflow-state domains/payments/capabilities/khqr-payment-reversal/workflow-state.yaml \
-  --output-dir /tmp/confluence-summaries-review
+- Intent
+- Specifications
+- Architecture
+- Contracts
+- Tests
+- Validation
+- Release Evidence
+
+## Source Code
+
+```text
+src/main/
+src/test/
 ```
 
-Check Markdown and whitespace changes before review:
+Contains:
 
-```bash
-git diff --check
-git status --short
+- Application Code
+- Unit Tests
+- Integration Tests
+
+Example:
+
+```text
+domains/payments/capabilities/khqr-payment-reversal/
+
+src/main/java/payments/khqrreversal/
+src/test/java/payments/khqrreversal/
 ```
 
-## Definition Of Ready And Done
+---
 
-Implementation DoR:
+# Automation
 
-- intent approved
-- specification approved
-- architecture approved
-- API contract approved where applicable
-- test design approved
-- traceability reviewed
-- implementation slice approved
-- target app/service/library path identified
-- owners and allowed paths confirmed
-- open blockers documented or resolved
+## GitHub Actions
 
-Implementation DoD:
+Validates:
 
-- one approved slice implemented
-- tests added and passing where runnable
-- code maps to approved requirements and test design
-- no secrets or credentials committed
-- traceability updated where needed
-- validation notes prepared
-- developer and architect review completed
+- Workflow State
+- Artifacts
+- Traceability
+- OpenAPI Contracts
+- Java Compilation
+- Tests
 
-Release readiness is separate from implementation done. Release requires validation evidence, CI evidence, release notes, rollback plan, monitoring checks, known risks, and human release approval.
+## Jira
 
-## Examples
+Current:
 
-Example capabilities by domain:
+```text
+Offline Payload Generation
+```
 
-- Payments: KHQR Payment Reversal
-- Payments: QR Refund
-- Cards: Card Replacement
-- Onboarding: Digital Onboarding
-- Deposits: Account Opening
-- Lending: Loan Application
-- Operations: Case Management
+Future:
 
-Use these examples as naming and lifecycle patterns, not as permission to skip discovery or approval.
+```text
+Epic Creation
+Story Creation
+Status Synchronisation
+Approval Synchronisation
+```
 
-## Command Reference
+## Confluence
 
-User commands:
+Current:
 
-| Command | Purpose |
-| --- | --- |
-| `$new` | Start a new capability or feature with discovery, intent, and approval gates. |
-| `$change-request` | Analyze and apply a scoped change without regenerating the whole solution. |
-| `$defect-fix` | Analyze RCA and apply targeted defect corrections. |
-| `Status.` | Show current capability, state, artifact, gate, blockers, next state, and next skill. |
-| `Review.` | Review the current artifact against its pending gate. |
-| `Approved.` | Record approval and move workflow state forward. |
-| `Resolve findings.` | Correct targeted review findings. |
-| `Proceed.` | Continue to the next approved lifecycle step. |
+```text
+Offline Summary Generation
+```
 
-Lifecycle skills:
+Future:
 
-| Skill | Purpose |
-| --- | --- |
-| `$specification` | Turn approved intent into requirements, rules, NFRs, and acceptance criteria. |
-| `$architecture` | Define context, boundaries, APIs, integrations, data, security, ADRs, and implementation planning. |
-| `$test-design` | Create QA-owned acceptance, negative, integration, security, and NFR scenarios. |
-| `$implementation` | Implement one approved slice at a time using TDD and focused changes. |
-| `$validation` | Capture QA validation evidence, defects, risks, and release readiness evidence. |
-| `$release` | Prepare release notes, rollback, monitoring, risks, and release approvals. |
-| `$traceability-review` | Maintain end-to-end traceability across artifacts, Jira, Confluence, validation, and release. |
-| `$feedback-capture` | Capture review findings, defects, changes, and stakeholder feedback. |
+```text
+Automatic Publishing
+```
 
-## Troubleshooting
+---
 
-`Status.` cannot find the active capability:
+# Commands
 
-- Check that `domains/<domain>/capabilities/<capability>/workflow-state.yaml` exists.
-- If multiple capabilities exist, name the capability explicitly.
+## User Commands
 
-Validation says `workflow-state.yaml` is missing:
+```text
+$new
 
-- Create or update workflow state through the active lifecycle skill.
-- Do not invent a state to bypass approval gates.
+$change-request
 
-Artifact validation fails:
+$defect-fix
 
-- Check the `artifacts` section in `workflow-state.yaml`.
-- Confirm required files exist and are not empty.
-- Keep artifact paths relative to the repository root.
+Status.
 
-OpenAPI validation fails:
+Review.
 
-- Confirm `contracts/openapi.yaml` is valid YAML.
-- Confirm it declares `openapi` or `swagger`, `info.title`, `info.version`, and `paths`.
+Approved.
 
-Java validation fails:
+Proceed.
+```
 
-- Confirm a JDK is installed.
-- If no Maven or Gradle project exists, the script uses `javac` and executable test mains.
-- Fix compile or test failures only when the relevant implementation slice is approved.
+## Lifecycle Commands
 
-Jira payload generation fails:
+```text
+$specification
 
-- Confirm `workflow-state.yaml` points to intent, specification, implementation plan, and validation report paths.
-- Remember the Jira script is offline and does not call Jira APIs.
+$architecture
 
-Confluence summary generation fails:
+$test-design
 
-- Confirm `workflow-state.yaml` points to intent, specification, architecture context, and validation report paths.
-- Remember the Confluence script is offline and does not call Confluence APIs.
+$implementation
 
-You are unsure whether to edit `src/`:
+$validation
 
-- Do not edit it unless implementation slice approval exists.
-- Use `Status.` and inspect `workflow-state.yaml`.
-- If approval evidence is missing, stop and request the required approval.
+$release
 
-## Golden Rules
+$traceability-review
 
-- Do not generate code before approved specification, architecture, API, tests, traceability, and slice approval.
-- Do not regenerate the whole solution for a change request or defect.
-- Do not modify another squad's service without ownership approval.
-- Do not touch `src/` before implementation slice approval.
-- Treat `domains/` as delivery knowledge and `src/` as implementation code.
-- Keep changes small, targeted, and reviewable.
-- Git is the source of truth.
-- Jira tracks workflow and approvals.
-- Confluence publishes summaries.
-- GitHub Actions is authoritative for validation guardrails.
-- AI follows `workflow-state.yaml`.
-- Human approval gates are mandatory.
+$feedback-capture
+```
+
+---
+
+# Definition Of Ready (DoR)
+
+Before implementation:
+
+- Intent Approved
+- Specification Approved
+- Architecture Approved
+- API Contract Approved
+- Test Design Approved
+- Traceability Reviewed
+- Implementation Slice Approved
+
+---
+
+# Definition Of Done (DoD)
+
+For an implementation slice:
+
+- Code Complete
+- Tests Passing
+- Traceability Updated
+- Validation Evidence Captured
+- Review Complete
+
+Release approval is separate from DoD.
+
+---
+
+# Golden Rules
+
+1. Git is the source of truth.
+2. Jira manages workflow and approvals.
+3. Confluence publishes stakeholder summaries.
+4. Do not generate code before approvals.
+5. Do not regenerate entire solutions for changes.
+6. Do not modify another squad's service without approval.
+7. Keep changes small and traceable.
+8. Human approvals are mandatory.
+9. AI assists delivery but does not replace governance.
+10. Every requirement must trace to implementation, validation, and release evidence.
+
+---
+
+# First Exercise
+
+Try the framework with a simple capability:
+
+```text
+$new Test Capability
+
+Review.
+Approved.
+
+$specification
+
+Review.
+Approved.
+
+Status.
+```
+
+Do not implement code in the first exercise.
+
+Focus on understanding the workflow before moving to implementation.
