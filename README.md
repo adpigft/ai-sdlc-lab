@@ -126,6 +126,45 @@ Source code is created only after specifications, architecture, tests, traceabil
 
 ---
 
+# Domain, Capability, and Feature Model
+
+The framework uses three ownership boundaries:
+
+- Domain = architecture boundary
+- Capability = business function boundary
+- Feature = delivery boundary
+
+## Domain
+
+A domain owns domain context, domain architecture, ownership, core services, core integrations, core events, and frontend/backend ownership assumptions.
+
+Example: `Cards`
+
+## Capability
+
+A capability owns capability context, shared business flow, shared APIs, shared events, shared integrations, and shared state model.
+
+Example: `Card Lifecycle Management`
+
+## Feature
+
+A feature owns the AI-SDLC delivery lifecycle: intent, specification, design, test-design, implementation, pr-review, validation, release, and feedback.
+
+Example: `Card Replacement`
+
+```text
+Cards
+└── Card Lifecycle Management
+    ├── Card Replacement
+    ├── Card Activation
+    ├── Card Renewal
+    └── Card Closure
+```
+
+The AI-SDLC lifecycle runs at feature level. Domain and capability context guide the feature. Feature implementation can be delivered in smaller implementation slices. Slices are not features; they are implementation increments inside a feature.
+
+---
+
 # Enterprise Multi-Squad Placement
 
 Current lab implementation may use `src/`. Enterprise delivery should place code under `apps/`, `services/`, and `libraries/` according to approved ownership and path catalogs.

@@ -16,6 +16,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 | `Review.`, `Approved.`, `Status.` | `framework/workflows/review-approval-flow.md` | `framework/workflow/workflow-state-guide.md`, `framework/workflow-state/approval-events.md` |
 | PR review | `framework/workflows/pr-review-flow.md` | `.codex/skills/pr-review/SKILL.md`, `framework/prompt-patterns/pr-review-pattern.md` |
 | Skill prerequisite validation | `framework/workflows/skill-prerequisite-validation.md` | `framework/context/stage-context-packs.md`, `framework/prompt-patterns/standard-response-format.md` |
+| Domain, capability, and feature model | `README.md` | `framework/multi-squad/domain-ownership-model.md` |
 | Context routing and token discipline | `framework/context/context-pack-model.md` | `framework/context/stage-context-packs.md`, `framework/context/context-index-template.md` |
 | Lightweight indexing | `framework/indexing/indexing-model.md` | `framework/indexing/framework-index-template.md`, `framework/indexing/domain-index-template.md`, `framework/indexing/capability-index-template.md` |
 | Capability summaries | `framework/capability-summary/capability-summary-model.md` | `framework/capability-summary/capability-summary-template.md` |
@@ -37,6 +38,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 - Do not duplicate workflow-state rules outside `framework/workflow/workflow-state-guide.md`; link to it.
 - Do not duplicate `Review.`, `Approved.`, and `Status.` behavior outside `framework/workflows/review-approval-flow.md`; link to it.
 - Do not duplicate skill prerequisite rules outside `framework/workflows/skill-prerequisite-validation.md`; link to it.
+- Do not redefine the domain/capability/feature hierarchy outside `README.md` and `framework/multi-squad/domain-ownership-model.md`; link to it.
 - Do not duplicate implementation placement rules outside `framework/service-architecture/implementation-placement-model.md`; link to it.
 - Do not duplicate context routing rules outside `framework/context/context-pack-model.md`; link to it.
 - Do not duplicate source artifact content in indexes; indexes are navigation aids only.

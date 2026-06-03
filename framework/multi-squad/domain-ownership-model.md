@@ -6,6 +6,33 @@ Define how business domains own delivery knowledge, capability artifacts, cross-
 
 Domain ownership gives each capability a clear accountable business and technology boundary before architecture, implementation planning, or code changes begin.
 
+## Domain, Capability, And Feature Hierarchy
+
+The final framework hierarchy is:
+
+- Domain = architecture boundary
+- Capability = business function boundary
+- Feature = delivery boundary
+
+Domains own domain context, domain architecture, ownership, core services, core integrations, core events, and frontend/backend ownership assumptions.
+
+Capabilities own capability context, shared business flow, shared APIs, shared events, shared integrations, and shared state model.
+
+Features own the AI-SDLC delivery lifecycle: intent, specification, design, test-design, implementation, pr-review, validation, release, and feedback.
+
+Example:
+
+```text
+Cards
+└── Card Lifecycle Management
+    ├── Card Replacement
+    ├── Card Activation
+    ├── Card Renewal
+    └── Card Closure
+```
+
+The AI-SDLC lifecycle runs at feature level. Domain and capability context guide the feature. Feature implementation can be delivered in smaller implementation slices. Slices are implementation increments inside a feature; they are not features.
+
 ## Domain Owner Responsibilities
 
 The domain owner is accountable for:
