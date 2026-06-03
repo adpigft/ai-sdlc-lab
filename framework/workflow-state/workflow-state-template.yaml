@@ -9,7 +9,7 @@ workflow:
   current_state: idea
   previous_state: null
   next_state: intent_review
-  current_skill: new
+  current_skill: intent
   next_skill: intent
   blocked: false
   blocked_reason: ""

@@ -1,12 +1,12 @@
 ---
 name: domain-onboarding
-description: User-facing orchestration for onboarding a new banking domain before creating capabilities with $new.
+description: User-facing orchestration for onboarding a new banking domain before creating capabilities with $intent.
 ---
 
 # Domain Onboarding Skill
 
 ## Purpose
-Onboard a new banking domain before `$new` capability creation is used.
+Onboard a new banking domain before `$intent` capability creation is used.
 
 Domain onboarding creates the domain-level delivery context, ownership assumptions, service placement assumptions, frontend placement assumptions, APIs, events, integrations, shared asset impacts, and open questions needed before capability artifacts are created.
 
@@ -21,7 +21,7 @@ $domain-onboarding Deposits
 $domain-onboarding Lending
 ```
 
-Do not use this skill for an existing capability. Use `$new` only after the domain context has been reviewed and approved.
+Do not use this skill for an existing capability. Use `$intent` only after the domain context has been reviewed and approved.
 
 ## Inputs
 - Domain name
@@ -74,7 +74,7 @@ Stop conditions:
 7. Create only the approved domain-level artifacts.
 8. Stop for human review after creating domain artifacts.
 9. Recommend `Review.`.
-10. Do not proceed to `$new` automatically.
+10. Do not proceed to `$intent` automatically.
 
 ## Output artifacts
 Create only:
@@ -115,9 +115,9 @@ Do not create:
 After creating domain artifacts:
 
 - stop for human review
-- do not proceed to `$new` automatically
+- do not proceed to `$intent` automatically
 - recommend `Review.`
-- after approval, the user may run `$new <Capability Name>`
+- after approval, the user may run `$intent <Capability Name>`
 
 ## Guardrails
 - If the domain already exists, do not overwrite it.
@@ -139,13 +139,13 @@ After creating domain artifacts:
 - No source code or unrelated domain artifacts are modified.
 
 ## Human gate
-Domain owner and Solution Architect review is required before the domain is treated as ready for `$new` capability creation.
+Domain owner and Solution Architect review is required before the domain is treated as ready for `$intent` capability creation.
 
 ## Next skill or next workflow step
 After domain onboarding approval, use:
 
 ```text
-$new <Capability Name>
+$intent <Capability Name>
 ```
 
 ## Example usage

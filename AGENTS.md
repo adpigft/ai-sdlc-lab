@@ -35,7 +35,7 @@ Do not jump directly to code.
 Normal users should use these orchestration skills:
 
 - `$domain-onboarding` for a new banking domain before creating capabilities.
-- `$new` for a new capability or new feature flow.
+- `$intent` for a new capability or new feature flow.
 - `$change-request` for change requests.
 - `$defect-fix` for bugs and defects.
 - `$decision` for architecture decisions and ADRs.
@@ -43,6 +43,8 @@ Normal users should use these orchestration skills:
 
 Temporary aliases remain available for one migration cycle:
 
+- `$new` -> `$intent`
+- `$architecture` -> `$design`
 - `$change`
 - `$defect`
 - `$traceability`
@@ -52,7 +54,7 @@ Specialists can use these stage-level entry points:
 
 - `$intent`
 - `$specification`
-- `$architecture`
+- `$design`
 - `$test-design`
 - `$implementation`
 - `$validation`
@@ -75,22 +77,21 @@ Archived skills under `.codex/archive/skills/` are retained for future reuse, bu
 
 For any new feature, follow this order:
 
-1. `.codex/skills/new/SKILL.md`
-2. `.codex/skills/intent/SKILL.md`
-3. `.codex/skills/specification/SKILL.md`
-4. `.codex/skills/architecture/SKILL.md`
-5. `.codex/skills/test-design/SKILL.md`
-6. `.codex/skills/traceability-review/SKILL.md`
-7. `.codex/skills/implementation/SKILL.md`
-8. `.codex/skills/validation/SKILL.md`
-9. `.codex/skills/release/SKILL.md`
-10. `.codex/skills/feedback-capture/SKILL.md`
+1. `.codex/skills/intent/SKILL.md`
+2. `.codex/skills/specification/SKILL.md`
+3. `.codex/skills/design/SKILL.md`
+4. `.codex/skills/test-design/SKILL.md`
+5. `.codex/skills/traceability-review/SKILL.md`
+6. `.codex/skills/implementation/SKILL.md`
+7. `.codex/skills/validation/SKILL.md`
+8. `.codex/skills/release/SKILL.md`
+9. `.codex/skills/feedback-capture/SKILL.md`
 
 The stage-level orchestration skills wrap the specialist skills:
 
 - `$intent` uses `ba-intent`.
 - `$specification` uses `ba-specification`.
-- `$architecture` uses `architect-context` and identifies any decision or API work through the active orchestration flow.
+- `$design` uses `architect-context` and identifies any decision or API work through the active orchestration flow.
 - `$test-design` uses `qa-test-design`.
 - `$implementation` uses `developer-implementation`.
 - `$validation` uses `qa-validation`.
@@ -99,7 +100,7 @@ The stage-level orchestration skills wrap the specialist skills:
 
 When the user says `Start new feature: <feature name>`:
 
-1. Use `$new` first.
+1. Use `$intent` first.
 2. Create or reference a lightweight Jira Epic shell if Jira is available.
 3. Begin with intent discovery using `$intent` / `ba-intent`.
 4. Ask discovery questions.

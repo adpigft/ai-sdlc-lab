@@ -29,9 +29,9 @@ If these checks fail, report the smallest missing prerequisite and stop before r
 | Command | Must Confirm Before Proceeding |
 | --- | --- |
 | `$domain-onboarding` | Domain does not already exist, or update approval exists. |
-| `$new` | `domains/<domain>/domain-context.md` exists. |
+| `$intent` | `domains/<domain>/domain-context.md` exists. |
 | `$specification` | Intent exists and intent approval is recorded. |
-| `$architecture` | Specification exists and specification approval is recorded. |
+| `$design` | Specification exists and specification approval is recorded. |
 | `$test-design` | Specification approval and architecture context exist; API contract exists when applicable. |
 | `$implementation` | Architecture, test design, traceability, implementation plan, placement metadata, `allowed_paths`, and required approvals exist. |
 | `$validation` | Implementation evidence exists and can map to approved tests and requirements. |

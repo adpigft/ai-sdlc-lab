@@ -56,7 +56,7 @@ Create domain-level delivery context before any capability is created.
 
 - Domain exists and update approval is missing.
 - Required owner or placement information cannot be captured.
-- User asks to proceed to `$new` before review.
+- User asks to proceed to `$intent` before review.
 
 ## Standard Response Format
 

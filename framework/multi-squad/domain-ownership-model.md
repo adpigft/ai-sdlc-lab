@@ -86,7 +86,7 @@ Rules:
 
 ## Review Checklist
 
-Before `$new` in a new domain:
+Before `$intent` in a new domain:
 
 - `domains/<domain>/domain-context.md` exists
 - domain owner is known

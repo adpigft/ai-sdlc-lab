@@ -26,9 +26,9 @@ Onboard a new domain when:
 6. Define required approvers.
 7. Review domain onboarding artifacts.
 8. Record approval.
-9. Run `$new <Capability>`.
+9. Run `$intent <Capability>`.
 
-Do not run `$new` for a new domain until domain context and ownership placement are ready.
+Do not run `$intent` for a new domain until domain context and ownership placement are ready.
 
 ## Required `domain-context.md` Sections
 
@@ -145,5 +145,5 @@ Flow:
 8. Run:
 
 ```text
-$new Card Replacement
+$intent Card Replacement
 ```

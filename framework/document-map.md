@@ -59,3 +59,5 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 10. Before implementation, use `framework/service-architecture/implementation-placement-model.md` and the ownership catalogs to decide allowed paths and restricted paths.
 11. Use `scripts/` and `.github/workflows/ai-sdlc-validate.yml` to validate the framework locally and in GitHub Actions.
 12. Keep capability truth in Git. Jira and Confluence outputs are generated views until API integrations are explicitly approved.
+
+Canonical lifecycle skill names are `$intent`, `$specification`, `$design`, `$test-design`, `$implementation`, `$validation`, and `$release`. `$new` and `$architecture` are temporary aliases for one migration cycle.

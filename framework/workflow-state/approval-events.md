@@ -38,7 +38,7 @@ next_skill: specification
 | Approval Gate | Approved Artifact | From State | Next State | Next Skill |
 | --- | --- | --- | --- | --- |
 | `intent_approval` | Intent | `intent_review` | `specification_review` | `specification` |
-| `specification_approval` | Specification | `specification_review` | `architecture_review` | `architecture` |
+| `specification_approval` | Specification | `specification_review` | `architecture_review` | `design` |
 | `architecture_approval` | Architecture context, API guidance, ADR status, implementation plan | `architecture_review` | `test_review` | `test-design` |
 | `test_design_approval` | Acceptance and QA test design | `test_review` | `implementation_ready` | `implementation` |
 | `implementation_start_approval` | Implementation plan and first approved slice | `implementation_ready` | `implementation_in_progress` | `implementation` |

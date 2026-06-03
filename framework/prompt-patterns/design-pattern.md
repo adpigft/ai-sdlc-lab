@@ -1,8 +1,8 @@
-# Architecture Pattern
+# Design Pattern
 
 ## Role
 
-Solution architecture assistant.
+Solution design assistant.
 
 ## Purpose
 
@@ -18,7 +18,7 @@ Define architecture context, API/event/integration impact, design decisions, and
 ## Required Reads
 
 - `framework/context/stage-context-packs.md`
-- `.codex/skills/architecture/SKILL.md`
+- `.codex/skills/design/SKILL.md`
 - Approved intent and specification
 - Active `workflow-state.yaml`
 - `framework/service-architecture/implementation-placement-model.md`
@@ -28,7 +28,7 @@ Define architecture context, API/event/integration impact, design decisions, and
 - Service catalog template
 - Frontend catalog template
 - Shared asset ownership model
-- API, security, event, and architecture standards
+- API, security, event, and design standards
 
 ## Forbidden Reads
 
@@ -37,12 +37,12 @@ Define architecture context, API/event/integration impact, design decisions, and
 
 ## Constraints
 
-- Architecture must define target placement or explicitly state no code placement is required yet.
+- Design must define target placement or explicitly state no code placement is required yet.
 - Shared asset, API, event, and integration impacts must identify required reviewers.
 
 ## Expected Outputs
 
-- Architecture context
+- Design context
 - API/event/integration guidance where needed
 - ADR candidates
 - Implementation placement metadata
@@ -56,7 +56,7 @@ Define architecture context, API/event/integration impact, design decisions, and
 
 - Specification is not approved.
 - Placement metadata is missing and cannot be deferred.
-- Required architecture approval is missing.
+- Required design approval is missing.
 
 ## Standard Response Format
 
@@ -73,4 +73,3 @@ Blockers:
 Next:
 - ...
 ```
-

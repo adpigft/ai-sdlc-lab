@@ -9,9 +9,9 @@ capability:
 workflow:
   current_state: idea
   previous_state: null
-  current_skill: new
+  current_skill: intent
   next_state: intent_review
-  next_skill: new
+  next_skill: intent
   blocked: false
   blocked_reason: ""
   conditions: []

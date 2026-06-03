@@ -11,9 +11,9 @@ Patterns guide execution only. They do not replace source artifacts, workflow st
 Use the pattern that matches the active command or lifecycle stage:
 
 - `domain-onboarding-pattern.md`
-- `new-capability-pattern.md`
+- `intent-pattern.md`
 - `specification-pattern.md`
-- `architecture-pattern.md`
+- `design-pattern.md`
 - `test-design-pattern.md`
 - `implementation-pattern.md`
 - `validation-pattern.md`
@@ -40,4 +40,3 @@ Blockers:
 Next:
 - ...
 ```
-

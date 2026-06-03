@@ -225,14 +225,14 @@ Intent
 | Command | Purpose |
 |----------|----------|
 | $domain-onboarding | Create new domain context before capability creation |
-| $new | Create new capability |
+| $intent | Create new capability |
 | $change-request | Create change request |
 | $defect-fix | Create defect fix |
 | Status. | Navigate current workflow state and next action |
 | Review. | Run quality review |
 | Approved. | Approve current stage |
 | $specification | Create or update specification |
-| $architecture | Create or update architecture |
+| $design | Create or update design |
 | $test-design | Create or update test design |
 | $implementation | Create or update implementation |
 | $validation | Execute validation |
@@ -275,7 +275,7 @@ Example:
 Domain: cards
 Capability: Card Replacement
 Current State: intent_review
-Current Skill: $new
+Current Skill: $intent
 Active Artifact: domains/cards/capabilities/card-replacement/intent/intent.md
 Pending Gate: intent_approval
 Required Approvers: Product Owner, Business Analyst
@@ -392,25 +392,25 @@ current_skill: specification
 
 current_state: specification_draft
 
-next_skill: architecture
+next_skill: design
 ```
 
 After approval:
 
 ```yaml
-current_skill: architecture
+current_skill: design
 
 current_state: specification_approved
 
-next_skill: architecture
+next_skill: design
 ```
 
 ---
 
-# New Capability Workflow
+# Intent Workflow
 
 ```text
-$new
+$intent
 
 Review.
 Approved.
@@ -420,7 +420,7 @@ $specification
 Review.
 Approved.
 
-$architecture
+$design
 
 Review.
 Approved.
@@ -462,7 +462,7 @@ $specification
 Review.
 Approved.
 
-$architecture
+$design
 
 Review.
 Approved.

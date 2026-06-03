@@ -43,7 +43,7 @@ Use `$decision` when a capability has an architecture choice, integration tradeo
 Architect approval is required before an ADR can unblock implementation.
 
 ## Next skill or next workflow step
-Return to `$architecture` after ADR approval, or proceed to `$implementation` only when all blocking decisions are resolved.
+Return to `$design` after ADR approval, or proceed to `$implementation` only when all blocking decisions are resolved.
 
 ## Example usage
 `$decision Create ADR for refund idempotency strategy`

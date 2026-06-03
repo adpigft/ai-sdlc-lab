@@ -44,13 +44,13 @@ Stop conditions:
 - missing domain owner or placement assumptions cannot be recorded as open questions
 - user asks to create capabilities or code during onboarding
 
-## New Capability
+## Intent
 
 Purpose: discover and draft business intent for a capability.
 
 Required reads:
 
-- `.codex/skills/new/SKILL.md`
+- `.codex/skills/intent/SKILL.md`
 - `domains/<domain>/domain-context.md`
 - `framework/workflow/workflow-state-guide.md`
 
@@ -115,13 +115,13 @@ Stop conditions:
 - open questions block requirements
 - required approver is missing
 
-## Architecture
+## Design
 
 Purpose: define boundaries, APIs, integrations, data, security, ADRs, and placement.
 
 Required reads:
 
-- `.codex/skills/architecture/SKILL.md`
+- `.codex/skills/design/SKILL.md`
 - approved intent
 - approved specification
 - `domains/<domain>/domain-context.md`
@@ -139,7 +139,7 @@ Optional reads:
 
 Forbidden reads:
 
-- source code unless architecture is reviewing an existing implementation by explicit request
+- source code unless design is reviewing an existing implementation by explicit request
 - unrelated domains unless cross-domain impact is identified
 - validation and release artifacts unless checking existing drift
 

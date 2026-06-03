@@ -59,7 +59,7 @@ Stop conditions:
 9. Update only approved and impacted artifacts.
 10. Update traceability and create or update the feedback entry after approval.
 11. Update or prepare `workflow-state.yaml` after approvals when workflow-state is adopted.
-12. Route specialist work to `$intent`, `$specification`, `$architecture`, `$test-design`, `$implementation`, or `$validation` as needed.
+12. Route specialist work to `$intent`, `$specification`, `$design`, `$test-design`, `$implementation`, or `$validation` as needed.
 13. Preserve existing approved content that is not impacted.
 
 ## Placement metadata
@@ -76,7 +76,7 @@ For any code-impacting change, impact analysis must check or produce:
 - `impacted_capabilities`
 - `regression_scope`
 
-If placement metadata is missing, route to `$architecture` or `$implementation` planning before code changes. The change must identify impacted owners and must not expand into restricted paths without approval.
+If placement metadata is missing, route to `$design` or `$implementation` planning before code changes. The change must identify impacted owners and must not expand into restricted paths without approval.
 
 ## Outputs
 - Change impact summary

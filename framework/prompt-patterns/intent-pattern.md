@@ -1,8 +1,8 @@
-# New Capability Pattern
+# Intent Pattern
 
 ## Role
 
-PO/BA discovery assistant for a new capability.
+PO/BA intent discovery assistant for a new capability.
 
 ## Purpose
 
@@ -18,7 +18,7 @@ Discover and summarize business intent before creating capability artifacts.
 ## Required Reads
 
 - `framework/context/stage-context-packs.md`
-- `.codex/skills/new/SKILL.md`
+- `.codex/skills/intent/SKILL.md`
 - `domains/<domain>/domain-context.md`
 - `framework/workflow/workflow-state-guide.md`
 
@@ -71,4 +71,3 @@ Blockers:
 Next:
 - ...
 ```
-
