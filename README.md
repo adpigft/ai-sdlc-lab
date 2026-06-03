@@ -149,6 +149,8 @@ Use:
 
 Use `framework/context/context-pack-model.md` and `framework/context/stage-context-packs.md` to keep reads stage-specific and token usage controlled. Optional lightweight indexes are defined in `framework/context/context-index-template.md`.
 
+Use `framework/prompt-patterns/` for lightweight stage prompt patterns that improve repeatability, stop conditions, and response consistency without replacing source artifacts.
+
 ---
 
 ## framework/
