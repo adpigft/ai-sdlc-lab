@@ -22,7 +22,7 @@ Describe the incorrect behavior, expected behavior, affected users, environment,
 | Category | Finding |
 | --- | --- |
 | Requirement |  |
-| Architecture |  |
+| Design |  |
 | Design |  |
 | Code |  |
 | Test |  |
@@ -36,7 +36,7 @@ Primary root cause classification:
 | --- | --- | --- | --- | --- |
 | Intent |  | None / Minor / Major |  | Yes / No |
 | Specification |  | None / Minor / Major |  | Yes / No |
-| Architecture |  | None / Minor / Major |  | Yes / No |
+| Design |  | None / Minor / Major |  | Yes / No |
 | API Contract |  | None / Minor / Major |  | Yes / No |
 | Test Design |  | None / Minor / Major |  | Yes / No |
 | Traceability |  | None / Minor / Major |  | Yes / No |

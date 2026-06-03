@@ -34,13 +34,13 @@ fi
 
 required_keys_for_skill() {
   case "$1" in
-    intent|ba-intent|new)
+    intent|ba-intent)
       printf '%s\n' intent
       ;;
     specification|ba-specification)
       printf '%s\n' intent specification
       ;;
-    architecture|architect-context)
+    design|architect-context)
       printf '%s\n' intent specification architecture api_contract
       ;;
     test-design|qa-test-design)
@@ -50,6 +50,9 @@ required_keys_for_skill() {
       printf '%s\n' intent specification architecture api_contract test_design traceability
       ;;
     implementation|developer-implementation)
+      printf '%s\n' intent specification architecture api_contract test_design implementation_plan traceability
+      ;;
+    pr-review)
       printf '%s\n' intent specification architecture api_contract test_design implementation_plan traceability
       ;;
     validation|qa-validation)

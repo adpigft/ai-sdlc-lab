@@ -26,7 +26,7 @@ List the approved intent, specification, architecture, API, tests, traceability,
 | --- | --- | --- | --- | --- |
 | Intent |  | None / Minor / Major |  | Yes / No |
 | Specification |  | None / Minor / Major |  | Yes / No |
-| Architecture |  | None / Minor / Major |  | Yes / No |
+| Design |  | None / Minor / Major |  | Yes / No |
 | API Contract |  | None / Minor / Major |  | Yes / No |
 | Test Design |  | None / Minor / Major |  | Yes / No |
 | Traceability |  | None / Minor / Major |  | Yes / No |

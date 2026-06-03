@@ -12,7 +12,7 @@ Execute QA validation and capture evidence needed for release readiness.
 Use `$validation` after implementation and PR review are ready for QA or when release evidence must be assembled.
 
 ## Inputs
-- Approved requirements, architecture, tests, and traceability
+- Approved requirements, design, tests, and traceability
 - Implemented code or PR reference
 - Test execution results
 - CI and GitHub Actions references

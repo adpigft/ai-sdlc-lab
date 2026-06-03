@@ -8,30 +8,39 @@ Domain ownership gives each capability a clear accountable business and technolo
 
 ## Domain, Capability, And Feature Hierarchy
 
-The final framework hierarchy is:
+The current pilot framework hierarchy is:
 
 - Domain = architecture boundary
-- Capability = business function boundary
-- Feature = delivery boundary
+- Capability = delivery unit
 
 Domains own domain context, domain architecture, ownership, core services, core integrations, core events, and frontend/backend ownership assumptions.
 
-Capabilities own capability context, shared business flow, shared APIs, shared events, shared integrations, and shared state model.
+Capabilities own the smallest independently deliverable business outcome for the pilot implementation.
 
-Features own the AI-SDLC delivery lifecycle: intent, specification, design, test-design, implementation, pr-review, validation, release, and feedback.
+The capability folder currently contains:
+
+- intent
+- specification
+- design
+- tests
+- validation
+- release
+
+Capabilities own the AI-SDLC delivery lifecycle: intent, specification, design, test-design, implementation, pr-review, validation, release, and feedback.
 
 Example:
 
 ```text
 Cards
-└── Card Lifecycle Management
-    ├── Card Replacement
-    ├── Card Activation
-    ├── Card Renewal
-    └── Card Closure
+├── Card Replacement
+├── Card Activation
+├── Card Renewal
+└── Card Closure
 ```
 
-The AI-SDLC lifecycle runs at feature level. Domain and capability context guide the feature. Feature implementation can be delivered in smaller implementation slices. Slices are implementation increments inside a feature; they are not features.
+The AI-SDLC lifecycle runs at capability level for the pilot. Domain context guides the capability. Capability implementation can be delivered in smaller implementation slices. Slices are implementation increments inside a capability; they are not capabilities.
+
+The capability folder represents the smallest independently deliverable business outcome for the pilot implementation. A future framework version may introduce an explicit feature layer if required.
 
 ## Domain Owner Responsibilities
 

@@ -25,7 +25,7 @@
 | --- | --- | --- |
 | Intent | `intent/intent.md` | `<status>` |
 | Specification | `specs/spec.md` | `<status>` |
-| Architecture | `context/context.md` | `<status>` |
+| Design | `context/context.md` | `<status>` |
 | API Contract | `contracts/openapi.yaml` | `<status>` |
 | Test Design | `tests/acceptance.feature` | `<status>` |
 | Implementation Plan | `design/implementation-plan.md` | `<status>` |
@@ -85,4 +85,3 @@
 ## Authority Note
 
 This summary is a navigation aid only. Source artifacts and `workflow-state.yaml` remain authoritative.
-

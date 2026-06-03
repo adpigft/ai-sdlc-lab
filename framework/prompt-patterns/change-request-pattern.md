@@ -52,7 +52,7 @@ Assess and apply approved changes without regenerating the whole solution.
 
 ## Validation Checks
 
-- Impacted requirements, architecture, tests, implementation, validation, release, owners, and paths are identified.
+- Impacted requirements, design, tests, implementation, PR review, validation, release, owners, and paths are identified.
 - No unrelated artifacts are changed.
 
 ## Stop Conditions
@@ -76,4 +76,3 @@ Blockers:
 Next:
 - ...
 ```
-

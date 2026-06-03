@@ -25,7 +25,7 @@ Git remains the source of truth for workflow state. Jira may mirror state later,
 | `idea` | Idea or Epic shell exists, but intent is not drafted. | None | Idea accepted | `intent` |
 | `intent_review` | Intent draft exists and is awaiting review. | `intent/intent.md` | `intent_approval` | `specification` |
 | `specification_review` | Specification draft exists and is awaiting review. | `specs/spec.md` | `specification_approval` | `design` |
-| `architecture_review` | Architecture/API/ADR/implementation planning draft exists and is awaiting review. | `context/context.md`, API guidance, ADRs, or implementation plan | `architecture_approval` | `test-design` |
+| `design_review` | Design/API/ADR/implementation planning draft exists and is awaiting review. | `context/context.md`, API guidance, ADRs, or implementation plan | `design_approval` | `test-design` |
 | `test_review` | Acceptance or QA test design draft exists and is awaiting review. | `tests/acceptance.feature` or test design artifact | `test_design_approval` | `implementation` |
 | `implementation_ready` | Upstream artifacts are approved and slice planning is ready for build approval. | `design/implementation-plan.md` | `implementation_start_approval` | `implementation` |
 | `implementation_in_progress` | One approved implementation slice is active. | PR, unit tests, source changes, slice evidence | `implementation_slice_approval` | `pr-review` |
@@ -62,8 +62,8 @@ The skill should preserve unrelated workflow fields and approval history.
 | Artifact Created | State To Set | Current Skill | Pending Gate | Next State After Approval | Next Skill |
 | --- | --- | --- | --- | --- | --- |
 | `intent/intent.md` | `intent_review` | `intent` | `intent_approval` | `specification_review` | `specification` |
-| `specs/spec.md` | `specification_review` | `specification` | `specification_approval` | `architecture_review` | `design` |
-| `context/context.md`, API guidance, ADR draft, or implementation plan | `architecture_review` | `design` | `architecture_approval` | `test_review` | `test-design` |
+| `specs/spec.md` | `specification_review` | `specification` | `specification_approval` | `design_review` | `design` |
+| `context/context.md`, API guidance, ADR draft, or implementation plan | `design_review` | `design` | `design_approval` | `test_review` | `test-design` |
 | `tests/acceptance.feature` or QA test design | `test_review` | `test-design` | `test_design_approval` | `implementation_ready` | `implementation` |
 | approved slice plan / build readiness package | `implementation_ready` | `implementation` | `implementation_start_approval` | `implementation_in_progress` | `implementation` |
 | implemented slice / PR evidence | `implementation_in_progress` | `implementation` | `implementation_slice_approval` | `pr_review_ready` | `pr-review` |
@@ -118,8 +118,8 @@ Approval transitions:
 | Gate | From | To | Next Skill |
 | --- | --- | --- | --- |
 | `intent_approval` | `intent_review` | `specification_review` | `specification` |
-| `specification_approval` | `specification_review` | `architecture_review` | `design` |
-| `architecture_approval` | `architecture_review` | `test_review` | `test-design` |
+| `specification_approval` | `specification_review` | `design_review` | `design` |
+| `design_approval` | `design_review` | `test_review` | `test-design` |
 | `test_design_approval` | `test_review` | `implementation_ready` | `implementation` |
 | `implementation_start_approval` | `implementation_ready` | `implementation_in_progress` | `implementation` |
 | `implementation_slice_approval` | `implementation_in_progress` | `pr_review_ready` | `pr-review` |
@@ -152,7 +152,7 @@ If `workflow-state.yaml` does not exist, infer state from the newest or most com
 | implementation PR or source changes tied to approved slice | `implementation_in_progress` | `implementation_slice_approval` |
 | `design/implementation-plan.md` | `implementation_ready` | `implementation_start_approval` |
 | `tests/acceptance.feature` | `test_review` | `test_design_approval` |
-| `context/context.md` or ADR/API design artifact | `architecture_review` | `architecture_approval` |
+| `context/context.md` or ADR/API design artifact | `design_review` | `design_approval` |
 | `specs/spec.md` | `specification_review` | `specification_approval` |
 | `intent/intent.md` | `intent_review` | `intent_approval` |
 | capability folder only | `idea` | `idea_acceptance` |

@@ -13,7 +13,7 @@ Idea
 -> Epic
 -> Intent
 -> Specification
--> Architecture
+-> Design
 -> Story Breakdown
 -> Slice Planning
 -> Tasks
@@ -59,7 +59,7 @@ Git links:
 | --- | --- |
 | Intent | `domains/payments/capabilities/qr-refund/intent/intent.md` |
 | Specification | `domains/payments/capabilities/qr-refund/specs/spec.md` |
-| Architecture | `domains/payments/capabilities/qr-refund/context/context.md` |
+| Design | `domains/payments/capabilities/qr-refund/context/context.md` |
 | API Contract | `domains/payments/capabilities/qr-refund/contracts/openapi.yaml` |
 | Acceptance Tests | `domains/payments/capabilities/qr-refund/tests/acceptance.feature` |
 | Implementation Plan | `domains/payments/capabilities/qr-refund/design/implementation-plan.md` |
@@ -118,7 +118,7 @@ Approval gate:
 
 | Gate | Jira ID | Approver | Git Evidence |
 | --- | --- | --- | --- |
-| Architecture approved | `JIRA-QRREF-060` | Payments Architect | `context/context.md` Human Approval section |
+| Design approved | `JIRA-QRREF-060` | Payments Architect | `context/context.md` Human Approval section |
 
 ## Story Breakdown
 
@@ -258,6 +258,6 @@ Do:
 Do not:
 
 - Treat one Story as one FR.
-- Implement directly from Epic without specification, architecture, tests, and traceability.
+- Implement directly from Epic without specification, design, tests, and traceability.
 - Create source code before approval gates are satisfied.
 - Close Release without validation evidence and human approval.

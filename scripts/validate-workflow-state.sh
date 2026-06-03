@@ -96,13 +96,13 @@ is_allowed_for_skill() {
   esac
 
   case "$current_skill" in
-    intent|ba-intent|new)
+    intent|ba-intent)
       [[ "$changed_file" == */intent/* || "$changed_file" == */workflow-state.yaml ]]
       ;;
     specification|ba-specification)
       [[ "$changed_file" == */specs/* || "$changed_file" == */workflow-state.yaml ]]
       ;;
-    architecture|architect-context)
+    design|architect-context)
       [[ "$changed_file" == */context/* || "$changed_file" == */contracts/* || "$changed_file" == */design/* || "$changed_file" == */workflow-state.yaml || "$changed_file" == decisions/* ]]
       ;;
     test-design|qa-test-design)
@@ -113,6 +113,9 @@ is_allowed_for_skill() {
       ;;
     implementation|developer-implementation)
       [[ "$changed_file" == */design/* || "$changed_file" == */workflow-state.yaml || "$changed_file" == src/* ]]
+      ;;
+    pr-review)
+      [[ "$changed_file" == */workflow-state.yaml ]]
       ;;
     validation|qa-validation)
       [[ "$changed_file" == */validation/* || "$changed_file" == */workflow-state.yaml ]]

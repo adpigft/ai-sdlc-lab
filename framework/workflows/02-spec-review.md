@@ -23,7 +23,7 @@ Assess whether a specification is complete, testable, secure, operable, and read
 6. Confirm tests can be derived from the acceptance criteria.
 7. Update traceability for reviewed requirements, controls, and review evidence.
 8. Record approvals, required changes, or rejected scope in Jira.
-9. After approval, update or prepare `workflow-state.yaml` so the capability can move from `specification_review` to `architecture_review` when workflow-state is adopted.
+9. After approval, update or prepare `workflow-state.yaml` so the capability can move from `specification_review` to `design_review` when workflow-state is adopted.
 
 ## Outputs
 

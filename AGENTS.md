@@ -115,7 +115,7 @@ When the user says `Start new feature: <feature name>`:
 
 Jira lifecycle:
 
-Jira Epic -> Intent -> Specification -> Jira Stories -> Architecture/API/Tests -> Implementation Slices -> PR/Validation/Release
+Jira Epic -> Intent -> Specification -> Jira Stories -> Design/API/Tests -> Implementation Slices -> PR Review -> Validation -> Release
 
 - Jira Epic can exist before intent as a lightweight discovery container.
 - Intent is created in Git after discovery.
@@ -129,7 +129,7 @@ Jira Epic -> Intent -> Specification -> Jira Stories -> Architecture/API/Tests -
 
 - Intent requires PO / BA approval.
 - Specification requires BA / PO approval.
-- Architecture context requires Architect approval.
+- Design context requires Architect approval.
 - API contract requires Architect approval.
 - Tests require QA approval.
 - Traceability requires BA, Architect, and QA review.
@@ -166,7 +166,7 @@ Use subagents only to review existing artifacts from a specific angle, such as s
 - Never modify unrelated files.
 - Never hardcode tokens, passwords, API keys, or MCP credentials.
 - Use environment variables for enterprise integrations.
-- Never generate code before approved intent, specification, architecture, API, tests, and traceability.
+- Never generate code before approved intent, specification, design, API, tests, and traceability.
 - If an approved artifact has a gap, stop and report it instead of coding around it.
 - Keep changes small and reviewable.
 - Always summarize impacted files.

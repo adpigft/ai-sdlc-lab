@@ -16,7 +16,7 @@
 | Area | Reviewer | Result | Notes |
 | --- | --- | --- | --- |
 | Product scope |  | Pass / Fail / N/A |  |
-| Architecture |  | Pass / Fail / N/A |  |
+| Design |  | Pass / Fail / N/A |  |
 | Security and risk |  | Pass / Fail / N/A |  |
 | QA and testability |  | Pass / Fail / N/A |  |
 | Operations and support |  | Pass / Fail / N/A |  |

@@ -9,7 +9,7 @@ Define role-friendly Jira boards for AI-native SDLC delivery using a shared life
 Shared board columns:
 
 ```text
-Backlog -> Discovery -> Design -> Ready for Build -> In Progress -> Validation -> Release Ready -> Done
+Backlog -> Discovery -> Design -> Ready for Build -> In Progress -> PR Review -> Validation -> Release Ready -> Done
 ```
 
 | Column | Meaning |

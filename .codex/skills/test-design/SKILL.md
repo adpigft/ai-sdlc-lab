@@ -13,7 +13,7 @@ Use `$test-design` after specification approval and before implementation valida
 
 ## Inputs
 - Approved intent and specification
-- Architecture context
+- Design context
 - API contract if applicable
 - Risk, security, performance, and integration constraints
 - Existing acceptance tests
@@ -24,7 +24,7 @@ Use the `Test Design` pack in `framework/context/stage-context-packs.md`.
 Required reads:
 - This skill document.
 - Approved specification.
-- Architecture context.
+- Design context.
 - API contract when available.
 - Active domain context.
 - Active `workflow-state.yaml`.
@@ -76,7 +76,7 @@ Stop conditions:
 QA approval is required before implementation starts.
 
 ## Next skill or next workflow step
-Use traceability updates, then `$implementation` after approved architecture, API, tests, and traceability.
+Use traceability updates, then `$implementation` after approved design, API, tests, and traceability.
 
 ## Example usage
 `$test-design Create QA scenarios for approved QR refund specification`

@@ -38,8 +38,8 @@ next_skill: specification
 | Approval Gate | Approved Artifact | From State | Next State | Next Skill |
 | --- | --- | --- | --- | --- |
 | `intent_approval` | Intent | `intent_review` | `specification_review` | `specification` |
-| `specification_approval` | Specification | `specification_review` | `architecture_review` | `design` |
-| `architecture_approval` | Architecture context, API guidance, ADR status, implementation plan | `architecture_review` | `test_review` | `test-design` |
+| `specification_approval` | Specification | `specification_review` | `design_review` | `design` |
+| `design_approval` | Design context, API guidance, ADR status, implementation plan | `design_review` | `test_review` | `test-design` |
 | `test_design_approval` | Acceptance and QA test design | `test_review` | `implementation_ready` | `implementation` |
 | `implementation_start_approval` | Implementation plan and first approved slice | `implementation_ready` | `implementation_in_progress` | `implementation` |
 | `implementation_slice_approval` | Implemented slice, PR, unit tests, review evidence | `implementation_in_progress` | `pr_review_ready` | `pr-review` |
@@ -53,7 +53,7 @@ next_skill: specification
 | --- | --- |
 | `intent_approval` | PO / BA approval reference and approved intent path. |
 | `specification_approval` | PO / BA approval reference and approved specification path. |
-| `architecture_approval` | Architect approval reference and approved architecture path. |
+| `design_approval` | Architect approval reference and approved design path. |
 | `test_design_approval` | QA approval reference and approved test design path. |
 | `implementation_start_approval` | Product, architecture, QA, and engineering readiness approval. |
 | `implementation_slice_approval` | PR reference, reviewer approval, test result reference, and slice ID. |
@@ -75,7 +75,7 @@ Codex should treat these as approval events when the capability and artifact can
 
 - `Approved intent`
 - `Approve specification`
-- `Architecture approved`
+- `Design approved`
 - `QA approves test design`
 - `Implementation slice approved`
 - `Validation approved`

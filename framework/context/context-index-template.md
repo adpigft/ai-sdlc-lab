@@ -128,7 +128,7 @@ Template:
 | --- | --- | --- |
 | Intent | intent/intent.md |  |
 | Specification | specs/spec.md |  |
-| Architecture | context/context.md |  |
+| Design | context/context.md |  |
 | API Contract | contracts/openapi.yaml |  |
 | Test Design | tests/acceptance.feature |  |
 | Implementation Plan | design/implementation-plan.md |  |

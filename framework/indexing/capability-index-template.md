@@ -27,7 +27,7 @@ Navigation aid for one capability. This index helps users and AI agents find the
 | --- | --- | --- | --- |
 | Intent | `intent.md` | `intent/intent.md` | `workflow-state.yaml` |
 | Specification | `spec.md` | `specs/spec.md` | `workflow-state.yaml` |
-| Architecture | `context.md` | `context/context.md` | `workflow-state.yaml` |
+| Design | `context.md` | `context/context.md` | `workflow-state.yaml` |
 | API Contract | `openapi.yaml` | `contracts/openapi.yaml` | `workflow-state.yaml` |
 | Test Design | `acceptance.feature` | `tests/acceptance.feature` | `workflow-state.yaml` |
 | Implementation Plan | `implementation-plan.md` | `design/implementation-plan.md` | `workflow-state.yaml` |
@@ -58,4 +58,3 @@ Navigation aid for one capability. This index helps users and AI agents find the
 ## Maintenance
 
 This file should be generated or validated in the future from workflow state and source artifacts. Do not use it as a replacement for workflow state.
-

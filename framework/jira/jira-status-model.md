@@ -9,7 +9,7 @@ Define a consistent Jira status model for AI-native SDLC work across Product Own
 Recommended board/status flow:
 
 ```text
-Backlog -> Discovery -> Design -> Ready for Build -> In Progress -> Validation -> Release Ready -> Done
+Backlog -> Discovery -> Design -> Ready for Build -> In Progress -> PR Review -> Validation -> Release Ready -> Done
 ```
 
 Blocked work should be visible using a blocked flag or swimlane, with owner, reason, and next action.
@@ -20,9 +20,10 @@ Blocked work should be visible using a blocked flag or swimlane, with owner, rea
 | --- | --- | --- |
 | Backlog | Accepted demand, idea, change, defect, decision, or release item not yet started. | `idea` |
 | Discovery | Intent discovery, change impact analysis, RCA, or clarification underway. | `intent_review` or `blocked` |
-| Design | Specification, architecture, test design, decision, or implementation planning underway. | `specification_review`, `architecture_review`, `test_review` |
+| Design | Specification, design, test-design, decision, or implementation planning underway. | `specification_review`, `design_review`, `test_review` |
 | Ready for Build | Upstream approvals and traceability are complete enough for implementation. | `implementation_ready` |
 | In Progress | Implementation, artifact update, RCA correction, or engineering work underway. | `implementation_in_progress` |
+| PR Review | Changed files, allowed paths, standards, compatibility, tests, and traceability are being reviewed. | `pr_review_ready` |
 | Validation | QA validation, evidence gathering, retest, or release verification underway. | `validation_ready` |
 | Release Ready | Validated scope is ready for release approval or deployment/change management. | `release_ready` |
 | Done | Work is approved, linked to Git evidence, and closed. | `released` |
@@ -32,11 +33,11 @@ Blocked work should be visible using a blocked flag or swimlane, with owner, rea
 | Issue Type | Normal Path |
 | --- | --- |
 | Initiative | Backlog -> Discovery -> Design -> In Progress -> Done |
-| Epic | Backlog -> Discovery -> Design -> Ready for Build -> In Progress -> Validation -> Release Ready -> Done |
-| Story | Backlog -> Design -> Ready for Build -> In Progress -> Validation -> Done |
-| Task | Backlog -> Ready for Build -> In Progress -> Validation -> Done |
+| Epic | Backlog -> Discovery -> Design -> Ready for Build -> In Progress -> PR Review -> Validation -> Release Ready -> Done |
+| Story | Backlog -> Design -> Ready for Build -> In Progress -> PR Review -> Validation -> Done |
+| Task | Backlog -> Ready for Build -> In Progress -> PR Review -> Validation -> Done |
 | Subtask | Backlog -> In Progress -> Done |
-| Defect | Backlog -> Discovery -> Design -> In Progress -> Validation -> Done |
+| Defect | Backlog -> Discovery -> Design -> In Progress -> PR Review -> Validation -> Done |
 | Decision | Backlog -> Discovery -> Design -> Done, or Blocked until resolved |
 | Release | Backlog -> Validation -> Release Ready -> Done |
 
@@ -46,7 +47,7 @@ QR Refund status examples:
 
 | Item | Status | Reason |
 | --- | --- | --- |
-| Epic: QR Refund | Design / Ready for Build | Intent, spec, architecture, tests, traceability, and implementation plan exist with some blockers. |
+| Epic: QR Refund | Design / Ready for Build | Intent, spec, design, tests, traceability, and implementation plan exist with some blockers. |
 | Story: Merchant Refund Creation | Ready for Build | Slice 1 can start after implementation plan approval. |
 | Task: Slice 1 Refund Creation Foundation | Ready for Build | Covers refund aggregate, idempotency, duplicate prevention, status query, and audit outbox. |
 | Task: Slice 2 Processor and Ledger Integration | Blocked | Conditions remain for accounting, processor/ledger references, and failure behavior. |

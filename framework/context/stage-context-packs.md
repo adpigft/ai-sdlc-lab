@@ -203,7 +203,7 @@ Required reads:
 - `domains/<domain>/domain-context.md`
 - approved intent
 - approved specification
-- approved architecture
+- approved design
 - approved API contract when applicable
 - approved tests
 - approved implementation plan

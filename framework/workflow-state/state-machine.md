@@ -15,9 +15,9 @@ This state machine coordinates lifecycle progress only. It does not replace Git 
 | `idea` | Raw capability idea or intake exists. | `intent` |
 | `intent_review` | Intent is being drafted or reviewed for approval. | `intent` |
 | `specification_review` | Specification is being drafted or reviewed for approval. | `specification` |
-| `architecture_review` | Architecture, API considerations, decisions, and implementation planning are being drafted or reviewed. | `design` |
+| `design_review` | Design, API considerations, decisions, and implementation planning are being drafted or reviewed. | `design` |
 | `test_review` | QA test design is being drafted or reviewed. | `test-design` |
-| `implementation_ready` | Approved requirements, architecture, tests, and traceability are ready for implementation slicing. | `implementation` |
+| `implementation_ready` | Approved requirements, design, tests, and traceability are ready for implementation slicing. | `implementation` |
 | `implementation_in_progress` | One approved implementation slice is active. | `implementation` |
 | `pr_review_ready` | Implementation changes are ready for pull request review before QA validation. | `pr-review` |
 | `validation_ready` | Implementation is ready for QA validation. | `validation` |
@@ -30,8 +30,8 @@ This state machine coordinates lifecycle progress only. It does not replace Git 
 | Approval Event | From State | To State | Next Skill |
 | --- | --- | --- | --- |
 | `intent_approval` | `intent_review` | `specification_review` | `specification` |
-| `specification_approval` | `specification_review` | `architecture_review` | `design` |
-| `architecture_approval` | `architecture_review` | `test_review` | `test-design` |
+| `specification_approval` | `specification_review` | `design_review` | `design` |
+| `design_approval` | `design_review` | `test_review` | `test-design` |
 | `test_design_approval` | `test_review` | `implementation_ready` | `implementation` |
 | `implementation_start_approval` | `implementation_ready` | `implementation_in_progress` | `implementation` |
 | `implementation_slice_approval` | `implementation_in_progress` | `pr_review_ready` | `pr-review` |

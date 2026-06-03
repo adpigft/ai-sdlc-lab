@@ -17,7 +17,7 @@ Jira state shows work-management progress. Git state and artifacts show what was
 | Drafting | Git artifact is being drafted. |
 | In Review | Human approval is pending. |
 | Approved | Gate is approved. |
-| Ready for Build | Specification, architecture, tests, and traceability are approved. |
+| Ready for Build | Specification, design, test-design, and traceability are approved. |
 | In Progress | Active delivery work is underway. |
 | In Validation | QA validation is underway. |
 | Ready for Release | Validation is approved and release readiness is pending. |
@@ -32,10 +32,11 @@ Jira state shows work-management progress. Git state and artifacts show what was
 | `idea` | Intake | Epic or intake reference only. |
 | `intent_review` | Discovery / In Review | `intent.md` draft or approved intent gate. |
 | `specification_review` | Drafting / In Review | `spec.md` draft or approved specification gate. |
-| `architecture_review` | Drafting / In Review | `context.md`, API guidance, ADR status, implementation planning. |
+| `design_review` | Drafting / In Review | `context.md`, API guidance, ADR status, implementation planning. |
 | `test_review` | Drafting / In Review | `acceptance.feature` or QA test design artifact. |
 | `implementation_ready` | Ready for Build | Approved traceability and implementation slice plan. |
 | `implementation_in_progress` | In Progress | PRs, commits, tests, and active Task/Subtask links. |
+| `pr_review_ready` | In Review | PR review evidence, changed files, allowed-path checks, and review findings. |
 | `validation_ready` | In Validation | Validation report and test evidence in progress. |
 | `release_ready` | Ready for Release | Approved validation report and draft release notes. |
 | `released` | Released / Done | Approved release notes and release approval reference. |
@@ -66,7 +67,7 @@ Set Jira and workflow state to Blocked when:
 | PR State | Jira Impact | Git Evidence |
 | --- | --- | --- |
 | Open | Task or Story remains In Progress. | PR link and branch. |
-| Review Approved | Task can move toward validation if tests pass. | PR approval record. |
+| Review Approved | Task can move toward validation if tests pass and PR review blockers are resolved. | PR approval record and PR review evidence. |
 | Changes Requested | Task remains In Progress or Blocked. | PR review comments. |
 | Merged | Task can move to In Validation. | Commit SHA and PR link. |
 | Closed Without Merge | Task remains open or is cancelled. | PR closure reason. |

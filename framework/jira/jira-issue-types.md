@@ -8,7 +8,7 @@ Define the Jira issue types used by the AI SDLC workflow and their relationship 
 
 | Issue Type | Use For | Created When | Links To Git Source Of Truth |
 | --- | --- | --- | --- |
-| Epic | Capability discovery and delivery container. | Before or during intent discovery. | Intent, specification, architecture, tests, validation, release, traceability. |
+| Epic | Capability discovery and delivery container. | Before or during intent discovery. | Intent, specification, design, tests, PR review, validation, release, traceability. |
 | Story | Approved business value or user-facing behavior. | After specification approval. | Requirement IDs in `spec.md`, acceptance scenarios, traceability rows. |
 | Task | Work item for implementation, architecture, QA, DevSecOps, or release preparation. | After the relevant artifact or slice is approved. | Design, implementation plan, source files, validation or release artifacts. |
 | Subtask | Small execution step under a Story or Task. | When a Task needs accountable sub-steps. | Same Git artifact as parent, with narrower scope. |

@@ -21,7 +21,7 @@ Prepare implementation work from an approved specification without starting appl
 6. Define required tests and SonarCloud quality gate expectations before implementation starts.
 7. Update traceability with planned code, test, and validation evidence placeholders.
 8. Hold a build readiness gate.
-9. After architecture and test design approvals, update or prepare `workflow-state.yaml` so the capability can move through `test_review`, `implementation_ready`, and `implementation_in_progress` when workflow-state is adopted.
+9. After design and test-design approvals, update or prepare `workflow-state.yaml` so the capability can move through `test_review`, `implementation_ready`, and `implementation_in_progress` when workflow-state is adopted.
 
 ## Outputs
 

@@ -10,7 +10,7 @@ Define how Jira supports AI-native software delivery while Git remains the sourc
 
 | System | Source Of Truth For |
 | --- | --- |
-| Git | Intent, specification, architecture, API contracts, tests, ADRs, implementation plans, validation reports, release notes, traceability. |
+| Git | Intent, specification, design, API contracts, tests, ADRs, implementation plans, PR review evidence, validation reports, release notes, traceability. |
 | Jira | Ownership, delivery status, approvals, sprint planning, dependencies, blockers, work management. |
 | Confluence | Stakeholder-facing published summaries, operating model pages, management communication. |
 
@@ -21,12 +21,13 @@ Idea
 -> Epic
 -> Intent
 -> Specification
--> Architecture
+-> Design
 -> Test Design
 -> Story Breakdown
 -> Implementation Slice Planning
 -> Tasks/Subtasks
 -> PR
+-> PR Review
 -> Validation
 -> Release
 ```
@@ -99,13 +100,13 @@ Do:
 - Link every meaningful Jira item to Git paths or stable artifact IDs.
 - Create Stories after specification approval.
 - Create Tasks after implementation slices are defined.
-- Use Decision issues for unresolved choices that block architecture, tests, implementation, validation, or release.
+- Use Decision issues for unresolved choices that block design, tests, implementation, PR review, validation, or release.
 - Keep Confluence summaries linked back to Git and Jira.
 
 Do not:
 
 - Use Jira as the canonical store for requirements.
 - Treat one Story as one FR.
-- Create implementation Tasks before approved intent, specification, architecture, tests, and traceability.
+- Create implementation Tasks before approved intent, specification, design, tests, and traceability.
 - Use Jira status to override missing Git evidence, failed CI, failed quality gates, or missing validation.
 - Store secrets, credentials, customer data, or sensitive operational data in Jira.

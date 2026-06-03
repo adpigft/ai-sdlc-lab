@@ -20,7 +20,7 @@ Create acceptance, negative, integration, security, and NFR scenarios from appro
 - `framework/context/stage-context-packs.md`
 - `.codex/skills/test-design/SKILL.md`
 - Approved specification
-- Architecture context
+- Design context
 - API contract when available
 - Active domain context
 
@@ -72,4 +72,3 @@ Blockers:
 Next:
 - ...
 ```
-

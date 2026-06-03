@@ -30,7 +30,7 @@ Review implementation changes before QA validation.
 
 - CI logs
 - Local validation output
-- Architecture context
+- Design context
 - API contracts or event schemas impacted by changed files
 
 ## Forbidden Reads

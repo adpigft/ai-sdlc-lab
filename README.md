@@ -122,17 +122,16 @@ src/main/java/
 src/test/java/
 ```
 
-Source code is created only after specifications, architecture, tests, traceability, and implementation slice approval are complete.
+Source code is created only after specification, design, test-design, traceability, and implementation slice approval are complete.
 
 ---
 
 # Domain, Capability, and Feature Model
 
-The framework uses three ownership boundaries:
+The current pilot framework uses two delivery levels:
 
 - Domain = architecture boundary
-- Capability = business function boundary
-- Feature = delivery boundary
+- Capability = delivery unit
 
 ## Domain
 
@@ -142,26 +141,32 @@ Example: `Cards`
 
 ## Capability
 
-A capability owns capability context, shared business flow, shared APIs, shared events, shared integrations, and shared state model.
+A capability owns the smallest independently deliverable business outcome for the pilot implementation.
 
-Example: `Card Lifecycle Management`
+The capability folder currently contains:
 
-## Feature
+- intent
+- specification
+- design
+- tests
+- validation
+- release
 
-A feature owns the AI-SDLC delivery lifecycle: intent, specification, design, test-design, implementation, pr-review, validation, release, and feedback.
+A capability owns the AI-SDLC delivery lifecycle: intent, specification, design, test-design, implementation, pr-review, validation, release, and feedback.
 
 Example: `Card Replacement`
 
 ```text
 Cards
-└── Card Lifecycle Management
-    ├── Card Replacement
-    ├── Card Activation
-    ├── Card Renewal
-    └── Card Closure
+├── Card Replacement
+├── Card Activation
+├── Card Renewal
+└── Card Closure
 ```
 
-The AI-SDLC lifecycle runs at feature level. Domain and capability context guide the feature. Feature implementation can be delivered in smaller implementation slices. Slices are not features; they are implementation increments inside a feature.
+The AI-SDLC lifecycle runs at capability level for the pilot. Domain context guides the capability. Capability implementation can be delivered in smaller implementation slices. Slices are not capabilities; they are implementation increments inside a capability.
+
+The capability folder represents the smallest independently deliverable business outcome for the pilot implementation. A future framework version may introduce an explicit feature layer if required.
 
 ---
 
@@ -249,7 +254,7 @@ Every capability follows the same lifecycle.
 ```text
 Intent
 → Specification
-→ Architecture
+→ Design
 → Test Design
 → Implementation
 → PR Review
@@ -675,7 +680,7 @@ Before implementation:
 
 - Intent approved
 - Specification approved
-- Architecture approved
+- Design approved
 - API contract approved
 - Test design approved
 - Traceability reviewed

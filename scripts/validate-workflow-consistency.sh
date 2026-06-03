@@ -47,11 +47,12 @@ check_artifact_paths() {
 expected_next_skill() {
   case "$1" in
     intent_review) printf '%s\n' specification ;;
-    specification_review) printf '%s\n' architecture ;;
-    architecture_review) printf '%s\n' test-design ;;
+    specification_review) printf '%s\n' design ;;
+    design_review) printf '%s\n' test-design ;;
     test_review) printf '%s\n' implementation ;;
     implementation_ready) printf '%s\n' implementation ;;
-    implementation_in_progress) printf '%s\n' validation ;;
+    implementation_in_progress) printf '%s\n' pr-review ;;
+    pr_review_ready) printf '%s\n' validation ;;
     validation_ready) printf '%s\n' release ;;
     release_ready) printf '%s\n' feedback-capture ;;
     released) printf '%s\n' feedback-capture ;;

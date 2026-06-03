@@ -35,7 +35,7 @@ Required reads:
 Optional reads:
 - CI or local validation output.
 - API contracts and event schemas impacted by the changed files.
-- Architecture context for the active capability.
+- Design context for the active capability.
 
 Forbidden reads:
 - Unrelated source files.
