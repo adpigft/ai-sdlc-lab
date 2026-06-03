@@ -145,6 +145,12 @@ Use:
 
 ---
 
+## Context Management
+
+Use `framework/context/context-pack-model.md` and `framework/context/stage-context-packs.md` to keep reads stage-specific and token usage controlled. Optional lightweight indexes are defined in `framework/context/context-index-template.md`.
+
+---
+
 ## framework/
 
 Contains reusable framework assets.
