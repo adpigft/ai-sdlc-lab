@@ -11,6 +11,7 @@ Define the common shape for lightweight prompt patterns used across the AI-SDLC 
 - Reads must be stage-specific and token-aware.
 - The AI must stop when approvals, required inputs, or placement metadata are missing.
 - Full framework reads are allowed only for framework assessment or framework changes.
+- Skill outputs should end with the standard response footer defined in `framework/prompt-patterns/standard-response-format.md`.
 
 ## Pattern Fields
 
@@ -36,6 +37,8 @@ Before implementation, source code reads must be limited to approved `allowed_pa
 
 ## Standard Response Format
 
+Use `framework/prompt-patterns/standard-response-format.md` as the canonical response footer guidance.
+
 ```text
 Created/Updated:
 - ...
@@ -49,4 +52,3 @@ Blockers:
 Next:
 - ...
 ```
-

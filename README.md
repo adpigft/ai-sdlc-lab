@@ -153,6 +153,8 @@ Use `framework/indexing/indexing-model.md` for lightweight navigation indexes; i
 
 Use `framework/prompt-patterns/` for lightweight stage prompt patterns that improve repeatability, stop conditions, and response consistency without replacing source artifacts.
 
+Use `framework/prompt-patterns/standard-response-format.md` for the standard skill response footer.
+
 ---
 
 ## framework/

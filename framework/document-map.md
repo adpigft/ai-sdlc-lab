@@ -16,7 +16,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 | `Review.`, `Approved.`, `Status.` | `framework/workflows/review-approval-flow.md` | `framework/workflow/workflow-state-guide.md`, `framework/workflow-state/approval-events.md` |
 | Context routing and token discipline | `framework/context/context-pack-model.md` | `framework/context/stage-context-packs.md`, `framework/context/context-index-template.md` |
 | Lightweight indexing | `framework/indexing/indexing-model.md` | `framework/indexing/framework-index-template.md`, `framework/indexing/domain-index-template.md`, `framework/indexing/capability-index-template.md` |
-| Prompt patterns | `framework/prompt-patterns/prompt-pattern-model.md` | `framework/prompt-patterns/*-pattern.md`, `framework/prompt-patterns/README.md` |
+| Prompt patterns | `framework/prompt-patterns/prompt-pattern-model.md` | `framework/prompt-patterns/*-pattern.md`, `framework/prompt-patterns/standard-response-format.md`, `framework/prompt-patterns/README.md` |
 | Implementation placement | `framework/service-architecture/implementation-placement-model.md` | `framework/multi-squad/path-governance-model.md` |
 | Service ownership | `framework/service-architecture/service-catalog-template.md` | `framework/multi-squad/domain-ownership-model.md` |
 | Frontend ownership | `framework/frontend/frontend-catalog-template.md` | `framework/frontend/shared-frontend-ownership.md`, `framework/frontend/app-catalog-template.md` |
