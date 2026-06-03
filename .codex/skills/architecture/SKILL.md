@@ -19,6 +19,33 @@ Use `$architecture` after specification approval and before implementation. Norm
 - Security and compliance requirements
 - Relevant standards and ADRs
 
+## Context pack
+Use the `Architecture` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- Approved intent and specification.
+- Active domain context.
+- Active `workflow-state.yaml`.
+- Implementation placement model.
+
+Optional reads:
+- Service catalog, frontend catalog, shared asset ownership, API/security standards, and event guidance when impacted.
+
+Forbidden reads:
+- Source code before implementation unless the user explicitly requests review of existing implementation.
+- Unrelated domains unless cross-domain impact is identified.
+- Validation and release artifacts unless checking drift.
+
+Escalation rule: Read another domain, service, frontend module, or shared asset guidance only after architecture impact identifies it.
+
+Token discipline rule: Prefer the active capability, placement model, and relevant standards; full framework reads are allowed only for framework assessment or framework changes.
+
+Stop conditions:
+- Specification is not approved.
+- Material design decisions are unresolved.
+- Target placement cannot be defined or explicitly deferred.
+
 ## Process
 1. Confirm specification approval exists.
 2. Read `domains/<domain>/domain-context.md` when the domain is known and the file exists.

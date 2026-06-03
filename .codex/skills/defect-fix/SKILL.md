@@ -20,6 +20,33 @@ Use `$defect-fix` when users report incorrect behavior, failed validation, escap
 - Domain context, such as `domains/<domain>/domain-context.md`, when available
 - Related Jira issue or incident reference if available
 
+## Context pack
+Use the `Defect Fix` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- Defect report or user evidence.
+- Active domain context.
+- Impacted capability artifacts.
+- Active `workflow-state.yaml` when the capability exists.
+- Placement guidance for code-impacting fixes.
+
+Optional reads:
+- Source and tests only after RCA identifies code impact and approved impacted paths.
+- Traceability, validation report, and feedback log.
+
+Forbidden reads:
+- Unrelated source, unrelated capabilities, and restricted paths without approval.
+
+Escalation rule: Read impacted paths only after RCA maps the defect to owner, allowed paths, impacted tests, and regression scope.
+
+Token discipline rule: Keep context to evidence, RCA, impacted artifacts, and approved impacted paths; full framework reads are allowed only for framework assessment or framework changes.
+
+Stop conditions:
+- Defect evidence is insufficient for RCA.
+- Owner or allowed paths are missing for code-impacting fixes.
+- An upstream artifact gap must be resolved before code changes.
+
 ## Process
 1. Require or assign a Defect ID before RCA.
 2. Read `domains/<domain>/domain-context.md` when the domain is known and the file exists.

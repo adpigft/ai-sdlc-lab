@@ -18,6 +18,34 @@ Use `$validation` after implementation is ready for QA or when release evidence 
 - CI and GitHub Actions references
 - Defect, risk, or waiver information
 
+## Context pack
+Use the `Validation` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- Active `workflow-state.yaml`.
+- Validation report.
+- Approved tests.
+- Implementation evidence.
+- Traceability matrix.
+- Approved requirements and architecture as needed.
+
+Optional reads:
+- Source and tests inside implemented paths.
+- CI logs, command output, and security/testing/NFR standards.
+
+Forbidden reads:
+- Unrelated source paths and unrelated capabilities unless regression scope requires them.
+
+Escalation rule: Read additional capability or code paths only when regression scope, traceability gaps, or validation evidence require it.
+
+Token discipline rule: Focus on evidence, mapped requirements, and implemented paths; full framework reads are allowed only for framework assessment or framework changes.
+
+Stop conditions:
+- Implementation evidence is missing.
+- Tests cannot map to requirements.
+- Release readiness is claimed without supporting evidence.
+
 ## Process
 1. Confirm implementation is ready for validation.
 2. Use `qa-validation` for QA validation and evidence capture.

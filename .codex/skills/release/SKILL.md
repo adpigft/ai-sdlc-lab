@@ -19,6 +19,32 @@ Use `$release` when a capability, change, or defect fix is ready for release rea
 - Rollback and monitoring notes
 - Jira release, version, or approval reference if available
 
+## Context pack
+Use the `Release` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- Active `workflow-state.yaml`.
+- Validation report.
+- Traceability matrix.
+- Release notes template.
+- CI and quality evidence when code exists.
+
+Optional reads:
+- Implementation plan, feedback log, operational standards, and generated Jira/Confluence summaries.
+
+Forbidden reads:
+- Source code unless needed to verify release evidence.
+- Unrelated capabilities.
+
+Escalation rule: Read implementation or operational details only when release readiness evidence references them.
+
+Token discipline rule: Keep context to validation, traceability, release evidence, and active capability risks; full framework reads are allowed only for framework assessment or framework changes.
+
+Stop conditions:
+- Validation says release is not ready.
+- Release notes, CI/security/rollback/NFR evidence, or release approval is missing.
+
 ## Process
 1. Confirm validation evidence exists or route to `$validation`.
 2. Assess release readiness against validation evidence, risks, and CI gates.

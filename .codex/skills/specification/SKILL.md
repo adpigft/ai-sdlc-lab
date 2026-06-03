@@ -18,6 +18,32 @@ Use `$specification` after intent is approved and before architecture, API, test
 - Domain standards and constraints
 - Optional Jira Epic reference
 
+## Context pack
+Use the `Specification` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- Approved intent.
+- Active domain context.
+- Active `workflow-state.yaml`.
+- Specification template.
+
+Optional reads:
+- API, security, and testing standards.
+- Similar approved specs in the same domain for style.
+
+Forbidden reads:
+- Source code, implementation plans, release artifacts, and unrelated domains.
+
+Escalation rule: Read another domain only when the requirement explicitly impacts that domain or an integration owner must be identified.
+
+Token discipline rule: Keep context centered on approved intent and domain rules; do not load full framework content outside framework assessment or framework changes.
+
+Stop conditions:
+- Intent is not approved.
+- Open questions block requirement definition.
+- Required approver is missing.
+
 ## Process
 1. Confirm intent approval exists.
 2. Use `ba-specification`.

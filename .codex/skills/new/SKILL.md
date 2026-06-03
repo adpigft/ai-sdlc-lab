@@ -19,6 +19,29 @@ Use `$new` when a user wants to start a new product capability, feature, or busi
 - Optional Jira Epic reference
 - Optional Confluence or stakeholder notes
 
+## Context pack
+Use the `New Capability` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- `domains/<domain>/domain-context.md`.
+- Workflow-state guidance.
+
+Optional reads:
+- Intent templates, Jira model guidance, and existing capability artifacts in the same domain for style.
+
+Forbidden reads:
+- Source code, unrelated domains, unrelated implementation plans, validation artifacts, and release artifacts.
+
+Escalation rule: Read another domain only when the user request names a cross-domain dependency or impact analysis identifies one.
+
+Token discipline rule: Read only the active domain context and lightweight examples; full framework reads are allowed only for framework assessment or framework changes.
+
+Stop conditions:
+- The domain context is missing for a new domain.
+- Intent discovery is insufficient.
+- Required PO/BA approval is missing.
+
 ## Process
 1. If Jira is available, create or reference a lightweight Jira Epic shell as a discovery container.
 2. Confirm that Git remains the source of truth and Jira is used for work management and approval tracking.

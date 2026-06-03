@@ -17,6 +17,30 @@ Use whenever feedback, defect, review finding, or change request is received.
 - Current traceability matrix
 - Jira reference
 
+## Context pack
+Use the `Feedback Capture` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- Feedback log.
+- Impacted capability or domain artifacts.
+- Active `workflow-state.yaml` when the capability exists.
+
+Optional reads:
+- Traceability, validation report, release notes, and Jira/Confluence placeholders.
+
+Forbidden reads:
+- Unrelated source and unrelated domains.
+- Code changes before impact analysis and approval.
+
+Escalation rule: Read additional artifacts only when the feedback item maps to them through impact analysis.
+
+Token discipline rule: Keep context to the feedback item and impacted artifacts; full framework reads are allowed only for framework assessment or framework changes.
+
+Stop conditions:
+- Feedback affects requirements, tests, code, or release but owner approval is missing.
+- Customer-sensitive details are not masked.
+
 ## Process
 1. Record feedback.
 2. Classify as clarification, defect, change request, risk, or improvement.

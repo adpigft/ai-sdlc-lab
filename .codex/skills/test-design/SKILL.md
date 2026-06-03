@@ -18,6 +18,33 @@ Use `$test-design` after specification approval and before implementation valida
 - Risk, security, performance, and integration constraints
 - Existing acceptance tests
 
+## Context pack
+Use the `Test Design` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- Approved specification.
+- Architecture context.
+- API contract when available.
+- Active domain context.
+- Active `workflow-state.yaml`.
+
+Optional reads:
+- Testing/security standards and traceability when coverage is being checked.
+
+Forbidden reads:
+- Source code unless the user explicitly requests regression analysis against existing implementation.
+- Release artifacts and unrelated domains.
+
+Escalation rule: Read related domains only when acceptance scenarios, integrations, or regression scope require cross-domain coverage.
+
+Token discipline rule: Keep context to requirements, architecture, API, and test standards; full framework reads are allowed only for framework assessment or framework changes.
+
+Stop conditions:
+- Architecture or API approval is missing where required.
+- Requirements lack an acceptance basis.
+- NFR targets are missing and cannot be recorded as open questions.
+
 ## Process
 1. Confirm approved requirements are available.
 2. Use `qa-test-design` for acceptance coverage.

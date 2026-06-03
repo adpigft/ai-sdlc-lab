@@ -20,6 +20,33 @@ Use `$change-request` when an approved or in-flight capability needs a scoped ch
 - Domain context, such as `domains/<domain>/domain-context.md`, when available
 - Optional Jira change, story, or stakeholder reference
 
+## Context pack
+Use the `Change Request` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- Active `workflow-state.yaml` when the capability exists.
+- Active domain context.
+- Impacted artifacts named by the change.
+- Placement guidance for code-impacting changes.
+
+Optional reads:
+- Traceability, feedback log, related domain contexts for cross-domain impact, and Jira model guidance.
+
+Forbidden reads:
+- Unrelated capability artifacts.
+- Source code before impact analysis and approval.
+- Restricted paths without owner approval.
+
+Escalation rule: Read or modify only impacted artifacts and paths; cross-domain or restricted-path reads require impact analysis and owner need.
+
+Token discipline rule: Keep context to the change request, impacted artifacts, and approved impacted paths; full framework reads are allowed only for framework assessment or framework changes.
+
+Stop conditions:
+- A change ID is missing and cannot be assigned.
+- Impacted owners cannot be identified.
+- Approval is missing for artifact or code changes.
+
 ## Process
 1. Require or assign a Change ID before impact analysis.
 2. Read `domains/<domain>/domain-context.md` when the domain is known and the file exists.

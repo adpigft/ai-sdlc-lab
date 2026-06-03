@@ -42,6 +42,28 @@ Before drafting domain artifacts, read:
 - `framework/multi-squad/shared-asset-ownership-model.md`
 - `framework/service-architecture/implementation-placement-model.md`
 
+## Context pack
+Use the `Domain Onboarding` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- Domain onboarding, domain ownership, service catalog, frontend catalog, shared asset ownership, and implementation placement framework documents.
+
+Optional reads:
+- `README.md`, `AGENTS.md`, and existing domain contexts for style only.
+
+Forbidden reads:
+- Source code, capability artifacts, traceability, feedback, and app/service/library/platform folders unless the user explicitly asks for framework impact.
+
+Escalation rule: Read related domains only when the new domain boundary or ownership model depends on them.
+
+Token discipline rule: Keep context to onboarding templates and the target domain; do not load full framework content unless performing a framework change or assessment.
+
+Stop conditions:
+- The domain already exists and update approval is missing.
+- Required owner or placement assumptions cannot be captured as assumptions or open questions.
+- The user asks to create capabilities, source code, or implementation folders.
+
 ## Process
 1. Confirm the requested domain name and normalize the folder name, such as `cards`, `deposits`, or `lending`.
 2. Check whether `domains/<domain>/` already exists.

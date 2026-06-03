@@ -19,6 +19,36 @@ Use `$implementation` only after intent, specification, architecture, API where 
 - Existing source and test code
 - Jira Task or Subtask if available
 
+## Context pack
+Use the `Implementation` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- Active `workflow-state.yaml`.
+- Active domain context.
+- Approved intent, specification, architecture, API, test design, traceability, and implementation plan.
+- Placement metadata, including `allowed_paths` and `restricted_paths`.
+- Coding, testing, and security standards relevant to the approved slice.
+
+Optional reads:
+- Existing source and tests only inside approved `allowed_paths`.
+- Service, frontend, or shared asset ownership docs referenced by placement metadata.
+
+Forbidden reads:
+- Source outside `allowed_paths`.
+- Restricted paths.
+- Unrelated domains, services, frontend modules, and release artifacts unless preparing approved release evidence.
+
+Escalation rule: Stop and request approval before reading or editing any path outside approved `allowed_paths`.
+
+Token discipline rule: Load only the approved slice, its placement metadata, and files in allowed paths; full framework reads are allowed only for framework assessment or framework changes.
+
+Stop conditions:
+- Upstream approvals are missing.
+- `allowed_paths` or `restricted_paths` are missing.
+- The requested change needs restricted paths.
+- Scope expands beyond the approved implementation slice.
+
 ## Process
 1. Confirm all upstream approvals and traceability are present.
 2. Read `domains/<domain>/domain-context.md` when the domain is known and the file exists.

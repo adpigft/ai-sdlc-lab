@@ -22,6 +22,31 @@ Use whenever intent, spec, context, API, tests, validation, release, Jira, or Co
 - Jira references
 - Confluence references
 
+## Context pack
+Use the `Traceability Review` pack in `framework/context/stage-context-packs.md`.
+
+Required reads:
+- This skill document.
+- Active domain context.
+- Active capability artifacts.
+- Traceability matrix.
+- Active `workflow-state.yaml`.
+
+Optional reads:
+- Feedback log, generated Jira/Confluence payloads, validation report, and release notes.
+
+Forbidden reads:
+- Source code unless implementation evidence must be mapped.
+- Unrelated capabilities unless cross-capability impact exists.
+
+Escalation rule: Read additional artifacts only when a traceability link, dependency, or cross-capability impact requires it.
+
+Token discipline rule: Read only artifacts needed to prove links for the active capability; full framework reads are allowed only for framework assessment or framework changes.
+
+Stop conditions:
+- A mandatory source artifact is missing.
+- A traceability gap blocks implementation, validation, or release.
+
 ## Process
 1. Map intent to requirements.
 2. Map requirements to architecture/API.
