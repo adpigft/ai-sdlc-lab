@@ -17,6 +17,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 | Skill prerequisite validation | `framework/workflows/skill-prerequisite-validation.md` | `framework/context/stage-context-packs.md`, `framework/prompt-patterns/standard-response-format.md` |
 | Context routing and token discipline | `framework/context/context-pack-model.md` | `framework/context/stage-context-packs.md`, `framework/context/context-index-template.md` |
 | Lightweight indexing | `framework/indexing/indexing-model.md` | `framework/indexing/framework-index-template.md`, `framework/indexing/domain-index-template.md`, `framework/indexing/capability-index-template.md` |
+| Capability summaries | `framework/capability-summary/capability-summary-model.md` | `framework/capability-summary/capability-summary-template.md` |
 | Prompt patterns | `framework/prompt-patterns/prompt-pattern-model.md` | `framework/prompt-patterns/*-pattern.md`, `framework/prompt-patterns/standard-response-format.md`, `framework/prompt-patterns/README.md` |
 | Implementation placement | `framework/service-architecture/implementation-placement-model.md` | `framework/multi-squad/path-governance-model.md` |
 | Service ownership | `framework/service-architecture/service-catalog-template.md` | `framework/multi-squad/domain-ownership-model.md` |
@@ -38,6 +39,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 - Do not duplicate implementation placement rules outside `framework/service-architecture/implementation-placement-model.md`; link to it.
 - Do not duplicate context routing rules outside `framework/context/context-pack-model.md`; link to it.
 - Do not duplicate source artifact content in indexes; indexes are navigation aids only.
+- Do not duplicate source artifact content in capability summaries; summaries are navigation aids only.
 - Do not duplicate prompt pattern rules in skills or artifacts; link to `framework/prompt-patterns/` when execution structure is needed.
 - Do not duplicate service, frontend, or shared asset ownership tables in capability artifacts; reference the approved catalog or template.
 - Do not duplicate Jira or Confluence payload behavior in capability artifacts; use the scripts and their README files.
@@ -52,7 +54,8 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 5. Use `framework/workflows/skill-prerequisite-validation.md` to check whether a skill may proceed before reading broad context or creating artifacts.
 6. Use `framework/context/context-pack-model.md` and `framework/context/stage-context-packs.md` to decide what to read for each stage.
 7. Use `framework/indexing/indexing-model.md` when lightweight indexes are needed for navigation at multi-squad scale.
-8. Use `framework/prompt-patterns/` when a stage needs a repeatable response shape or execution checklist.
-9. Before implementation, use `framework/service-architecture/implementation-placement-model.md` and the ownership catalogs to decide allowed paths and restricted paths.
-10. Use `scripts/` and `.github/workflows/ai-sdlc-validate.yml` to validate the framework locally and in GitHub Actions.
-11. Keep capability truth in Git. Jira and Confluence outputs are generated views until API integrations are explicitly approved.
+8. Use `framework/capability-summary/capability-summary-model.md` when a single-page capability navigation aid is needed.
+9. Use `framework/prompt-patterns/` when a stage needs a repeatable response shape or execution checklist.
+10. Before implementation, use `framework/service-architecture/implementation-placement-model.md` and the ownership catalogs to decide allowed paths and restricted paths.
+11. Use `scripts/` and `.github/workflows/ai-sdlc-validate.yml` to validate the framework locally and in GitHub Actions.
+12. Keep capability truth in Git. Jira and Confluence outputs are generated views until API integrations are explicitly approved.

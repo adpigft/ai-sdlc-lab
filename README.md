@@ -153,6 +153,8 @@ Use `framework/workflows/skill-prerequisite-validation.md` to check whether a sk
 
 Use `framework/indexing/indexing-model.md` for lightweight navigation indexes; indexes are optional in the lab, recommended for 3+ squads, and generated/validated aids rather than sources of truth.
 
+Use `framework/capability-summary/capability-summary-model.md` for optional single-page capability summaries that aid navigation without replacing source artifacts.
+
 Use `framework/prompt-patterns/` for lightweight stage prompt patterns that improve repeatability, stop conditions, and response consistency without replacing source artifacts.
 
 Use `framework/prompt-patterns/standard-response-format.md` for the standard skill response footer.
