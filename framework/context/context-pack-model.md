@@ -95,7 +95,7 @@ Use these rules:
 - Use `rg` for targeted lookup.
 - Summarize long artifacts instead of repeatedly re-reading them.
 - Do not load all framework docs for ordinary lifecycle work.
-- Do not load source code until implementation or validation requires it.
+- Do not load source code until implementation, PR review, or validation requires it.
 - Stop when a missing approval or blocker makes further reading unnecessary.
 
 ## Context Pack Shape

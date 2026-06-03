@@ -22,6 +22,7 @@ artifacts:
   api_contract: ""
   test_design: ""
   implementation_plan: ""
+  pr_review: ""
   validation_report: ""
   release_notes: ""
   traceability: "traceability/traceability-matrix.md"
@@ -72,6 +73,15 @@ approval_gates:
     required_approvers:
       - Developer Lead
       - Solution Architect
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  pr_review_approval:
+    status: pending
+    required_approvers:
+      - Developer Lead
+      - Solution Architect
+      - QA Lead
     approval_reference: ""
     approved_at: ""
     conditions: []

@@ -59,7 +59,7 @@ Stop conditions:
 9. Update only approved and impacted artifacts.
 10. Update traceability and create or update the feedback entry after approval.
 11. Update or prepare `workflow-state.yaml` after approvals when workflow-state is adopted.
-12. Route specialist work to `$intent`, `$specification`, `$design`, `$test-design`, `$implementation`, or `$validation` as needed.
+12. Route specialist work to `$intent`, `$specification`, `$design`, `$test-design`, `$implementation`, `$pr-review`, or `$validation` as needed.
 13. Preserve existing approved content that is not impacted.
 
 ## Placement metadata

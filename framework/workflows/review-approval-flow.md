@@ -41,7 +41,7 @@ If `workflow-state.yaml`, validation report, release notes, or traceability disa
 
 - report the inconsistency
 - mark forward movement as blocked
-- avoid recommending `Approved.`, `Proceed.`, `$implementation`, `$validation`, or `$release` until the inconsistency is resolved or explicitly accepted by the required human approver
+- avoid recommending `Approved.`, `Proceed.`, `$implementation`, `$pr-review`, `$validation`, or `$release` until the inconsistency is resolved or explicitly accepted by the required human approver
 
 ### Status Output Shape
 

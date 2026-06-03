@@ -213,6 +213,7 @@ Intent
 → Architecture
 → Test Design
 → Implementation
+→ PR Review
 → Validation
 → Release
 → Feedback
@@ -235,10 +236,17 @@ Intent
 | $design | Create or update design |
 | $test-design | Create or update test design |
 | $implementation | Create or update implementation |
+| $pr-review | Review implementation changes before validation |
 | $validation | Execute validation |
 | $release | Prepare release |
 | $traceability-review | Verify traceability |
 | $feedback-capture | Capture lessons learned |
+
+---
+
+## PR Review
+
+Use `$pr-review` after implementation and before `$validation`. PR review checks changed files, `allowed_paths`, coding standards, architecture adherence, API/event compatibility, test coverage, validation scripts, and traceability. It can recommend readiness, changes, or blockers, but human PR approval remains mandatory.
 
 ---
 
@@ -431,6 +439,11 @@ Review.
 Approved.
 
 $implementation
+
+Review.
+Approved.
+
+$pr-review
 
 Review.
 Approved.

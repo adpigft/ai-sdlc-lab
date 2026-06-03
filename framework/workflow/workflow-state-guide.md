@@ -28,7 +28,8 @@ Git remains the source of truth for workflow state. Jira may mirror state later,
 | `architecture_review` | Architecture/API/ADR/implementation planning draft exists and is awaiting review. | `context/context.md`, API guidance, ADRs, or implementation plan | `architecture_approval` | `test-design` |
 | `test_review` | Acceptance or QA test design draft exists and is awaiting review. | `tests/acceptance.feature` or test design artifact | `test_design_approval` | `implementation` |
 | `implementation_ready` | Upstream artifacts are approved and slice planning is ready for build approval. | `design/implementation-plan.md` | `implementation_start_approval` | `implementation` |
-| `implementation_in_progress` | One approved implementation slice is active. | PR, unit tests, source changes, slice evidence | `implementation_slice_approval` | `validation` |
+| `implementation_in_progress` | One approved implementation slice is active. | PR, unit tests, source changes, slice evidence | `implementation_slice_approval` | `pr-review` |
+| `pr_review_ready` | Implementation changes are ready for pull request review before QA validation. | PR, changed file list, validation script output, traceability evidence | `pr_review_approval` | `validation` |
 | `validation_ready` | Implementation is ready for QA validation or validation evidence is drafted. | `validation/validation-report.md` | `validation_approval` | `release` |
 | `release_ready` | Validation is approved and release readiness is drafted. | `release/release-notes.md` | `release_approval` | `feedback-capture` |
 | `released` | Release is approved and complete. | Release notes and release approval evidence | None | `feedback-capture` |
@@ -65,7 +66,8 @@ The skill should preserve unrelated workflow fields and approval history.
 | `context/context.md`, API guidance, ADR draft, or implementation plan | `architecture_review` | `design` | `architecture_approval` | `test_review` | `test-design` |
 | `tests/acceptance.feature` or QA test design | `test_review` | `test-design` | `test_design_approval` | `implementation_ready` | `implementation` |
 | approved slice plan / build readiness package | `implementation_ready` | `implementation` | `implementation_start_approval` | `implementation_in_progress` | `implementation` |
-| implemented slice / PR evidence | `implementation_in_progress` | `implementation` | `implementation_slice_approval` | `validation_ready` | `validation` |
+| implemented slice / PR evidence | `implementation_in_progress` | `implementation` | `implementation_slice_approval` | `pr_review_ready` | `pr-review` |
+| PR review evidence | `pr_review_ready` | `pr-review` | `pr_review_approval` | `validation_ready` | `validation` |
 | `validation/validation-report.md` | `validation_ready` | `validation` | `validation_approval` | `release_ready` | `release` |
 | `release/release-notes.md` | `release_ready` | `release` | `release_approval` | `released` | `feedback-capture` |
 
@@ -120,7 +122,8 @@ Approval transitions:
 | `architecture_approval` | `architecture_review` | `test_review` | `test-design` |
 | `test_design_approval` | `test_review` | `implementation_ready` | `implementation` |
 | `implementation_start_approval` | `implementation_ready` | `implementation_in_progress` | `implementation` |
-| `implementation_slice_approval` | `implementation_in_progress` | `validation_ready` | `validation` |
+| `implementation_slice_approval` | `implementation_in_progress` | `pr_review_ready` | `pr-review` |
+| `pr_review_approval` | `pr_review_ready` | `validation_ready` | `validation` |
 | `validation_approval` | `validation_ready` | `release_ready` | `release` |
 | `release_approval` | `release_ready` | `released` | `feedback-capture` |
 
@@ -145,6 +148,7 @@ If `workflow-state.yaml` does not exist, infer state from the newest or most com
 | --- | --- | --- |
 | `release/release-notes.md` | `release_ready` | `release_approval` |
 | `validation/validation-report.md` | `validation_ready` | `validation_approval` |
+| PR review evidence or changed-file review tied to approved slice | `pr_review_ready` | `pr_review_approval` |
 | implementation PR or source changes tied to approved slice | `implementation_in_progress` | `implementation_slice_approval` |
 | `design/implementation-plan.md` | `implementation_ready` | `implementation_start_approval` |
 | `tests/acceptance.feature` | `test_review` | `test_design_approval` |

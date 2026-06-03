@@ -19,6 +19,7 @@ This state machine coordinates lifecycle progress only. It does not replace Git 
 | `test_review` | QA test design is being drafted or reviewed. | `test-design` |
 | `implementation_ready` | Approved requirements, architecture, tests, and traceability are ready for implementation slicing. | `implementation` |
 | `implementation_in_progress` | One approved implementation slice is active. | `implementation` |
+| `pr_review_ready` | Implementation changes are ready for pull request review before QA validation. | `pr-review` |
 | `validation_ready` | Implementation is ready for QA validation. | `validation` |
 | `release_ready` | QA validation is approved and release readiness can start. | `release` |
 | `released` | Release is approved and completed. | `feedback-capture` |
@@ -33,7 +34,8 @@ This state machine coordinates lifecycle progress only. It does not replace Git 
 | `architecture_approval` | `architecture_review` | `test_review` | `test-design` |
 | `test_design_approval` | `test_review` | `implementation_ready` | `implementation` |
 | `implementation_start_approval` | `implementation_ready` | `implementation_in_progress` | `implementation` |
-| `implementation_slice_approval` | `implementation_in_progress` | `validation_ready` | `validation` |
+| `implementation_slice_approval` | `implementation_in_progress` | `pr_review_ready` | `pr-review` |
+| `pr_review_approval` | `pr_review_ready` | `validation_ready` | `validation` |
 | `validation_approval` | `validation_ready` | `release_ready` | `release` |
 | `release_approval` | `release_ready` | `released` | `feedback-capture` |
 

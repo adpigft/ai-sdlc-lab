@@ -235,6 +235,52 @@ Stop conditions:
 - requested change needs restricted paths
 - implementation scope expands beyond the approved slice
 
+## PR Review
+
+Purpose: review implementation changes before QA validation.
+
+Required reads:
+
+- `.codex/skills/pr-review/SKILL.md`
+- `framework/workflows/pr-review-flow.md`
+- `workflow-state.yaml` when available
+- approved implementation plan
+- placement metadata and allowed paths
+- changed file list
+- changed source and test files inside `allowed_paths`
+- relevant coding, testing, security, API, event, and architecture standards
+- traceability matrix when checking implementation links
+
+Optional reads:
+
+- CI or local validation output
+- impacted API contracts or event schemas
+- architecture context for the active capability
+
+Forbidden reads:
+
+- unrelated source files
+- unrelated domains or capabilities
+- restricted paths without explicit owner approval
+- release artifacts unless the PR changes release evidence
+
+Expected outputs:
+
+- PR review findings
+- allowed-path assessment
+- standards and architecture assessment
+- API/event compatibility assessment
+- test coverage assessment
+- validation script and traceability assessment
+
+Stop conditions:
+
+- changed files are unknown
+- `allowed_paths` or `restricted_paths` are missing
+- changed files include restricted or unapproved paths
+- required implementation evidence is missing
+- validation, traceability, API/event compatibility, or workflow evidence disagrees
+
 ## Validation
 
 Purpose: validate implementation evidence against approved requirements, tests, traceability, and release blockers.

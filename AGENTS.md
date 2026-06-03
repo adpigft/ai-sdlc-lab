@@ -57,6 +57,7 @@ Specialists can use these stage-level entry points:
 - `$design`
 - `$test-design`
 - `$implementation`
+- `$pr-review`
 - `$validation`
 
 Expert users may still invoke existing specialist skills directly.
@@ -83,9 +84,10 @@ For any new feature, follow this order:
 4. `.codex/skills/test-design/SKILL.md`
 5. `.codex/skills/traceability-review/SKILL.md`
 6. `.codex/skills/implementation/SKILL.md`
-7. `.codex/skills/validation/SKILL.md`
-8. `.codex/skills/release/SKILL.md`
-9. `.codex/skills/feedback-capture/SKILL.md`
+7. `.codex/skills/pr-review/SKILL.md`
+8. `.codex/skills/validation/SKILL.md`
+9. `.codex/skills/release/SKILL.md`
+10. `.codex/skills/feedback-capture/SKILL.md`
 
 The stage-level orchestration skills wrap the specialist skills:
 
@@ -94,6 +96,7 @@ The stage-level orchestration skills wrap the specialist skills:
 - `$design` uses `architect-context` and identifies any decision or API work through the active orchestration flow.
 - `$test-design` uses `qa-test-design`.
 - `$implementation` uses `developer-implementation`.
+- `$pr-review` checks changed files, allowed paths, standards, compatibility, tests, validation scripts, and traceability before QA validation.
 - `$validation` uses `qa-validation`.
 
 ## Interaction Rule
@@ -131,6 +134,7 @@ Jira Epic -> Intent -> Specification -> Jira Stories -> Architecture/API/Tests -
 - Tests require QA approval.
 - Traceability requires BA, Architect, and QA review.
 - Implementation requires Developer and Architect review.
+- PR review requires Developer Lead, Architect, and impacted owner review where paths, APIs, events, or shared assets are affected.
 - Validation requires QA approval.
 - Release requires PO, QA, Architect, and DevSecOps approval.
 

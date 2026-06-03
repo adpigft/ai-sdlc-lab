@@ -14,6 +14,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 | Codex operating rules | `AGENTS.md` | `.codex/skills/README.md`, `.codex/skills/*/SKILL.md` |
 | Workflow state | `framework/workflow/workflow-state-guide.md` | `framework/workflow-state/state-machine.md`, `framework/workflow/workflow-state-template.yaml` |
 | `Review.`, `Approved.`, `Status.` | `framework/workflows/review-approval-flow.md` | `framework/workflow/workflow-state-guide.md`, `framework/workflow-state/approval-events.md` |
+| PR review | `framework/workflows/pr-review-flow.md` | `.codex/skills/pr-review/SKILL.md`, `framework/prompt-patterns/pr-review-pattern.md` |
 | Skill prerequisite validation | `framework/workflows/skill-prerequisite-validation.md` | `framework/context/stage-context-packs.md`, `framework/prompt-patterns/standard-response-format.md` |
 | Context routing and token discipline | `framework/context/context-pack-model.md` | `framework/context/stage-context-packs.md`, `framework/context/context-index-template.md` |
 | Lightweight indexing | `framework/indexing/indexing-model.md` | `framework/indexing/framework-index-template.md`, `framework/indexing/domain-index-template.md`, `framework/indexing/capability-index-template.md` |
@@ -60,4 +61,4 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 11. Use `scripts/` and `.github/workflows/ai-sdlc-validate.yml` to validate the framework locally and in GitHub Actions.
 12. Keep capability truth in Git. Jira and Confluence outputs are generated views until API integrations are explicitly approved.
 
-Canonical lifecycle skill names are `$intent`, `$specification`, `$design`, `$test-design`, `$implementation`, `$validation`, and `$release`. `$new` and `$architecture` are temporary aliases for one migration cycle.
+Canonical lifecycle skill names are `$intent`, `$specification`, `$design`, `$test-design`, `$implementation`, `$pr-review`, `$validation`, and `$release`. `$new` and `$architecture` are temporary aliases for one migration cycle.

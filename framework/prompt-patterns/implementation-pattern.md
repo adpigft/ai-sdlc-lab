@@ -47,6 +47,7 @@ Implement one approved slice at a time using approved artifacts and deterministi
 - Slice implementation
 - Unit or focused tests
 - Implementation evidence
+- PR readiness evidence
 - Updated workflow state when applicable
 
 ## Validation Checks
@@ -54,6 +55,7 @@ Implement one approved slice at a time using approved artifacts and deterministi
 - Build/tests for the approved slice pass or failures are reported.
 - Changes remain within allowed paths.
 - Traceability links can be updated from implemented evidence.
+- PR review can identify changed files, allowed paths, tests, and traceability evidence.
 
 ## Stop Conditions
 
@@ -76,4 +78,3 @@ Blockers:
 Next:
 - ...
 ```
-

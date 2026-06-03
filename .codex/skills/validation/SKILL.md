@@ -9,7 +9,7 @@ description: QA-owned validation execution and evidence entry point producing va
 Execute QA validation and capture evidence needed for release readiness.
 
 ## When to use
-Use `$validation` after implementation is ready for QA or when release evidence must be assembled.
+Use `$validation` after implementation and PR review are ready for QA or when release evidence must be assembled.
 
 ## Inputs
 - Approved requirements, architecture, tests, and traceability
@@ -47,7 +47,7 @@ Stop conditions:
 - Release readiness is claimed without supporting evidence.
 
 ## Process
-1. Confirm implementation is ready for validation.
+1. Confirm implementation and PR review are ready for validation.
 2. Use `qa-validation` for QA validation and evidence capture.
 3. Execute or review acceptance, regression, integration, security, and NFR evidence as applicable.
 4. Compare results to approved requirements and traceability.

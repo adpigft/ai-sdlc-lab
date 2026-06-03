@@ -34,6 +34,7 @@ If these checks fail, report the smallest missing prerequisite and stop before r
 | `$design` | Specification exists and specification approval is recorded. |
 | `$test-design` | Specification approval and architecture context exist; API contract exists when applicable. |
 | `$implementation` | Architecture, test design, traceability, implementation plan, placement metadata, `allowed_paths`, and required approvals exist. |
+| `$pr-review` | Implementation evidence, changed file list, placement metadata, `allowed_paths`, and `restricted_paths` exist. |
 | `$validation` | Implementation evidence exists and can map to approved tests and requirements. |
 | `$release` | Validation evidence, release notes, CI evidence, and release approval package exist; no release blockers remain. |
 | `$change-request` | Change request is identified and impact analysis is available or can be performed before edits. |
@@ -116,4 +117,3 @@ Examples:
 ## Response Guidance
 
 Use `framework/prompt-patterns/standard-response-format.md` for the response footer. If no files are changed, say `No files changed.`
-

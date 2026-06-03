@@ -16,6 +16,7 @@ Use the pattern that matches the active command or lifecycle stage:
 - `design-pattern.md`
 - `test-design-pattern.md`
 - `implementation-pattern.md`
+- `pr-review-pattern.md`
 - `validation-pattern.md`
 - `release-pattern.md`
 - `change-request-pattern.md`
