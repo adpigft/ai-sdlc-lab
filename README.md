@@ -218,7 +218,7 @@ Intent
 | $new | Create new capability |
 | $change-request | Create change request |
 | $defect-fix | Create defect fix |
-| Status. | Show workflow status |
+| Status. | Navigate current workflow state and next action |
 | Review. | Run quality review |
 | Approved. | Approve current stage |
 | $specification | Create or update specification |
@@ -240,26 +240,50 @@ Intent
 Status.
 ```
 
-Displays:
+`Status.` is the main navigation command. Use it to understand where the active capability is, whether work can continue, and what command should be run next.
 
-- Current workflow state
-- Current skill
-- Next skill
-- Pending approvals
-- Blockers
+Status output must show:
+
+- domain
+- capability
+- current_state
+- current_skill
+- active artifact
+- pending gate
+- required approvers
+- blockers
+- next command
+- whether code changes are allowed
+- whether release is blocked
+- validation consistency status
+
+If `workflow-state.yaml`, validation report, release notes, or traceability disagree, `Status.` must report the inconsistency and must not recommend moving forward.
 
 Example:
 
 ```text
-Current State: validation
+Domain: cards
+Capability: Card Replacement
+Current State: intent_review
+Current Skill: $new
+Active Artifact: domains/cards/capabilities/card-replacement/intent/intent.md
+Pending Gate: intent_approval
+Required Approvers: Product Owner, Business Analyst
+Blockers: none
+Code Changes Allowed: no
+Release Blocked: not applicable
+Validation Consistency: not applicable
+Next Command: Review.
+```
 
-Current Skill: $validation
+When blocked:
 
-Next Skill: $release
+```text
+Blockers:
+- validation report says release is not ready
+- release notes are missing
 
-Pending Approvals:
-QA Lead
-Solution Architect
+Next Command: Resolve findings.
 ```
 
 ---

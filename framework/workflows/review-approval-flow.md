@@ -16,17 +16,57 @@ Proceed.
 
 ## Status.
 
-`Status.` reads `workflow-state.yaml` and reports:
+`Status.` is the main navigation command for users.
 
+`Status.` reads `workflow-state.yaml` and, when available, checks validation report, release notes, and traceability for consistency.
+
+Status output must always show:
+
+- domain
 - capability
-- current state
-- current artifact
+- current_state
+- current_skill
+- active artifact
 - pending gate
+- required approvers
 - blockers
-- next state
-- next skill
+- next command
+- whether code changes are allowed
+- whether release is blocked
+- validation consistency status
 
 Status does not review or approve anything.
+
+If `workflow-state.yaml`, validation report, release notes, or traceability disagree, `Status.` must:
+
+- report the inconsistency
+- mark forward movement as blocked
+- avoid recommending `Approved.`, `Proceed.`, `$implementation`, `$validation`, or `$release` until the inconsistency is resolved or explicitly accepted by the required human approver
+
+### Status Output Shape
+
+```text
+Domain:
+Capability:
+Current State:
+Current Skill:
+Active Artifact:
+Pending Gate:
+Required Approvers:
+Blockers:
+Code Changes Allowed:
+Release Blocked:
+Validation Consistency:
+Next Command:
+```
+
+### Navigation Rules
+
+- If there are blockers, next command is `Resolve findings.` or the specific skill needed to clear the blocker.
+- If the current artifact is ready for review, next command is `Review.`.
+- If review is complete and human approval is still missing, next command is `Approved.`.
+- If approval is complete and the next lifecycle step is clear, next command is the next skill.
+- If artifacts disagree, next command is `Resolve findings.`.
 
 ## Review.
 
