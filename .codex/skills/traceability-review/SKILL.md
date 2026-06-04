@@ -70,4 +70,4 @@ Stop conditions:
 BA, Architect, and QA review required before build/release.
 
 ## Next skill
-developer-implementation
+Use `$implementation` after traceability approval when implementation prerequisites are complete.

@@ -239,4 +239,4 @@ Report consumers:
 
 ## Next Step
 
-Proceed to specification only after human approval to continue from intent to `skills/ba-specification/SKILL.md`.
+Proceed to specification only after human approval to continue from intent to `$specification`.

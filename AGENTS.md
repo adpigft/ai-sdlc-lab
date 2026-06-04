@@ -41,43 +41,18 @@ Normal users should use these orchestration skills:
 
 - `$domain-onboarding` for a new banking domain before creating capabilities.
 - `$intent` for a new capability or new feature flow.
+- `$specification` for requirements.
+- `$design` for feature design, API, event, integration, placement, and ADR discovery.
+- `$test-design` for acceptance, negative, integration, security, and NFR scenarios.
+- `$implementation` for approved implementation slices.
+- `$pr-review` for implementation slice / PR readiness review.
+- `$validation` for QA validation evidence.
 - `$change-request` for change requests.
 - `$defect-fix` for bugs and defects.
+- `$traceability-review` for end-to-end traceability.
+- `$feedback-capture` for findings, corrections, and lessons learned.
 - `$decision` for architecture decisions and ADRs.
 - `$release` for release readiness and release management.
-
-Temporary aliases remain available for one migration cycle:
-
-- `$new` -> `$intent`
-- `$architecture` -> `$design`
-- `$change`
-- `$defect`
-- `$traceability`
-- `$feedback`
-
-Specialists can use these stage-level entry points:
-
-- `$intent`
-- `$specification`
-- `$design`
-- `$test-design`
-- `$implementation`
-- `$pr-review`
-- `$validation`
-
-Expert users may still invoke existing specialist skills directly.
-
-Core specialist skills are internal building blocks used by the user-facing and stage-level skills:
-
-- `ba-intent`
-- `ba-specification`
-- `architect-context`
-- `developer-implementation`
-- `qa-test-design`
-- `qa-validation`
-- `traceability-review`
-- `feedback-capture`
-- `devsecops-release`
 
 Archived skills under `.codex/archive/skills/` are retained for future reuse, but they are not recommended for normal use.
 
@@ -94,23 +69,13 @@ For any new feature, follow this order:
 9. `.codex/skills/release/SKILL.md`
 10. `.codex/skills/feedback-capture/SKILL.md`
 
-The stage-level orchestration skills wrap the specialist skills:
-
-- `$intent` uses `ba-intent`.
-- `$specification` uses `ba-specification`.
-- `$design` uses `architect-context` and identifies any decision or API work through the active orchestration flow.
-- `$test-design` uses `qa-test-design`.
-- `$implementation` uses `developer-implementation`.
-- `$pr-review` checks changed files, allowed paths, standards, compatibility, tests, validation scripts, and traceability before QA validation.
-- `$validation` uses `qa-validation`.
-
 ## Interaction Rule
 
 When the user says `Start new feature: <feature name>`:
 
 1. Use `$intent` first.
 2. Create or reference a lightweight Jira Epic shell if Jira is available.
-3. Begin with intent discovery using `$intent` / `ba-intent`.
+3. Begin with intent discovery using `$intent`.
 4. Ask discovery questions.
 5. Do not create Git artifacts until sufficient intent is captured.
 6. Summarize understanding.

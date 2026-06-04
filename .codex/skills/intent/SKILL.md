@@ -11,8 +11,6 @@ Start a new capability or feature in a way that is simple for PO, BA, SA, QA, De
 ## When to use
 Use `$intent` when a user wants to start a new product capability, feature, or business outcome and capture approved business intent.
 
-Temporary alias: `$new` routes to `$intent` for one migration cycle.
-
 ## Inputs
 - Feature or capability name
 - Business problem or opportunity
@@ -48,7 +46,7 @@ Stop conditions:
 1. If Jira is available, create or reference a lightweight Jira Epic shell as a discovery container.
 2. Confirm that Git remains the source of truth and Jira is used for work management and approval tracking.
 3. Read `domains/<domain>/domain-context.md` when the domain is known and the file exists.
-4. Begin intent discovery using `ba-intent`.
+4. Begin intent discovery by asking focused business, user, scope, outcome, constraint, and success-measure questions.
 5. Ask discovery questions before creating Git artifacts.
 6. Summarize users, outcomes, scope, constraints, risks, success measures, domain-context reuse, and domain-specific controls.
 7. Stop for PO / BA approval before creating or updating intent.
@@ -56,7 +54,7 @@ Stop conditions:
 9. Set workflow state to `intent_review`, current artifact to `intent/intent.md`, pending gate to `intent_approval`, next state to `specification_review`, and next skill to `specification`.
 10. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
 11. After intent approval, update `workflow-state.yaml` to move from `intent_review` to `specification_review`.
-12. After intent approval, continue to specification using `ba-specification`.
+12. After intent approval, continue to `$specification`.
 13. Stop at every approval gate and do not generate code.
 
 ## Outputs

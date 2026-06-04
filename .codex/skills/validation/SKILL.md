@@ -28,7 +28,7 @@ Required reads:
 - Approved tests.
 - Implementation evidence.
 - Traceability matrix.
-- Approved requirements and architecture as needed.
+- Approved requirements and design as needed.
 
 Optional reads:
 - Source and tests inside implemented paths.
@@ -48,8 +48,8 @@ Stop conditions:
 
 ## Process
 1. Confirm implementation and PR review are ready for validation.
-2. Use `qa-validation` for QA validation and evidence capture.
-3. Execute or review acceptance, regression, integration, security, and NFR evidence as applicable.
+2. Execute or review acceptance, regression, integration, security, and NFR evidence as applicable.
+3. Review implementation coverage, test results, failed or missing validation, and traceability.
 4. Compare results to approved requirements and traceability.
 5. Record defects, waivers, risks, and blocked evidence.
 6. Produce validation report and release readiness evidence.

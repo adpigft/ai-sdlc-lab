@@ -47,7 +47,7 @@ Stop conditions:
 
 ## Process
 1. Confirm approved requirements are available.
-2. Use `qa-test-design` for acceptance coverage.
+2. Derive happy path, negative, boundary, timeout, duplicate, audit, reconciliation, and other domain-relevant scenarios.
 3. Include integration, security, and performance scenarios in the QA-owned design when those risks apply.
 4. Define acceptance, negative, integration, security, and NFR scenarios.
 5. Identify test data, mocks, environments, and dependencies.

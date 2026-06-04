@@ -48,7 +48,7 @@ Stop conditions:
 ## Process
 1. Confirm validation evidence exists or route to `$validation`.
 2. Assess release readiness against validation evidence, risks, and CI gates.
-3. Use `devsecops-release` to prepare release notes, rollback, monitoring checks, and approval evidence.
+3. Prepare release notes, deployment readiness, rollback plan, monitoring checks, and approval evidence.
 4. Confirm GitHub Actions status remains authoritative for CI gates.
 5. Record known risks, operational readiness, rollback, and support handoff.
 6. When release notes or release readiness evidence are created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml`.

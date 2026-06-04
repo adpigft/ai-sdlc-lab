@@ -1,6 +1,6 @@
 ---
 name: specification
-description: User-friendly wrapper around ba-specification for approved intent to functional and non-functional requirements.
+description: User-friendly specification-stage orchestration for approved intent to functional and non-functional requirements.
 ---
 
 # Specification Skill
@@ -9,7 +9,7 @@ description: User-friendly wrapper around ba-specification for approved intent t
 Turn approved intent into clear requirements, business rules, acceptance criteria, and open questions.
 
 ## When to use
-Use `$specification` after intent is approved and before architecture, API, test design, or implementation.
+Use `$specification` after intent is approved and before design, API, test design, or implementation.
 
 ## Inputs
 - Approved `intent.md`
@@ -46,8 +46,7 @@ Stop conditions:
 
 ## Process
 1. Confirm intent approval exists.
-2. Use `ba-specification`.
-3. Capture functional requirements, non-functional requirements, business rules, data needs, acceptance criteria, and open questions.
+2. Capture functional requirements, non-functional requirements, business rules, data needs, acceptance criteria, edge cases, and open questions.
 4. When specification is created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml` using `framework/01-lifecycle/workflow/workflow-state-template.yaml` when needed.
 5. Set workflow state to `specification_review`, current artifact to `specification/specification.md`, pending gate to `specification_approval`, next state to `design_review`, and next skill to `design`. During the migration cycle, `specs/spec.md` remains a compatibility alias for existing capabilities.
 6. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
@@ -66,7 +65,7 @@ Stop conditions:
 - Business rules and edge cases are captured.
 - Acceptance criteria map to requirements.
 - Jira Stories are not treated as the source of truth.
-- Workflow state points `Review.` to the specification draft and `Approved.` to the architecture stage.
+- Workflow state points `Review.` to the specification draft and `Approved.` to the design stage.
 
 ## Human gate
 BA / PO approval is required before design and test-design proceed.

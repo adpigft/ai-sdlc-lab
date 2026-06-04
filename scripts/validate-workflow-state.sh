@@ -157,31 +157,31 @@ is_allowed_for_skill() {
   esac
 
   case "$current_skill" in
-    intent|ba-intent)
+    intent)
       [[ "$changed_file" == */intent/* || "$changed_file" == */workflow-state.yaml ]]
       ;;
-    specification|ba-specification)
+    specification)
       [[ "$changed_file" == */specification/* || "$changed_file" == */specs/* || "$changed_file" == */workflow-state.yaml ]]
       ;;
-    design|architect-context)
+    design)
       [[ "$changed_file" == */design/* || "$changed_file" == */context/* || "$changed_file" == */contracts/* || "$changed_file" == */implementation/* || "$changed_file" == */workflow-state.yaml || "$changed_file" == decisions/* ]]
       ;;
-    test-design|qa-test-design)
+    test-design)
       [[ "$changed_file" == */tests/* || "$changed_file" == */workflow-state.yaml ]]
       ;;
     traceability-review)
       [[ "$changed_file" == */workflow-state.yaml || "$changed_file" == traceability/* ]]
       ;;
-    implementation|developer-implementation)
+    implementation)
       [[ "$changed_file" == */implementation/* || "$changed_file" == */design/* || "$changed_file" == */workflow-state.yaml || "$changed_file" == src/* ]]
       ;;
     pr-review)
       [[ "$changed_file" == */workflow-state.yaml ]]
       ;;
-    validation|qa-validation)
+    validation)
       [[ "$changed_file" == */validation/* || "$changed_file" == */workflow-state.yaml ]]
       ;;
-    release|devsecops-release)
+    release)
       [[ "$changed_file" == */release/* || "$changed_file" == */workflow-state.yaml ]]
       ;;
     feedback-capture)

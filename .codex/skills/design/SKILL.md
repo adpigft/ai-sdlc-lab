@@ -11,8 +11,6 @@ Provide one normal-user entry point for solution design, including architecture 
 ## When to use
 Use `$design` after specification approval and before implementation. Normal users should not need to invoke a separate API skill.
 
-Temporary alias: `$architecture` routes to `$design` for one migration cycle.
-
 ## Inputs
 - Approved intent and specification
 - Existing architecture context
@@ -51,20 +49,20 @@ Stop conditions:
 ## Process
 1. Confirm specification approval exists.
 2. Read `domains/<domain>/domain-context.md` when the domain is known and the file exists.
-3. Use `architect-context` to define boundaries, components, integrations, data, risks, and assumptions.
-4. Identify API contract needs and document them through the active architecture workflow.
+3. Define boundaries, components, integrations, data ownership, sequence flow, risks, and assumptions.
+4. Identify API contract needs and document them through the active design workflow.
 5. Identify ADR needs and route material unresolved decisions to `$decision`.
 6. Include integration, data, security, observability, error handling, operational considerations, and reusable domain patterns.
 7. Define target implementation placement before downstream implementation, or explicitly state that no code placement is required yet.
 8. Define implementation slices only after architecture and API decisions are approved.
-9. When architecture context, API guidance, ADR draft, or implementation planning artifact is created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml`.
+9. When design context, API guidance, ADR draft, or implementation planning artifact is created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml`.
 10. Set workflow state to `design_review`, current artifact to the design-owned draft, pending gate to `design_approval`, next state to `test_review`, and next skill to `test-design`.
 11. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
 12. After design approval, update `workflow-state.yaml` to move from `design_review` to `test_review`.
 13. Ask for Architect approval before downstream implementation.
 
 ## Placement metadata
-Before implementation or a code-impacting change, architecture must check or produce placement metadata:
+Before implementation or a code-impacting change, design must check or produce placement metadata:
 
 - `target_app`, if frontend is impacted
 - `target_frontend_module`, if frontend is impacted
@@ -77,7 +75,7 @@ Before implementation or a code-impacting change, architecture must check or pro
 - `impacted_capabilities`
 - `regression_scope`
 
-Use `framework/03-delivery-governance/service-architecture/implementation-placement-model.md`, `framework/03-delivery-governance/service-architecture/service-catalog-template.md`, `framework/03-delivery-governance/frontend/frontend-catalog-template.md`, and `framework/03-delivery-governance/multi-squad/shared-asset-ownership-model.md`. If no code placement is required yet, say that explicitly in the architecture output.
+Use `framework/03-delivery-governance/service-architecture/implementation-placement-model.md`, `framework/03-delivery-governance/service-architecture/service-catalog-template.md`, `framework/03-delivery-governance/frontend/frontend-catalog-template.md`, and `framework/03-delivery-governance/multi-squad/shared-asset-ownership-model.md`. If no code placement is required yet, say that explicitly in the design output.
 
 ## Outputs
 - Design context updates
@@ -94,13 +92,13 @@ Use `framework/03-delivery-governance/service-architecture/implementation-placem
 - Implementation does not start while blocking decisions are unresolved.
 - Implementation placement is defined before implementation, or architecture explicitly says no code placement is required yet.
 - Domain context was reviewed when available.
-- Workflow state points `Review.` to the architecture draft and blocks implementation while material decisions are unresolved.
+- Workflow state points `Review.` to the design draft and blocks implementation while material decisions are unresolved.
 
 ## Human gate
-Architect approval is required for architecture and API contract changes.
+Architect approval is required for design and API contract changes.
 
 ## Next skill or next workflow step
-Use `$test-design` for QA scenarios and `$implementation` only after required architecture, API, tests, and traceability are approved.
+Use `$test-design` for QA scenarios and `$implementation` only after required design, API, tests, and traceability are approved.
 
 ## Example usage
 `$design Design the approved QR refund capability`

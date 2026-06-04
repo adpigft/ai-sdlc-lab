@@ -348,6 +348,7 @@ Intent
 | $intent | Create or update feature intent |
 | $change-request | Create change request |
 | $defect-fix | Create defect fix |
+| $decision | Create or review architecture decisions and ADRs |
 | Status. | Navigate current workflow state and next action |
 | Review. | Run quality review |
 | Approved. | Approve current stage |
