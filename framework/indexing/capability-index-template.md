@@ -26,11 +26,11 @@ Navigation aid for one capability. This index helps users and AI agents find the
 | Stage | Artifact | Path | Status Source |
 | --- | --- | --- | --- |
 | Intent | `intent.md` | `intent/intent.md` | `workflow-state.yaml` |
-| Specification | `spec.md` | `specs/spec.md` | `workflow-state.yaml` |
-| Design | `context.md` | `context/context.md` | `workflow-state.yaml` |
+| Specification | `spec.md` | `specification/specification.md` | `workflow-state.yaml` |
+| Design | `context.md` | `design/design.md` | `workflow-state.yaml` |
 | API Contract | `openapi.yaml` | `contracts/openapi.yaml` | `workflow-state.yaml` |
 | Test Design | `acceptance.feature` | `tests/acceptance.feature` | `workflow-state.yaml` |
-| Implementation Plan | `implementation-plan.md` | `design/implementation-plan.md` | `workflow-state.yaml` |
+| Implementation Plan | `implementation-plan.md` | `implementation/implementation-plan.md` | `workflow-state.yaml` |
 | Validation | `validation-report.md` | `validation/validation-report.md` | `workflow-state.yaml` |
 | Release | `release-notes.md` | `release/release-notes.md` | `workflow-state.yaml` |
 

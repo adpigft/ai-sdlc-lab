@@ -152,14 +152,17 @@ Use subagents only to review existing artifacts from a specific angle, such as s
 ## File Ownership
 
 - Intent: `domains/**/intent/intent.md`
-- Specification: `domains/**/specs/spec.md`
-- Context/design: `domains/**/context/context.md`
+- Specification: `domains/**/specification/specification.md`
+- Design: `domains/**/design/design.md`
 - API contract: `domains/**/contracts/openapi.yaml`
 - Acceptance tests: `domains/**/tests/acceptance.feature`
+- Implementation plan: `domains/**/implementation/implementation-plan.md`
 - Validation: `domains/**/validation/validation-report.md`
 - Release: `domains/**/release/release-notes.md`
 - Traceability: `traceability/traceability-matrix.md`
 - Feedback: `feedback/feedback-log.md`
+
+Existing capability artifacts may still use `domains/**/specs/spec.md`, `domains/**/context/context.md`, and `domains/**/design/implementation-plan.md` for one migration cycle. New framework guidance and templates should use the canonical paths above.
 
 ## Safety Rules
 

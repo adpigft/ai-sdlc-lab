@@ -24,11 +24,11 @@
 | Artifact | Path | Status |
 | --- | --- | --- |
 | Intent | `intent/intent.md` | `<status>` |
-| Specification | `specs/spec.md` | `<status>` |
-| Design | `context/context.md` | `<status>` |
+| Specification | `specification/specification.md` | `<status>` |
+| Design | `design/design.md` | `<status>` |
 | API Contract | `contracts/openapi.yaml` | `<status>` |
 | Test Design | `tests/acceptance.feature` | `<status>` |
-| Implementation Plan | `design/implementation-plan.md` | `<status>` |
+| Implementation Plan | `implementation/implementation-plan.md` | `<status>` |
 | Validation Report | `validation/validation-report.md` | `<status>` |
 | Release Notes | `release/release-notes.md` | `<status>` |
 

@@ -106,7 +106,7 @@ Forbidden reads:
 
 Expected outputs:
 
-- `specs/spec.md`
+- `specification/specification.md`
 - updated workflow state after approval gates where applicable
 
 Stop conditions:
@@ -145,7 +145,7 @@ Forbidden reads:
 
 Expected outputs:
 
-- `context/context.md`
+- `design/design.md`
 - API guidance or `contracts/openapi.yaml` when needed
 - ADR candidates
 - implementation slice and placement guidance

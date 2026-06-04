@@ -99,15 +99,17 @@ Each capability contains:
 
 ```text
 intent/
-specs/
-context/
+specification/
+design/
 contracts/
 tests/
-design/
+implementation/
 validation/
 release/
 workflow-state.yaml
 ```
+
+Canonical pilot artifact paths are `intent/intent.md`, `specification/specification.md`, `design/design.md`, `contracts/openapi.yaml`, `tests/acceptance.feature`, `implementation/implementation-plan.md`, `validation/validation-report.md`, `release/release-notes.md`, and `workflow-state.yaml`. Existing `specs/spec.md`, `context/context.md`, and `design/implementation-plan.md` paths remain compatibility aliases for one migration cycle; do not move existing capability artifacts during this phase.
 
 ---
 
@@ -720,10 +722,13 @@ Review:
 
 ```text
 intent/
-specs/
-context/
+specification/
+design/
 contracts/
 tests/
+implementation/
+validation/
+release/
 workflow-state.yaml
 ```
 

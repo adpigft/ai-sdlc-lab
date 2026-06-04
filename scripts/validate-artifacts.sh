@@ -82,9 +82,69 @@ artifact_value() {
   ' "$state_file"
 }
 
+capability_path() {
+  local state_file="$1"
+  awk -F': *' '
+    /^[[:space:]]+path:/ {
+      value=$2
+      gsub(/^"|"$/, "", value)
+      print value
+      exit
+    }
+  ' "$state_file"
+}
+
+migration_alias_for_artifact() {
+  local key="$1"
+  local base_path="$2"
+
+  [[ -z "$base_path" ]] && return 1
+
+  case "$key" in
+    specification)
+      printf '%s\n' \
+        "$base_path/specification/specification.md" \
+        "$base_path/specs/spec.md"
+      ;;
+    architecture)
+      printf '%s\n' \
+        "$base_path/design/design.md" \
+        "$base_path/context/context.md"
+      ;;
+    implementation_plan)
+      printf '%s\n' \
+        "$base_path/implementation/implementation-plan.md" \
+        "$base_path/design/implementation-plan.md"
+      ;;
+  esac
+}
+
+artifact_exists_or_alias() {
+  local key="$1"
+  local value="$2"
+  local base_path="$3"
+  local alias
+
+  if [[ -s "$value" ]]; then
+    echo "$value"
+    return 0
+  fi
+
+  while IFS= read -r alias; do
+    [[ -z "$alias" ]] && continue
+    if [[ -s "$alias" ]]; then
+      echo "$alias"
+      return 0
+    fi
+  done < <(migration_alias_for_artifact "$key" "$base_path")
+
+  return 1
+}
+
 for state_file in "${workflow_states[@]}"; do
   current_skill="$(awk -F': *' '/^[[:space:]]+current_skill:/{print $2; exit}' "$state_file")"
   [[ -z "$current_skill" ]] && current_skill="unknown"
+  base_path="$(capability_path "$state_file")"
 
   while IFS= read -r key; do
     [[ -z "$key" ]] && continue
@@ -92,10 +152,14 @@ for state_file in "${workflow_states[@]}"; do
 
     if [[ -z "$value" ]]; then
       error "$state_file" "Required artifact key '$key' is missing for current_skill '$current_skill'"
-    elif [[ ! -s "$value" ]]; then
-      error "$value" "Required artifact '$key' is missing or empty"
+    elif resolved_value="$(artifact_exists_or_alias "$key" "$value" "$base_path")"; then
+      if [[ "$resolved_value" == "$value" ]]; then
+        echo "OK: $key -> $value"
+      else
+        echo "OK: $key -> $value (migration alias found: $resolved_value)"
+      fi
     else
-      echo "OK: $key -> $value"
+      error "$value" "Required artifact '$key' is missing or empty"
     fi
   done < <(required_keys_for_skill "$current_skill")
 done

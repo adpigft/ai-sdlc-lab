@@ -100,10 +100,10 @@ is_allowed_for_skill() {
       [[ "$changed_file" == */intent/* || "$changed_file" == */workflow-state.yaml ]]
       ;;
     specification|ba-specification)
-      [[ "$changed_file" == */specs/* || "$changed_file" == */workflow-state.yaml ]]
+      [[ "$changed_file" == */specification/* || "$changed_file" == */specs/* || "$changed_file" == */workflow-state.yaml ]]
       ;;
     design|architect-context)
-      [[ "$changed_file" == */context/* || "$changed_file" == */contracts/* || "$changed_file" == */design/* || "$changed_file" == */workflow-state.yaml || "$changed_file" == decisions/* ]]
+      [[ "$changed_file" == */design/* || "$changed_file" == */context/* || "$changed_file" == */contracts/* || "$changed_file" == */implementation/* || "$changed_file" == */workflow-state.yaml || "$changed_file" == decisions/* ]]
       ;;
     test-design|qa-test-design)
       [[ "$changed_file" == */tests/* || "$changed_file" == */workflow-state.yaml ]]
@@ -112,7 +112,7 @@ is_allowed_for_skill() {
       [[ "$changed_file" == */workflow-state.yaml || "$changed_file" == traceability/* ]]
       ;;
     implementation|developer-implementation)
-      [[ "$changed_file" == */design/* || "$changed_file" == */workflow-state.yaml || "$changed_file" == src/* ]]
+      [[ "$changed_file" == */implementation/* || "$changed_file" == */design/* || "$changed_file" == */workflow-state.yaml || "$changed_file" == src/* ]]
       ;;
     pr-review)
       [[ "$changed_file" == */workflow-state.yaml ]]

@@ -41,9 +41,9 @@ Source-of-truth split:
 | --- | --- | --- | --- | --- | --- | --- |
 | Epic | After an idea is accepted for discovery and before intent is written. The Epic can be a lightweight discovery container. | Product Owner accepts the idea, names the capability, assigns owner roles, and confirms the domain. | Summarize the idea, check existing domain context and related capabilities, and propose the Epic shell and initial links. | Create Epic with owner, domain, capability name, status, dependencies, and placeholder Git links. | No required Git artifact yet. Git links are added when artifacts are created. | Idea accepted. |
 | Intent | After discovery questions are answered and the PO/BA agrees the intent is ready to capture. | PO and BA confirm business outcome, scope boundaries, stakeholders, assumptions, and open questions. | Use `$intent` to structure discovery output and create the intent artifact for review. | Update Epic with intent status, approver, decision, and Git path. | Create or update `domains/<domain>/capabilities/<capability>/intent/intent.md`. | Intent approved. |
-| Specification | After intent approval. | PO and BA approve functional requirements, NFRs, business rules, acceptance criteria, and unresolved questions. | Use `$specification` to derive requirements from approved intent and domain context. | Record specification review status and approval evidence. Do not create build Stories until specification approval. | Create or update `domains/<domain>/capabilities/<capability>/specs/spec.md`. | Specification approved. |
+| Specification | After intent approval. | PO and BA approve functional requirements, NFRs, business rules, acceptance criteria, and unresolved questions. | Use `$specification` to derive requirements from approved intent and domain context. | Record specification review status and approval evidence. Do not create build Stories until specification approval. | Create or update `domains/<domain>/capabilities/<capability>/specification/specification.md`. | Specification approved. |
 | Stories | After specification approval and before build planning. | PO, BA, and QA agree the Story breakdown represents business capability slices and can be prioritized. | Group approved FRs and NFRs into business capability Stories. Do not map one Story to one FR by default. | Create Stories under the Epic, each linked to the FR/NFR group, acceptance scenario references, owner, priority, and dependencies. | Update traceability with Story keys mapped to Git requirement IDs. The specification remains canonical. | Story breakdown and traceability approved. |
-| Implementation Slices | After design, test-design, and traceability are approved or during build readiness planning for an approved scope. | Architect, Dev Lead, QA Lead, and PO approve slice boundaries, dependencies, risks, and sequencing. | Use `$design` and `$implementation` to propose vertical slices, dependencies, tests, rollback concerns, and one-slice-at-a-time execution. | Record slice IDs on Stories or planning Tasks, and mark dependent Stories as ready or blocked. | Create or update implementation planning artifacts such as `domains/<domain>/capabilities/<capability>/design/implementation-plan.md`. | Implementation slice plan approved. |
+| Implementation Slices | After design, test-design, and traceability are approved or during build readiness planning for an approved scope. | Architect, Dev Lead, QA Lead, and PO approve slice boundaries, dependencies, risks, and sequencing. | Use `$design` and `$implementation` to propose vertical slices, dependencies, tests, rollback concerns, and one-slice-at-a-time execution. | Record slice IDs on Stories or planning Tasks, and mark dependent Stories as ready or blocked. | Create or update implementation planning artifacts such as `domains/<domain>/capabilities/<capability>/implementation/implementation-plan.md`. | Implementation slice plan approved. |
 | Tasks/Subtasks | After implementation slices are approved and the work is ready for sprint planning. | Dev Lead and squad assign owners, sprint scope, estimates if used, and review responsibilities. | Break each approved slice into implementation Tasks and Subtasks, including tests, code, refactoring, documentation, and traceability evidence updates. | Create Tasks/Subtasks linked to the parent Story and Slice ID. Add PR placeholders, blockers, and dependency links. | No source code update until implementation is approved for the slice. Later PRs update `src/`, tests, and traceability as approved. | Task readiness and slice approval. |
 | Defects | When validation, testing, production monitoring, review, or stakeholder feedback identifies incorrect behavior. | Reporter, QA, PO, and owner triage severity, business impact, fix priority, and approval to proceed. | Use `$defect-fix` to perform RCA, classify root cause, identify impacted artifacts, and propose targeted fixes without broad regeneration. | Create Defect linked to affected Epic, Story, Slice, Release, PR, and validation evidence. Track RCA approval, fix approval, and retest status. | Create or update approved RCA, validation evidence, feedback-capture log entry, and traceability impact entries as applicable. | RCA approved, fix approved, and validation approved. |
 | Decisions | When a material architecture, integration, security, data, operational, or product choice is unresolved or blocks downstream work. | Architect and impacted stakeholders approve the decision, conditions, and downstream impact. | Use `$decision` to draft options, tradeoffs, recommendation, affected artifacts, and blocked work. | Create Decision issue linked to affected Epic, Stories, Slices, Defects, or Release. Mark dependent work blocked until decision is accepted. | Create or update ADR or decision record in Git and update traceability where required. | Decision approved. Unresolved decisions block implementation where applicable. |
@@ -85,7 +85,7 @@ After intent approval, the BA specification is created in Git.
 | --- | --- |
 | Specification ID | `SPEC-QRREF-001` |
 | Jira Approval | `JIRA-QRREF-050` |
-| Git Artifact | `domains/payments/capabilities/qr-refund/specs/spec.md` |
+| Git Artifact | `domains/payments/capabilities/qr-refund/specification/specification.md` |
 | Approval Gate | Specification approved |
 
 Stories are not created as build-ready work until this gate is approved.
@@ -109,12 +109,12 @@ After architecture, test design, and traceability are ready, implementation slic
 
 | Slice ID | Slice | Git Source |
 | --- | --- | --- |
-| `SLICE-QRREF-001` | Slice 1 Refund Creation Foundation | `domains/payments/capabilities/qr-refund/design/implementation-plan.md` |
-| `SLICE-QRREF-002` | Slice 2 Processor and Ledger Integration | `domains/payments/capabilities/qr-refund/design/implementation-plan.md` |
-| `SLICE-QRREF-003` | Slice 3 Operations Override | `domains/payments/capabilities/qr-refund/design/implementation-plan.md` |
-| `SLICE-QRREF-004` | Slice 4 Retry and Exception Handling | `domains/payments/capabilities/qr-refund/design/implementation-plan.md` |
-| `SLICE-QRREF-005` | Slice 5 Reconciliation | `domains/payments/capabilities/qr-refund/design/implementation-plan.md` |
-| `SLICE-QRREF-006` | Slice 6 Reporting Projection Seam | `domains/payments/capabilities/qr-refund/design/implementation-plan.md` |
+| `SLICE-QRREF-001` | Slice 1 Refund Creation Foundation | `domains/payments/capabilities/qr-refund/implementation/implementation-plan.md` |
+| `SLICE-QRREF-002` | Slice 2 Processor and Ledger Integration | `domains/payments/capabilities/qr-refund/implementation/implementation-plan.md` |
+| `SLICE-QRREF-003` | Slice 3 Operations Override | `domains/payments/capabilities/qr-refund/implementation/implementation-plan.md` |
+| `SLICE-QRREF-004` | Slice 4 Retry and Exception Handling | `domains/payments/capabilities/qr-refund/implementation/implementation-plan.md` |
+| `SLICE-QRREF-005` | Slice 5 Reconciliation | `domains/payments/capabilities/qr-refund/implementation/implementation-plan.md` |
+| `SLICE-QRREF-006` | Slice 6 Reporting Projection Seam | `domains/payments/capabilities/qr-refund/implementation/implementation-plan.md` |
 
 Implementation Slice sits between Story and Task:
 
@@ -189,11 +189,11 @@ The Release issue links included Stories, Defects, PRs, validation evidence, rol
 | --- | --- | --- | --- |
 | Idea accepted | Product Owner | Epic or intake status | Optional discovery notes |
 | Intent approved | Product Owner / BA | Epic approval field or approval issue | `intent/intent.md` |
-| Specification approved | Product Owner / BA | Specification approval issue | `specs/spec.md` |
-| Design approved | Solution Architect | Design approval or Decision issues | `context/context.md`, ADRs, API guidance |
+| Specification approved | Product Owner / BA | Specification approval issue | `specification/specification.md` |
+| Design approved | Solution Architect | Design approval or Decision issues | `design/design.md`, ADRs, API guidance |
 | Test design approved | QA Lead | QA approval Task | `tests/acceptance.feature` and related test design |
 | Traceability approved | BA / Architect / QA Lead | traceability-review task | `traceability/traceability-matrix.md` |
-| Implementation slice approved | PO / Architect / QA Lead / Dev Lead | Build readiness Task | `design/implementation-plan.md` |
+| Implementation slice approved | PO / Architect / QA Lead / Dev Lead | Build readiness Task | `implementation/implementation-plan.md` |
 | Validation approved | QA Lead | Validation issue | `validation/validation-report.md` |
 | Release approved | PO / QA / Architect / DevSecOps / Release Manager | Release issue or change record | `release/release-notes.md`, validation report, rollback evidence |
 

@@ -87,8 +87,8 @@ Example Git mapping:
 | Jira Item | Git Source |
 | --- | --- |
 | QR Refund Epic | `domains/payments/capabilities/qr-refund/` |
-| Merchant Refund Creation Story | `specs/spec.md` requirements such as `FR-QRREF-001`, `FR-QRREF-003`, `FR-QRREF-004`, `FR-QRREF-009`, `FR-QRREF-010` |
-| Slice 1 Task | `design/implementation-plan.md` Slice 1 |
+| Merchant Refund Creation Story | `specification/specification.md` requirements such as `FR-QRREF-001`, `FR-QRREF-003`, `FR-QRREF-004`, `FR-QRREF-009`, `FR-QRREF-010` |
+| Slice 1 Task | `implementation/implementation-plan.md` Slice 1 |
 | Idempotency Decision | ADR or architecture decision linked to `ADR-QRREF-003` |
 | QR Refund Release | `validation/validation-report.md` and `release/release-notes.md` |
 

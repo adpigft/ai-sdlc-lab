@@ -23,8 +23,8 @@ Initiative (optional)
 | --- | --- | --- |
 | Initiative | Optional large program or portfolio outcome. | Multiple capability folders or roadmap artifacts. |
 | Epic | Capability container. | `domains/<domain>/capabilities/<capability>/` |
-| Story | Business capability slice that may contain multiple FRs. | Group of `FR-*` entries in `specs/spec.md`. |
-| Task | Approved implementation slice or engineering activity. | Slice in `design/implementation-plan.md` or affected Git artifact. |
+| Story | Business capability slice that may contain multiple FRs. | Group of `FR-*` entries in `specification/specification.md`. |
+| Task | Approved implementation slice or engineering activity. | Slice in `implementation/implementation-plan.md` or affected Git artifact. |
 | Subtask | Detailed work item under a Task. | Parent Task Git mapping plus narrow affected path if needed. |
 | Defect | Incorrect behavior from tests, validation, or production. | RCA, feedback-capture entry, validation evidence, impacted artifact paths. |
 | Decision | Independent decision linked to affected Epics or capabilities. | ADR or architecture decision section. |

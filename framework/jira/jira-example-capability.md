@@ -58,11 +58,11 @@ Git links:
 | Artifact | Link |
 | --- | --- |
 | Intent | `domains/payments/capabilities/qr-refund/intent/intent.md` |
-| Specification | `domains/payments/capabilities/qr-refund/specs/spec.md` |
-| Design | `domains/payments/capabilities/qr-refund/context/context.md` |
+| Specification | `domains/payments/capabilities/qr-refund/specification/specification.md` |
+| Design | `domains/payments/capabilities/qr-refund/design/design.md` |
 | API Contract | `domains/payments/capabilities/qr-refund/contracts/openapi.yaml` |
 | Acceptance Tests | `domains/payments/capabilities/qr-refund/tests/acceptance.feature` |
-| Implementation Plan | `domains/payments/capabilities/qr-refund/design/implementation-plan.md` |
+| Implementation Plan | `domains/payments/capabilities/qr-refund/implementation/implementation-plan.md` |
 | Validation Plan | `domains/payments/capabilities/qr-refund/validation/validation-plan.md` |
 | Traceability | `traceability/traceability-matrix.md` |
 
@@ -87,14 +87,14 @@ Approval gate:
 | --- | --- |
 | Spec ID | `SPEC-QRREF-001` |
 | Jira Approval | `JIRA-QRREF-050` |
-| Git Artifact | `domains/payments/capabilities/qr-refund/specs/spec.md` |
+| Git Artifact | `domains/payments/capabilities/qr-refund/specification/specification.md` |
 | Status | Approved for architecture context |
 
 Approval gate:
 
 | Gate | Jira ID | Approver | Git Evidence |
 | --- | --- | --- | --- |
-| Specification approved | `JIRA-QRREF-050` | Product Owner / BA | `specs/spec.md` Human Approval section |
+| Specification approved | `JIRA-QRREF-050` | Product Owner / BA | `specification/specification.md` Human Approval section |
 
 ## Architecture
 
@@ -102,7 +102,7 @@ Approval gate:
 | --- | --- |
 | Context ID | `CTX-QRREF-001` |
 | Jira Approval | `JIRA-QRREF-060` |
-| Git Artifact | `domains/payments/capabilities/qr-refund/context/context.md` |
+| Git Artifact | `domains/payments/capabilities/qr-refund/design/design.md` |
 | Status | Approved for API contract design |
 
 Decision records:
@@ -118,7 +118,7 @@ Approval gate:
 
 | Gate | Jira ID | Approver | Git Evidence |
 | --- | --- | --- | --- |
-| Design approved | `JIRA-QRREF-060` | Payments Architect | `context/context.md` Human Approval section |
+| Design approved | `JIRA-QRREF-060` | Payments Architect | `design/design.md` Human Approval section |
 
 ## Story Breakdown
 
@@ -126,10 +126,10 @@ Stories represent business capability slices. A Story is not one Functional Requ
 
 | Story ID | Story | Example FR Mapping | Git Source |
 | --- | --- | --- | --- |
-| `JIRA-QRREF-020` | Merchant Refund Creation | `FR-QRREF-001`, `FR-QRREF-003`, `FR-QRREF-004`, `FR-QRREF-005`, `FR-QRREF-006`, `FR-QRREF-007`, `FR-QRREF-008`, `FR-QRREF-009`, `FR-QRREF-010`, `FR-QRREF-020` | `specs/spec.md` |
-| `JIRA-QRREF-021` | Operations Refund and Override | `FR-QRREF-002`, `FR-QRREF-012`, `FR-QRREF-014`, `FR-QRREF-020` | `specs/spec.md` |
-| `JIRA-QRREF-035` | Refund Status Tracking | `FR-QRREF-016`, `NFR-QRREF-007` | `specs/spec.md`, `contracts/openapi.yaml` |
-| `JIRA-QRREF-037` | Reconciliation and Reporting | `FR-QRREF-018`, `FR-QRREF-019`, `NFR-QRREF-008` | `specs/spec.md`, `design/implementation-plan.md` |
+| `JIRA-QRREF-020` | Merchant Refund Creation | `FR-QRREF-001`, `FR-QRREF-003`, `FR-QRREF-004`, `FR-QRREF-005`, `FR-QRREF-006`, `FR-QRREF-007`, `FR-QRREF-008`, `FR-QRREF-009`, `FR-QRREF-010`, `FR-QRREF-020` | `specification/specification.md` |
+| `JIRA-QRREF-021` | Operations Refund and Override | `FR-QRREF-002`, `FR-QRREF-012`, `FR-QRREF-014`, `FR-QRREF-020` | `specification/specification.md` |
+| `JIRA-QRREF-035` | Refund Status Tracking | `FR-QRREF-016`, `NFR-QRREF-007` | `specification/specification.md`, `contracts/openapi.yaml` |
+| `JIRA-QRREF-037` | Reconciliation and Reporting | `FR-QRREF-018`, `FR-QRREF-019`, `NFR-QRREF-008` | `specification/specification.md`, `implementation/implementation-plan.md` |
 
 Approval gate:
 
@@ -147,18 +147,18 @@ Story -> Implementation Slice -> Tasks/Subtasks
 
 | Slice ID | Slice | Status | Git Source |
 | --- | --- | --- | --- |
-| `SLICE-QRREF-001` | Slice 1 Refund Creation Foundation | Can start after implementation plan approval | `design/implementation-plan.md` |
-| `SLICE-QRREF-002` | Slice 2 Processor and Ledger Integration | Blocked pending ADR/config approval | `design/implementation-plan.md` |
-| `SLICE-QRREF-003` | Slice 3 Operations Override | Blocked pending override policy approval | `design/implementation-plan.md` |
-| `SLICE-QRREF-004` | Slice 4 Retry and Exception Handling | Starts after Slice 2 | `design/implementation-plan.md` |
-| `SLICE-QRREF-005` | Slice 5 Reconciliation | Blocked pending reconciliation design | `design/implementation-plan.md` |
-| `SLICE-QRREF-006` | Slice 6 Reporting Projection Seam | Future phase / projection seam only | `design/implementation-plan.md` |
+| `SLICE-QRREF-001` | Slice 1 Refund Creation Foundation | Can start after implementation plan approval | `implementation/implementation-plan.md` |
+| `SLICE-QRREF-002` | Slice 2 Processor and Ledger Integration | Blocked pending ADR/config approval | `implementation/implementation-plan.md` |
+| `SLICE-QRREF-003` | Slice 3 Operations Override | Blocked pending override policy approval | `implementation/implementation-plan.md` |
+| `SLICE-QRREF-004` | Slice 4 Retry and Exception Handling | Starts after Slice 2 | `implementation/implementation-plan.md` |
+| `SLICE-QRREF-005` | Slice 5 Reconciliation | Blocked pending reconciliation design | `implementation/implementation-plan.md` |
+| `SLICE-QRREF-006` | Slice 6 Reporting Projection Seam | Future phase / projection seam only | `implementation/implementation-plan.md` |
 
 Approval gate:
 
 | Gate | Jira ID | Approver | Git Evidence |
 | --- | --- | --- | --- |
-| Implementation slice plan approved | `JIRA-QRREF-090` | Payments Architect / Developer Lead | `design/implementation-plan.md` Human Approval section |
+| Implementation slice plan approved | `JIRA-QRREF-090` | Payments Architect / Developer Lead | `implementation/implementation-plan.md` Human Approval section |
 
 ## Tasks
 

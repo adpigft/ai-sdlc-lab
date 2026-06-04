@@ -127,11 +127,11 @@ Template:
 | Artifact | Path | Status |
 | --- | --- | --- |
 | Intent | intent/intent.md |  |
-| Specification | specs/spec.md |  |
-| Design | context/context.md |  |
+| Specification | specification/specification.md |  |
+| Design | design/design.md |  |
 | API Contract | contracts/openapi.yaml |  |
 | Test Design | tests/acceptance.feature |  |
-| Implementation Plan | design/implementation-plan.md |  |
+| Implementation Plan | implementation/implementation-plan.md |  |
 
 ## Implementation Context
 

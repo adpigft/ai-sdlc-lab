@@ -9,11 +9,11 @@ description: Create architecture context, system boundaries, integration view, r
 Create solution architecture context from approved intent and specification.
 
 ## When to use
-Use only after spec.md is approved.
+Use only after `specification/specification.md` is approved.
 
 ## Inputs
 - intent.md
-- spec.md
+- specification/specification.md
 - Enterprise standards
 - Security standards
 - Integration context
@@ -29,8 +29,10 @@ Use only after spec.md is approved.
 8. Ask for approval.
 
 ## Output
-- domains/<domain>/capabilities/<capability>/context/context.md
+- domains/<domain>/capabilities/<capability>/design/design.md
 - decisions/ADR-*.md when needed
+
+Existing capabilities may still use `context/context.md` for one migration cycle. New artifacts should use the canonical `design/design.md` path.
 
 ## Quality checks
 - Boundaries are clear.

@@ -13,6 +13,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 | User onboarding | `README.md` | `framework/document-map.md`, `AGENTS.md` |
 | Codex operating rules | `AGENTS.md` | `.codex/skills/README.md`, `.codex/skills/*/SKILL.md` |
 | Workflow state | `framework/workflow/workflow-state-guide.md` | `framework/workflow-state/state-machine.md`, `framework/workflow/workflow-state-template.yaml` |
+| Capability artifact naming | `README.md` | `AGENTS.md`, `framework/workflow/workflow-state-guide.md`, `framework/templates/` |
 | `Review.`, `Approved.`, `Status.` | `framework/workflows/review-approval-flow.md` | `framework/workflow/workflow-state-guide.md`, `framework/workflow-state/approval-events.md` |
 | PR review | `framework/workflows/pr-review-flow.md` | `.codex/skills/pr-review/SKILL.md`, `framework/prompt-patterns/pr-review-pattern.md` |
 | Skill prerequisite validation | `framework/workflows/skill-prerequisite-validation.md` | `framework/context/stage-context-packs.md`, `framework/prompt-patterns/standard-response-format.md` |
@@ -36,6 +37,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 ## Documents That Should Not Be Duplicated
 
 - Do not duplicate workflow-state rules outside `framework/workflow/workflow-state-guide.md`; link to it.
+- Do not duplicate capability artifact naming rules outside `README.md` and `AGENTS.md`; new guidance should use canonical paths and mention old paths only as migration aliases.
 - Do not duplicate `Review.`, `Approved.`, and `Status.` behavior outside `framework/workflows/review-approval-flow.md`; link to it.
 - Do not duplicate skill prerequisite rules outside `framework/workflows/skill-prerequisite-validation.md`; link to it.
 - Do not redefine the domain/capability/feature hierarchy outside `README.md` and `framework/multi-squad/domain-ownership-model.md`; link to it.

@@ -42,7 +42,7 @@ Convert approved intent into functional requirements, NFRs, business rules, acce
 
 ## Expected Outputs
 
-- `specs/spec.md`
+- `specification/specification.md`
 - Updated workflow state for specification review
 
 ## Validation Checks

@@ -49,13 +49,13 @@ Stop conditions:
 2. Use `ba-specification`.
 3. Capture functional requirements, non-functional requirements, business rules, data needs, acceptance criteria, and open questions.
 4. When specification is created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml` using `framework/workflow/workflow-state-template.yaml` when needed.
-5. Set workflow state to `specification_review`, current artifact to `specs/spec.md`, pending gate to `specification_approval`, next state to `design_review`, and next skill to `design`.
+5. Set workflow state to `specification_review`, current artifact to `specification/specification.md`, pending gate to `specification_approval`, next state to `design_review`, and next skill to `design`. During the migration cycle, `specs/spec.md` remains a compatibility alias for existing capabilities.
 6. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
 7. Identify Jira Stories after specification approval, not before.
 8. Ask for BA / PO approval before downstream design starts.
 
 ## Outputs
-- Approved `domains/**/specs/spec.md` after approval
+- Approved `domains/**/specification/specification.md` after approval
 - Created or updated `domains/**/workflow-state.yaml` after specification artifact creation
 - Jira Story creation guidance after specification approval
 - Open questions and dependency list

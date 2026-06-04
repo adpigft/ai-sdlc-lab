@@ -29,11 +29,11 @@ Jira records approval status and approver evidence. Git stores the approved arti
 | --- | --- | --- | --- |
 | Idea accepted | Epic or intake status | Optional discovery notes | Product Owner |
 | Intent approved | Epic approval field or approval issue | `intent/intent.md` | Product Owner / BA |
-| Specification approved | Story creation approval or approval issue | `specs/spec.md` | Product Owner / BA |
-| Design approved | Decision or design approval issue | `context/context.md`, ADRs, API guidance | Solution Architect |
+| Specification approved | Story creation approval or approval issue | `specification/specification.md` | Product Owner / BA |
+| Design approved | Decision or design approval issue | `design/design.md`, ADRs, API guidance | Solution Architect |
 | Test design approved | QA approval Task | `tests/acceptance.feature` | QA Lead |
 | Traceability approved | traceability-review task | `traceability/traceability-matrix.md` | BA / Architect / QA Lead |
-| Implementation slice approved | Build readiness Task | `design/implementation-plan.md` slice | Product Owner / Architect / QA Lead / Dev Lead as needed |
+| Implementation slice approved | Build readiness Task | `implementation/implementation-plan.md` slice | Product Owner / Architect / QA Lead / Dev Lead as needed |
 | PR review approved | PR review issue, PR approval, or review evidence | PR review findings and changed-file evidence | Developer Lead / Architect / impacted owners |
 | Validation approved | QA validation issue | `validation/validation-report.md` | QA Lead |
 | Release approved | Release issue or change record | `release/release-notes.md` | Product Owner / QA Lead / Architect / DevSecOps / Release Manager |
@@ -54,10 +54,10 @@ QR Refund approval examples:
 | Gate | Jira Placeholder | Git Artifact | Status |
 | --- | --- | --- | --- |
 | Intent approved | `JIRA-QRREF-001` | `intent/intent.md` | Approved by chat confirmation in lab context. |
-| Specification approved | `JIRA-QRREF-050` | `specs/spec.md` | Approved by chat confirmation in lab context. |
-| Design approved | `JIRA-QRREF-060` | `context/context.md` | Approved by chat confirmation in lab context. |
+| Specification approved | `JIRA-QRREF-050` | `specification/specification.md` | Approved by chat confirmation in lab context. |
+| Design approved | `JIRA-QRREF-060` | `design/design.md` | Approved by chat confirmation in lab context. |
 | traceability-review | `JIRA-QRREF-070` | `traceability/traceability-matrix.md` | Pending. |
-| Implementation plan approval | `JIRA-QRREF-090` | `design/implementation-plan.md` | Pending. |
+| Implementation plan approval | `JIRA-QRREF-090` | `implementation/implementation-plan.md` | Pending. |
 | Validation plan approval | `JIRA-QRREF-080` | `validation/validation-plan.md` | Pending. |
 
 ## Do / Don't Rules

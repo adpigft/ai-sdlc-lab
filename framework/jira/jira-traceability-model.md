@@ -41,8 +41,8 @@ Initiative
 | --- | --- | --- |
 | Initiative | Multiple capability folders or roadmap references | Initiative key, Epic keys |
 | Epic | `domains/<domain>/capabilities/<capability>/` | Epic key, capability ID |
-| Story | `domains/**/specs/spec.md` | Story key, `FR-*` group |
-| Task | `domains/**/design/implementation-plan.md` | Task key, Slice ID |
+| Story | `domains/**/specification/specification.md` | Story key, `FR-*` group |
+| Task | `domains/**/implementation/implementation-plan.md` | Task key, Slice ID |
 | Subtask | Parent Task and affected Git path | Subtask key, parent Task key |
 | Defect | RCA artifact, validation evidence, feedback-capture row | Defect key, RCA ID, validation evidence ID |
 | Decision | ADR or architecture decision record | Decision key, ADR ID |
@@ -71,7 +71,7 @@ QR Refund traceability:
 | Story: Operations Refund and Override | `FR-QRREF-002`, `FR-QRREF-012`, `FR-QRREF-014`, `FR-QRREF-020` |
 | Story: Refund Status Tracking | `FR-QRREF-016`, `NFR-QRREF-007` |
 | Story: Reconciliation and Reporting | `FR-QRREF-018`, `FR-QRREF-019`, `NFR-QRREF-008` |
-| Task: Slice 1 Refund Creation Foundation | Slice 1 in `design/implementation-plan.md` |
+| Task: Slice 1 Refund Creation Foundation | Slice 1 in `implementation/implementation-plan.md` |
 | Decision: Idempotency and concurrency boundary | `ADR-QRREF-003` |
 | Release: QR Refund MVP | validation report and release notes |
 

@@ -9,10 +9,10 @@ description: Convert approved intent into functional requirements, NFRs, busines
 Create a testable specification from approved intent.
 
 ## When to use
-Use only after intent.md is approved.
+Use only after `intent/intent.md` is approved.
 
 ## Inputs
-- intent.md
+- intent/intent.md
 - Domain context
 - Business rules
 - Jira reference
@@ -27,7 +27,9 @@ Use only after intent.md is approved.
 7. Ask for approval before finalizing.
 
 ## Output
-- domains/<domain>/capabilities/<capability>/specs/spec.md
+- domains/<domain>/capabilities/<capability>/specification/specification.md
+
+Existing capabilities may still use `specs/spec.md` for one migration cycle. New artifacts should use the canonical `specification/specification.md` path.
 
 ## Quality checks
 - Requirements are testable.
