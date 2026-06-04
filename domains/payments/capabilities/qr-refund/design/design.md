@@ -13,7 +13,7 @@
 | Capability | QR Refund |
 | Status | Architecture context approved for API contract design |
 | Source Intent | `domains/payments/capabilities/qr-refund/intent/intent.md` |
-| Source Spec | `domains/payments/capabilities/qr-refund/specs/spec.md` |
+| Source Spec | `domains/payments/capabilities/qr-refund/specification/specification.md` |
 
 ## Architecture Summary
 

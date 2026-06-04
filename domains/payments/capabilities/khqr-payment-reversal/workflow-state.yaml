@@ -25,11 +25,11 @@ current_artifact:
 
 artifacts:
   intent: domains/payments/capabilities/khqr-payment-reversal/intent/intent.md
-  specification: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
-  architecture: domains/payments/capabilities/khqr-payment-reversal/context/context.md
+  specification: domains/payments/capabilities/khqr-payment-reversal/specification/specification.md
+  architecture: domains/payments/capabilities/khqr-payment-reversal/design/design.md
   api_contract: domains/payments/capabilities/khqr-payment-reversal/contracts/openapi.yaml
   test_design: domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature
-  implementation_plan: domains/payments/capabilities/khqr-payment-reversal/design/implementation-plan.md
+  implementation_plan: domains/payments/capabilities/khqr-payment-reversal/implementation/implementation-plan.md
   validation_report: domains/payments/capabilities/khqr-payment-reversal/validation/validation-report.md
   release_notes: ""
   traceability: traceability/traceability-matrix.md
@@ -37,7 +37,7 @@ artifacts:
 pending_gate:
   gate: remaining_slice_implementation
   artifact_type: implementation_plan
-  artifact_path: domains/payments/capabilities/khqr-payment-reversal/design/implementation-plan.md
+  artifact_path: domains/payments/capabilities/khqr-payment-reversal/implementation/implementation-plan.md
   required_approvers:
     - Solution Architect
     - Developer Lead
@@ -158,13 +158,13 @@ history:
   - state: specification_review
     event: specification_artifact_created
     actor: Codex
-    reference: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
+    reference: domains/payments/capabilities/khqr-payment-reversal/specification/specification.md
     timestamp: "2026-06-01"
     notes: Draft specification created from approved intent.
   - state: specification_review
     event: specification_blockers_resolved
     actor: Codex
-    reference: domains/payments/capabilities/khqr-payment-reversal/specs/spec.md
+    reference: domains/payments/capabilities/khqr-payment-reversal/specification/specification.md
     timestamp: "2026-06-01"
     notes: Settlement eligibility rule and MVP reversal reason-code catalog added.
   - state: architecture_review
@@ -176,13 +176,13 @@ history:
   - state: architecture_review
     event: architecture_artifact_created
     actor: Codex
-    reference: domains/payments/capabilities/khqr-payment-reversal/context/context.md
+    reference: domains/payments/capabilities/khqr-payment-reversal/design/design.md
     timestamp: "2026-06-01"
     notes: Architecture context created with settlement cutoff and processor-ledger split outcome decisions proposed for review.
   - state: architecture_review
     event: architecture_blockers_resolved
     actor: Codex
-    reference: domains/payments/capabilities/khqr-payment-reversal/context/context.md
+    reference: domains/payments/capabilities/khqr-payment-reversal/design/design.md
     timestamp: "2026-06-01"
     notes: Settlement cutoff interface, settlement stale-age threshold, and processor/ledger pending-to-failed thresholds added.
   - state: test_review
@@ -212,13 +212,13 @@ history:
   - state: implementation_ready
     event: implementation_plan_created
     actor: Codex
-    reference: domains/payments/capabilities/khqr-payment-reversal/design/implementation-plan.md
+    reference: domains/payments/capabilities/khqr-payment-reversal/implementation/implementation-plan.md
     timestamp: "2026-06-01"
     notes: Developer implementation slice plan created. Source-code work is blocked pending API contract, traceability approval, implementation start approval, first slice approval, and target stack/CI expectations.
   - state: implementation_ready
     event: implementation_plan_review_findings_resolved
     actor: Codex
-    reference: domains/payments/capabilities/khqr-payment-reversal/design/implementation-plan.md
+    reference: domains/payments/capabilities/khqr-payment-reversal/implementation/implementation-plan.md
     timestamp: "2026-06-01"
     notes: Resolved implementation-plan findings by scoping Slice 1 to a prevalidated payment eligibility snapshot and making internal AwaitingApproval explicit before external Reversal Pending.
   - state: architecture_review

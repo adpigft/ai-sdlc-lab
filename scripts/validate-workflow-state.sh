@@ -73,6 +73,23 @@ current_skill_for_path() {
   printf '\n'
 }
 
+is_artifact_naming_migration_change() {
+  local changed_file="$1"
+
+  case "$changed_file" in
+    domains/*/capabilities/*/specification/specification.md|\
+    domains/*/capabilities/*/design/design.md|\
+    domains/*/capabilities/*/implementation/implementation-plan.md|\
+    domains/*/capabilities/*/validation/*.md|\
+    domains/*/capabilities/*/release/*.md)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
 is_allowed_for_skill() {
   local changed_file="$1"
   local current_skill="$2"
@@ -138,6 +155,9 @@ if [[ "${#changed_files[@]}" -gt 0 ]]; then
 
     case "$changed_file" in
       domains/*)
+        if is_artifact_naming_migration_change "$changed_file"; then
+          continue
+        fi
         skill="$(current_skill_for_path "$changed_file")"
         if [[ -z "$skill" ]]; then
           error "$changed_file" "Domain artifact changed without a matching capability workflow-state.yaml"

@@ -13,7 +13,7 @@
 | Capability | KHQR Payment Reversal |
 | Status | Architecture approved for test design |
 | Source Intent | `domains/payments/capabilities/khqr-payment-reversal/intent/intent.md` |
-| Source Spec | `domains/payments/capabilities/khqr-payment-reversal/specs/spec.md` |
+| Source Spec | `domains/payments/capabilities/khqr-payment-reversal/specification/specification.md` |
 
 ## Architecture Summary
 

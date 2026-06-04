@@ -23,8 +23,8 @@
 | Artifact | Path | Status |
 | --- | --- | --- |
 | Intent | `domains/payments/capabilities/qr-refund/intent/intent.md` | Approved |
-| Specification | `domains/payments/capabilities/qr-refund/specs/spec.md` | Approved |
-| Architecture Context | `domains/payments/capabilities/qr-refund/context/context.md` | Approved |
+| Specification | `domains/payments/capabilities/qr-refund/specification/specification.md` | Approved |
+| Architecture Context | `domains/payments/capabilities/qr-refund/design/design.md` | Approved |
 | API Contract | `domains/payments/capabilities/qr-refund/contracts/openapi.yaml` | Approved |
 | Acceptance Tests | `domains/payments/capabilities/qr-refund/tests/acceptance.feature` | Approved |
 | Traceability Matrix | `traceability/traceability-matrix.md` | Approved |

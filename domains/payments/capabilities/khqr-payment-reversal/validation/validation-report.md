@@ -9,8 +9,8 @@
 | Domain | Payments |
 | Jira Epic | JIRA-KHQRREV-001 |
 | Source Intent | `domains/payments/capabilities/khqr-payment-reversal/intent/intent.md` |
-| Source Spec | `domains/payments/capabilities/khqr-payment-reversal/specs/spec.md` |
-| Source Context | `domains/payments/capabilities/khqr-payment-reversal/context/context.md` |
+| Source Spec | `domains/payments/capabilities/khqr-payment-reversal/specification/specification.md` |
+| Source Context | `domains/payments/capabilities/khqr-payment-reversal/design/design.md` |
 | Source API | `domains/payments/capabilities/khqr-payment-reversal/contracts/openapi.yaml` |
 | Source Tests | `domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature` |
 | Source Traceability | `traceability/traceability-matrix.md` |

@@ -22,8 +22,8 @@
 | --- | --- | --- |
 | Domain Context | `domains/payments/domain-context.md` | Reviewed |
 | Intent | `domains/payments/capabilities/khqr-payment-reversal/intent/intent.md` | Approved |
-| Specification | `domains/payments/capabilities/khqr-payment-reversal/specs/spec.md` | Approved |
-| Architecture Context | `domains/payments/capabilities/khqr-payment-reversal/context/context.md` | Approved |
+| Specification | `domains/payments/capabilities/khqr-payment-reversal/specification/specification.md` | Approved |
+| Architecture Context | `domains/payments/capabilities/khqr-payment-reversal/design/design.md` | Approved |
 | API Contract | `domains/payments/capabilities/khqr-payment-reversal/contracts/openapi.yaml` | Approved |
 | Acceptance Tests | `domains/payments/capabilities/khqr-payment-reversal/tests/acceptance.feature` | Approved |
 | Traceability Matrix | `traceability/traceability-matrix.md` | Approved for KHQR reversal |
