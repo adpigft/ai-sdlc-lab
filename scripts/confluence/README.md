@@ -19,14 +19,14 @@ Generate a combined summary bundle to stdout:
 
 ```bash
 python3 scripts/confluence/generate-summary.py \
-  --workflow-state domains/payments/capabilities/khqr-payment-reversal/workflow-state.yaml
+  --workflow-state domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/workflow-state.yaml
 ```
 
 Write individual Markdown summary drafts for review:
 
 ```bash
 python3 scripts/confluence/generate-summary.py \
-  --workflow-state domains/payments/capabilities/khqr-payment-reversal/workflow-state.yaml \
+  --workflow-state domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/workflow-state.yaml \
   --output-dir /tmp/confluence-summaries
 ```
 

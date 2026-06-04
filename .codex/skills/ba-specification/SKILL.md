@@ -27,7 +27,7 @@ Use only after `intent/intent.md` is approved.
 7. Ask for approval before finalizing.
 
 ## Output
-- domains/<domain>/capabilities/<capability>/specification/specification.md
+- domains/<domain>/capabilities/<capability>/features/<feature>/specification/specification.md
 
 Existing capabilities may still use `specs/spec.md` for one migration cycle. New artifacts should use the canonical `specification/specification.md` path.
 

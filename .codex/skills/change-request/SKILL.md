@@ -21,7 +21,7 @@ Use `$change-request` when an approved or in-flight capability needs a scoped ch
 - Optional Jira change, story, or stakeholder reference
 
 ## Context pack
-Use the `Change Request` pack in `framework/context/stage-context-packs.md`.
+Use the `Change Request` pack in `framework/02-context-control/context/stage-context-packs.md`.
 
 Required reads:
 - This skill document.
@@ -34,7 +34,7 @@ Optional reads:
 - Traceability, feedback log, related domain contexts for cross-domain impact, and Jira model guidance.
 
 Forbidden reads:
-- Unrelated capability artifacts.
+- Unrelated feature artifacts.
 - Source code before impact analysis and approval.
 - Restricted paths without owner approval.
 

@@ -82,16 +82,23 @@ artifact_value() {
   ' "$state_file"
 }
 
-capability_path() {
+feature_path() {
   local state_file="$1"
-  awk -F': *' '
-    /^[[:space:]]+path:/ {
-      value=$2
-      gsub(/^"|"$/, "", value)
-      print value
+  awk '
+    $0 == "feature:" { in_feature=1; next }
+    /^[^[:space:]]/ { in_feature=0 }
+    in_feature && $1 == "path:" {
+      sub("^[[:space:]]*path:[[:space:]]*", "")
+      gsub(/^"|"$/, "")
+      print
       exit
     }
   ' "$state_file"
+}
+
+legacy_capability_path() {
+  local state_file="$1"
+  awk -F': *' '/^[[:space:]]+path:/{print $2; exit}' "$state_file"
 }
 
 migration_alias_for_artifact() {
@@ -144,7 +151,8 @@ artifact_exists_or_alias() {
 for state_file in "${workflow_states[@]}"; do
   current_skill="$(awk -F': *' '/^[[:space:]]+current_skill:/{print $2; exit}' "$state_file")"
   [[ -z "$current_skill" ]] && current_skill="unknown"
-  base_path="$(capability_path "$state_file")"
+  base_path="$(feature_path "$state_file")"
+  [[ -z "$base_path" ]] && base_path="$(legacy_capability_path "$state_file")"
 
   while IFS= read -r key; do
     [[ -z "$key" ]] && continue

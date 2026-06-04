@@ -8,7 +8,7 @@ description: User-facing orchestration for onboarding a new banking domain befor
 ## Purpose
 Onboard a new banking domain before `$intent` capability creation is used.
 
-Domain onboarding creates the domain-level delivery context, ownership assumptions, service placement assumptions, frontend placement assumptions, APIs, events, integrations, shared asset impacts, and open questions needed before capability artifacts are created.
+Domain onboarding creates the domain-level delivery context, ownership assumptions, service placement assumptions, frontend placement assumptions, APIs, events, integrations, shared asset impacts, and open questions needed before capability context and feature artifacts are created.
 
 ## When to use
 Use `$domain-onboarding` when a domain does not exist yet.
@@ -35,15 +35,15 @@ Do not use this skill for an existing capability. Use `$intent` only after the d
 ## Required reads
 Before drafting domain artifacts, read:
 
-- `framework/service-architecture/domain-onboarding-model.md`
-- `framework/multi-squad/domain-ownership-model.md`
-- `framework/service-architecture/service-catalog-template.md`
-- `framework/frontend/frontend-catalog-template.md`
-- `framework/multi-squad/shared-asset-ownership-model.md`
-- `framework/service-architecture/implementation-placement-model.md`
+- `framework/03-delivery-governance/service-architecture/domain-onboarding-model.md`
+- `framework/03-delivery-governance/multi-squad/domain-ownership-model.md`
+- `framework/03-delivery-governance/service-architecture/service-catalog-template.md`
+- `framework/03-delivery-governance/frontend/frontend-catalog-template.md`
+- `framework/03-delivery-governance/multi-squad/shared-asset-ownership-model.md`
+- `framework/03-delivery-governance/service-architecture/implementation-placement-model.md`
 
 ## Context pack
-Use the `Domain Onboarding` pack in `framework/context/stage-context-packs.md`.
+Use the `Domain Onboarding` pack in `framework/02-context-control/context/stage-context-packs.md`.
 
 Required reads:
 - This skill document.
@@ -53,7 +53,7 @@ Optional reads:
 - `README.md`, `AGENTS.md`, and existing domain contexts for style only.
 
 Forbidden reads:
-- Source code, capability artifacts, traceability, feedback, and app/service/library/platform folders unless the user explicitly asks for framework impact.
+- Source code, capability context and feature artifacts, traceability, feedback, and app/service/library/platform folders unless the user explicitly asks for framework impact.
 
 Escalation rule: Read related domains only when the new domain boundary or ownership model depends on them.
 

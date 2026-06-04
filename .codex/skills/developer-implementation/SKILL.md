@@ -16,9 +16,9 @@ Use only after intent, specification, architecture, API, tests, and traceability
 - context.md
 - openapi.yaml
 - acceptance.feature
-- framework/standards/coding-standards.md
-- framework/standards/security-standards.md
-- framework/standards/testing-standards.md
+- framework/04-engineering-standards/standards/coding-standards.md
+- framework/04-engineering-standards/standards/security-standards.md
+- framework/04-engineering-standards/standards/testing-standards.md
 
 ## Process
 1. Read approved artifacts.

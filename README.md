@@ -30,7 +30,7 @@ The framework is designed for:
 
 # Core Principles
 
-1. Specifications are the primary delivery artifact.
+1. Specifications are the primary delivery artifact. In this framework, specification means requirements.
 2. Human roles own decisions and approvals.
 3. AI assists execution but does not replace accountability.
 4. Every change must be traceable.
@@ -65,17 +65,14 @@ The framework is designed for:
 
 ```text
 framework
-├── events
-├── frontend
-├── jira
-├── libraries
-├── multi-squad
-├── service-architecture
-├── standards
-├── templates
-├── workflow
-├── workflow-state
-└── workflows
+├── 00-navigation
+├── 01-lifecycle
+├── 02-context-control
+├── 03-delivery-governance
+├── 04-engineering-standards
+├── 05-platform-bootstrap
+├── 06-tool-integrations
+└── 07-templates
 ```
 
 ---
@@ -84,7 +81,7 @@ framework
 
 ## domains/
 
-Contains business delivery artifacts.
+Contains domain, capability, and feature delivery knowledge.
 
 Example:
 
@@ -92,10 +89,15 @@ Example:
 domains/
 └── payments/
     └── capabilities/
-        └── khqr-payment-reversal/
+        └── payment-reversal/
+            ├── capability-context.md
+            └── features/
+                └── khqr-payment-reversal/
 ```
 
-Each capability contains:
+Each parent capability contains `capability-context.md` and one or more feature delivery folders.
+
+Each feature contains:
 
 ```text
 intent/
@@ -104,12 +106,13 @@ design/
 contracts/
 tests/
 implementation/
+pr-review/
 validation/
 release/
 workflow-state.yaml
 ```
 
-Canonical pilot artifact paths are `intent/intent.md`, `specification/specification.md`, `design/design.md`, `contracts/openapi.yaml`, `tests/acceptance.feature`, `implementation/implementation-plan.md`, `validation/validation-report.md`, `release/release-notes.md`, and `workflow-state.yaml`. Existing `specs/spec.md`, `context/context.md`, and `design/implementation-plan.md` paths remain compatibility aliases for one migration cycle.
+Canonical feature artifact paths are `intent/intent.md`, `specification/specification.md`, `design/design.md`, `contracts/openapi.yaml`, `tests/acceptance.feature`, `implementation/implementation-plan.md`, `pr-review/pr-review-report.md`, `validation/validation-report.md`, `release/release-notes.md`, and `workflow-state.yaml`.
 
 ---
 
@@ -130,10 +133,11 @@ Source code is created only after specification, design, test-design, traceabili
 
 # Domain, Capability, and Feature Model
 
-The current pilot framework uses two delivery levels:
+The current pilot framework uses three delivery levels:
 
 - Domain = architecture boundary
-- Capability = delivery unit
+- Capability = business function boundary
+- Feature = delivery boundary
 
 ## Domain
 
@@ -143,32 +147,96 @@ Example: `Cards`
 
 ## Capability
 
-A capability owns the smallest independently deliverable business outcome for the pilot implementation.
+A capability owns a business function boundary and shared context for related features.
 
-The capability folder currently contains:
+The capability folder contains:
 
-- intent
-- specification
-- design
-- tests
-- validation
-- release
+- `capability-context.md`
+- shared business flow, APIs, events, integrations, and state model when applicable
+- `features/<feature>/` delivery folders
 
-A capability owns the AI-SDLC delivery lifecycle: intent, specification, design, test-design, implementation, pr-review, validation, release, and feedback.
+## Feature
 
-Example: `Card Replacement`
+A feature owns the AI-SDLC delivery lifecycle: intent, specification, design, test-design, implementation, pr-review, validation, release, and feedback.
+
+Example capability and features:
 
 ```text
 Cards
-├── Card Replacement
-├── Card Activation
-├── Card Renewal
-└── Card Closure
+└── Card Lifecycle Management
+    ├── Card Replacement
+    ├── Card Activation
+    ├── Card Renewal
+    └── Card Closure
 ```
 
-The AI-SDLC lifecycle runs at capability level for the pilot. Domain context guides the capability. Capability implementation can be delivered in smaller implementation slices. Slices are not capabilities; they are implementation increments inside a capability.
+The AI-SDLC lifecycle runs at feature level. Domain and capability context guide the feature. Feature implementation can be delivered in smaller implementation slices. Slices are not features; they are implementation increments inside a feature.
 
-The capability folder represents the smallest independently deliverable business outcome for the pilot implementation. A future framework version may introduce an explicit feature layer if required.
+Example:
+
+```text
+domains/cards/
+└── capabilities/
+    └── card-lifecycle-management/
+        ├── capability-context.md
+        └── features/
+            └── card-replacement/
+                ├── intent/intent.md
+                ├── specification/specification.md
+                ├── design/design.md
+                ├── contracts/openapi.yaml
+                ├── tests/acceptance.feature
+                ├── implementation/implementation-plan.md
+                ├── pr-review/pr-review-report.md
+                ├── validation/validation-report.md
+                ├── release/release-notes.md
+                └── workflow-state.yaml
+```
+
+---
+
+# Specification = Requirements
+
+`specification/specification.md` contains functional requirements, non-functional requirements, acceptance criteria, business rules, and edge cases.
+
+The framework calls this artifact `specification`, but it is equivalent to the requirements artifact in frameworks such as Kiro. Do not create a separate `requirements/` folder.
+
+---
+
+# Artifact Ownership
+
+| File | Purpose | Owner |
+|---|---|---|
+| `domains/<domain>/domain-context.md` | Domain boundary, ownership, core services, integrations, events | Domain Owner / Solution Architect |
+| `domains/<domain>/capabilities/<capability>/capability-context.md` | Capability purpose, owned features, shared flows/APIs/events/integrations | Capability Owner / Solution Architect |
+| `intent/intent.md` | Why we are building this; business outcome, scope, exclusions | PO / BA |
+| `specification/specification.md` | What must be built; FRs, NFRs, acceptance criteria, business rules, edge cases | BA / PO |
+| `design/design.md` | Feature design; APIs, events, integrations, state model, placement metadata | Solution Architect |
+| `contracts/openapi.yaml` | API contract owned by the feature/service design | Solution Architect / Developer Lead |
+| `tests/acceptance.feature` | Behaviour scenarios and acceptance tests | QA / BA |
+| `implementation/implementation-plan.md` | Implementation slices, target paths, technical approach, test plan | Developer Lead / Solution Architect |
+| `pr-review/pr-review-report.md` | Code review findings, standards checks, path checks, approval outcome | Developer Lead / Reviewer |
+| `validation/validation-report.md` | Evidence that implementation meets approved requirements | QA Lead |
+| `release/release-notes.md` | Release scope, evidence, approvals, risks | Release Manager / DevSecOps |
+| `workflow-state.yaml` | Current state, gates, blockers, approvals, artifact paths | Delivery Lead / AI Workflow |
+
+---
+
+# Framework Guidance Ownership
+
+| File | Purpose | Owner |
+|---|---|---|
+| `framework/00-navigation/document-map.md` | Navigation map for framework documents | Framework Owner |
+| `framework/02-context-control/context/stage-context-packs.md` | Required/optional/forbidden reads by lifecycle stage | Framework Owner |
+| `framework/01-lifecycle/prompt-patterns/<stage>-pattern.md` | Standard prompt shape for each stage | Framework Owner |
+| `framework/01-lifecycle/workflows/skill-prerequisite-validation.md` | Rules for when a skill may proceed or must stop | Framework Owner |
+| `framework/01-lifecycle/prompt-patterns/standard-response-format.md` | Standard response format for skills | Framework Owner |
+| `framework/03-delivery-governance/service-architecture/implementation-placement-model.md` | Where code should go; app/service/library targeting | Solution Architect / Platform Architect |
+| `framework/03-delivery-governance/multi-squad/path-governance-model.md` | Allowed/restricted paths by squad/domain | Platform Architect / Delivery Lead |
+| `framework/03-delivery-governance/multi-squad/domain-ownership-model.md` | Domain and squad ownership | Delivery Lead / Domain Owner |
+| `framework/03-delivery-governance/service-architecture/service-catalog-template.md` | Backend service ownership template | Solution Architect |
+| `framework/03-delivery-governance/frontend/frontend-catalog-template.md` | Frontend module ownership template | Frontend Lead |
+| `framework/05-platform-bootstrap/README.md` | One-time bootstrap guidance for frontend, microservice templates, shared libraries, packaging, Helm, CI/CD | Platform Architect / DevSecOps Lead |
 
 ---
 
@@ -176,34 +244,38 @@ The capability folder represents the smallest independently deliverable business
 
 Current lab implementation may use `src/`. Enterprise delivery should place code under `apps/`, `services/`, and `libraries/` according to approved ownership and path catalogs.
 
-Target placement must be decided during architecture and implementation planning before `$implementation`. The service catalog and frontend catalog remove guesswork by defining owning squads, allowed paths, restricted paths, approvers, and regression scope.
+Target placement must be decided during design and implementation planning before `$implementation`. The service catalog and frontend catalog remove guesswork by defining owning squads, allowed paths, restricted paths, approvers, and regression scope.
 
 Use:
 
-- `framework/multi-squad/domain-ownership-model.md`
-- `framework/service-architecture/service-catalog-template.md`
-- `framework/frontend/frontend-catalog-template.md`
-- `framework/multi-squad/shared-asset-ownership-model.md`
-- `framework/service-architecture/implementation-placement-model.md`
-- `framework/service-architecture/domain-onboarding-model.md`
-- `framework/multi-squad/path-governance-model.md`
-- `framework/workflows/review-approval-flow.md`
+- `framework/03-delivery-governance/multi-squad/domain-ownership-model.md`
+- `framework/03-delivery-governance/service-architecture/service-catalog-template.md`
+- `framework/03-delivery-governance/frontend/frontend-catalog-template.md`
+- `framework/03-delivery-governance/multi-squad/shared-asset-ownership-model.md`
+- `framework/03-delivery-governance/service-architecture/implementation-placement-model.md`
+- `framework/03-delivery-governance/service-architecture/domain-onboarding-model.md`
+- `framework/03-delivery-governance/multi-squad/path-governance-model.md`
+- `framework/01-lifecycle/workflows/review-approval-flow.md`
 
 ---
 
 ## Context Management
 
-Use `framework/context/context-pack-model.md` and `framework/context/stage-context-packs.md` to keep reads stage-specific and token usage controlled. Optional lightweight indexes are defined in `framework/context/context-index-template.md`.
+Use `framework/02-context-control/context/context-pack-model.md` and `framework/02-context-control/context/stage-context-packs.md` to keep reads stage-specific and token usage controlled. Optional lightweight indexes are defined in `framework/02-context-control/context/context-index-template.md`.
 
-Use `framework/workflows/skill-prerequisite-validation.md` to check whether a skill may proceed before reading broad context or creating artifacts.
+Do not load the entire `framework/` folder during normal feature delivery. Use the active skill, `workflow-state.yaml`, and the stage context pack to decide what to read.
 
-Use `framework/indexing/indexing-model.md` for lightweight navigation indexes; indexes are optional in the lab, recommended for 3+ squads, and generated/validated aids rather than sources of truth.
+Framework docs are a library. Context packs decide which pages are loaded for a lifecycle stage. One-time platform bootstrap docs are not loaded during normal feature work unless creating or changing baselines.
 
-Use `framework/capability-summary/capability-summary-model.md` for optional single-page capability summaries that aid navigation without replacing source artifacts.
+Use `framework/01-lifecycle/workflows/skill-prerequisite-validation.md` to check whether a skill may proceed before reading broad context or creating artifacts.
 
-Use `framework/prompt-patterns/` for lightweight stage prompt patterns that improve repeatability, stop conditions, and response consistency without replacing source artifacts.
+Use `framework/00-navigation/indexing/indexing-model.md` for lightweight navigation indexes; indexes are optional in the lab, recommended for 3+ squads, and generated/validated aids rather than sources of truth.
 
-Use `framework/prompt-patterns/standard-response-format.md` for the standard skill response footer.
+Use `framework/00-navigation/capability-summary/capability-summary-model.md` for optional single-page capability summaries that aid navigation without replacing source artifacts.
+
+Use `framework/01-lifecycle/prompt-patterns/` for lightweight stage prompt patterns that improve repeatability, stop conditions, and response consistency without replacing source artifacts.
+
+Use `framework/01-lifecycle/prompt-patterns/standard-response-format.md` for the standard skill response footer.
 
 ---
 
@@ -213,13 +285,14 @@ Contains reusable framework assets.
 
 Examples:
 
-- Standards
-- Templates
-- Event definitions
-- Frontend standards
-- Service architecture patterns
-- Jira integration patterns
-- Workflow definitions
+- `00-navigation/`: document map, indexes, and capability summary guidance.
+- `01-lifecycle/`: workflow state, lifecycle workflows, review flow, and prompt patterns.
+- `02-context-control/`: context packs, token discipline, and context index guidance.
+- `03-delivery-governance/`: ownership, placement, frontend, service, event, and shared asset governance.
+- `04-engineering-standards/`: coding, API, security, and testing standards.
+- `05-platform-bootstrap/`: reserved for platform bootstrap guidance and templates.
+- `06-tool-integrations/`: Jira and other tool integration guidance.
+- `07-templates/`: reusable delivery artifact templates.
 
 ---
 
@@ -251,7 +324,7 @@ feedback/
 
 # Lifecycle
 
-Every capability follows the same lifecycle.
+Every feature follows the same lifecycle.
 
 ```text
 Intent
@@ -272,7 +345,7 @@ Intent
 | Command | Purpose |
 |----------|----------|
 | $domain-onboarding | Create new domain context before capability creation |
-| $intent | Create new capability |
+| $intent | Create or update feature intent |
 | $change-request | Create change request |
 | $defect-fix | Create defect fix |
 | Status. | Navigate current workflow state and next action |
@@ -292,7 +365,9 @@ Intent
 
 ## PR Review
 
-Use `$pr-review` after implementation and before `$validation`. PR review checks changed files, `allowed_paths`, coding standards, architecture adherence, API/event compatibility, test coverage, validation scripts, and traceability. It can recommend readiness, changes, or blockers, but human PR approval remains mandatory.
+Use `$pr-review` after implementation and before `$validation`. PR review checks changed files, `allowed_paths`, coding standards, design adherence, API/event compatibility, test coverage, validation scripts, and traceability. It can recommend readiness, changes, or blockers, but human PR approval remains mandatory.
+
+Intent, specification, design, test-design, validation, and release are feature-level. Implementation may be delivered in one or more slices. PR review is normally per slice or PR. Feature validation and release happen after required slices are complete.
 
 ---
 
@@ -304,12 +379,13 @@ Use `$pr-review` after implementation and before `$validation`. PR review checks
 Status.
 ```
 
-`Status.` is the main navigation command. Use it to understand where the active capability is, whether work can continue, and what command should be run next.
+`Status.` is the main navigation command. Use it to understand where the active feature is, whether work can continue, and what command should be run next.
 
 Status output must show:
 
 - domain
 - capability
+- feature
 - current_state
 - current_skill
 - active artifact
@@ -327,10 +403,11 @@ Example:
 
 ```text
 Domain: cards
-Capability: Card Replacement
+Capability: Card Lifecycle Management
+Feature: Card Replacement
 Current State: intent_review
 Current Skill: $intent
-Active Artifact: domains/cards/capabilities/card-replacement/intent/intent.md
+Active Artifact: domains/cards/capabilities/card-lifecycle-management/features/card-replacement/intent/intent.md
 Pending Gate: intent_approval
 Required Approvers: Product Owner, Business Analyst
 Blockers: none
@@ -431,7 +508,7 @@ When approved:
 
 # Workflow State
 
-Every capability contains:
+Every feature contains:
 
 ```text
 workflow-state.yaml
@@ -634,9 +711,9 @@ Purpose:
 
 Generate:
 
-- Epics
-- Stories
-- Tasks
+- Epics for capabilities
+- Stories for features
+- Tasks for implementation slices
 - Defects
 - Decisions
 - Releases
@@ -666,7 +743,7 @@ Purpose:
 Generate:
 
 - Capability summaries
-- Architecture summaries
+- Design summaries
 - Validation summaries
 - Release summaries
 
@@ -709,7 +786,7 @@ Before release:
 Review the sample capability:
 
 ```text
-domains/payments/capabilities/khqr-payment-reversal/
+domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/
 ```
 
 Run:
@@ -727,6 +804,7 @@ design/
 contracts/
 tests/
 implementation/
+pr-review/
 validation/
 release/
 workflow-state.yaml

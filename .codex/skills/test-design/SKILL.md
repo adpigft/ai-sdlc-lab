@@ -19,7 +19,7 @@ Use `$test-design` after specification approval and before implementation valida
 - Existing acceptance tests
 
 ## Context pack
-Use the `Test Design` pack in `framework/context/stage-context-packs.md`.
+Use the `Test Design` pack in `framework/02-context-control/context/stage-context-packs.md`.
 
 Required reads:
 - This skill document.
@@ -51,9 +51,9 @@ Stop conditions:
 3. Include integration, security, and performance scenarios in the QA-owned design when those risks apply.
 4. Define acceptance, negative, integration, security, and NFR scenarios.
 5. Identify test data, mocks, environments, and dependencies.
-6. When acceptance tests or QA test design are created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml`.
+6. When acceptance tests or QA test design are created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml`.
 7. Set workflow state to `test_review`, current artifact to `tests/acceptance.feature` or the QA test design artifact, pending gate to `test_design_approval`, next state to `implementation_ready`, and next skill to `implementation`.
-8. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
+8. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
 9. Ask for QA approval before implementation relies on the test design.
 
 ## Outputs
@@ -62,7 +62,7 @@ Stop conditions:
 - Integration test scenarios
 - Security test scenarios when applicable
 - NFR test scenarios when applicable
-- Created or updated `domains/**/workflow-state.yaml` after test design artifact creation
+- Created or updated `domains/**/features/**/workflow-state.yaml` after test design artifact creation
 
 ## Quality checks
 - Tests map to approved requirements and acceptance criteria.

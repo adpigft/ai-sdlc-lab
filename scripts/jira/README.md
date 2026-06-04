@@ -9,7 +9,7 @@ The generator does not call Jira APIs. It reads approved artifact files, applies
 | Jira Issue Type | AI SDLC Source |
 | --- | --- |
 | Epic | Capability |
-| Story | Business requirement group / business capability slice |
+| Story | Feature |
 | Task | Implementation slice |
 | Defect | Defect / RCA finding |
 | Decision | ADR |
@@ -21,7 +21,7 @@ Generate payloads for a capability workflow state:
 
 ```bash
 python3 scripts/jira/generate-jira-payloads.py \
-  --workflow-state domains/payments/capabilities/khqr-payment-reversal/workflow-state.yaml \
+  --workflow-state domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/workflow-state.yaml \
   --output-dir /tmp/jira-payloads
 ```
 
@@ -29,7 +29,7 @@ Print the payload bundle to stdout without writing files:
 
 ```bash
 python3 scripts/jira/generate-jira-payloads.py \
-  --workflow-state domains/payments/capabilities/khqr-payment-reversal/workflow-state.yaml
+  --workflow-state domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/workflow-state.yaml
 ```
 
 ## Inputs
@@ -44,7 +44,7 @@ The generator resolves artifact paths from `workflow-state.yaml`:
 
 It also scans `decisions/ADR-*.md` for local decision payloads.
 
-Functional and non-functional requirements are not generated as individual Stories. They are mapped into grouped Story payload fields.
+Functional and non-functional requirements are not generated as individual Stories. They are mapped into feature Story payload fields.
 
 For KHQR Payment Reversal, the generated Story groups are:
 

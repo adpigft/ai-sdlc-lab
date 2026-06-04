@@ -241,15 +241,23 @@ def artifact_path(raw_path: str) -> Path | None:
 
 
 def base_context(workflow_path: Path, workflow: dict[str, dict[str, str]], intent_metadata: dict[str, str]) -> dict[str, str]:
+    domain = workflow.get("domain", {})
     capability = workflow.get("capability", {})
+    feature = workflow.get("feature", {})
     workflow_values = workflow.get("workflow", {})
+    capability_name = capability.get("name", intent_metadata.get("Capability", ""))
+    capability_id = capability.get("id", capability.get("capability_id", slug(capability_name or "capability")))
+    feature_name = feature.get("name", intent_metadata.get("Capability", capability_name))
+    feature_id = feature.get("id", slug(feature_name or "feature"))
     return {
-        "domain": capability.get("domain", intent_metadata.get("Domain", "")),
-        "capability": capability.get("name", intent_metadata.get("Capability", "")),
-        "capability_id": capability.get("capability_id", slug(intent_metadata.get("Capability", "capability"))),
+        "domain": domain.get("name", capability.get("domain", intent_metadata.get("Domain", ""))),
+        "capability": capability_name,
+        "capability_id": capability_id,
+        "feature": feature_name,
+        "feature_id": feature_id,
         "workflow_state": workflow_values.get("current_state", ""),
         "workflow_skill": workflow_values.get("current_skill", ""),
-        "confluence_page": capability.get("confluence_page", intent_metadata.get("Confluence Page", "")),
+        "confluence_page": feature.get("confluence_page", capability.get("confluence_page", intent_metadata.get("Confluence Page", ""))),
         "source_artifact": relative_path(workflow_path),
     }
 
@@ -301,34 +309,34 @@ def build_stories(
         if artifact
     )
 
-    for index, row in enumerate(rows_in_section(plan_markdown, "Proposed Implementation Slices"), start=1):
-        slice_name = row.get("Slice", f"Slice {index}")
-        group_name = story_group_name(context["capability_id"], slice_name)
-        requirement_ids = ids_from_text(row.get("Requirement Coverage", ""), ("FR", "NFR"))
-        scenario_ids = expand_jira_ranges(row.get("Acceptance Coverage", ""))
+    slice_rows = rows_in_section(plan_markdown, "Proposed Implementation Slices")
+    requirement_ids = unique(
+        requirement_id
+        for row in slice_rows
+        for requirement_id in ids_from_text(row.get("Requirement Coverage", ""), ("FR", "NFR"))
+    )
+    scenario_ids = unique(
+        scenario_id
+        for row in slice_rows
+        for scenario_id in expand_jira_ranges(row.get("Acceptance Coverage", ""))
+    )
+    if not scenario_ids and acceptance_scenarios:
+        scenario_ids = unique(jira_id for scenario in acceptance_scenarios for jira_id in scenario["jira_ids"])
 
-        if not scenario_ids and acceptance_scenarios:
-            mapped_scenario_ids = [
-                jira_id
-                for scenario in acceptance_scenarios
-                if set(requirement_ids).intersection(set(scenario["requirement_ids"]))
-                for jira_id in scenario["jira_ids"]
-            ]
-            scenario_ids = unique(mapped_scenario_ids)
-
-        linked_slice_id = row.get("Jira Placeholder", "")
-        context_for_row = {
-            **context,
-            "external_id": story_external_id(context["capability_id"], index),
-            "parent_external_id": epic_key,
-            "summary": group_name,
-            "description": row.get("Scope", ""),
-            "mapped_requirement_ids": ", ".join(requirement_ids),
-            "acceptance_scenario_ids": ", ".join(scenario_ids),
-            "linked_implementation_slice_ids": linked_slice_id,
-            "source_artifacts": source_artifacts,
-        }
-        stories.append(render(load_template("story"), context_for_row))
+    linked_slice_ids = unique(row.get("Jira Placeholder", "") for row in slice_rows if row.get("Jira Placeholder", ""))
+    description = first_paragraph(spec_markdown, "Purpose") or first_paragraph(spec_markdown, "Scope") or first_paragraph(spec_markdown, "Problem Statement")
+    context_for_feature = {
+        **context,
+        "external_id": f"STORY-{context['feature_id'].upper()}",
+        "parent_external_id": epic_key,
+        "summary": context["feature"],
+        "description": description,
+        "mapped_requirement_ids": ", ".join(requirement_ids),
+        "acceptance_scenario_ids": ", ".join(scenario_ids),
+        "linked_implementation_slice_ids": ", ".join(linked_slice_ids),
+        "source_artifacts": source_artifacts,
+    }
+    stories.append(render(load_template("story"), context_for_feature))
 
     return stories
 
@@ -336,6 +344,7 @@ def build_stories(
 def build_tasks(workflow_path: Path, workflow: dict[str, dict[str, str]], plan_path: Path, plan_markdown: str, intent_metadata: dict[str, str]) -> list[dict[str, Any]]:
     context = base_context(workflow_path, workflow, intent_metadata)
     epic_key = workflow.get("capability", {}).get("jira_epic") or intent_metadata.get("Jira Epic", "")
+    story_key = f"STORY-{context['feature_id'].upper()}"
     tasks: list[dict[str, Any]] = []
 
     for index, row in enumerate(rows_in_section(plan_markdown, "Proposed Implementation Slices"), start=1):
@@ -343,8 +352,8 @@ def build_tasks(workflow_path: Path, workflow: dict[str, dict[str, str]], plan_p
         jira = row.get("Jira Placeholder", "")
         context_for_row = {
             **context,
-            "external_id": jira or f"TASK-{context['capability_id'].upper()}-{index:03d}",
-            "parent_external_id": epic_key,
+            "external_id": jira or f"TASK-{context['feature_id'].upper()}-{index:03d}",
+            "parent_external_id": story_key,
             "summary": slice_name,
             "description": row.get("Scope", ""),
             "requirement_coverage": row.get("Requirement Coverage", ""),

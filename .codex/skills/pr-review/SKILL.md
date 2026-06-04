@@ -20,11 +20,11 @@ Use `$pr-review` after implementation evidence exists and before `$validation`.
 - Traceability references
 
 ## Context pack
-Use the `PR Review` pack in `framework/context/stage-context-packs.md`.
+Use the `PR Review` pack in `framework/02-context-control/context/stage-context-packs.md`.
 
 Required reads:
 - This skill document.
-- `framework/workflows/pr-review-flow.md`.
+- `framework/01-lifecycle/workflows/pr-review-flow.md`.
 - Active `workflow-state.yaml` when available.
 - Approved implementation plan and placement metadata.
 - Changed file list.
@@ -68,6 +68,7 @@ Stop conditions:
 11. Do not approve the PR. Recommend `Ready for human PR review`, `Changes required`, or `Blocked`.
 
 ## Outputs
+- `domains/<domain>/capabilities/<capability>/features/<feature>/pr-review/pr-review-report.md` when PR review evidence is captured as an artifact
 - PR review findings
 - Changed file and allowed-path assessment
 - Standards and architecture adherence assessment

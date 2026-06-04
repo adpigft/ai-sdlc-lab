@@ -4,10 +4,11 @@
   "parentExternalId": "{{parent_external_id}}",
   "summary": "{{summary}}",
   "description": "{{description}}",
-  "labels": ["ai-sdlc", "requirement", "{{capability_id}}"],
+  "labels": ["ai-sdlc", "feature", "{{capability_id}}", "{{feature_id}}"],
   "fields": {
     "domain": "{{domain}}",
     "capability": "{{capability}}",
+    "feature": "{{feature}}",
     "mappedRequirementIds": "{{mapped_requirement_ids}}",
     "acceptanceScenarioIds": "{{acceptance_scenario_ids}}",
     "linkedImplementationSliceIds": "{{linked_implementation_slice_ids}}",

@@ -19,7 +19,7 @@ Use `$validation` after implementation and PR review are ready for QA or when re
 - Defect, risk, or waiver information
 
 ## Context pack
-Use the `Validation` pack in `framework/context/stage-context-packs.md`.
+Use the `Validation` pack in `framework/02-context-control/context/stage-context-packs.md`.
 
 Required reads:
 - This skill document.
@@ -53,9 +53,9 @@ Stop conditions:
 4. Compare results to approved requirements and traceability.
 5. Record defects, waivers, risks, and blocked evidence.
 6. Produce validation report and release readiness evidence.
-7. When validation report or QA evidence summary is created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml`.
+7. When validation report or QA evidence summary is created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml`.
 8. Set workflow state to `validation_ready`, current artifact to `validation/validation-report.md`, pending gate to `validation_approval`, next state to `release_ready`, and next skill to `release`.
-9. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
+9. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
 10. Ask for QA approval before release readiness.
 
 ## Outputs
@@ -63,7 +63,7 @@ Stop conditions:
 - Test execution evidence summary
 - Defect and risk summary
 - Release readiness evidence
-- Created or updated `domains/**/workflow-state.yaml` after validation report creation
+- Created or updated `domains/**/features/**/workflow-state.yaml` after validation report creation
 
 ## Quality checks
 - Evidence maps to approved requirements and tests.

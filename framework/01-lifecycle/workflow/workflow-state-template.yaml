@@ -1,0 +1,140 @@
+domain:
+  name: ""
+  path: ""
+
+capability:
+  name: ""
+  id: ""
+  path: ""
+  jira_epic: ""
+
+feature:
+  name: ""
+  id: ""
+  path: ""
+  confluence_page: ""
+
+workflow:
+  current_state: idea
+  previous_state: null
+  current_skill: intent
+  next_state: intent_review
+  next_skill: intent
+  blocked: false
+  blocked_reason: ""
+  conditions: []
+
+current_artifact:
+  type: ""
+  path: ""
+  status: draft
+  owner_role: ""
+
+artifacts:
+  intent: ""
+  specification: ""
+  architecture: ""
+  api_contract: ""
+  test_design: ""
+  implementation_plan: ""
+  pr_review: ""
+  validation_report: ""
+  release_notes: ""
+  traceability: "traceability/traceability-matrix.md"
+
+pending_gate:
+  gate: idea_acceptance
+  artifact_type: ""
+  artifact_path: ""
+  required_approvers: []
+  status: pending
+  approval_reference: ""
+  approved_at: ""
+  conditions: []
+
+approval_gates:
+  intent_approval:
+    status: pending
+    required_approvers:
+      - Product Owner
+      - Business Analyst
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  specification_approval:
+    status: pending
+    required_approvers:
+      - Product Owner
+      - Business Analyst
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  design_approval:
+    status: pending
+    required_approvers:
+      - Solution Architect
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  test_design_approval:
+    status: pending
+    required_approvers:
+      - QA Lead
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  implementation_start_approval:
+    status: pending
+    required_approvers:
+      - Product Owner
+      - Solution Architect
+      - Developer Lead
+      - QA Lead
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  implementation_slice_approval:
+    status: pending
+    required_approvers:
+      - Developer Lead
+      - Solution Architect
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  pr_review_approval:
+    status: pending
+    required_approvers:
+      - Developer Lead
+      - Solution Architect
+      - QA Lead
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  validation_approval:
+    status: pending
+    required_approvers:
+      - QA Lead
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+  release_approval:
+    status: pending
+    required_approvers:
+      - Product Owner
+      - QA Lead
+      - Solution Architect
+      - DevSecOps Lead
+      - Release Manager
+    approval_reference: ""
+    approved_at: ""
+    conditions: []
+
+blockers: []
+
+history:
+  - state: idea
+    event: workflow_started
+    actor: ""
+    reference: ""
+    timestamp: ""
+    notes: ""

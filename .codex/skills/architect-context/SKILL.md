@@ -29,7 +29,7 @@ Use only after `specification/specification.md` is approved.
 8. Ask for approval.
 
 ## Output
-- domains/<domain>/capabilities/<capability>/design/design.md
+- domains/<domain>/capabilities/<capability>/features/<feature>/design/design.md
 - decisions/ADR-*.md when needed
 
 Existing capabilities may still use `context/context.md` for one migration cycle. New artifacts should use the canonical `design/design.md` path.

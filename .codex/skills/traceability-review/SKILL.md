@@ -23,12 +23,12 @@ Use whenever intent, spec, context, API, tests, validation, release, Jira, or Co
 - Confluence references
 
 ## Context pack
-Use the `Traceability Review` pack in `framework/context/stage-context-packs.md`.
+Use the `Traceability Review` pack in `framework/02-context-control/context/stage-context-packs.md`.
 
 Required reads:
 - This skill document.
 - Active domain context.
-- Active capability artifacts.
+- Active feature artifacts.
 - Traceability matrix.
 - Active `workflow-state.yaml`.
 

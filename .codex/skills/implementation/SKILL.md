@@ -20,7 +20,7 @@ Use `$implementation` only after intent, specification, architecture, API where 
 - Jira Task or Subtask if available
 
 ## Context pack
-Use the `Implementation` pack in `framework/context/stage-context-packs.md`.
+Use the `Implementation` pack in `framework/02-context-control/context/stage-context-packs.md`.
 
 Required reads:
 - This skill document.
@@ -58,10 +58,10 @@ Stop conditions:
 6. Use TDD for the approved slice: failing test, implementation, passing test, refactor.
 7. Keep changes limited to the approved slice and do not write outside `allowed_paths`.
 8. Stop and report gaps instead of coding around missing or conflicting approved artifacts.
-9. When implementation slice planning, build readiness, code, unit tests, or PR evidence are created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml`.
+9. When implementation slice planning, build readiness, code, unit tests, or PR evidence are created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml`.
 10. For build readiness or slice planning, set workflow state to `implementation_ready`, pending gate to `implementation_start_approval`, next state to `implementation_in_progress`, and next skill to `implementation`.
 11. For an implemented slice or PR evidence, set workflow state to `implementation_in_progress`, current artifact to the slice/PR evidence, pending gate to `implementation_slice_approval`, next state to `pr_review_ready`, and next skill to `pr-review`.
-12. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
+12. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
 13. After implementation slice approval, update `workflow-state.yaml` to move from `implementation_in_progress` to `pr_review_ready`.
 14. Prepare the slice for review and validation.
 
@@ -86,7 +86,7 @@ Implementation must stop if `allowed_paths` or `restricted_paths` are missing. I
 - Focused refactoring where needed
 - Developer notes for validation
 - PR readiness summary
-- Created or updated `domains/**/workflow-state.yaml` after implementation planning or slice evidence creation
+- Created or updated `domains/**/features/**/workflow-state.yaml` after implementation planning or slice evidence creation
 
 ## Quality checks
 - One approved slice is implemented at a time.

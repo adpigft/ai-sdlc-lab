@@ -8,10 +8,15 @@ This repository demonstrates an AI-native SDLC for banking delivery using Codex,
 
 - `.codex/skills/`: the only canonical Codex-native project skill path. Each skill is a folder with `SKILL.md`.
 - `.codex/archive/skills/`: archived skills retained for future reuse. They are not recommended for normal use.
-- `framework/`: AI SDLC governance, standards, templates, and lifecycle orchestration. Legacy role skill files were removed after migration to canonical `.codex/skills/`.
-- `framework/workflows/`: lifecycle workflows and orchestration notes.
-- `framework/standards/`: engineering, API, security, and testing standards.
-- `framework/templates/`: reusable artifact templates.
+- `framework/`: AI SDLC governance, standards, templates, and lifecycle orchestration.
+- `framework/00-navigation/`: document map, indexes, and capability summary guidance.
+- `framework/01-lifecycle/`: lifecycle workflows, workflow state, review flow, and prompt patterns.
+- `framework/02-context-control/`: context packs, token discipline, and context index guidance.
+- `framework/03-delivery-governance/`: ownership, placement, frontend, service, event, and shared asset governance.
+- `framework/04-engineering-standards/`: engineering, API, security, and testing standards.
+- `framework/05-platform-bootstrap/`: platform bootstrap guidance and templates.
+- `framework/06-tool-integrations/`: Jira and other tool integration guidance.
+- `framework/07-templates/`: reusable artifact templates.
 - `.codex/config.toml`: optional enterprise MCP placeholders. Environment variables only; no tokens in files.
 - `docs/automation/`: automation and MCP setup notes.
 - `docs/subagents/`: subagent review workflow notes.
@@ -115,12 +120,13 @@ When the user says `Start new feature: <feature name>`:
 
 Jira lifecycle:
 
-Jira Epic -> Intent -> Specification -> Jira Stories -> Design/API/Tests -> Implementation Slices -> PR Review -> Validation -> Release
+Jira Epic (Capability) -> Jira Story (Feature) -> Intent -> Specification -> Design/API/Tests -> Implementation Slices / Jira Tasks -> PR Review -> Validation -> Release
 
-- Jira Epic can exist before intent as a lightweight discovery container.
+- Jira Epic is the capability container.
+- Jira Story is the feature delivery container.
 - Intent is created in Git after discovery.
 - Specification is created after intent approval.
-- Jira Stories are created after specification approval.
+- Jira Story scope is refined after specification approval.
 - Jira Tasks/Subtasks are created after implementation slices are defined.
 - Git remains source of truth for intent/spec/design/tests/code/traceability.
 - Jira is work management and approval tracking.
@@ -151,18 +157,19 @@ Use subagents only to review existing artifacts from a specific angle, such as s
 
 ## File Ownership
 
-- Intent: `domains/**/intent/intent.md`
-- Specification: `domains/**/specification/specification.md`
-- Design: `domains/**/design/design.md`
-- API contract: `domains/**/contracts/openapi.yaml`
-- Acceptance tests: `domains/**/tests/acceptance.feature`
-- Implementation plan: `domains/**/implementation/implementation-plan.md`
-- Validation: `domains/**/validation/validation-report.md`
-- Release: `domains/**/release/release-notes.md`
+- Intent: `domains/**/features/**/intent/intent.md`
+- Specification: `domains/**/features/**/specification/specification.md`
+- Design: `domains/**/features/**/design/design.md`
+- API contract: `domains/**/features/**/contracts/openapi.yaml`
+- Acceptance tests: `domains/**/features/**/tests/acceptance.feature`
+- Implementation plan: `domains/**/features/**/implementation/implementation-plan.md`
+- PR review: `domains/**/features/**/pr-review/pr-review-report.md`
+- Validation: `domains/**/features/**/validation/validation-report.md`
+- Release: `domains/**/features/**/release/release-notes.md`
 - Traceability: `traceability/traceability-matrix.md`
 - Feedback: `feedback/feedback-log.md`
 
-Existing capability artifacts may still use `domains/**/specs/spec.md`, `domains/**/context/context.md`, and `domains/**/design/implementation-plan.md` for one migration cycle. New framework guidance and templates should use the canonical paths above.
+Existing capability-level artifacts may still use `domains/**/specs/spec.md`, `domains/**/context/context.md`, and `domains/**/design/implementation-plan.md` for one migration cycle. New framework guidance and templates should use the canonical feature-level paths above.
 
 ## Safety Rules
 

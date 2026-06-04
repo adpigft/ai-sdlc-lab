@@ -24,13 +24,25 @@ else
       continue
     fi
 
-    capability_path="$(awk -F': *' '/^[[:space:]]+path:/{print $2; exit}' "$state_file")"
+    feature_path="$(awk '
+      $0 == "feature:" { in_feature=1; next }
+      /^[^[:space:]]/ { in_feature=0 }
+      in_feature && $1 == "path:" {
+        sub("^[[:space:]]*path:[[:space:]]*", "")
+        gsub(/^"|"$/, "")
+        print
+        exit
+      }
+    ' "$state_file")"
+    if [[ -z "$feature_path" ]]; then
+      feature_path="$(awk -F': *' '/^[[:space:]]+path:/{print $2; exit}' "$state_file")"
+    fi
     current_skill="$(awk -F': *' '/^[[:space:]]+current_skill:/{print $2; exit}' "$state_file")"
 
-    if [[ -z "$capability_path" ]]; then
-      error "$state_file" "capability.path is required"
-    elif [[ ! -d "$capability_path" ]]; then
-      error "$state_file" "capability.path does not exist: $capability_path"
+    if [[ -z "$feature_path" ]]; then
+      error "$state_file" "feature.path is required"
+    elif [[ ! -d "$feature_path" ]]; then
+      error "$state_file" "feature.path does not exist: $feature_path"
     fi
 
     if [[ -z "$current_skill" ]]; then
@@ -59,12 +71,24 @@ fi
 
 current_skill_for_path() {
   local changed_file="$1"
-  local state_file capability_path current_skill
+  local state_file feature_path current_skill
 
   for state_file in "${workflow_states[@]}"; do
-    capability_path="$(awk -F': *' '/^[[:space:]]+path:/{print $2; exit}' "$state_file")"
+    feature_path="$(awk '
+      $0 == "feature:" { in_feature=1; next }
+      /^[^[:space:]]/ { in_feature=0 }
+      in_feature && $1 == "path:" {
+        sub("^[[:space:]]*path:[[:space:]]*", "")
+        gsub(/^"|"$/, "")
+        print
+        exit
+      }
+    ' "$state_file")"
+    if [[ -z "$feature_path" ]]; then
+      feature_path="$(awk -F': *' '/^[[:space:]]+path:/{print $2; exit}' "$state_file")"
+    fi
     current_skill="$(awk -F': *' '/^[[:space:]]+current_skill:/{print $2; exit}' "$state_file")"
-    if [[ -n "$capability_path" && "$changed_file" == "$capability_path/"* ]]; then
+    if [[ -n "$feature_path" && "$changed_file" == "$feature_path/"* ]]; then
       printf '%s\n' "$current_skill"
       return 0
     fi
@@ -77,11 +101,31 @@ is_artifact_naming_migration_change() {
   local changed_file="$1"
 
   case "$changed_file" in
+    domains/*/domain-context.md|\
+    domains/*/README.md|\
+    domains/*/capabilities/*/capability-context.md|\
+    domains/*/capabilities/*/features/*/intent/intent.md|\
+    domains/*/capabilities/*/features/*/specification/specification.md|\
+    domains/*/capabilities/*/features/*/design/design.md|\
+    domains/*/capabilities/*/features/*/contracts/openapi.yaml|\
+    domains/*/capabilities/*/features/*/tests/acceptance.feature|\
+    domains/*/capabilities/*/features/*/implementation/implementation-plan.md|\
+    domains/*/capabilities/*/features/*/pr-review/pr-review-report.md|\
+    domains/*/capabilities/*/features/*/validation/*.md|\
+    domains/*/capabilities/*/features/*/release/*.md|\
+    domains/*/capabilities/*/features/*/workflow-state.yaml|\
+    domains/*/capabilities/*/intent/intent.md|\
     domains/*/capabilities/*/specification/specification.md|\
+    domains/*/capabilities/*/specs/spec.md|\
     domains/*/capabilities/*/design/design.md|\
+    domains/*/capabilities/*/context/context.md|\
+    domains/*/capabilities/*/contracts/openapi.yaml|\
+    domains/*/capabilities/*/tests/acceptance.feature|\
     domains/*/capabilities/*/implementation/implementation-plan.md|\
+    domains/*/capabilities/*/design/implementation-plan.md|\
     domains/*/capabilities/*/validation/*.md|\
-    domains/*/capabilities/*/release/*.md)
+    domains/*/capabilities/*/release/*.md|\
+    domains/*/capabilities/*/workflow-state.yaml)
       return 0
       ;;
     *)

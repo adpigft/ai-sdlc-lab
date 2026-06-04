@@ -18,7 +18,7 @@ Use whenever feedback, defect, review finding, or change request is received.
 - Jira reference
 
 ## Context pack
-Use the `Feedback Capture` pack in `framework/context/stage-context-packs.md`.
+Use the `Feedback Capture` pack in `framework/02-context-control/context/stage-context-packs.md`.
 
 Required reads:
 - This skill document.

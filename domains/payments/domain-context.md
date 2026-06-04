@@ -4,7 +4,7 @@
 
 Capture shared Payments domain language, APIs, events, integrations, business rules, and reusable delivery patterns used across payment capabilities.
 
-This file is domain-level context. Capability-specific source of truth remains in each capability folder under `domains/payments/capabilities/`.
+This file is domain-level context. Capability context remains under `domains/payments/capabilities/<capability>/capability-context.md`; feature delivery source of truth remains under `domains/payments/capabilities/<capability>/features/<feature>/`.
 
 ## Glossary
 

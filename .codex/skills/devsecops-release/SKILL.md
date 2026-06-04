@@ -28,7 +28,7 @@ Use after validation is approved.
 7. Ask for release approval.
 
 ## Output
-- domains/<domain>/capabilities/<capability>/release/release-notes.md
+- domains/<domain>/capabilities/<capability>/features/<feature>/release/release-notes.md
 
 ## Quality checks
 - Scope is clear.

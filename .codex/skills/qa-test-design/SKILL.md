@@ -15,7 +15,7 @@ Use after API contract is approved.
 - spec.md
 - openapi.yaml
 - context.md
-- framework/standards/testing-standards.md
+- framework/04-engineering-standards/standards/testing-standards.md
 
 ## Process
 1. Review requirements.
@@ -27,7 +27,7 @@ Use after API contract is approved.
 7. Ask for approval.
 
 ## Output
-- domains/<domain>/capabilities/<capability>/tests/acceptance.feature
+- domains/<domain>/capabilities/<capability>/features/<feature>/tests/acceptance.feature
 
 ## Quality checks
 - Every functional requirement has test coverage.

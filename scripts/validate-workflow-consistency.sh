@@ -76,7 +76,9 @@ if [[ ! -s "$traceability_file" ]]; then
 fi
 
 for state_file in "${workflow_states[@]}"; do
-  capability_id="$(field_value capability capability_id "$state_file")"
+  feature_id="$(field_value feature id "$state_file")"
+  feature_name="$(field_value feature name "$state_file")"
+  capability_id="$(field_value capability id "$state_file")"
   capability_name="$(field_value capability name "$state_file")"
   current_state="$(field_value workflow current_state "$state_file")"
   current_skill="$(field_value workflow current_skill "$state_file")"
@@ -133,9 +135,13 @@ for state_file in "${workflow_states[@]}"; do
   fi
 
   if [[ -s "$traceability_file" ]]; then
-    if [[ -n "$capability_id" ]] && ! grep -qi "$capability_id" "$traceability_file"; then
+    if [[ -n "$feature_id" ]] && ! grep -qi "$feature_id" "$traceability_file"; then
+      error "$traceability_file" "Traceability matrix does not mention active feature id '$feature_id'"
+    elif [[ -z "$feature_id" && -n "$feature_name" ]] && ! grep -qi "$feature_name" "$traceability_file"; then
+      error "$traceability_file" "Traceability matrix does not mention active feature '$feature_name'"
+    elif [[ -z "$feature_id" && -z "$feature_name" && -n "$capability_id" ]] && ! grep -qi "$capability_id" "$traceability_file"; then
       error "$traceability_file" "Traceability matrix does not mention active capability id '$capability_id'"
-    elif [[ -z "$capability_id" && -n "$capability_name" ]] && ! grep -qi "$capability_name" "$traceability_file"; then
+    elif [[ -z "$feature_id" && -z "$feature_name" && -z "$capability_id" && -n "$capability_name" ]] && ! grep -qi "$capability_name" "$traceability_file"; then
       error "$traceability_file" "Traceability matrix does not mention active capability '$capability_name'"
     fi
   fi

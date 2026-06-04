@@ -22,7 +22,7 @@ Temporary alias: `$new` routes to `$intent` for one migration cycle.
 - Optional Confluence or stakeholder notes
 
 ## Context pack
-Use the `Intent` pack in `framework/context/stage-context-packs.md`.
+Use the `Intent` pack in `framework/02-context-control/context/stage-context-packs.md`.
 
 Required reads:
 - This skill document.
@@ -30,7 +30,7 @@ Required reads:
 - Workflow-state guidance.
 
 Optional reads:
-- Intent templates, Jira model guidance, and existing capability artifacts in the same domain for style.
+- Intent templates, Jira model guidance, and existing feature artifacts in the same domain for style.
 
 Forbidden reads:
 - Source code, unrelated domains, unrelated implementation plans, validation artifacts, and release artifacts.
@@ -52,9 +52,9 @@ Stop conditions:
 5. Ask discovery questions before creating Git artifacts.
 6. Summarize users, outcomes, scope, constraints, risks, success measures, domain-context reuse, and domain-specific controls.
 7. Stop for PO / BA approval before creating or updating intent.
-8. When intent is created or updated, create or update `domains/<domain>/capabilities/<capability>/workflow-state.yaml` using `framework/workflow/workflow-state-template.yaml`.
+8. When intent is created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml` using `framework/01-lifecycle/workflow/workflow-state-template.yaml`.
 9. Set workflow state to `intent_review`, current artifact to `intent/intent.md`, pending gate to `intent_approval`, next state to `specification_review`, and next skill to `specification`.
-10. Use `framework/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
+10. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
 11. After intent approval, update `workflow-state.yaml` to move from `intent_review` to `specification_review`.
 12. After intent approval, continue to specification using `ba-specification`.
 13. Stop at every approval gate and do not generate code.
@@ -62,8 +62,8 @@ Stop conditions:
 ## Outputs
 - Optional Jira Epic shell or Epic reference
 - Intent discovery summary
-- Approved `domains/**/intent/intent.md` only after approval
-- Created or updated `domains/**/workflow-state.yaml` after intent artifact creation
+- Approved `domains/**/features/**/intent/intent.md` only after approval
+- Created or updated `domains/**/features/**/workflow-state.yaml` after intent artifact creation
 - Specification handoff only after intent approval
 
 ## Quality checks

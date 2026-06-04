@@ -21,13 +21,13 @@ Use `$defect-fix` when users report incorrect behavior, failed validation, escap
 - Related Jira issue or incident reference if available
 
 ## Context pack
-Use the `Defect Fix` pack in `framework/context/stage-context-packs.md`.
+Use the `Defect Fix` pack in `framework/02-context-control/context/stage-context-packs.md`.
 
 Required reads:
 - This skill document.
 - Defect report or user evidence.
 - Active domain context.
-- Impacted capability artifacts.
+- Impacted feature artifacts.
 - Active `workflow-state.yaml` when the capability exists.
 - Placement guidance for code-impacting fixes.
 

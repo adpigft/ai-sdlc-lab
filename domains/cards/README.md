@@ -5,7 +5,7 @@ This folder contains Cards domain delivery context.
 ## Source Of Truth
 
 - Domain context: `domains/cards/domain-context.md`
-- Capability artifacts will be created only after domain onboarding is reviewed and approved.
+- Capability context and feature artifacts will be created only after domain onboarding is reviewed and approved.
 
 ## Current Status
 

@@ -31,7 +31,7 @@ Use when the user starts a new feature or changes business intent.
 10. Create or update intent.md only after approval.
 
 ## Output
-- domains/<domain>/capabilities/<capability>/intent/intent.md
+- domains/<domain>/capabilities/<capability>/features/<feature>/intent/intent.md
 - A reuse recommendation or nearest-match capability if an existing capability is materially similar
 
 ## Quality checks

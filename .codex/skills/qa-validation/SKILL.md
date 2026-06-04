@@ -29,7 +29,7 @@ Use after implementation is complete.
 6. Ask for approval.
 
 ## Output
-- domains/<domain>/capabilities/<capability>/validation/validation-report.md
+- domains/<domain>/capabilities/<capability>/features/<feature>/validation/validation-report.md
 
 ## Quality checks
 - All acceptance criteria are validated.
