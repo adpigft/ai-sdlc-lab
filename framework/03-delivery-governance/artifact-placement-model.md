@@ -41,6 +41,8 @@ Purpose:
 - shared APIs, events, integrations, and state model where applicable
 - ownership and out-of-scope notes
 
+The `capability-onboarding` support skill may create or update this artifact when a new capability is being introduced under an existing domain.
+
 ## Feature Artifact Root
 
 Feature = delivery boundary.

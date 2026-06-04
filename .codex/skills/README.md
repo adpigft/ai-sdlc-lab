@@ -8,6 +8,16 @@ Skills are reusable procedures. Repository-specific lifecycle behavior, artifact
 - `framework/02-context-control/context/skill-context-adapter.md`
 - `framework/03-delivery-governance/artifact-placement-model.md`
 
+Support skills are also reusable procedures. They assist the lifecycle but are not lifecycle stages:
+
+- `capability-onboarding`
+- `source-ingestion`
+- `repo-discovery`
+- `artifact-review`
+- `decision`
+- `traceability-review`
+- `feedback-capture`
+
 Each skill follows the Codex folder-based structure:
 
 ```text

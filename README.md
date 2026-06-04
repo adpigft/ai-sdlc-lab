@@ -366,6 +366,19 @@ Intent
 | $release | Prepare release |
 | $traceability-review | Verify traceability |
 | $feedback-capture | Capture lessons learned |
+| $capability-onboarding | Create or update capability context under an existing domain |
+| $source-ingestion | Convert external source material into AI-readable summaries |
+| $repo-discovery | Extract repository standards and conventions |
+| $artifact-review | Review AI-generated artifacts before human approval |
+
+## Support Skills
+
+These skills support the lifecycle but are not lifecycle stages:
+
+- `$capability-onboarding` for creating or updating capability context under an existing domain.
+- `$source-ingestion` for converting external source material into AI-readable summaries.
+- `$repo-discovery` for extracting standards and conventions from an existing repository.
+- `$artifact-review` for reviewing AI-generated artifacts before human approval.
 
 ---
 

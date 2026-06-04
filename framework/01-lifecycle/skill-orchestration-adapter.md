@@ -22,6 +22,10 @@ intent
 Supporting skills:
 
 - `domain-onboarding` runs before `intent` when the domain does not exist.
+- `capability-onboarding` runs before feature work when a parent capability context is needed under an existing domain.
+- `source-ingestion` converts external source documents into AI-readable summaries before delivery artifacts are created.
+- `repo-discovery` extracts conventions from an existing repository to inform standards and bootstrap decisions.
+- `artifact-review` reviews AI-generated artifacts before human approval.
 - `change-request` performs impact analysis and routes only impacted work through the lifecycle.
 - `defect-fix` performs RCA and routes only impacted work through the lifecycle.
 - `traceability-review` can run whenever traceability needs review or update.

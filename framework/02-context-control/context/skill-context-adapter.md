@@ -41,6 +41,8 @@ Optional reads are allowed only when needed for the active task:
 
 Indexes and summaries do not replace source artifacts.
 
+Support skills such as `capability-onboarding`, `source-ingestion`, `repo-discovery`, and `artifact-review` may use the same context-loading principles, but they are not lifecycle stages and should still read only the smallest relevant source set.
+
 ## Forbidden Reads
 
 Unless explicitly required by the active stage or approved impact analysis, do not read:

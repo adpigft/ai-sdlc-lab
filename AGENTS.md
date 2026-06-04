@@ -60,6 +60,13 @@ Normal users should use these orchestration skills:
 - `$decision` for architecture decisions and ADRs.
 - `$release` for release readiness and release management.
 
+Support skills are reusable procedures, not lifecycle stages:
+
+- `$capability-onboarding` for capability context creation under an existing domain.
+- `$source-ingestion` for converting external source documents into AI-readable summaries.
+- `$repo-discovery` for extracting repository standards and conventions.
+- `$artifact-review` for reviewing AI-generated artifacts before human approval.
+
 Archived skills under `.codex/archive/skills/` are retained for future reuse, but they are not recommended for normal use.
 
 For any new feature, the framework lifecycle order is:
