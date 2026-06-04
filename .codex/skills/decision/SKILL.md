@@ -1,49 +1,88 @@
 ---
 name: decision
-description: User-friendly orchestration for architecture decisions and ADR lifecycle management.
+description: Create, review, and manage architecture or delivery decisions so unresolved choices do not leak into implementation.
 ---
 
 # Decision Skill
 
 ## Purpose
-Create, review, and manage architecture decisions so unresolved design choices do not leak into implementation.
 
-## When to use
-Use `$decision` when a capability has an architecture choice, integration tradeoff, technology decision, security pattern, data decision, or operational decision that needs an ADR.
+Make material choices explicit by documenting context, options, selected decision, consequences, risks, owners, and approval status.
 
-## Inputs
+## When To Use
+
+Use `$decision` when a design, technology, integration, security, data, operational, ownership, or release choice needs a decision record before downstream work can proceed.
+
+## Inputs Needed
+
 - Decision topic
 - Context and constraints
 - Options considered
-- Consequences and risks
-- Related capability, architecture, API, or release references
+- Recommendation or selected option, if known
+- Consequences, risks, tradeoffs, and affected owners
+- Related artifacts, systems, APIs, events, releases, or work items where applicable
 
-## Process
-1. Determine whether a new ADR is needed or an existing ADR should be reviewed.
-2. Draft the ADR when a new decision is needed.
-3. Review the ADR for approval readiness.
-4. Link the ADR to impacted architecture, API, implementation, test, validation, and release artifacts.
-5. Block implementation if the decision remains unresolved.
-6. Ask for Architect approval before marking the decision accepted.
+## Framework Adapter
 
-## Outputs
-- Draft or reviewed ADR
+When this skill is used inside this repository, context loading, artifact placement, approval gates, and links to relevant artifacts are defined by:
+
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
+
+## Procedure
+
+1. Determine whether a new decision record is needed or an existing decision should be reviewed.
+2. Capture context, constraints, options, selected option, rejected options, consequences, and risks.
+3. Identify impacted artifacts, owners, tests, implementation, validation, and release evidence.
+4. Mark unresolved material decisions as blockers.
+5. Ask for required owner or architect approval before treating the decision as accepted.
+
+## Outputs Produced
+
+- Draft or reviewed decision record
 - Decision status and owner
-- Impacted artifact list
-- Implementation block or approval signal
+- Options, selected choice, consequences, and risks
+- Impacted artifact and follow-up list
+- Blocker or approval recommendation
 
-## Quality checks
-- Decision context and options are explicit.
-- Consequences and risks are documented.
-- Rejected options are explained.
-- Impacted artifacts are identified.
-- Implementation is blocked while material decisions are unresolved.
+## Artifact Structure
 
-## Human gate
-Architect approval is required before an ADR can unblock implementation.
+1. Context
+2. Decision
+3. Alternatives Considered
+4. Trade-offs
+5. Consequences
 
-## Next skill or next workflow step
-Return to `$design` after ADR approval, or proceed to `$implementation` only when all blocking decisions are resolved.
+## Quality Checks
 
-## Example usage
-`$decision Create ADR for refund idempotency strategy`
+- Context and constraints are explicit.
+- Options and rejected alternatives are documented.
+- Consequences and risks are visible.
+- Impacted artifacts and owners are identified.
+- Implementation is blocked while material decisions remain unresolved.
+
+## Stop Conditions
+
+- Decision context is insufficient.
+- Impacted owners cannot be identified.
+- A material decision is unresolved but downstream work is requested.
+- Approval is missing for an accepted decision.
+
+## Human Approval Expectations
+
+Architect or designated owner approval is required before a decision can unblock downstream work.
+
+## Standard Response Format
+
+Created/Updated:
+- ...
+
+Pending Review:
+- ...
+
+Blockers:
+- ...
+
+Next:
+- ...

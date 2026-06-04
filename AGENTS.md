@@ -37,6 +37,12 @@ This repository demonstrates an AI-native SDLC for banking delivery using Codex,
 
 Do not jump directly to code.
 
+Skills are reusable procedures. Framework-specific lifecycle routing, artifact placement, context loading, workflow-state updates, and governance are defined by:
+
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
+
 Normal users should use these orchestration skills:
 
 - `$domain-onboarding` for a new banking domain before creating capabilities.
@@ -56,18 +62,18 @@ Normal users should use these orchestration skills:
 
 Archived skills under `.codex/archive/skills/` are retained for future reuse, but they are not recommended for normal use.
 
-For any new feature, follow this order:
+For any new feature, the framework lifecycle order is:
 
-1. `.codex/skills/intent/SKILL.md`
-2. `.codex/skills/specification/SKILL.md`
-3. `.codex/skills/design/SKILL.md`
-4. `.codex/skills/test-design/SKILL.md`
-5. `.codex/skills/traceability-review/SKILL.md`
-6. `.codex/skills/implementation/SKILL.md`
-7. `.codex/skills/pr-review/SKILL.md`
-8. `.codex/skills/validation/SKILL.md`
-9. `.codex/skills/release/SKILL.md`
-10. `.codex/skills/feedback-capture/SKILL.md`
+1. `$intent`
+2. `$specification`
+3. `$design`
+4. `$test-design`
+5. `$implementation`
+6. `$pr-review`
+7. `$validation`
+8. `$release`
+
+Use `$traceability-review`, `$feedback-capture`, and `$decision` where the orchestration adapter or active evidence requires them.
 
 ## Interaction Rule
 

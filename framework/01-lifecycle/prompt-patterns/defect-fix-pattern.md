@@ -17,6 +17,9 @@ Classify a defect, perform RCA, identify impacted artifacts and owners, and appl
 
 ## Required Reads
 
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
 - `framework/02-context-control/context/stage-context-packs.md`
 - `.codex/skills/defect-fix/SKILL.md`
 - Defect evidence

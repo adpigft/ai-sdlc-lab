@@ -17,6 +17,9 @@ Record review findings, defects, changes, and stakeholder feedback, then route a
 
 ## Required Reads
 
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
 - `framework/02-context-control/context/stage-context-packs.md`
 - `.codex/skills/feedback-capture/SKILL.md`
 - Feedback log

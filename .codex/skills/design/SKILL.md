@@ -1,104 +1,101 @@
 ---
 name: design
-description: User-friendly design-stage wrapper combining architecture context, API design, ADR identification, integration, data, security, and implementation planning.
+description: Define solution design, boundaries, APIs, events, integrations, data, security, observability, decisions, and implementation placement.
 ---
 
 # Design Skill
 
 ## Purpose
-Provide one normal-user entry point for solution design, including architecture context, API considerations, integration, data, security, ADRs, and implementation planning.
 
-## When to use
-Use `$design` after specification approval and before implementation. Normal users should not need to invoke a separate API skill.
+Translate approved requirements into a reviewable solution design without starting implementation prematurely.
 
-## Inputs
+## When To Use
+
+Use `$design` after specification approval and before implementation. Use it whenever architecture, API, event, integration, data, security, operational, or placement decisions are needed.
+
+## Inputs Needed
+
 - Approved intent and specification
-- Existing architecture context
-- Domain context, such as `domains/<domain>/domain-context.md`, when available
-- Integration and data constraints
-- Security and compliance requirements
-- Relevant standards and ADRs
+- Domain or system context
+- Integration, data, security, compliance, and operational constraints
+- Relevant standards and existing decisions
+- Known implementation ownership or placement constraints
 
-## Context pack
-Use the `Design` pack in `framework/02-context-control/context/stage-context-packs.md`.
+## Framework Adapter
 
-Required reads:
-- This skill document.
-- Approved intent and specification.
-- Active domain context.
-- Active `workflow-state.yaml`.
-- Implementation placement model.
+When this skill is used inside this repository, context loading, artifact placement, approval gates, lifecycle behavior, and placement metadata requirements are defined by:
 
-Optional reads:
-- Service catalog, frontend catalog, shared asset ownership, API/security standards, and event guidance when impacted.
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
+- `framework/03-delivery-governance/service-architecture/implementation-placement-model.md`
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
 
-Forbidden reads:
-- Source code before implementation unless the user explicitly requests review of existing implementation.
-- Unrelated domains unless cross-domain impact is identified.
-- Validation and release artifacts unless checking drift.
+## Procedure
 
-Escalation rule: Read another domain, service, frontend module, or shared asset guidance only after architecture impact identifies it.
+1. Confirm approved requirements exist.
+2. Define system boundaries, responsibilities, components, integrations, data ownership, state model, and sequence flow.
+3. Identify API, event, and integration contracts that must be created or changed.
+4. Address security, privacy, audit, observability, availability, performance, and failure handling.
+5. Identify material decisions and produce decision records when needed.
+6. Define implementation placement or explicitly state why no code placement is required yet.
+7. Define implementation slices only after design choices are stable enough to review.
+8. Stop for architect and impacted-owner review before implementation depends on the design.
 
-Token discipline rule: Prefer the active capability, placement model, and relevant standards; full framework reads are allowed only for framework assessment or framework changes.
+## Outputs Produced
 
-Stop conditions:
-- Specification is not approved.
+- Design artifact or design update
+- API, event, integration, data, security, and operational design guidance
+- Decision candidates or decision records when needed
+- Placement and ownership metadata when implementation may be impacted
+- Review request for architect and impacted-owner approval
+
+## Artifact Structure
+
+Artifact Structure
+
+1. Solution Overview
+2. Architecture
+3. Components
+4. Sequence Flows
+5. APIs
+6. Events
+7. Integrations
+8. Data Model
+9. Security
+10. Observability
+11. ADR References
+12. Open Questions
+
+## Quality Checks
+
+- Design is driven by approved requirements.
+- Boundaries and ownership are clear.
+- API, event, data, and integration impacts are explicit.
+- Security, audit, observability, and failure handling are addressed.
+- Material decisions are recorded and unresolved decisions block implementation.
+- Placement and ownership are clear enough for implementation planning.
+
+## Stop Conditions
+
+- Specification approval is missing.
 - Material design decisions are unresolved.
-- Target placement cannot be defined or explicitly deferred.
+- Required owner, API, event, integration, or placement information is missing.
+- The user asks to implement before required design approvals exist.
 
-## Process
-1. Confirm specification approval exists.
-2. Read `domains/<domain>/domain-context.md` when the domain is known and the file exists.
-3. Define boundaries, components, integrations, data ownership, sequence flow, risks, and assumptions.
-4. Identify API contract needs and document them through the active design workflow.
-5. Identify ADR needs and route material unresolved decisions to `$decision`.
-6. Include integration, data, security, observability, error handling, operational considerations, and reusable domain patterns.
-7. Define target implementation placement before downstream implementation, or explicitly state that no code placement is required yet.
-8. Define implementation slices only after architecture and API decisions are approved.
-9. When design context, API guidance, ADR draft, or implementation planning artifact is created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml`.
-10. Set workflow state to `design_review`, current artifact to the design-owned draft, pending gate to `design_approval`, next state to `test_review`, and next skill to `test-design`.
-11. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
-12. After design approval, update `workflow-state.yaml` to move from `design_review` to `test_review`.
-13. Ask for Architect approval before downstream implementation.
+## Human Approval Expectations
 
-## Placement metadata
-Before implementation or a code-impacting change, design must check or produce placement metadata:
+Architect approval is required for design. Impacted service, frontend, shared asset, API, event, security, or operations owners must review where their area is affected.
 
-- `target_app`, if frontend is impacted
-- `target_frontend_module`, if frontend is impacted
-- `target_service`, if backend is impacted
-- `target_library`, if shared library is impacted
-- `owning_squad`
-- `allowed_paths`
-- `restricted_paths`
-- `required_approvals`
-- `impacted_capabilities`
-- `regression_scope`
+## Standard Response Format
 
-Use `framework/03-delivery-governance/service-architecture/implementation-placement-model.md`, `framework/03-delivery-governance/service-architecture/service-catalog-template.md`, `framework/03-delivery-governance/frontend/frontend-catalog-template.md`, and `framework/03-delivery-governance/multi-squad/shared-asset-ownership-model.md`. If no code placement is required yet, say that explicitly in the design output.
+Created/Updated:
+- ...
 
-## Outputs
-- Design context updates
-- API contract guidance when needed
-- ADR candidates or approved ADR links
-- Integration, data, security, and implementation planning notes
-- Created or updated `domains/**/features/**/workflow-state.yaml` after architecture artifact creation
+Pending Review:
+- ...
 
-## Quality checks
-- Approved requirements drive the design.
-- API changes are explicit and reviewable.
-- Security and data concerns are addressed.
-- ADRs are created for material decisions.
-- Implementation does not start while blocking decisions are unresolved.
-- Implementation placement is defined before implementation, or architecture explicitly says no code placement is required yet.
-- Domain context was reviewed when available.
-- Workflow state points `Review.` to the design draft and blocks implementation while material decisions are unresolved.
+Blockers:
+- ...
 
-## Human gate
-Architect approval is required for design and API contract changes.
-
-## Next skill or next workflow step
-Use `$test-design` for QA scenarios and `$implementation` only after required design, API, tests, and traceability are approved.
-
-## Example usage
-`$design Design the approved QR refund capability`
+Next:
+- ...

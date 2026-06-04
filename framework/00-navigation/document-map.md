@@ -12,6 +12,9 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 | --- | --- | --- |
 | User onboarding | `README.md` | `framework/00-navigation/document-map.md`, `AGENTS.md` |
 | Codex operating rules | `AGENTS.md` | `.codex/skills/README.md`, `.codex/skills/*/SKILL.md` |
+| Skill orchestration adapter | `framework/01-lifecycle/skill-orchestration-adapter.md` | `framework/01-lifecycle/workflow/workflow-state-guide.md`, `framework/01-lifecycle/workflows/review-approval-flow.md` |
+| Skill context adapter | `framework/02-context-control/context/skill-context-adapter.md` | `framework/02-context-control/context/stage-context-packs.md`, `framework/02-context-control/context/context-pack-model.md` |
+| Artifact placement adapter | `framework/03-delivery-governance/artifact-placement-model.md` | `README.md`, `AGENTS.md`, `framework/07-templates/` |
 | Workflow state | `framework/01-lifecycle/workflow/workflow-state-guide.md` | `framework/01-lifecycle/workflow-state/state-machine.md`, `framework/01-lifecycle/workflow/workflow-state-template.yaml` |
 | Capability artifact naming | `README.md` | `AGENTS.md`, `framework/01-lifecycle/workflow/workflow-state-guide.md`, `framework/07-templates/` |
 | `Review.`, `Approved.`, `Status.` | `framework/01-lifecycle/workflows/review-approval-flow.md` | `framework/01-lifecycle/workflow/workflow-state-guide.md`, `framework/01-lifecycle/workflow-state/approval-events.md` |
@@ -37,6 +40,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 ## Documents That Should Not Be Duplicated
 
 - Do not duplicate workflow-state rules outside `framework/01-lifecycle/workflow/workflow-state-guide.md`; link to it.
+- Do not duplicate skill orchestration, context-loading, or artifact-placement rules inside `.codex/skills`; use the adapter documents.
 - Do not duplicate capability artifact naming rules outside `README.md` and `AGENTS.md`; new guidance should use canonical paths and mention old paths only as migration aliases.
 - Do not duplicate `Review.`, `Approved.`, and `Status.` behavior outside `framework/01-lifecycle/workflows/review-approval-flow.md`; link to it.
 - Do not duplicate skill prerequisite rules outside `framework/01-lifecycle/workflows/skill-prerequisite-validation.md`; link to it.
@@ -54,15 +58,17 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 
 1. Start with `README.md` to understand the framework, repository structure, lifecycle, and commands.
 2. Use `AGENTS.md` to understand how Codex must behave in this repository.
-3. Use `framework/01-lifecycle/workflows/review-approval-flow.md` for `Status.`, `Review.`, `Approved.`, `Resolve findings.`, and `Proceed.`.
-4. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` when creating or updating `workflow-state.yaml`.
-5. Use `framework/01-lifecycle/workflows/skill-prerequisite-validation.md` to check whether a skill may proceed before reading broad context or creating artifacts.
-6. Use `framework/02-context-control/context/context-pack-model.md` and `framework/02-context-control/context/stage-context-packs.md` to decide what to read for each stage.
-7. Use `framework/00-navigation/indexing/indexing-model.md` when lightweight indexes are needed for navigation at multi-squad scale.
-8. Use `framework/00-navigation/capability-summary/capability-summary-model.md` when a single-page capability navigation aid is needed.
-9. Use `framework/01-lifecycle/prompt-patterns/` when a stage needs a repeatable response shape or execution checklist.
-10. Before implementation, use `framework/03-delivery-governance/service-architecture/implementation-placement-model.md` and the ownership catalogs to decide allowed paths and restricted paths.
-11. Use `scripts/` and `.github/workflows/ai-sdlc-validate.yml` to validate the framework locally and in GitHub Actions.
-12. Keep capability truth in Git. Jira and Confluence outputs are generated views until API integrations are explicitly approved.
+3. Use `.codex/skills/*/SKILL.md` for reusable procedures.
+4. Use `framework/01-lifecycle/skill-orchestration-adapter.md`, `framework/02-context-control/context/skill-context-adapter.md`, and `framework/03-delivery-governance/artifact-placement-model.md` to adapt skills to this framework.
+5. Use `framework/01-lifecycle/workflows/review-approval-flow.md` for `Status.`, `Review.`, `Approved.`, `Resolve findings.`, and `Proceed.`.
+6. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` when creating or updating `workflow-state.yaml`.
+7. Use `framework/01-lifecycle/workflows/skill-prerequisite-validation.md` to check whether a skill may proceed before reading broad context or creating artifacts.
+8. Use `framework/02-context-control/context/context-pack-model.md` and `framework/02-context-control/context/stage-context-packs.md` to decide what to read for each stage.
+9. Use `framework/00-navigation/indexing/indexing-model.md` when lightweight indexes are needed for navigation at multi-squad scale.
+10. Use `framework/00-navigation/capability-summary/capability-summary-model.md` when a single-page capability navigation aid is needed.
+11. Use `framework/01-lifecycle/prompt-patterns/` when a stage needs a repeatable response shape or execution checklist.
+12. Before implementation, use `framework/03-delivery-governance/service-architecture/implementation-placement-model.md` and the ownership catalogs to decide allowed paths and restricted paths.
+13. Use `scripts/` and `.github/workflows/ai-sdlc-validate.yml` to validate the framework locally and in GitHub Actions.
+14. Keep capability truth in Git. Jira and Confluence outputs are generated views until API integrations are explicitly approved.
 
-Canonical lifecycle skill names are `$intent`, `$specification`, `$design`, `$test-design`, `$implementation`, `$pr-review`, `$validation`, and `$release`. `$new` and `$architecture` are temporary aliases for one migration cycle.
+Canonical lifecycle skill names are `$intent`, `$specification`, `$design`, `$test-design`, `$implementation`, `$pr-review`, `$validation`, and `$release`.

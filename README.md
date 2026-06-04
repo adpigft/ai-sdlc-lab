@@ -227,6 +227,9 @@ The framework calls this artifact `specification`, but it is equivalent to the r
 | File | Purpose | Owner |
 |---|---|---|
 | `framework/00-navigation/document-map.md` | Navigation map for framework documents | Framework Owner |
+| `framework/01-lifecycle/skill-orchestration-adapter.md` | How generic skills map to this framework lifecycle, gates, workflow-state, and navigation commands | Framework Owner |
+| `framework/02-context-control/context/skill-context-adapter.md` | How generic skills load context in this framework | Framework Owner |
+| `framework/03-delivery-governance/artifact-placement-model.md` | Where framework artifacts are stored | Framework Owner / Delivery Lead |
 | `framework/02-context-control/context/stage-context-packs.md` | Required/optional/forbidden reads by lifecycle stage | Framework Owner |
 | `framework/01-lifecycle/prompt-patterns/<stage>-pattern.md` | Standard prompt shape for each stage | Framework Owner |
 | `framework/01-lifecycle/workflows/skill-prerequisite-validation.md` | Rules for when a skill may proceed or must stop | Framework Owner |
@@ -261,9 +264,11 @@ Use:
 
 ## Context Management
 
+Skills are reusable procedures. The framework adapters decide repository-specific context loading, artifact placement, workflow-state updates, approval gates, and next-stage routing.
+
 Use `framework/02-context-control/context/context-pack-model.md` and `framework/02-context-control/context/stage-context-packs.md` to keep reads stage-specific and token usage controlled. Optional lightweight indexes are defined in `framework/02-context-control/context/context-index-template.md`.
 
-Do not load the entire `framework/` folder during normal feature delivery. Use the active skill, `workflow-state.yaml`, and the stage context pack to decide what to read.
+Do not load the entire `framework/` folder during normal feature delivery. Use the active skill, `workflow-state.yaml`, `framework/02-context-control/context/skill-context-adapter.md`, and the stage context pack to decide what to read.
 
 Framework docs are a library. Context packs decide which pages are loaded for a lifecycle stage. One-time platform bootstrap docs are not loaded during normal feature work unless creating or changing baselines.
 

@@ -6,6 +6,8 @@ Define lightweight required, optional, forbidden, and escalation reads by lifecy
 
 These packs reduce token usage and make Codex behavior predictable without adding heavy indexing.
 
+These packs are framework adapter guidance. Generic skills should not duplicate this file; they should reference `framework/02-context-control/context/skill-context-adapter.md` when used inside this repository.
+
 ## Domain Onboarding
 
 Purpose: create new domain context before capabilities exist.

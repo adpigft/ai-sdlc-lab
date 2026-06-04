@@ -12,6 +12,7 @@ Define the common shape for lightweight prompt patterns used across the AI-SDLC 
 - The AI must stop when approvals, required inputs, or placement metadata are missing.
 - Full framework reads are allowed only for framework assessment or framework changes.
 - Skill outputs should end with the standard response footer defined in `framework/01-lifecycle/prompt-patterns/standard-response-format.md`.
+- Prompt patterns adapt generic skills through `framework/01-lifecycle/skill-orchestration-adapter.md`, `framework/02-context-control/context/skill-context-adapter.md`, and `framework/03-delivery-governance/artifact-placement-model.md`.
 
 ## Pattern Fields
 
@@ -31,7 +32,7 @@ Each pattern should include:
 
 ## Context Discipline
 
-Use `framework/02-context-control/context/stage-context-packs.md` to decide what to read for each stage. Use optional indexes only as routing aids. Indexes do not replace source artifacts.
+Use `framework/02-context-control/context/skill-context-adapter.md` and `framework/02-context-control/context/stage-context-packs.md` to decide what to read for each stage. Use optional indexes only as routing aids. Indexes do not replace source artifacts.
 
 Before implementation, source code reads must be limited to approved `allowed_paths`. Change-request and defect-fix work may read impacted paths only after impact analysis or RCA identifies them.
 

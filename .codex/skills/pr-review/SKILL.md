@@ -1,95 +1,96 @@
 ---
 name: pr-review
-description: Review pull request readiness against changed files, allowed paths, standards, architecture, API/event compatibility, tests, validation scripts, and traceability before QA validation.
+description: Review implementation or pull request readiness against changed files, approved scope, standards, tests, compatibility, and traceability.
 ---
 
 # PR Review Skill
 
 ## Purpose
-Review an implementation slice or pull request before QA validation. This skill checks whether the change is ready to proceed without replacing human review, CI, GitHub Actions, or approval gates.
 
-## When to use
-Use `$pr-review` after implementation evidence exists and before `$validation`.
+Review an implementation slice or pull request before validation. This skill checks readiness and risk; it does not replace human PR approval, CI, or release gates.
 
-## Inputs
-- PR reference or implementation slice reference
-- Changed file list
-- Approved implementation plan
-- Placement metadata, including `allowed_paths` and `restricted_paths`
+## When To Use
+
+Use `$pr-review` after implementation evidence exists and before QA validation relies on the change.
+
+## Inputs Needed
+
+- PR reference, implementation slice reference, or changed file list
+- Approved scope, design, and implementation plan
 - Test and validation output, if available
+- Coding, security, API, event, testing, and architecture standards
 - Traceability references
+- Placement or ownership constraints where the framework defines them
 
-## Context pack
-Use the `PR Review` pack in `framework/02-context-control/context/stage-context-packs.md`.
+## Framework Adapter
 
-Required reads:
-- This skill document.
-- `framework/01-lifecycle/workflows/pr-review-flow.md`.
-- Active `workflow-state.yaml` when available.
-- Approved implementation plan and placement metadata.
-- Changed file list.
-- Source and tests only inside changed files and approved `allowed_paths`.
-- Relevant coding, API, event, security, testing, and architecture standards.
-- Traceability matrix when checking implementation links.
+When this skill is used inside this repository, context loading, report placement, allowed/restricted paths, approval gates, and lifecycle behavior are defined by:
 
-Optional reads:
-- CI or local validation output.
-- API contracts and event schemas impacted by the changed files.
-- Design context for the active capability.
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
+- `framework/03-delivery-governance/service-architecture/implementation-placement-model.md`
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
 
-Forbidden reads:
-- Unrelated source files.
-- Unrelated domains or capabilities.
-- Restricted paths without explicit owner approval.
-- Release artifacts unless the PR explicitly changes release evidence.
+## Procedure
 
-Escalation rule: If review needs files outside changed files or approved `allowed_paths`, stop and report the missing approval or ownership reason.
+1. Identify changed files and the approved slice or PR scope.
+2. Check that changed files align with approved scope, ownership, and path constraints.
+3. Review coding, security, testing, and architecture standards relevant to the change.
+4. Check design adherence against approved requirements and design.
+5. Check API and event compatibility for changed contracts, handlers, producers, or consumers.
+6. Check test coverage for changed behavior, including negative, integration, security, and NFR coverage where applicable.
+7. Run or review validation scripts where applicable.
+8. Check traceability from changed implementation to approved requirements, tests, and evidence.
+9. Report findings first, ordered by severity.
+10. Recommend readiness, changes required, or blocked. Do not approve the PR yourself.
 
-Token discipline rule: Read changed files first, then only directly referenced standards, contracts, tests, and traceability rows. Full framework reads are allowed only for framework assessment or framework changes.
+## Outputs Produced
 
-Stop conditions:
-- Changed files are unknown.
-- `allowed_paths` or `restricted_paths` are missing.
-- Changed files include restricted or unapproved paths.
-- Required implementation evidence is missing.
-- Validation, traceability, API/event compatibility, or workflow evidence disagrees.
-
-## Process
-1. Identify the active domain, capability, PR or slice, and changed files.
-2. Confirm placement metadata exists and changed files stay inside `allowed_paths`.
-3. Check no changed file is in `restricted_paths` without required approval.
-4. Review coding standards, security standards, and testing standards relevant to the changed files.
-5. Check architecture adherence against approved design and implementation plan.
-6. Check API and event compatibility for changed contracts, schemas, handlers, producers, or consumers.
-7. Check test coverage for changed behavior, including unit, acceptance, negative, integration, security, and NFR coverage where applicable.
-8. Run or review validation scripts when applicable.
-9. Check traceability links from changed implementation to approved requirements, tests, and validation evidence.
-10. Report findings first, ordered by severity.
-11. Do not approve the PR. Recommend `Ready for human PR review`, `Changes required`, or `Blocked`.
-
-## Outputs
-- `domains/<domain>/capabilities/<capability>/features/<feature>/pr-review/pr-review-report.md` when PR review evidence is captured as an artifact
 - PR review findings
-- Changed file and allowed-path assessment
-- Standards and architecture adherence assessment
-- API/event compatibility assessment
-- Test coverage assessment
-- Validation script results or missing evidence
-- Traceability assessment
-- Recommendation for the next step
+- Changed-file and scope assessment
+- Standards, security, compatibility, test coverage, validation, and traceability assessment
+- Recommendation for human reviewers
+- Optional PR review evidence artifact when the framework asks for one
 
-## Quality checks
+## Artifact Structure
+
+1. Summary
+2. Changed Files
+3. Standards Compliance
+4. Design Compliance
+5. Test Coverage
+6. Risks
+7. Recommendation
+
+## Quality Checks
+
 - Changed files are explicit.
-- Allowed and restricted paths are checked.
-- Architecture, API/event compatibility, tests, validation, and traceability are reviewed.
 - Findings distinguish blockers from recommendations.
-- No source or business artifact changes are made by review.
+- Standards, design, tests, compatibility, and traceability are checked.
+- Review does not modify source or business artifacts.
+- AI does not claim human approval.
 
-## Human gate
-Human PR review and required owner approvals are mandatory. AI can recommend readiness but cannot approve itself.
+## Stop Conditions
 
-## Next skill or next workflow step
-Use `$validation` only after PR review findings are resolved and required human PR approval exists.
+- Changed files are unknown.
+- Required implementation evidence is missing.
+- Scope or ownership cannot be confirmed.
+- Required path, API, event, traceability, or validation evidence disagrees.
 
-## Example usage
-`$pr-review Review implemented slice before validation`
+## Human Approval Expectations
+
+Human PR approval and impacted owner approvals are mandatory. AI may recommend readiness but cannot approve itself.
+
+## Standard Response Format
+
+Created/Updated:
+- ...
+
+Pending Review:
+- ...
+
+Blockers:
+- ...
+
+Next:
+- ...

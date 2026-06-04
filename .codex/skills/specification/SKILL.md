@@ -1,77 +1,93 @@
 ---
 name: specification
-description: User-friendly specification-stage orchestration for approved intent to functional and non-functional requirements.
+description: Convert approved intent into functional requirements, non-functional requirements, business rules, acceptance criteria, and edge cases.
 ---
 
 # Specification Skill
 
 ## Purpose
-Turn approved intent into clear requirements, business rules, acceptance criteria, and open questions.
 
-## When to use
-Use `$specification` after intent is approved and before design, API, test design, or implementation.
+Turn approved intent into clear, testable requirements. In this framework, specification means requirements.
 
-## Inputs
-- Approved `intent.md`
+## When To Use
+
+Use `$specification` after intent is approved and before design, test design, implementation, validation, or release work depends on the scope.
+
+## Inputs Needed
+
+- Approved intent
 - Business policies and rules
 - Stakeholder clarifications
 - Domain standards and constraints
-- Optional Jira Epic reference
+- Known integrations, data needs, risks, or compliance obligations
+- Open questions from intent discovery
 
-## Context pack
-Use the `Specification` pack in `framework/02-context-control/context/stage-context-packs.md`.
+## Framework Adapter
 
-Required reads:
-- This skill document.
-- Approved intent.
-- Active domain context.
-- Active `workflow-state.yaml`.
-- Specification template.
+When this skill is used inside this repository, context loading, artifact placement, approval gates, and lifecycle behavior are defined by:
 
-Optional reads:
-- API, security, and testing standards.
-- Similar approved specs in the same domain for style.
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
 
-Forbidden reads:
-- Source code, implementation plans, release artifacts, and unrelated domains.
+## Procedure
 
-Escalation rule: Read another domain only when the requirement explicitly impacts that domain or an integration owner must be identified.
+1. Confirm the intent is approved.
+2. Derive functional requirements from approved scope.
+3. Derive non-functional requirements from risk, policy, security, performance, availability, audit, and operational needs.
+4. Define business rules, acceptance criteria, edge cases, and error/failure expectations.
+5. Identify data needs, integration assumptions, and open questions.
+6. Keep requirements independent of implementation design unless the business rule requires a specific constraint.
+7. Stop for BA / PO review before downstream work relies on the specification.
 
-Token discipline rule: Keep context centered on approved intent and domain rules; do not load full framework content outside framework assessment or framework changes.
+## Outputs Produced
 
-Stop conditions:
-- Intent is not approved.
-- Open questions block requirement definition.
-- Required approver is missing.
+- Specification artifact containing FRs, NFRs, business rules, acceptance criteria, edge cases, assumptions, dependencies, and open questions
+- Traceability-ready requirement identifiers where the framework needs them
+- Review request for BA / PO approval
 
-## Process
-1. Confirm intent approval exists.
-2. Capture functional requirements, non-functional requirements, business rules, data needs, acceptance criteria, edge cases, and open questions.
-4. When specification is created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml` using `framework/01-lifecycle/workflow/workflow-state-template.yaml` when needed.
-5. Set workflow state to `specification_review`, current artifact to `specification/specification.md`, pending gate to `specification_approval`, next state to `design_review`, and next skill to `design`. During the migration cycle, `specs/spec.md` remains a compatibility alias for existing capabilities.
-6. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
-7. Identify Jira Stories after specification approval, not before.
-8. Ask for BA / PO approval before downstream design starts.
+## Artifact Structure
 
-## Outputs
-- Approved `domains/**/features/**/specification/specification.md` after approval
-- Created or updated `domains/**/features/**/workflow-state.yaml` after specification artifact creation
-- Jira Story creation guidance after specification approval
-- Open questions and dependency list
+1. Overview
+2. Functional Requirements
+3. Non-Functional Requirements
+4. Business Rules
+5. Acceptance Criteria
+6. Edge Cases
+7. Dependencies
+8. Assumptions
+9. Open Questions
 
-## Quality checks
+## Quality Checks
+
 - Requirements are testable and unambiguous.
+- Acceptance criteria are measurable.
 - NFRs are explicit.
 - Business rules and edge cases are captured.
-- Acceptance criteria map to requirements.
-- Jira Stories are not treated as the source of truth.
-- Workflow state points `Review.` to the specification draft and `Approved.` to the design stage.
+- Open questions are visible and assigned where possible.
+- The specification does not generate design, tests, or code prematurely.
 
-## Human gate
-BA / PO approval is required before design and test-design proceed.
+## Stop Conditions
 
-## Next skill or next workflow step
-Use `$design` and `$test-design`; create Jira Stories after specification approval.
+- Intent approval is missing.
+- Material requirement inputs are missing.
+- Open questions block requirement definition.
+- The user asks to skip approval and proceed downstream.
 
-## Example usage
-`$specification Draft requirements from approved QR refund intent`
+## Human Approval Expectations
+
+BA / PO approval is required before design, test design, implementation, validation, or release work depends on the specification.
+
+## Standard Response Format
+
+Created/Updated:
+- ...
+
+Pending Review:
+- ...
+
+Blockers:
+- ...
+
+Next:
+- ...

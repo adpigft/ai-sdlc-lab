@@ -6,6 +6,12 @@ Prompt patterns provide lightweight execution guidance for repeatable AI-SDLC wo
 
 Patterns guide execution only. They do not replace source artifacts, workflow state, skills, standards, validation scripts, Jira, or Confluence summaries.
 
+Prompt patterns should use generic skills as procedures and the framework adapters for repository-specific orchestration:
+
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
+
 ## How To Use
 
 Use the pattern that matches the active command or lifecycle stage:

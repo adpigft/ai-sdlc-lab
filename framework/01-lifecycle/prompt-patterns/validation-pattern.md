@@ -19,6 +19,9 @@ Validate implementation evidence against approved requirements, tests, API contr
 
 ## Required Reads
 
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
 - `framework/02-context-control/context/stage-context-packs.md`
 - `.codex/skills/validation/SKILL.md`
 - Active `workflow-state.yaml`

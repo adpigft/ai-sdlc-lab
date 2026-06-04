@@ -18,6 +18,9 @@ Create domain-level delivery context before any capability is created.
 
 ## Required Reads
 
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
 - `framework/02-context-control/context/stage-context-packs.md`
 - `framework/03-delivery-governance/service-architecture/domain-onboarding-model.md`
 - `framework/03-delivery-governance/multi-squad/domain-ownership-model.md`

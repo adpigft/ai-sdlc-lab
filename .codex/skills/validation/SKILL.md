@@ -1,83 +1,89 @@
 ---
 name: validation
-description: QA-owned validation execution and evidence entry point producing validation report and release readiness evidence.
+description: Validate implementation against approved requirements, tests, evidence, and release readiness expectations.
 ---
 
 # Validation Skill
 
 ## Purpose
-Execute QA validation and capture evidence needed for release readiness.
 
-## When to use
-Use `$validation` after implementation and PR review are ready for QA or when release evidence must be assembled.
+Execute or review validation evidence and determine whether the implemented scope satisfies approved requirements, tests, and quality expectations.
 
-## Inputs
+## When To Use
+
+Use `$validation` after implementation and PR review are ready for QA validation, or when validation evidence must be assembled for release readiness.
+
+## Inputs Needed
+
 - Approved requirements, design, tests, and traceability
-- Implemented code or PR reference
+- Implemented code, PR reference, or delivery evidence
 - Test execution results
-- CI and GitHub Actions references
-- Defect, risk, or waiver information
+- CI, security, quality, or validation outputs when available
+- Defects, risks, waivers, or blocked evidence
 
-## Context pack
-Use the `Validation` pack in `framework/02-context-control/context/stage-context-packs.md`.
+## Framework Adapter
 
-Required reads:
-- This skill document.
-- Active `workflow-state.yaml`.
-- Validation report.
-- Approved tests.
-- Implementation evidence.
-- Traceability matrix.
-- Approved requirements and design as needed.
+When this skill is used inside this repository, context loading, artifact placement, approval gates, and lifecycle behavior are defined by:
 
-Optional reads:
-- Source and tests inside implemented paths.
-- CI logs, command output, and security/testing/NFR standards.
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
 
-Forbidden reads:
-- Unrelated source paths and unrelated capabilities unless regression scope requires them.
+## Procedure
 
-Escalation rule: Read additional capability or code paths only when regression scope, traceability gaps, or validation evidence require it.
-
-Token discipline rule: Focus on evidence, mapped requirements, and implemented paths; full framework reads are allowed only for framework assessment or framework changes.
-
-Stop conditions:
-- Implementation evidence is missing.
-- Tests cannot map to requirements.
-- Release readiness is claimed without supporting evidence.
-
-## Process
-1. Confirm implementation and PR review are ready for validation.
+1. Confirm implementation and review evidence are ready for validation.
 2. Execute or review acceptance, regression, integration, security, and NFR evidence as applicable.
-3. Review implementation coverage, test results, failed or missing validation, and traceability.
-4. Compare results to approved requirements and traceability.
-5. Record defects, waivers, risks, and blocked evidence.
-6. Produce validation report and release readiness evidence.
-7. When validation report or QA evidence summary is created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml`.
-8. Set workflow state to `validation_ready`, current artifact to `validation/validation-report.md`, pending gate to `validation_approval`, next state to `release_ready`, and next skill to `release`.
-9. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
-10. Ask for QA approval before release readiness.
+3. Compare results to approved requirements, tests, and traceability.
+4. Record passed, failed, blocked, waived, or unvalidated scope.
+5. Record defects, risks, limitations, and missing evidence.
+6. State release readiness clearly and conservatively.
+7. Stop for QA review before release depends on the validation evidence.
 
-## Outputs
-- Validation report
+## Outputs Produced
+
+- Validation report or validation evidence summary
 - Test execution evidence summary
-- Defect and risk summary
-- Release readiness evidence
-- Created or updated `domains/**/features/**/workflow-state.yaml` after validation report creation
+- Defect, gap, risk, and waiver summary
+- Release readiness recommendation
 
-## Quality checks
+## Artifact Structure
+
+1. Scope Validated
+2. Evidence
+3. Test Results
+4. Defects
+5. Coverage
+6. Approval Recommendation
+
+## Quality Checks
+
 - Evidence maps to approved requirements and tests.
-- Failed, blocked, or waived tests are visible.
-- Defects are linked to correction workflow.
-- CI gate status is referenced where applicable.
-- QA approval evidence is captured.
-- Workflow state points `Review.` to validation evidence and `Approved.` to release readiness.
+- Failed, blocked, waived, or partial validation is visible.
+- Defects and gaps are linked to correction or follow-up.
+- CI and quality gate status is referenced where applicable.
+- Release readiness is not claimed without evidence.
 
-## Human gate
-QA approval is required before `$release`.
+## Stop Conditions
 
-## Next skill or next workflow step
-Use `$release`.
+- Implementation evidence is missing.
+- Tests cannot map to approved requirements.
+- Validation evidence is incomplete but release readiness is requested.
+- Workflow, traceability, validation, or release evidence disagrees in frameworks that track them.
 
-## Example usage
-`$validation Validate implemented QR refund idempotency slice`
+## Human Approval Expectations
+
+QA approval is required before release readiness depends on validation output.
+
+## Standard Response Format
+
+Created/Updated:
+- ...
+
+Pending Review:
+- ...
+
+Blockers:
+- ...
+
+Next:
+- ...

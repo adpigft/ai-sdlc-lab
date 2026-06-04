@@ -1,82 +1,94 @@
 ---
 name: release
-description: User-friendly orchestration for validation evidence, release readiness, release notes, rollback, known risks, and approvals.
+description: Prepare release readiness evidence, release notes, rollback, monitoring, risks, and approvals.
 ---
 
 # Release Skill
 
 ## Purpose
-Prepare release readiness evidence and coordinate approval without replacing GitHub Actions, validation, or human release gates.
 
-## When to use
-Use `$release` when a capability, change, or defect fix is ready for release readiness review or release management.
+Prepare release readiness evidence and make release blockers, risks, approvals, rollback, monitoring, and support needs explicit.
 
-## Inputs
+## When To Use
+
+Use `$release` when validated scope is ready for release readiness review or release management.
+
+## Inputs Needed
+
 - Release scope
 - Validation report and test evidence
-- PR, build, CI, or GitHub Actions references
-- Known risks and limitations
-- Rollback and monitoring notes
-- Jira release, version, or approval reference if available
+- CI, build, security, quality, or deployment evidence
+- Known risks, limitations, and waivers
+- Rollback, monitoring, smoke test, and support notes
+- Required approval references where available
 
-## Context pack
-Use the `Release` pack in `framework/02-context-control/context/stage-context-packs.md`.
+## Framework Adapter
 
-Required reads:
-- This skill document.
-- Active `workflow-state.yaml`.
-- Validation report.
-- Traceability matrix.
-- Release notes template.
-- CI and quality evidence when code exists.
+When this skill is used inside this repository, context loading, artifact placement, approval gates, and lifecycle behavior are defined by:
 
-Optional reads:
-- Implementation plan, feedback log, operational standards, and generated Jira/Confluence summaries.
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
 
-Forbidden reads:
-- Source code unless needed to verify release evidence.
-- Unrelated capabilities.
+## Procedure
 
-Escalation rule: Read implementation or operational details only when release readiness evidence references them.
+1. Confirm validation evidence exists and does not block release.
+2. Confirm release scope and excluded scope.
+3. Review CI, security, quality, operational, and deployment readiness evidence.
+4. Define rollback approach, monitoring checks, smoke checks, known risks, and support handoff.
+5. Record release blockers or partial/non-production constraints when applicable.
+6. Prepare release notes or release readiness summary.
+7. Stop for required release approvals before claiming release approval.
 
-Token discipline rule: Keep context to validation, traceability, release evidence, and active capability risks; full framework reads are allowed only for framework assessment or framework changes.
+## Outputs Produced
 
-Stop conditions:
-- Validation says release is not ready.
-- Release notes, CI/security/rollback/NFR evidence, or release approval is missing.
-
-## Process
-1. Confirm validation evidence exists or route to `$validation`.
-2. Assess release readiness against validation evidence, risks, and CI gates.
-3. Prepare release notes, deployment readiness, rollback plan, monitoring checks, and approval evidence.
-4. Confirm GitHub Actions status remains authoritative for CI gates.
-5. Record known risks, operational readiness, rollback, and support handoff.
-6. When release notes or release readiness evidence are created or updated, create or update `domains/<domain>/capabilities/<capability>/features/<feature>/workflow-state.yaml`.
-7. Set workflow state to `release_ready`, current artifact to `release/release-notes.md`, pending gate to `release_approval`, next state to `released`, and next skill to `feedback-capture`.
-8. Use `framework/01-lifecycle/workflow/workflow-state-guide.md` for state-aware `Review.`, `Approved.`, and `Status.` behavior.
-9. Stop for PO, QA, Architect, and DevSecOps approval.
-
-## Outputs
 - Release readiness summary
-- Release notes
-- Rollback plan
-- Known risks and limitations
-- Approval evidence checklist
-- Created or updated `domains/**/features/**/workflow-state.yaml` after release readiness artifact creation
+- Release notes or release package evidence
+- Rollback and monitoring plan
+- Known risks, limitations, and support handoff notes
+- Approval checklist and blocker summary
 
-## Quality checks
-- Validation evidence is complete or explicitly blocked.
-- CI gate status is referenced.
+## Artifact Structure
+
+1. Scope
+2. Changes Included
+3. Validation Evidence
+4. Deployment Approach
+5. Risks
+6. Rollback Plan
+7. Monitoring & Smoke Checks
+8. Approval Status
+
+## Quality Checks
+
+- Validation evidence supports the release claim.
+- CI, quality, and security gate status is visible.
 - Rollback and monitoring are practical.
-- Known risks are visible.
-- Required release approvers are identified.
-- Workflow state points `Review.` to release readiness and `Approved.` to `released`.
+- Known risks and exclusions are explicit.
+- Required approvers are identified.
+- Release approval is not claimed without human approval.
 
-## Human gate
-PO, QA, Architect, and DevSecOps approval is required before release.
+## Stop Conditions
 
-## Next skill or next workflow step
-Use `feedback-capture` or production feedback capture after release.
+- Validation says release is not ready.
+- Release notes, CI/security/quality evidence, rollback, monitoring, or approval package is missing.
+- Remaining slices or scope are not validated unless explicitly marked as partial/non-production release.
+- Release evidence conflicts with validation or traceability.
 
-## Example usage
-`$release Prepare release readiness for QR refund pilot`
+## Human Approval Expectations
+
+PO, QA, Architect, DevSecOps, and any required operational owners must approve before production release.
+
+## Standard Response Format
+
+Created/Updated:
+- ...
+
+Pending Review:
+- ...
+
+Blockers:
+- ...
+
+Next:
+- ...

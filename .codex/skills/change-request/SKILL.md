@@ -1,109 +1,95 @@
 ---
 name: change-request
-description: User-friendly orchestration for change requests using impact analysis and targeted artifact updates.
+description: Analyze a scoped change request and update only impacted artifacts or implementation with approval.
 ---
 
 # Change Request Skill
 
 ## Purpose
-Handle change requests without regenerating the full solution, while keeping impacted artifacts, approvals, and traceability controlled.
 
-## When to use
-Use `$change-request` when an approved or in-flight capability needs a scoped change to behavior, rules, APIs, tests, implementation, or release scope.
+Handle change requests through impact analysis and targeted updates without regenerating the whole solution.
 
-## Inputs
-- Change ID
-- Change request summary
-- Existing capability or artifact references
+## When To Use
+
+Use `$change-request` when approved or in-flight scope needs a controlled change to behavior, rules, APIs, events, tests, implementation, validation, or release scope.
+
+## Inputs Needed
+
+- Change ID or change summary
 - Reason for change
-- Impact deadline or release target
-- Domain context, such as `domains/<domain>/domain-context.md`, when available
-- Optional Jira change, story, or stakeholder reference
+- Affected capability, feature, artifact, component, or release scope
+- Desired outcome and deadline, if any
+- Known business, technical, owner, or regulatory constraints
+- Evidence, stakeholder reference, or work-management reference when available
 
-## Context pack
-Use the `Change Request` pack in `framework/02-context-control/context/stage-context-packs.md`.
+## Framework Adapter
 
-Required reads:
-- This skill document.
-- Active `workflow-state.yaml` when the capability exists.
-- Active domain context.
-- Impacted artifacts named by the change.
-- Placement guidance for code-impacting changes.
+When this skill is used inside this repository, context loading, artifact placement, impact routing, approval gates, and path governance are defined by:
 
-Optional reads:
-- Traceability, feedback log, related domain contexts for cross-domain impact, and Jira model guidance.
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
+- `framework/03-delivery-governance/service-architecture/implementation-placement-model.md`
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
 
-Forbidden reads:
-- Unrelated feature artifacts.
-- Source code before impact analysis and approval.
-- Restricted paths without owner approval.
+## Procedure
 
-Escalation rule: Read or modify only impacted artifacts and paths; cross-domain or restricted-path reads require impact analysis and owner need.
+1. Require or assign a change ID.
+2. Perform impact analysis before editing artifacts or code.
+3. Identify impacted requirements, design, contracts, tests, implementation, traceability, validation, release, owners, and approvals.
+4. Identify placement, owner, and regression impact for code-impacting changes.
+5. Summarize impact, risks, affected owners, and recommended update sequence.
+6. Ask for approval before updating impacted artifacts or code.
+7. Update only approved impacted areas.
+8. Preserve approved content that is not impacted.
+9. Capture traceability and feedback impacts where the framework requires them.
 
-Token discipline rule: Keep context to the change request, impacted artifacts, and approved impacted paths; full framework reads are allowed only for framework assessment or framework changes.
+## Outputs Produced
 
-Stop conditions:
-- A change ID is missing and cannot be assigned.
-- Impacted owners cannot be identified.
-- Approval is missing for artifact or code changes.
-
-## Process
-1. Require or assign a Change ID before impact analysis.
-2. Read `domains/<domain>/domain-context.md` when the domain is known and the file exists.
-3. Perform change impact analysis within this orchestration skill.
-4. Identify impacted intent, specification, architecture, API, tests, code, traceability, validation, release, and feedback artifacts.
-5. Include placement impact and owner impact for any code-impacting change.
-6. Confirm whether Jira Stories or Tasks already exist and whether new work items are needed.
-7. Summarize impact, risk, affected owners, traceability impact, feedback entry impact, placement impact, and recommended update sequence.
-8. Ask for approval before editing impacted artifacts.
-9. Update only approved and impacted artifacts.
-10. Update traceability and create or update the feedback entry after approval.
-11. Update or prepare `workflow-state.yaml` after approvals when workflow-state is adopted.
-12. Route specialist work to `$intent`, `$specification`, `$design`, `$test-design`, `$implementation`, `$pr-review`, or `$validation` as needed.
-13. Preserve existing approved content that is not impacted.
-
-## Placement metadata
-For any code-impacting change, impact analysis must check or produce:
-
-- `target_app`, if frontend is impacted
-- `target_frontend_module`, if frontend is impacted
-- `target_service`, if backend is impacted
-- `target_library`, if shared library is impacted
-- `owning_squad`
-- `allowed_paths`
-- `restricted_paths`
-- `required_approvals`
-- `impacted_capabilities`
-- `regression_scope`
-
-If placement metadata is missing, route to `$design` or `$implementation` planning before code changes. The change must identify impacted owners and must not expand into restricted paths without approval.
-
-## Outputs
 - Change impact summary
 - Change ID
-- List of impacted artifacts and owners
-- Traceability impact summary
-- Feedback entry requirement
-- Approval request for targeted updates
-- Updated impacted artifacts only after approval
-- Jira Story, Task, or Subtask guidance when appropriate
+- Impacted artifact, owner, path, and approval list
+- Targeted correction or update plan
+- Traceability, feedback, validation, and release impact summary
 
-## Quality checks
+## Artifact Structure
+
+1. Request Summary
+2. Impact Analysis
+3. Impacted Artifacts
+4. Owners and Approvals
+5. Proposed Changes
+6. Risks
+7. Follow-up Actions
+
+## Quality Checks
+
 - Full solution is not regenerated.
 - Impact scope is explicit and reviewable.
-- Updates are limited to approved impacted artifacts.
-- Traceability changes are identified.
-- Feedback entry is created or explicitly marked not required.
-- Required approvals are identified by artifact owner.
-- Code-impacting changes include placement impact, owner impact, allowed paths, restricted paths, and regression scope.
-- Domain context was reviewed when available.
-- Code changes are deferred until required upstream artifacts are approved.
+- Updates are limited to approved impacted areas.
+- Owner and approval impacts are identified.
+- Code-impacting changes include placement, path, test, and regression impact where applicable.
 
-## Human gate
-Change impact and each artifact update require approval from the relevant owner before changes proceed.
+## Stop Conditions
 
-## Next skill or next workflow step
-Route to the first impacted specialist stage, then continue through validation and `$release` if release scope changes.
+- Change ID or change scope is unclear.
+- Impacted owners cannot be identified.
+- Approval is missing for artifact or code changes.
+- Required placement, path, or regression scope is missing for code-impacting changes.
 
-## Example usage
-`$change-request Analyze change request: support partial refunds for approved QR refunds`
+## Human Approval Expectations
+
+Change impact and each artifact or code update require approval from the relevant owner before changes proceed.
+
+## Standard Response Format
+
+Created/Updated:
+- ...
+
+Pending Review:
+- ...
+
+Blockers:
+- ...
+
+Next:
+- ...

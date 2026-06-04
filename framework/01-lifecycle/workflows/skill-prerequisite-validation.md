@@ -6,6 +6,12 @@ Define lightweight checks each skill should perform before reading large context
 
 This guidance keeps execution predictable without adding heavy process. It helps skills stop early when the active domain, lifecycle state, approvals, artifacts, placement metadata, validation evidence, or cross-artifact consistency are not ready.
 
+Skills are reusable procedures. Framework-specific prerequisite checks are applied through this document plus:
+
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
+
 ## Common Precondition Checks
 
 Before proceeding, confirm:

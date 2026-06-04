@@ -1,73 +1,93 @@
 ---
 name: traceability-review
-description: Maintain end-to-end traceability from intent to requirements, architecture, API, tests, validation, release, Jira, and Confluence.
+description: Review and maintain end-to-end traceability from intent through requirements, design, tests, implementation, validation, release, and external workflow references.
 ---
 
-# Traceability Skill
+# Traceability Review Skill
 
 ## Purpose
-Maintain auditable delivery traceability.
 
-## When to use
-Use whenever intent, spec, context, API, tests, validation, release, Jira, or Confluence links change.
+Ensure business intent, requirements, design decisions, contracts, tests, implementation evidence, validation, release evidence, and external workflow references remain connected and auditable.
 
-## Inputs
-- intent.md
-- spec.md
-- context.md
-- openapi.yaml
-- acceptance.feature
-- validation-report.md
-- release-notes.md
-- Jira references
-- Confluence references
+## When To Use
 
-## Context pack
-Use the `Traceability Review` pack in `framework/02-context-control/context/stage-context-packs.md`.
+Use `$traceability-review` whenever scope, requirements, design, contracts, tests, implementation, validation, release, Jira, Confluence, or feedback links change.
 
-Required reads:
-- This skill document.
-- Active domain context.
-- Active feature artifacts.
-- Traceability matrix.
-- Active `workflow-state.yaml`.
+## Inputs Needed
 
-Optional reads:
-- Feedback log, generated Jira/Confluence payloads, validation report, and release notes.
+- Intent and requirements
+- Design, decisions, APIs, events, or integrations
+- Test scenarios and validation evidence
+- Implementation or PR evidence where applicable
+- Release evidence where applicable
+- External workflow or publication references where applicable
 
-Forbidden reads:
-- Source code unless implementation evidence must be mapped.
-- Unrelated capabilities unless cross-capability impact exists.
+## Framework Adapter
 
-Escalation rule: Read additional artifacts only when a traceability link, dependency, or cross-capability impact requires it.
+When this skill is used inside this repository, context loading, artifact placement, approval gates, and traceability matrix location are defined by:
 
-Token discipline rule: Read only artifacts needed to prove links for the active capability; full framework reads are allowed only for framework assessment or framework changes.
+- `framework/02-context-control/context/skill-context-adapter.md`
+- `framework/03-delivery-governance/artifact-placement-model.md`
+- `framework/01-lifecycle/skill-orchestration-adapter.md`
 
-Stop conditions:
-- A mandatory source artifact is missing.
-- A traceability gap blocks implementation, validation, or release.
+## Procedure
 
-## Process
-1. Map intent to requirements.
-2. Map requirements to architecture/API.
-3. Map requirements to tests.
-4. Map tests to validation evidence.
-5. Map release notes to approved scope.
-6. Identify gaps.
-7. Update traceability matrix.
+1. Identify the active scope and source artifacts.
+2. Map intent to requirements.
+3. Map requirements to design, decisions, APIs, events, and integrations.
+4. Map requirements to tests.
+5. Map tests to implementation and validation evidence where available.
+6. Map release evidence to approved scope where available.
+7. Identify orphan requirements, orphan tests, missing evidence, stale links, and contradictions.
+8. Report gaps and update traceability only when approved or requested.
 
-## Output
-- traceability/traceability-matrix.md
+## Outputs Produced
 
-## Quality checks
+- Traceability assessment
+- Traceability matrix or traceability update where the framework asks for one
+- Gap, blocker, and owner list
+- Review request for BA, Architect, QA, or release owners as needed
+
+## Artifact Structure
+
+1. Context
+2. Decision / Requirement Links
+3. Design Links
+4. Test Links
+5. Validation Links
+6. Release Links
+7. Gaps
+8. Actions
+
+## Quality Checks
+
 - No orphan requirements.
 - No orphan tests.
-- Every API maps to a requirement.
-- Every released item maps to approved scope.
-- Gaps are clearly marked.
+- APIs, events, and major decisions map to approved requirements.
+- Implementation and validation evidence map to approved scope.
+- Released items map to approved and validated scope.
+- Gaps are clearly marked and not hidden.
 
-## Human gate
-BA, Architect, and QA review required before build/release.
+## Stop Conditions
 
-## Next skill
-Use `$implementation` after traceability approval when implementation prerequisites are complete.
+- Mandatory source artifacts are missing.
+- Traceability gaps block implementation, validation, or release.
+- Source artifacts disagree and need owner review before traceability can be trusted.
+
+## Human Approval Expectations
+
+BA, Architect, QA, and impacted owners should review traceability before implementation, validation, or release gates depend on it.
+
+## Standard Response Format
+
+Created/Updated:
+- ...
+
+Pending Review:
+- ...
+
+Blockers:
+- ...
+
+Next:
+- ...
