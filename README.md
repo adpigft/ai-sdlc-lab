@@ -294,7 +294,7 @@ Examples:
 - `01-lifecycle/`: workflow state, lifecycle workflows, review flow, and prompt patterns.
 - `02-context-control/`: context packs, token discipline, and context index guidance.
 - `03-delivery-governance/`: ownership, placement, frontend, service, event, and shared asset governance.
-- `04-engineering-standards/`: coding, API, security, and testing standards.
+- `04-engineering-standards/`: coding, API, security, and testing standards, including the reusable testing strategy in `framework/04-engineering-standards/testing-strategy.md`.
 - `05-platform-bootstrap/`: reserved for platform bootstrap guidance and templates.
 - `06-tool-integrations/`: Jira and other tool integration guidance.
 - `07-templates/`: reusable delivery artifact templates.
