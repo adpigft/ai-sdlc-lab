@@ -77,10 +77,15 @@ Cross-domain changes require impacted domain owner review.
 
 | Capability | Description | Initial Owner |
 | --- | --- | --- |
-| Card Replacement | Replace a customer card with controlled validation, processor coordination, notification, and audit evidence. | Cards Squad |
-| Card Activation | Activate a newly issued or replaced card after required verification. | Cards Squad |
+| Card Lifecycle Management | Manage customer card lifecycle changes including replacement, activation, renewal, closure, and status inquiry. | Cards Squad |
 | Card Controls | Support customer or operations controls such as block, unblock, and usage restrictions. | Cards Squad |
-| Card Status Inquiry | Provide customer-safe and operations-safe card status visibility. | Cards Squad |
+
+## Candidate Features By Capability
+
+| Capability | Candidate Features |
+| --- | --- |
+| Card Lifecycle Management | Card Replacement; Card Activation; Card Renewal; Card Closure; Card Status Inquiry |
+| Card Controls | Block Card; Unblock Card; Usage Controls; Limit Controls |
 
 ## Owned APIs
 
@@ -159,7 +164,9 @@ The frontend folders are placement assumptions only. This onboarding does not cr
 | `target_service` | `card-management-service` |
 | Service path | `services/cards/card-management-service/` |
 | Owning squad | Cards Squad |
-| Capabilities served | Card Replacement, Card Activation, Card Controls, Card Status Inquiry |
+| Capabilities served | Card Lifecycle Management, Card Controls |
+| Card Lifecycle Management features | Card Replacement, Card Activation, Card Renewal, Card Closure, Card Status Inquiry |
+| Card Controls features | Block Card, Unblock Card, Usage Controls, Limit Controls |
 | Allowed paths | `services/cards/card-management-service/**` |
 | Restricted paths | payments, deposits, lending, onboarding, operations services; shared libraries without approval |
 | Required approvers | Cards Squad, Cards Architect, QA Lead, Security/Risk where controls or fraud impact exist |
@@ -209,8 +216,7 @@ Shared asset changes require owner and impacted consumer approval before impleme
 | --- | --- | --- |
 | Who is the named Cards Domain Owner? | Product / Technology leadership | Required before approval. |
 | Who is the Cards Architect? | Architecture leadership | Required before architecture approval. |
-| Which card processor integration is in scope for the first capability? | Cards Domain Owner | Affects API, integration, and test design. |
-| Is Card Replacement the first capability? | Product Owner | Determines first `$new` capability. |
+| Which card processor integration is in scope for Card Lifecycle Management? | Cards Domain Owner | Affects API, integration, and test design. |
 | Which card controls are in scope for MVP? | Product / Risk / Security | Affects API and event scope. |
 | Which operations actions are allowed for Cards? | Operations / Security | Affects frontend, API, entitlement, and audit design. |
 | Are card events published through Kafka or another event platform? | Event Platform | Affects event catalog and compatibility checks. |
@@ -222,4 +228,5 @@ Shared asset changes require owner and impacted consumer approval before impleme
 2. Resolve or accept open questions.
 3. Confirm domain owner, Cards Squad, Cards Architect, and required approvers.
 4. Approve domain onboarding.
-5. After approval, run `$new <Capability Name>`, for example `$new Card Replacement`.
+5. Use `Card Lifecycle Management` as the parent capability for Card Replacement, Card Activation, Card Renewal, Card Closure, and Card Status Inquiry feature delivery.
+6. Use `Card Controls` as the parent capability for Block Card, Unblock Card, Usage Controls, and Limit Controls feature delivery.
