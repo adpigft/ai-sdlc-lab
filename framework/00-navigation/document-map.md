@@ -38,8 +38,9 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 | Automation scripts | `scripts/` | `.github/workflows/ai-sdlc-validate.yml`, `sonar-project.properties` |
 | Traceability | `traceability/traceability-matrix.md` | `framework/07-templates/traceability-row-template.md`, `.codex/skills/traceability-review/SKILL.md` |
 | Feedback | `feedback/feedback-log.md` | `framework/07-templates/feedback-entry-template.md`, `.codex/skills/feedback-capture/SKILL.md` |
-| Standards | `framework/04-engineering-standards/standards/` | `framework/04-engineering-standards/testing-strategy.md`, capability context and feature artifacts and validation reports |
-| Testing strategy | `framework/04-engineering-standards/testing-strategy.md` | `framework/04-engineering-standards/standards/testing-standards.md`, `$test-design`, `$implementation`, `$pr-review`, `$validation` |
+| Engineering standards | `framework/04-engineering-standards/standards-index.md` | `framework/04-engineering-standards/java-spring-boot-bootstrap.md`, `framework/04-engineering-standards/flutter-bootstrap.md`, `framework/04-engineering-standards/openapi-generation-standard.md`, `framework/04-engineering-standards/api-security-standard.md`, `framework/04-engineering-standards/database-design-standard.md`, `framework/04-engineering-standards/event-design-standard.md`, `framework/04-engineering-standards/testing-standard.md`, `framework/04-engineering-standards/security-quality-gates.md`, `framework/04-engineering-standards/ai-code-review-standard.md`, `framework/04-engineering-standards/microservice-decomposition-standard.md`, `framework/04-engineering-standards/reference-architecture-standard.md`, `framework/04-engineering-standards/system-modeling-standard.md`, `framework/04-engineering-standards/observability-standard.md`, `framework/04-engineering-standards/shared-library-gradle-standard.md`, `framework/04-engineering-standards/change-management-standard.md` |
+| Legacy standards | `framework/04-engineering-standards/standards/` | `framework/04-engineering-standards/standards-index.md`, capability context and feature artifacts and validation reports |
+| Testing strategy | `framework/04-engineering-standards/testing-strategy.md` | `framework/04-engineering-standards/testing-standard.md`, `$test-design`, `$implementation`, `$pr-review`, `$validation` |
 
 ## Documents That Should Not Be Duplicated
 
@@ -56,7 +57,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 - Do not duplicate prompt pattern rules in skills or artifacts; link to `framework/01-lifecycle/prompt-patterns/` when execution structure is needed.
 - Do not duplicate service, frontend, or shared asset ownership tables in capability context and feature artifacts; reference the approved catalog or template.
 - Do not duplicate Jira or Confluence payload behavior in capability context and feature artifacts; use the scripts and their README files.
-- Do not duplicate coding, API, security, testing standards, or testing strategy inside each capability unless a capability needs an approved exception.
+- Do not duplicate coding, API, security, testing, Java, Flutter, database, event, quality-gate, AI-review, decomposition, reference-architecture, change-management, or testing-strategy standards inside each capability unless a capability needs an approved exception.
 
 ## Guidance For New Users
 
