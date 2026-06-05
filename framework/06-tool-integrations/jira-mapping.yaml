@@ -1,0 +1,38 @@
+project:
+  key: SCRUM
+  id: "10000"
+  name: AISDLC
+
+issue_types:
+  capability:
+    name: Epic
+    id: "10001"
+  feature:
+    name: Story
+    id: "10004"
+  implementation_slice:
+    name: Task
+    id: "10003"
+  defect:
+    name: Bug
+    id: "10007"
+  engineering_subtask:
+    name: Subtask
+    id: "10002"
+
+ignored_issue_types:
+  - Feature
+  - Request
+
+statuses:
+  todo: TO DO
+  in_progress: IN PROGRESS
+  in_review: IN REVIEW
+  done: DONE
+
+framework_mapping:
+  epic: capability
+  story: feature
+  task: implementation_slice
+  subtask: optional_engineering_task
+  bug: defect
