@@ -8,8 +8,9 @@ The generator does not call Confluence APIs. Git remains the source of truth for
 
 | Template | Source Artifacts |
 | --- | --- |
-| `capability-summary.md` | `workflow-state.yaml`, `intent.md`, `spec.md` |
-| `architecture-summary.md` | `workflow-state.yaml`, `context.md`, OpenAPI path |
+| `capability-summary.md` | `workflow-state.yaml`, `intent.md`, `specification.md` |
+| `feature-summary.md` | `workflow-state.yaml`, `intent.md`, `specification.md`, design path, traceability path |
+| `design-summary.md` | `workflow-state.yaml`, `design.md`, OpenAPI path |
 | `validation-summary.md` | `workflow-state.yaml`, `validation-report.md`, traceability path |
 | `release-summary.md` | `workflow-state.yaml`, `validation-report.md`, optional release notes |
 
@@ -35,7 +36,8 @@ python3 scripts/confluence/generate-summary.py \
 When `--output-dir` is supplied, the generator writes:
 
 - `capability-summary.md`
-- `architecture-summary.md`
+- `feature-summary.md`
+- `design-summary.md`
 - `validation-summary.md`
 - `release-summary.md`
 

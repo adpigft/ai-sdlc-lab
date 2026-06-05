@@ -14,8 +14,10 @@ permissions:
 
 jobs:
   validate:
-    name: Validate workflow state, artifacts, contracts, traceability, and Java
+    name: Validate workflow state, artifacts, contracts, traceability, Java, and Sonar
     runs-on: ubuntu-latest
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -56,3 +58,32 @@ jobs:
       - name: Validate Java
         shell: bash
         run: scripts/validate-java.sh
+
+      - name: Detect Sonar configuration
+        id: sonar-config
+        shell: bash
+        run: |
+          if [[ -f sonar-project.properties ]] && ! grep -Eq 'example-bank-placeholder|placeholder' sonar-project.properties; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Sonar scan
+        if: steps.sonar-config.outputs.configured == 'true' && env.SONAR_TOKEN != ''
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Sonar quality gate
+        if: steps.sonar-config.outputs.configured == 'true' && env.SONAR_TOKEN != ''
+        uses: SonarSource/sonarqube-quality-gate-action@v1
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Sonar not configured for this run
+        if: steps.sonar-config.outputs.configured != 'true' || env.SONAR_TOKEN == ''
+        shell: bash
+        run: |
+          echo "Sonar scan skipped because sonar-project.properties is placeholder/unavailable or SONAR_TOKEN is unavailable."

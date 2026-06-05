@@ -11,6 +11,7 @@ The generator does not call Jira APIs. It reads approved artifact files, applies
 | Epic | Capability |
 | Story | Feature |
 | Task | Implementation slice |
+| Sub-task | Optional engineering task under a Task |
 | Defect | Defect / RCA finding |
 | Decision | ADR |
 | Release | Validation / release package |
@@ -38,9 +39,18 @@ The generator resolves artifact paths from `workflow-state.yaml`:
 
 - `artifacts.intent`
 - `artifacts.specification`
+- `artifacts.architecture`
+- `artifacts.test_design`
 - `artifacts.implementation_plan`
 - `artifacts.validation_report`
 - `artifacts.release_notes`, when present
+- `artifacts.traceability`
+
+It also derives source links for:
+
+- `domains/<domain>/domain-context.md`
+- `domains/<domain>/capabilities/<capability>/capability-context.md`
+- `workflow-state.yaml`
 
 It also scans `decisions/ADR-*.md` for local decision payloads.
 
@@ -69,9 +79,12 @@ When `--output-dir` is supplied, the generator writes:
 - `epic.json`
 - `stories/*.json`
 - `tasks/*.json`
+- `subtasks/*.json`, reserved for optional engineering Sub-tasks
 - `defects/*.json`
 - `decisions/*.json`
 - `release.json`
 - `payload-bundle.json`
+
+Every payload includes a `sourceArtifacts` field linking back to Git-owned domain context, capability context, workflow state, intent, specification, design, tests, implementation plan, validation report, and release notes when available.
 
 Review the generated payloads before wiring any Jira API caller.

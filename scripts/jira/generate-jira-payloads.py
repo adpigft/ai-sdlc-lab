@@ -240,15 +240,30 @@ def artifact_path(raw_path: str) -> Path | None:
     return path
 
 
+def design_artifact_path(artifacts: dict[str, str]) -> Path | None:
+    return artifact_path(artifacts.get("design", "") or artifacts.get("architecture", ""))
+
+
 def base_context(workflow_path: Path, workflow: dict[str, dict[str, str]], intent_metadata: dict[str, str]) -> dict[str, str]:
     domain = workflow.get("domain", {})
     capability = workflow.get("capability", {})
     feature = workflow.get("feature", {})
     workflow_values = workflow.get("workflow", {})
+    artifacts = workflow.get("artifacts", {})
     capability_name = capability.get("name", intent_metadata.get("Capability", ""))
     capability_id = capability.get("id", capability.get("capability_id", slug(capability_name or "capability")))
     feature_name = feature.get("name", intent_metadata.get("Capability", capability_name))
     feature_id = feature.get("id", slug(feature_name or "feature"))
+    domain_path = artifact_path(domain.get("path", ""))
+    capability_path = artifact_path(capability.get("path", ""))
+    domain_context_path = domain_path / "domain-context.md" if domain_path else None
+    capability_context_path = capability_path / "capability-context.md" if capability_path else None
+
+    def artifact_reference(path: Path | None) -> str:
+        if path is None:
+            return "Not available"
+        return relative_path(path)
+
     return {
         "domain": domain.get("name", capability.get("domain", intent_metadata.get("Domain", ""))),
         "capability": capability_name,
@@ -259,6 +274,16 @@ def base_context(workflow_path: Path, workflow: dict[str, dict[str, str]], inten
         "workflow_skill": workflow_values.get("current_skill", ""),
         "confluence_page": feature.get("confluence_page", capability.get("confluence_page", intent_metadata.get("Confluence Page", ""))),
         "source_artifact": relative_path(workflow_path),
+        "workflow_state_path": relative_path(workflow_path),
+        "domain_context_path": artifact_reference(domain_context_path),
+        "capability_context_path": artifact_reference(capability_context_path),
+        "intent_path": artifact_reference(artifact_path(artifacts.get("intent", ""))),
+        "specification_path": artifact_reference(artifact_path(artifacts.get("specification", ""))),
+        "design_path": artifact_reference(design_artifact_path(artifacts)),
+        "tests_path": artifact_reference(artifact_path(artifacts.get("test_design", ""))),
+        "implementation_plan_path": artifact_reference(artifact_path(artifacts.get("implementation_plan", ""))),
+        "validation_report_path": artifact_reference(artifact_path(artifacts.get("validation_report", ""))),
+        "release_notes_path": artifact_reference(artifact_path(artifacts.get("release_notes", ""))),
     }
 
 
@@ -458,7 +483,7 @@ def build_release(workflow_path: Path, workflow: dict[str, dict[str, str]], vali
 
 def write_payloads(output_dir: Path, bundle: dict[str, Any]) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
-    for stale in ("stories", "tasks", "defects", "decisions"):
+    for stale in ("stories", "tasks", "subtasks", "defects", "decisions"):
         stale_dir = output_dir / stale
         if stale_dir.exists():
             shutil.rmtree(stale_dir)
@@ -471,7 +496,7 @@ def write_payloads(output_dir: Path, bundle: dict[str, Any]) -> None:
     (output_dir / "epic.json").write_text(json.dumps(bundle["epic"], indent=2) + "\n", encoding="utf-8")
     (output_dir / "release.json").write_text(json.dumps(bundle["release"], indent=2) + "\n", encoding="utf-8")
 
-    for group_name in ("stories", "tasks", "defects", "decisions"):
+    for group_name in ("stories", "tasks", "subtasks", "defects", "decisions"):
         group_dir = output_dir / group_name
         group_dir.mkdir(exist_ok=True)
         for index, payload in enumerate(bundle[group_name], start=1):
@@ -518,6 +543,7 @@ def generate(workflow_state_path: Path) -> dict[str, Any]:
             intent_metadata,
         ),
         "tasks": build_tasks(workflow_state_path, workflow, plan_path, plan_markdown, intent_metadata),
+        "subtasks": [],
         "defects": build_defects(workflow_state_path, workflow, validation_path, validation_markdown, intent_metadata),
         "decisions": build_decisions(workflow_state_path, workflow, intent_metadata),
         "release": build_release(workflow_state_path, workflow, validation_path, validation_markdown, intent_metadata),

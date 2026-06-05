@@ -50,6 +50,10 @@ def resolve_path(raw_path: str) -> Path | None:
     return path
 
 
+def design_artifact_path(artifacts: dict[str, str]) -> Path | None:
+    return resolve_path(artifacts.get("design", "") or artifacts.get("architecture", ""))
+
+
 def parse_workflow_state(path: Path) -> dict[str, dict[str, str]]:
     sections: dict[str, dict[str, str]] = {}
     current_section = ""
@@ -179,20 +183,21 @@ def build_context(workflow_path: Path) -> dict[str, str]:
 
     intent_path = resolve_path(artifacts.get("intent", ""))
     spec_path = resolve_path(artifacts.get("specification", ""))
-    context_path = resolve_path(artifacts.get("architecture", ""))
+    design_path = design_artifact_path(artifacts)
     api_contract_path = resolve_path(artifacts.get("api_contract", ""))
+    tests_path = resolve_path(artifacts.get("test_design", ""))
     validation_path = resolve_path(artifacts.get("validation_report", ""))
     traceability_path = resolve_path(artifacts.get("traceability", ""))
     release_notes_path = resolve_path(artifacts.get("release_notes", ""))
 
-    required = [intent_path, spec_path, context_path, validation_path]
+    required = [intent_path, spec_path, design_path, validation_path]
     missing = [str(path) for path in required if path is None or not path.exists()]
     if missing:
         raise SystemExit("Missing required artifact(s): " + ", ".join(missing))
 
     intent_markdown = read_text(intent_path)
     spec_markdown = read_text(spec_path)
-    context_markdown = read_text(context_path)
+    design_markdown = read_text(design_path)
     validation_markdown = read_text(validation_path)
     release_notes = (
         read_text(release_notes_path)
@@ -203,16 +208,20 @@ def build_context(workflow_path: Path) -> dict[str, str]:
     validation_metadata = parse_metadata(validation_markdown)
 
     return {
-        "domain": capability.get("domain", ""),
+        "domain": workflow.get("domain", {}).get("name", capability.get("domain", "")),
         "capability": capability.get("name", ""),
-        "capability_id": capability.get("capability_id", ""),
+        "capability_id": capability.get("capability_id", capability.get("id", "")),
+        "feature": workflow.get("feature", {}).get("name", ""),
+        "feature_id": workflow.get("feature", {}).get("id", ""),
         "jira_epic": capability.get("jira_epic", ""),
         "workflow_state": workflow_values.get("current_state", ""),
         "workflow_skill": workflow_values.get("current_skill", ""),
+        "workflow_state_path": relative_path(workflow_path),
         "intent_path": relative_path(intent_path),
         "spec_path": relative_path(spec_path),
-        "context_path": relative_path(context_path),
+        "context_path": relative_path(design_path),
         "api_contract_path": relative_path(api_contract_path),
+        "tests_path": relative_path(tests_path),
         "validation_path": relative_path(validation_path),
         "traceability_path": relative_path(traceability_path),
         "release_notes_path": relative_path(release_notes_path) or "Not available",
@@ -222,11 +231,11 @@ def build_context(workflow_path: Path) -> dict[str, str]:
         "out_of_scope": section_or_placeholder(intent_markdown, "Out Of Scope"),
         "requirement_overview": summarize_requirements(spec_markdown),
         "approval_position": section_or_placeholder(intent_markdown, "Human Approval Gate"),
-        "architecture_summary": section_or_placeholder(context_markdown, "Architecture Summary"),
-        "system_boundary": section_or_placeholder(context_markdown, "System Boundary"),
-        "integration_context": section_or_placeholder(context_markdown, "Integration Context"),
-        "architecture_decisions": section_or_placeholder(context_markdown, "Proposed Architecture Decisions"),
-        "security_control_context": section_or_placeholder(context_markdown, "Security And Control Context"),
+        "architecture_summary": section_or_placeholder(design_markdown, "Architecture Summary"),
+        "system_boundary": section_or_placeholder(design_markdown, "System Boundary"),
+        "integration_context": section_or_placeholder(design_markdown, "Integration Context"),
+        "architecture_decisions": section_or_placeholder(design_markdown, "Proposed Architecture Decisions"),
+        "security_control_context": section_or_placeholder(design_markdown, "Security And Control Context"),
         "validation_status": validation_metadata.get("Validation Status", ""),
         "validation_scope": section_or_placeholder(validation_markdown, "Scope Of Validation"),
         "evidence_reviewed": section_or_placeholder(validation_markdown, "Evidence Reviewed"),
@@ -243,7 +252,8 @@ def generate(workflow_path: Path) -> dict[str, str]:
     context = build_context(workflow_path)
     return {
         "capability-summary.md": render_template("capability-summary.md", context),
-        "architecture-summary.md": render_template("architecture-summary.md", context),
+        "feature-summary.md": render_template("feature-summary.md", context),
+        "design-summary.md": render_template("design-summary.md", context),
         "validation-summary.md": render_template("validation-summary.md", context),
         "release-summary.md": render_template("release-summary.md", context),
     }

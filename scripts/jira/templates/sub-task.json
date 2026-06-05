@@ -1,16 +1,15 @@
 {
-  "issueType": "Release",
+  "issueType": "Sub-task",
   "externalId": "{{external_id}}",
   "parentExternalId": "{{parent_external_id}}",
   "summary": "{{summary}}",
   "description": "{{description}}",
-  "labels": ["ai-sdlc", "release", "{{capability_id}}"],
+  "labels": ["ai-sdlc", "engineering-task", "{{capability_id}}", "{{feature_id}}"],
   "fields": {
     "domain": "{{domain}}",
     "capability": "{{capability}}",
-    "validationStatus": "{{validation_status}}",
-    "releaseReadiness": "{{release_readiness}}",
-    "sourceArtifact": "{{source_artifact}}",
+    "feature": "{{feature}}",
+    "affectedPath": "{{affected_path}}",
     "sourceArtifacts": {
       "domainContext": "{{domain_context_path}}",
       "capabilityContext": "{{capability_context_path}}",

@@ -10,6 +10,18 @@
     "workflowState": "{{workflow_state}}",
     "workflowSkill": "{{workflow_skill}}",
     "confluencePage": "{{confluence_page}}",
-    "sourceArtifact": "{{source_artifact}}"
+    "sourceArtifact": "{{source_artifact}}",
+    "sourceArtifacts": {
+      "domainContext": "{{domain_context_path}}",
+      "capabilityContext": "{{capability_context_path}}",
+      "workflowState": "{{workflow_state_path}}",
+      "intent": "{{intent_path}}",
+      "specification": "{{specification_path}}",
+      "design": "{{design_path}}",
+      "tests": "{{tests_path}}",
+      "implementationPlan": "{{implementation_plan_path}}",
+      "validationReport": "{{validation_report_path}}",
+      "releaseNotes": "{{release_notes_path}}"
+    }
   }
 }

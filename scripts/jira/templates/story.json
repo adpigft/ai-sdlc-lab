@@ -12,6 +12,18 @@
     "mappedRequirementIds": "{{mapped_requirement_ids}}",
     "acceptanceScenarioIds": "{{acceptance_scenario_ids}}",
     "linkedImplementationSliceIds": "{{linked_implementation_slice_ids}}",
-    "sourceArtifacts": "{{source_artifacts}}"
+    "sourceArtifactSummary": "{{source_artifacts}}",
+    "sourceArtifacts": {
+      "domainContext": "{{domain_context_path}}",
+      "capabilityContext": "{{capability_context_path}}",
+      "workflowState": "{{workflow_state_path}}",
+      "intent": "{{intent_path}}",
+      "specification": "{{specification_path}}",
+      "design": "{{design_path}}",
+      "tests": "{{tests_path}}",
+      "implementationPlan": "{{implementation_plan_path}}",
+      "validationReport": "{{validation_report_path}}",
+      "releaseNotes": "{{release_notes_path}}"
+    }
   }
 }

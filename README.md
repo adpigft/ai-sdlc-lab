@@ -705,6 +705,7 @@ Current capabilities:
 - OpenAPI validation
 - Java compilation
 - Test execution
+- Optional Sonar scan and quality gate when non-placeholder `sonar-project.properties` and `SONAR_TOKEN` are available
 
 Workflow:
 
@@ -733,9 +734,12 @@ Generate:
 - Epics for capabilities
 - Stories for features
 - Tasks for implementation slices
+- Optional Sub-tasks for engineering tasks
 - Defects
 - Decisions
 - Releases
+
+Payloads link back to Git-owned domain context, capability context, workflow state, intent, specification, design, tests, implementation plan, validation report, and release notes where available.
 
 Future:
 
@@ -762,6 +766,7 @@ Purpose:
 Generate:
 
 - Capability summaries
+- Feature summaries
 - Design summaries
 - Validation summaries
 - Release summaries

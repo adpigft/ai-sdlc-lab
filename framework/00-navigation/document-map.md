@@ -31,9 +31,10 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 | Frontend ownership | `framework/03-delivery-governance/frontend/frontend-catalog-template.md` | `framework/03-delivery-governance/frontend/shared-frontend-ownership.md`, `framework/03-delivery-governance/frontend/app-catalog-template.md` |
 | Shared asset ownership | `framework/03-delivery-governance/multi-squad/shared-asset-ownership-model.md` | `framework/03-delivery-governance/libraries/shared-library-governance.md`, `framework/03-delivery-governance/libraries/library-catalog-template.md` |
 | Path governance | `framework/03-delivery-governance/multi-squad/path-governance-model.md` | `framework/03-delivery-governance/multi-squad/codeowners-guidelines.md`, `framework/03-delivery-governance/multi-squad/branch-and-pr-model.md` |
-| Jira model | `framework/06-tool-integrations/jira/jira-operating-model.md` | `framework/06-tool-integrations/jira/jira-issue-hierarchy.md`, `framework/06-tool-integrations/jira/jira-state-mapping.md`, `scripts/jira/README.md` |
-| Confluence model | `scripts/confluence/README.md` | `scripts/confluence/templates/*.md` |
-| Automation scripts | `scripts/` | `.github/workflows/ai-sdlc-validate.yml` |
+| Integration foundation | `framework/06-tool-integrations/integration-foundation.md` | `.github/workflows/ai-sdlc-validate.yml`, `scripts/jira/README.md`, `scripts/confluence/README.md`, `sonar-project.properties` |
+| Jira model | `framework/06-tool-integrations/jira/jira-operating-model.md` | `framework/06-tool-integrations/jira/jira-issue-hierarchy.md`, `framework/06-tool-integrations/jira/jira-state-mapping.md`, `scripts/jira/README.md`, `scripts/jira/templates/*.json` |
+| Confluence model | `scripts/confluence/README.md` | `scripts/confluence/templates/*.md`, `scripts/confluence/generate-summary.py` |
+| Automation scripts | `scripts/` | `.github/workflows/ai-sdlc-validate.yml`, `sonar-project.properties` |
 | Traceability | `traceability/traceability-matrix.md` | `framework/07-templates/traceability-row-template.md`, `.codex/skills/traceability-review/SKILL.md` |
 | Feedback | `feedback/feedback-log.md` | `framework/07-templates/feedback-entry-template.md`, `.codex/skills/feedback-capture/SKILL.md` |
 | Standards | `framework/04-engineering-standards/standards/` | `framework/04-engineering-standards/testing-strategy.md`, capability context and feature artifacts and validation reports |
@@ -71,6 +72,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 11. Use `framework/01-lifecycle/prompt-patterns/` when a stage needs a repeatable response shape or execution checklist.
 12. Before implementation, use `framework/03-delivery-governance/service-architecture/implementation-placement-model.md` and the ownership catalogs to decide allowed paths and restricted paths.
 13. Use `scripts/` and `.github/workflows/ai-sdlc-validate.yml` to validate the framework locally and in GitHub Actions.
-14. Keep capability truth in Git. Jira and Confluence outputs are generated views until API integrations are explicitly approved.
+14. Use `framework/06-tool-integrations/integration-foundation.md` to understand how GitHub Actions, Jira, Confluence, and Sonar support Git-owned evidence.
+15. Keep capability truth in Git. Jira and Confluence outputs are generated views until API integrations are explicitly approved.
 
 Canonical lifecycle skill names are `$intent`, `$specification`, `$design`, `$test-design`, `$implementation`, `$pr-review`, `$validation`, and `$release`.
