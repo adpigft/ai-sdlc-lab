@@ -36,8 +36,8 @@ flowchart TD
 
 ```text
 service-name/
-├── build.gradle or build.gradle.kts
-├── settings.gradle or settings.gradle.kts
+├── build.gradle
+├── settings.gradle
 ├── openapi/
 ├── asyncapi/
 ├── helm/
@@ -142,4 +142,3 @@ Runtime standards:
 - use network policies for ingress and egress
 - source secrets from approved secret managers
 - package Helm charts with semantic versions independent of application versions
-

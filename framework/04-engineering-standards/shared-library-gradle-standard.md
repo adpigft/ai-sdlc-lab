@@ -39,7 +39,9 @@ Each shared library must define:
 
 ## Java Gradle Tooling
 
-Java services and libraries should standardize on Gradle Groovy or Gradle Kotlin DSL.
+Java services and libraries should standardize on Gradle Groovy DSL with `build.gradle` and `settings.gradle`.
+
+Compatibility note: existing repositories that already use `build.gradle.kts` and `settings.gradle.kts` may continue to do so during migration, but new Java services and libraries should default to `build.gradle` and `settings.gradle`.
 
 Required build capabilities:
 
@@ -88,4 +90,3 @@ Required build capabilities:
 - Build tooling uses the approved Java quality stack.
 - Generated code is reproducible and isolated.
 - Consumers and migration risks are identified.
-

@@ -10,7 +10,7 @@ Define the Java-first backend service baseline for enterprise digital banking se
 | --- | --- |
 | Language | Java 21 |
 | Framework | Spring Boot 3.x |
-| Build | Gradle Groovy or Gradle Kotlin DSL |
+| Build | Gradle Groovy DSL using `build.gradle` and `settings.gradle` |
 | API generation | OpenAPI Generator |
 | Security | Spring Security, OAuth2, OIDC, JWT validation |
 | Persistence | PostgreSQL by default, MongoDB by approved exception |
@@ -64,8 +64,8 @@ Backend services must use this structure:
 
 ```text
 service-name/
-├── build.gradle or build.gradle.kts
-├── settings.gradle or settings.gradle.kts
+├── build.gradle
+├── settings.gradle
 ├── openapi/
 ├── asyncapi/
 ├── helm/
@@ -87,6 +87,8 @@ service-name/
     ├── contract/
     └── performance/
 ```
+
+Compatibility note: existing repositories that already use `build.gradle.kts` and `settings.gradle.kts` may continue to do so during migration, but new Java services should default to `build.gradle` and `settings.gradle`.
 
 ## Build And Quality Plugins
 
@@ -121,4 +123,3 @@ Backend PRs must include:
 - JaCoCo and Sonar evidence
 - migration and rollback notes when persistence changes exist
 - observability and operational impact notes
-
