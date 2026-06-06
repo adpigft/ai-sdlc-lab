@@ -14,6 +14,7 @@ Support skills are also reusable procedures. They assist the lifecycle but are n
 - `source-ingestion`
 - `repo-discovery`
 - `artifact-review`
+- `wynxx-backlog-ingestion`
 - `decision`
 - `traceability-review`
 - `feedback-capture`

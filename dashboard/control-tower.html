@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-SDLC Control Tower</title>
+  <link rel="stylesheet" href="./control-tower.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Control Tower navigation">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img" focusable="false">
+            <defs>
+              <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#315CFF"></stop>
+                <stop offset="100%" stop-color="#6C4DFF"></stop>
+              </linearGradient>
+            </defs>
+            <rect x="5" y="5" width="16" height="16" rx="5" fill="url(#brandGradient)"></rect>
+            <rect x="27" y="5" width="16" height="16" rx="5" fill="#DCE5FF"></rect>
+            <rect x="5" y="27" width="16" height="16" rx="5" fill="#E9ECF5"></rect>
+            <rect x="27" y="27" width="16" height="16" rx="5" fill="url(#brandGradient)"></rect>
+            <path d="M12 13h4M13 10v6M31 12h8M31 16h8M12 35h4M13 32v6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">AI-SDLC Control Tower</div>
+          <div class="brand-subtitle">Governed delivery view across features, squads, Jira, Confluence and GitHub evidence</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#pm-intervention" class="nav-link active" data-nav-link="pm-intervention">Home</a>
+        <a href="#pm-intervention" class="nav-link" data-nav-link="pm-intervention">Control Tower</a>
+        <a href="#pm-intervention" class="nav-link" data-nav-link="pm-intervention">PM Intervention</a>
+        <a href="#delivery-pipeline" class="nav-link" data-nav-link="delivery-pipeline">Delivery Pipeline</a>
+        <a href="#approval-queue" class="nav-link" data-nav-link="approval-queue">Approval Queue</a>
+        <a href="#squad-view" class="nav-link" data-nav-link="squad-view">Squad View</a>
+        <a href="#traceability" class="nav-link" data-nav-link="traceability">Traceability</a>
+        <a href="#quality-gates" class="nav-link" data-nav-link="quality-gates">Quality Gates</a>
+        <a href="#governance" class="nav-link" data-nav-link="governance">Governance</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-footer-label">Dashboard status</div>
+        <div id="last-refreshed" class="sidebar-footer-value">Loading...</div>
+        <div id="generated-at" class="sidebar-footer-note">Generating...</div>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="breadcrumb-row">
+          <span class="breadcrumb">Home</span>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-current">Control Tower</span>
+        </div>
+        <div class="topbar-grid">
+          <div>
+            <h1>AI-SDLC Control Tower</h1>
+            <p class="lede">Governed delivery view across features, squads, Jira, Confluence and GitHub evidence.</p>
+          </div>
+          <div class="topbar-meta">
+            <span class="pill pill-blue">Git source of truth</span>
+            <span class="pill pill-purple">Jira workflow tracking</span>
+            <span class="pill pill-muted">Confluence published views</span>
+            <span class="pill pill-muted">GitHub Actions evidence</span>
+            <span id="refresh-mode" class="timestamp">Loading refresh mode...</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="refresh-banner" id="refresh-note"></div>
+
+      <main class="content">
+        <section class="section section-prominent" id="pm-intervention">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">PM Intervention</p>
+              <h2>Action needed now</h2>
+            </div>
+            <div class="section-badge" id="intervention-count">0 items</div>
+          </div>
+          <div class="featured-feature-shell">
+            <div class="featured-feature-label">Featured feature</div>
+            <div id="featured-feature" class="featured-feature"></div>
+          </div>
+          <div id="intervention-list" class="intervention-list"></div>
+        </section>
+
+        <section class="section" id="executive-summary">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Executive Summary</p>
+              <h2>Portfolio overview</h2>
+            </div>
+          </div>
+          <div id="summary-grid" class="summary-grid"></div>
+          <div id="state-chips" class="chip-row"></div>
+        </section>
+
+        <section class="section" id="delivery-pipeline">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Delivery Pipeline</p>
+              <h2>Feature flow</h2>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="table" id="pipeline-table"></table>
+          </div>
+        </section>
+
+        <section class="section" id="approval-queue">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Approval Queue</p>
+              <h2>Waiting for review</h2>
+            </div>
+          </div>
+          <div id="approval-queue-grid" class="queue-grid"></div>
+        </section>
+
+        <section class="section" id="squad-view">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Squad View</p>
+              <h2>Ownership and load</h2>
+            </div>
+          </div>
+          <div id="squad-grid" class="squad-grid"></div>
+        </section>
+
+        <section class="section" id="traceability">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Traceability</p>
+              <h2>Artifact chain</h2>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="table" id="traceability-table"></table>
+          </div>
+        </section>
+
+        <section class="section" id="quality-gates">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Quality Gates</p>
+              <h2>Artifact coverage</h2>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="table" id="quality-table"></table>
+          </div>
+        </section>
+
+        <section class="section" id="governance">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Governance</p>
+              <h2>Operating rules</h2>
+            </div>
+          </div>
+          <div class="governance-grid">
+            <article class="governance-card">
+              <h3>Source of truth</h3>
+              <p>Git-owned artifacts drive the dashboard. Jira and Confluence are synchronized views. GitHub Actions provides validation evidence.</p>
+            </article>
+            <article class="governance-card">
+              <h3>Read only</h3>
+              <p>No approvals, editing, ticket updates, or page updates are available from the dashboard MVP.</p>
+            </article>
+            <article class="governance-card">
+              <h3>Refresh behavior</h3>
+              <p>Local HTTP viewing reloads the generated JSON every 30 seconds. File viewing uses the generated wrapper data.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../build/dashboard/control-tower-data.js"></script>
+  <script src="./control-tower.js"></script>
+</body>
+</html>

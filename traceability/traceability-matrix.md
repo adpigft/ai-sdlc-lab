@@ -344,3 +344,11 @@ Source artifacts:
 | API coverage review | JIRA-KHQRREV-081 | Solution Architect | Approved via JIRA-KHQRREV-062-API |
 | Test coverage review | JIRA-KHQRREV-082 | QA Lead | Pending |
 | Security coverage review | JIRA-KHQRREV-083 | Security Architect | Pending |
+
+## Capability: Card Lifecycle Management
+
+Traceability ID: TRACE-CARDREP-DEMO-001
+
+| Intent | Jira | Confluence | Requirement | Spec | Acceptance Scenario | Status | Owner |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| INT-CARDREP-001 | SCRUM-1 | 688129 | FR-CARDREP-001 through FR-CARDREP-026 | `domains/cards/capabilities/card-lifecycle-management/features/card-replacement/specification/specification.md` | `domains/cards/capabilities/card-lifecycle-management/features/card-replacement/specification/specification.md` | Draft | Cards Squad |

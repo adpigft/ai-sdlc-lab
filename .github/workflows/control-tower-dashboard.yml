@@ -1,0 +1,84 @@
+name: Control Tower Dashboard
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  build-dashboard:
+    name: Generate and validate dashboard artifact
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate dashboard JSON
+        shell: bash
+        run: bash scripts/dashboard/run-control-tower.sh
+
+      - name: Validate dashboard generator
+        shell: bash
+        run: python3 -m py_compile scripts/dashboard/generate-control-tower.py
+
+      - name: Validate dashboard artifact shape
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          payload = json.loads(Path("build/dashboard/control-tower.json").read_text(encoding="utf-8"))
+          required_top = {"generatedAt", "summary", "approvalQueue", "features"}
+          missing = sorted(required_top - payload.keys())
+          if missing:
+              raise SystemExit(f"Missing top-level keys: {missing}")
+          if not isinstance(payload.get("features"), list):
+              raise SystemExit("features must be a list")
+          if not payload["features"]:
+              print("Dashboard generated with zero features; artifact is still valid.")
+          else:
+              first = payload["features"][0]
+              workflow = first.get("workflow", {})
+              required_workflow = {"state", "owner_role", "approver_role", "next_gate", "blocked_reason", "days_in_state", "last_updated"}
+              missing_workflow = sorted(required_workflow - workflow.keys())
+              if missing_workflow:
+                  raise SystemExit(f"Missing workflow keys: {missing_workflow}")
+          PY
+
+      - name: Validate dashboard formatting
+        shell: bash
+        run: git diff --check
+
+      - name: Upload dashboard artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: control-tower-dashboard
+          path: |
+            build/dashboard/control-tower.json
+            build/dashboard/control-tower-data.js
+            dashboard/control-tower.html
+            dashboard/control-tower.css
+            dashboard/control-tower.js
+          if-no-files-found: error
+
+      - name: Publish disabled
+        shell: bash
+        run: |
+          echo "Dashboard artifact uploaded for review only. External publishing is disabled in this workflow."

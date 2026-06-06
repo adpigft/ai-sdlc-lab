@@ -370,6 +370,7 @@ Intent
 | $source-ingestion | Convert external source material into AI-readable summaries |
 | $repo-discovery | Extract repository standards and conventions |
 | $artifact-review | Review AI-generated artifacts before human approval |
+| $wynxx-backlog-ingestion | Ingest Wynxx Story Creator backlogs into reviewable AI SDLC candidate inputs |
 
 ## Support Skills
 
@@ -379,6 +380,7 @@ These skills support the lifecycle but are not lifecycle stages:
 - `$source-ingestion` for converting external source material into AI-readable summaries.
 - `$repo-discovery` for extracting standards and conventions from an existing repository.
 - `$artifact-review` for reviewing AI-generated artifacts before human approval.
+- `$wynxx-backlog-ingestion` for ingesting Wynxx Story Creator backlogs into candidate intent, specification, implementation slice, and test design inputs without making Wynxx the source of truth.
 
 ---
 
@@ -715,11 +717,84 @@ Workflow:
 
 ---
 
+# MCP Demo Integrations
+
+MCP setup for Wynxx, Jira, Confluence, and GitHub is documented in:
+
+```text
+framework/06-tool-integrations/mcp-integration-setup.md
+```
+
+Token-efficient MCP specialist subagent routing is documented in:
+
+```text
+framework/06-tool-integrations/mcp-subagent-architecture.md
+```
+
+Read-only MCP subagent smoke tests are documented in:
+
+```text
+framework/06-tool-integrations/mcp-subagent-smoke-tests.md
+```
+
+To print manual smoke-test prompts:
+
+```bash
+bash scripts/smoke-test-mcp-subagents.sh
+```
+
+Use `.env.mcp.example` as the token-free environment template.
+
+Rules:
+
+- Git remains source of truth.
+- Wynxx is backlog candidate ingestion only.
+- Jira is workflow tracking.
+- Confluence is published documentation.
+- GitHub is repository, PR, validation, and release evidence.
+- Start with read-only validation and enable writes only after explicit approval.
+
+---
+
+# REST / CLI Demo Integrations
+
+Demo execution uses explicit REST/CLI adapters while MCP remains a later spike.
+
+Locations:
+
+```text
+framework/06-tool-integrations/demo-rest-cli-adapter-plan.md
+scripts/jira/rest_cli.py
+scripts/confluence/rest_cli.py
+scripts/github/evidence.py
+```
+
+Purpose:
+
+- Validate Jira connectivity and project access.
+- Create a demo Jira story from an approved intent.
+- Add Git and Confluence remote links to Jira.
+- Transition Jira status through explicit approvals.
+- Validate Confluence space access.
+- Publish approved Git artifact pages to Confluence.
+- Update Confluence pages by title.
+- Read GitHub Actions workflow history and the latest validation result.
+
+Rules:
+
+- Git remains source of truth.
+- Jira and Confluence are synchronized views.
+- Use environment variables only.
+- Write operations require `--apply`.
+- Do not create real Jira tickets or Confluence pages without explicit approval.
+
+---
+
 # Jira Integration
 
 Current state:
 
-Offline payload generation.
+REST/CLI demo adapters, plus offline payload generation.
 
 Location:
 
@@ -743,8 +818,7 @@ Payloads link back to Git-owned domain context, capability context, workflow sta
 
 Future:
 
-- Jira API integration
-- Automatic ticket creation
+- Jira automation via explicit REST adapter write mode
 - Workflow synchronization
 
 ---
@@ -753,7 +827,7 @@ Future:
 
 Current state:
 
-Offline summary generation.
+REST/CLI demo adapters, plus offline summary generation.
 
 Location:
 
@@ -773,7 +847,69 @@ Generate:
 
 Future:
 
-- Confluence API publishing
+- Confluence automation via explicit REST adapter write mode
+
+---
+
+# GitHub Actions Evidence
+
+Current state:
+
+CLI-based evidence retrieval.
+
+Location:
+
+```text
+scripts/github/
+```
+
+Purpose:
+
+- List latest workflow runs.
+- Read latest validation result.
+
+Future:
+
+- Expand workflow evidence reporting if required by portal or release tooling
+
+---
+
+# Control Tower Dashboard
+
+Current state:
+
+Static read-only dashboard generated from Git-owned artifacts.
+
+Locations:
+
+```text
+framework/07-control-tower/control-tower-data-model.md
+scripts/dashboard/
+dashboard/control-tower.html
+dashboard/control-tower.css
+dashboard/control-tower.js
+build/dashboard/control-tower.json
+```
+
+Purpose:
+
+- Show feature status, approval gates, traceability, and quality gates.
+- Surface Jira and Confluence references where traceability provides them.
+- Highlight PM intervention indicators without changing workflow state.
+- Present GitHub validation evidence from local repository artifacts.
+
+Usage:
+
+```bash
+bash scripts/dashboard/run-control-tower.sh
+```
+
+Rules:
+
+- Read-only only.
+- Git remains source of truth.
+- Jira and Confluence remain synchronized views.
+- No approvals, ticket updates, or page updates from the dashboard.
 
 ---
 
