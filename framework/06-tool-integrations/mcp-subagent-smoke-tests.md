@@ -26,7 +26,7 @@ Use `.env.mcp.example` as the token-free template.
 
 | Variable | Purpose |
 | --- | --- |
-| `WYNXX_MCP_URL` | Wynxx MCP endpoint or server URL. |
+| `WYNXX_MCP_URL` | Wynxx Story Creator MCP endpoint or server URL. |
 | `WYNXX_API_TOKEN` | Wynxx demo API token. |
 | `ATLASSIAN_SITE_URL` | Atlassian site URL for Jira and Confluence. |
 | `ATLASSIAN_EMAIL` | Atlassian demo service account email. |
@@ -245,7 +245,7 @@ Smoke-test results should be copied into the review conversation or a future val
 
 | Subagent | Source System | Pass / Fail | Returned Object IDs Only | Errors | Remediation Steps |
 | --- | --- | --- | --- | --- | --- |
-| `wynxx-backlog-agent` | Wynxx | Blocked | None | Wynxx MCP resources, templates, or callable tools were not exposed. No active `mcp_servers.wynxx` entry was available in local config. | Configure a read-only Wynxx MCP server with `WYNXX_MCP_URL` and `WYNXX_API_TOKEN`, then rerun with demo project or backlog filters. |
+| `wynxx-backlog-agent` | Wynxx Story Creator | Blocked | None | Wynxx Story Creator MCP resources, templates, or callable tools were not exposed. No active `mcp_servers.wynxx` entry was available in local config. | Configure a read-only Wynxx Story Creator MCP server with `WYNXX_MCP_URL` and `WYNXX_API_TOKEN`, then rerun with demo project or backlog filters. |
 | `jira-lifecycle-agent` | Jira | Blocked | `JIRA_PROJECT_KEY` placeholder only | Jira MCP resources, templates, or callable tools were not exposed. Local Jira MCP placeholder is disabled. | Enable/configure Jira MCP with read-only Atlassian credentials and `JIRA_PROJECT_KEY`, then rerun project metadata and max 3 issue search. |
 | `confluence-publisher-agent` | Confluence | Blocked | None | Confluence MCP resources, templates, or callable tools were not exposed. | Enable/configure Confluence MCP with read-only Atlassian credentials and `CONFLUENCE_SPACE_KEY`, then rerun space metadata and max 3 page search. |
 | `github-evidence-agent` | GitHub | Blocked | None | GitHub MCP resources, templates, or callable tools were not exposed. | Enable/configure GitHub MCP with read-only repository and Actions permissions, then rerun repository metadata and latest workflow run read. |

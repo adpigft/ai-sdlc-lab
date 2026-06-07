@@ -22,7 +22,7 @@ MCP remains a post-demo technical spike. Do not add more MCP variants before the
 
 For demo execution, use REST/CLI adapters as the primary path for Jira ticket creation and Confluence publishing. Keep near-term implementation focus on:
 
-- Wynxx ingestion.
+- Wynxx Story Creator ingestion.
 - Jira ticket creation.
 - Confluence publishing.
 - Portal MVP.
@@ -139,7 +139,7 @@ Expected result:
 - The Atlassian command includes `TOOLSETS=jira_issues,jira_fields,jira_transitions,confluence_pages,confluence_comments`.
 - `github` is listed with command `docker` and image `ghcr.io/github/github-mcp-server`.
 - Secrets are masked.
-- Wynxx is absent unless a real Wynxx MCP server has been approved and configured.
+- Wynxx Story Creator is absent unless a real Wynxx Story Creator MCP server has been approved and configured.
 
 ## Read-Only Smoke Test Instructions
 

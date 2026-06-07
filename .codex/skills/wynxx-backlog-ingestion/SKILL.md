@@ -1,6 +1,6 @@
 ---
 name: wynxx-backlog-ingestion
-description: Ingest and analyze Wynxx Story Creator backlogs via MCP and map Epics, Features, User Stories, Tasks, and Test Cases into AI SDLC candidate inputs without making Wynxx the source of truth.
+description: Ingest and analyze Wynxx Story Creator backlogs via MCP and map Epics, Features, User Stories, Tasks, and Test Cases into AI SDLC candidate inputs without making Wynxx Story Creator the source of truth.
 ---
 
 # Wynxx Backlog Ingestion Skill
@@ -15,19 +15,19 @@ Wynxx is an input source, not the source of truth. Framework artifacts become so
 
 Use `$wynxx-backlog-ingestion` when a user wants to:
 
-- list Wynxx projects
-- list Wynxx backlogs
+- list Wynxx Story Creator projects
+- list Wynxx Story Creator backlogs
 - inspect a backlog hierarchy
 - retrieve work item details
 - summarize Epics, Features, User Stories, Tasks, and Test Cases
 - extract acceptance criteria
 - identify candidate AI SDLC intent or specification inputs
-- compare Wynxx backlog structure with existing framework hierarchy
+- compare Wynxx Story Creator backlog structure with existing framework hierarchy
 - recommend the next framework skill after backlog review
 
 ## Inputs Needed
 
-- Wynxx MCP connection or available MCP tool names
+- Wynxx Story Creator MCP connection or available MCP tool names
 - Project identifier or project search criteria
 - Backlog identifier or backlog search criteria
 - Target domain or capability, when known
@@ -48,7 +48,7 @@ Expected tool capabilities may include:
 - retrieve acceptance criteria
 - retrieve linked tasks or test cases
 
-If the exact MCP tool names are unknown, discover available tools first. If no Wynxx MCP tools are available, stop and report the missing integration instead of fabricating backlog content.
+If the exact MCP tool names are unknown, discover available tools first. If no Wynxx Story Creator MCP tools are available, stop and report the missing integration instead of fabricating backlog content.
 
 ## Framework Adapter
 
@@ -74,8 +74,8 @@ Mapping is advisory until reviewed. Do not create framework artifacts automatica
 ## Procedure
 
 1. Confirm the ingestion goal and the target project or backlog scope.
-2. Use Wynxx MCP tools to list available projects when the project is not provided.
-3. Use Wynxx MCP tools to list backlogs for the selected project.
+2. Use Wynxx Story Creator MCP tools to list available projects when the project is not provided.
+3. Use Wynxx Story Creator MCP tools to list backlogs for the selected project.
 4. Retrieve the backlog hierarchy for the selected backlog.
 5. Retrieve details for relevant Epics, Features, User Stories, Tasks, and Test Cases.
 6. Extract names, descriptions, acceptance criteria, business rules, dependencies, assumptions, links, statuses, owners, and priorities where available.
@@ -127,7 +127,7 @@ Mapping is advisory until reviewed. Do not create framework artifacts automatica
 
 ## Stop Conditions
 
-- Wynxx MCP tools are unavailable or cannot access the requested project.
+- Wynxx Story Creator MCP tools are unavailable or cannot access the requested project.
 - The target project or backlog cannot be identified.
 - Work item details are insufficient to produce a reliable summary.
 - The user asks to create intent or specification without reviewing candidate inputs first.

@@ -4,7 +4,7 @@
 
 This guide defines the configuration values required before enabling Jira, Confluence, GitHub Actions, and Sonar integrations for the AI SDLC framework.
 
-It does not implement API calls, enable write mode, change lifecycle order, or add skills. Git remains the source of truth. Jira tracks workflow. Confluence publishes stakeholder summaries. GitHub Actions enforces validation. Sonar provides code quality and security evidence.
+It does not implement API calls, enable write mode, change lifecycle order, or add skills. Git remains the source of truth. Jira and Confluence are synchronized views. GitHub Actions enforces validation. Sonar provides code quality and security evidence.
 
 ## Configuration Principles
 

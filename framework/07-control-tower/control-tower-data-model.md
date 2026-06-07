@@ -177,6 +177,8 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
 - `featureId` is derived from the approved artifact identifiers where available.
 - `state` and `nextGate` are derived from `workflow-state.yaml` when present; otherwise from approved artifact status metadata.
 - `workflow` is the canonical governance object for consumers that prefer snake_case governance fields while retaining backward-compatible camelCase fields at the feature root.
+- `ownerRole` at the feature root is a display field for dashboard convenience.
+- `workflow.owner_role` is the governance field used for canonical ownership logic.
 - `workflow.approver_role` remains `null` unless the source workflow-state explicitly provides a reliable approver role.
 - `workflow.last_updated` is derived from workflow-state or artifact timestamps, falling back to the dashboard generation time.
 - `framework/07-control-tower/workflow-ownership-matrix.md` is the source of thresholds, owner-role defaults, approver-role defaults, and PM intervention rules when workflow-state data is incomplete.

@@ -78,6 +78,9 @@ The framework also includes a future Enterprise Productionization Layer document
 - `framework/23-adoption-training/certification-model.md`
 - `framework/30-tool-adapters/tool-adapter-model.md`
 - `framework/31-gui-authoring/gui-authoring-model.md`
+- `framework/06-tool-integrations/wynxx-story-creator-integration-model.md`
+
+Tool integrations are treated as synchronized views or evidence channels. Git remains the source of truth.
 
 ---
 
@@ -446,7 +449,7 @@ These skills support the lifecycle but are not lifecycle stages:
 - `$source-ingestion` for converting external source material into AI-readable summaries.
 - `$repo-discovery` for extracting standards and conventions from an existing repository.
 - `$artifact-review` for reviewing AI-generated artifacts before human approval.
-- `$wynxx-backlog-ingestion` for ingesting Wynxx Story Creator backlogs into candidate intent, specification, implementation slice, and test design inputs without making Wynxx the source of truth.
+- `$wynxx-backlog-ingestion` for ingesting Wynxx Story Creator backlogs into candidate intent, specification, implementation slice, and test design inputs without making Wynxx Story Creator a source of truth.
 
 ---
 
@@ -815,9 +818,9 @@ Rules:
 
 - Git remains source of truth.
 - Wynxx is backlog candidate ingestion only.
-- Jira is workflow tracking.
-- Confluence is published documentation.
-- GitHub is repository, PR, validation, and release evidence.
+- Jira is a synchronized workflow-tracking view.
+- Confluence is a synchronized published-document view.
+- GitHub is a synchronized repository, PR, validation, and release-evidence view.
 - Start with read-only validation and enable writes only after explicit approval.
 
 ---
@@ -1053,8 +1056,8 @@ This is the recommended starting point for all new users.
 # Golden Rules
 
 1. Git is the source of truth.
-2. Jira manages workflow and approvals.
-3. Confluence publishes stakeholder summaries.
+2. Jira is a synchronized workflow-tracking view.
+3. Confluence is a synchronized published-document view.
 4. Do not generate code before approvals.
 5. Do not regenerate entire solutions for changes.
 6. Keep changes small and traceable.

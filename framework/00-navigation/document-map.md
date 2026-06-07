@@ -4,7 +4,7 @@
 
 This map tells users which framework document is authoritative for each topic and which documents are supporting references. It reduces duplication and helps PO, BA, SA, QA, Developer, DevSecOps, platform, and multi-squad users start in the right place.
 
-Git remains the source of truth. Jira tracks workflow. Confluence publishes reviewed summaries.
+Git remains the source of truth. Jira, Confluence, GitHub, and Wynxx are synchronized views or inputs around Git-owned work.
 
 ## Canonical Documents By Topic
 
@@ -38,7 +38,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 | AI evaluation framework | `framework/29-ai-evaluation/evaluation-framework.md` | `framework/29-ai-evaluation/quality-score-model.md`, `framework/29-ai-evaluation/eval-catalog.md`, `framework/29-ai-evaluation/continuous-improvement-flywheel.md` |
 | Tool adapter layer | `framework/30-tool-adapters/tool-adapter-model.md` | `framework/30-tool-adapters/tool-change-resilience.md` |
 | GUI authoring | `framework/31-gui-authoring/gui-authoring-model.md` | `framework/31-gui-authoring/artifact-editing-workflow.md` |
-| Support skills | `.codex/skills/capability-onboarding/SKILL.md`, `.codex/skills/source-ingestion/SKILL.md`, `.codex/skills/repo-discovery/SKILL.md`, `.codex/skills/artifact-review/SKILL.md`, `.codex/skills/wynxx-backlog-ingestion/SKILL.md` | `framework/01-lifecycle/skill-orchestration-adapter.md`, `framework/02-context-control/context/skill-context-adapter.md`, `framework/03-delivery-governance/artifact-placement-model.md` |
+| Support skills | `.codex/skills/capability-onboarding/SKILL.md`, `.codex/skills/source-ingestion/SKILL.md`, `.codex/skills/repo-discovery/SKILL.md`, `.codex/skills/artifact-review/SKILL.md`, `.codex/skills/wynxx-backlog-ingestion/SKILL.md` | `framework/01-lifecycle/skill-orchestration-adapter.md`, `framework/02-context-control/context/skill-context-adapter.md`, `framework/03-delivery-governance/artifact-placement-model.md`, `framework/06-tool-integrations/wynxx-story-creator-integration-model.md` |
 | Workflow state | `framework/01-lifecycle/workflow/workflow-state-guide.md` | `framework/01-lifecycle/workflow-state/state-machine.md`, `framework/01-lifecycle/workflow/workflow-state-template.yaml` |
 | Capability artifact naming | `README.md` | `AGENTS.md`, `framework/01-lifecycle/workflow/workflow-state-guide.md`, `framework/07-templates/` |
 | `Review.`, `Approved.`, `Status.` | `framework/01-lifecycle/workflows/review-approval-flow.md` | `framework/01-lifecycle/workflow/workflow-state-guide.md`, `framework/01-lifecycle/workflow-state/approval-events.md` |
@@ -58,8 +58,9 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 | Integration foundation | `framework/06-tool-integrations/integration-foundation.md` | `framework/06-tool-integrations/integration-configuration-guide.md`, `.github/workflows/ai-sdlc-validate.yml`, `scripts/jira/README.md`, `scripts/confluence/README.md`, `sonar-project.properties` |
 | Integration configuration | `framework/06-tool-integrations/integration-configuration-guide.md` | `framework/06-tool-integrations/integration-foundation.md`, `.github/workflows/ai-sdlc-validate.yml`, `scripts/jira/README.md`, `scripts/confluence/README.md`, `sonar-project.properties` |
 | Demo REST/CLI adapters | `framework/06-tool-integrations/demo-rest-cli-adapter-plan.md` | `scripts/jira/rest_cli.py`, `scripts/confluence/rest_cli.py`, `scripts/github/evidence.py`, `scripts/jira/README.md`, `scripts/confluence/README.md`, `scripts/github/README.md` |
+| Wynxx Story Creator integration | `framework/06-tool-integrations/wynxx-story-creator-integration-model.md` | `framework/06-tool-integrations/wynxx-backlog-ingestion.md`, `.codex/skills/wynxx-backlog-ingestion/SKILL.md`, `scripts/wynxx/README.md` |
 | Control Tower dashboard | `framework/07-control-tower/control-tower-data-model.md` | `scripts/dashboard/README.md`, `scripts/dashboard/generate-control-tower.py`, `scripts/dashboard/run-control-tower.sh`, `dashboard/control-tower.html`, `dashboard/control-tower.css`, `dashboard/control-tower.js` |
-| MCP integration setup | `framework/06-tool-integrations/mcp-integration-setup.md` | `framework/06-tool-integrations/mcp-runtime-troubleshooting.md`, `framework/06-tool-integrations/mcp-subagent-architecture.md`, `framework/06-tool-integrations/mcp-subagent-smoke-tests.md`, `.env.mcp.example`, `.codex/config.toml`, `framework/06-tool-integrations/ai-sdlc-portal-mvp.md`, `.codex/skills/wynxx-backlog-ingestion/SKILL.md` |
+| MCP integration setup | `framework/06-tool-integrations/mcp-integration-setup.md` | `framework/06-tool-integrations/mcp-runtime-troubleshooting.md`, `framework/06-tool-integrations/mcp-subagent-architecture.md`, `framework/06-tool-integrations/mcp-subagent-smoke-tests.md`, `.env.mcp.example`, `.codex/config.toml`, `framework/06-tool-integrations/ai-sdlc-portal-mvp.md`, `.codex/skills/wynxx-backlog-ingestion/SKILL.md`, `framework/06-tool-integrations/wynxx-story-creator-integration-model.md` |
 | Jira model | `framework/06-tool-integrations/jira/jira-operating-model.md` | `framework/06-tool-integrations/jira/jira-issue-hierarchy.md`, `framework/06-tool-integrations/jira/jira-state-mapping.md`, `scripts/jira/README.md`, `scripts/jira/templates/*.json` |
 | Confluence model | `scripts/confluence/README.md` | `scripts/confluence/templates/*.md`, `scripts/confluence/generate-summary.py` |
 | Automation scripts | `scripts/` | `.github/workflows/ai-sdlc-validate.yml`, `sonar-project.properties` |
@@ -87,7 +88,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 - Do not duplicate source artifact content in capability summaries; summaries are navigation aids only.
 - Do not duplicate prompt pattern rules in skills or artifacts; link to `framework/01-lifecycle/prompt-patterns/` when execution structure is needed.
 - Do not duplicate service, frontend, or shared asset ownership tables in capability context and feature artifacts; reference the approved catalog or template.
-- Do not duplicate Jira or Confluence payload behavior in capability context and feature artifacts; use the scripts and their README files.
+- Do not duplicate Jira, Confluence, GitHub, or Wynxx payload behavior in capability context and feature artifacts; use the scripts and their README files.
 - Do not duplicate coding, API, security, testing, Java, Flutter, database, event, quality-gate, AI-review, decomposition, reference-architecture, change-management, or testing-strategy standards inside each capability unless a capability needs an approved exception.
 
 ## Guidance For New Users
@@ -105,7 +106,7 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 11. Use `framework/01-lifecycle/prompt-patterns/` when a stage needs a repeatable response shape or execution checklist.
 12. Before implementation, use `framework/03-delivery-governance/service-architecture/implementation-placement-model.md` and the ownership catalogs to decide allowed paths and restricted paths.
 13. Use `scripts/` and `.github/workflows/ai-sdlc-validate.yml` to validate the framework locally and in GitHub Actions.
-14. Use `framework/06-tool-integrations/integration-foundation.md` and `framework/06-tool-integrations/integration-configuration-guide.md` to understand how GitHub Actions, Jira, Confluence, and Sonar support Git-owned evidence.
-15. Keep capability truth in Git. Jira and Confluence outputs are generated views until API integrations are explicitly approved.
+14. Use `framework/06-tool-integrations/integration-foundation.md` and `framework/06-tool-integrations/integration-configuration-guide.md` to understand how GitHub Actions, Jira, Confluence, GitHub, and Sonar support Git-owned evidence.
+15. Keep capability truth in Git. Jira, Confluence, GitHub, and Wynxx outputs are synchronized views or inputs until API integrations are explicitly approved.
 
 Canonical lifecycle skill names are `$intent`, `$specification`, `$design`, `$test-design`, `$implementation`, `$pr-review`, `$validation`, and `$release`.

@@ -126,11 +126,11 @@ The portal must not treat a button click as approval unless the Git evidence exi
 
 | Integration | MVP Responsibility | Source-of-Truth Rule |
 | --- | --- | --- |
-| GitHub | Read and write Git artifacts, create branches and PRs, show commits, trigger or link Actions, enforce branch protection. | GitHub repository content and history are authoritative. |
-| Jira | Display linked Epic, Story, Task, Sub-task, status, blockers, and approvals; generate or preview Jira payloads where configured. | Jira is workflow tracking, not the canonical source for artifacts. |
+| GitHub | Read and write Git artifacts, create branches and PRs, show commits, trigger or link Actions, enforce branch protection. | GitHub is a synchronized repository and evidence view; Git remains authoritative. |
+| Jira | Display linked Epic, Story, Task, Sub-task, status, blockers, and approvals; generate or preview Jira payloads where configured. | Jira is a synchronized workflow-tracking view, not the canonical source for artifacts. |
 | Confluence | Display generated stakeholder summaries and publishing status. | Confluence is a synchronized publishing view, not the canonical source for artifacts. |
 | Sonar | Display quality gate and security evidence for code-bearing changes. | Sonar is quality/security evidence, not approval authority. |
-| Wynxx storycreator | Ingest backlog/story candidates and show source context for human review. | Wynxx storycreator is backlog ingestion only, not source of truth for requirements or artifacts. |
+| Wynxx storycreator | Ingest backlog/story candidates and show source context for human review. | Wynxx storycreator is a synchronized backlog-candidate input only, not source of truth for requirements or artifacts. |
 
 Synchronization rules:
 
@@ -222,7 +222,7 @@ Out of scope for MVP:
 | Phase 1 | Git-backed read views, artifact editor, diff preview, branch/PR creation, validation status, approval commits, and integration status. |
 | Phase 2 | Structured artifact forms, stronger traceability visualization, Jira payload publishing after write-mode approval, and Confluence publish workflow. |
 | Phase 3 | Role-based approval queues, CODEOWNERS-aware approver suggestions, signed approval evidence, and release readiness dashboard. |
-| Phase 4 | Wynxx backlog ingestion enrichment, duplicate detection, backlog-to-intent handoff, and stakeholder review workflow. |
+| Phase 4 | Wynxx Story Creator backlog ingestion enrichment, duplicate detection, backlog-to-intent handoff, and stakeholder review workflow. |
 | Phase 5 | Enterprise audit dashboard, policy-as-code checks, cross-repository portfolio status, and operational evidence aggregation. |
 
 Roadmap phases must preserve Git as source of truth and must not change the AI SDLC lifecycle without explicit framework approval.

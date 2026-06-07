@@ -6,6 +6,8 @@ Define lifecycle navigation for AI SDLC capabilities so users can say `Review.`,
 
 This guide does not implement Jira integration or automation. It defines how skills should maintain `workflow-state.yaml` when artifacts are created and how Codex should interpret simple lifecycle commands.
 
+Canonical workflow state definitions live in `framework/01-lifecycle/canonical-workflow-state-model.md`. Legacy labels are mapped in `framework/01-lifecycle/legacy-workflow-state-mapping.md`.
+
 ## Location
 
 Every feature may contain:

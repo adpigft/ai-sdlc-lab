@@ -6,7 +6,7 @@
 
 ## Scope
 
-Read-only inspection of an existing Wynxx project and backlog. No create, update, delete, or job-starting tools were used.
+Read-only inspection of an existing Wynxx Story Creator project and backlog. No create, update, delete, or job-starting tools were used.
 
 ## Tools Called
 
@@ -53,6 +53,6 @@ Read-only inspection of an existing Wynxx project and backlog. No create, update
 
 ## Notes
 
-- The requested target backlog name was not an exact title match in the API response; the read was completed against the actual backlog title returned for project 14.
+- The requested target backlog name was not an exact title match in the API response; the read was completed against the actual Wynxx Story Creator backlog title returned for project 14.
 - No writes were performed.
 - No Intent, Specification, Design, Test, Jira, Confluence, or job-starting actions were created or triggered.

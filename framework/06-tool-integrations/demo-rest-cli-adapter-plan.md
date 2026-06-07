@@ -4,7 +4,7 @@
 
 Provide the demo execution path for Jira, Confluence, and GitHub Actions evidence without enabling MCP writes.
 
-Git remains the source of truth. Jira and Confluence remain synchronized views. The REST/CLI adapters are the demo-time execution path until a later MCP spike is approved.
+Git remains the source of truth. Jira, Confluence, and GitHub remain synchronized views or evidence channels. The REST/CLI adapters are the demo-time execution path until a later MCP spike is approved.
 
 ## Scope
 
@@ -48,7 +48,7 @@ Optional:
 - Write operations require `--apply`.
 - No secrets are committed in repository files.
 - REST/CLI writes should only use reviewed Git-owned artifacts.
-- Jira and Confluence remain synchronized views; Git remains canonical.
+- Jira, Confluence, and GitHub remain synchronized views or evidence channels; Git remains canonical.
 
 ## Comparison
 

@@ -9,11 +9,11 @@ MCP integrations help Codex read backlog, workflow, publishing, repository, pull
 ## Source-Of-Truth Rules
 
 - Git remains the source of truth for framework guidance, lifecycle artifacts, traceability, validation evidence, release evidence, and source code.
-- Wynxx is backlog candidate ingestion only.
+- Wynxx is a synchronized backlog-candidate input, not source of truth.
 - AI-SDLC may create Jira tickets for the demo only after explicit approval.
-- Jira is workflow tracking.
-- Confluence is published documentation.
-- GitHub is repository, pull request, validation, and release evidence.
+- Jira is a synchronized workflow-tracking view.
+- Confluence is a synchronized published-document view.
+- GitHub is a synchronized repository, pull request, validation, and release-evidence view.
 - Do not create or update real Jira tickets, Confluence pages, or GitHub repository content unless explicitly instructed.
 - Start with read-only MCP validation wherever the MCP server supports it.
 
@@ -36,7 +36,7 @@ Use MCP-specialist subagents for bounded external-system operations:
 | --- | --- | --- |
 | `wynxx-backlog-agent` | `wynxx` | Read backlog candidates and return normalized Epic, Feature, Story, Task, and Test Case summaries. |
 | `jira-lifecycle-agent` | `jira` | Create/update approved demo tickets, lifecycle status, and Git/Confluence links while preventing duplicates. |
-| `confluence-publisher-agent` | `confluence` | Publish or update approved Git artifact summaries without making Confluence source of truth. |
+| `confluence-publisher-agent` | `confluence` | Publish or update approved Git artifact summaries without making Confluence the source of truth. |
 | `github-evidence-agent` | `github` | Read PR, Actions, validation, and release evidence and return compact status summaries. |
 
 Subagents return only source system, object ID, title, status, link, summary, errors, and recommended next action unless the user explicitly requests full payloads.
@@ -140,7 +140,7 @@ Approval-gated write validation:
 ## Demo Integration Flow
 
 ```text
-Wynxx backlog candidate
+Wynxx Story Creator backlog candidate
 → AI-SDLC review
 → Intent approval
 → Create Jira ticket
@@ -152,7 +152,7 @@ Wynxx backlog candidate
 
 Detailed flow:
 
-1. Use `wynxx` MCP to read a backlog candidate.
+1. Use `wynxx` MCP to read a Wynxx Story Creator backlog candidate.
 2. Use `wynxx-backlog-agent` to return compact candidate backlog summaries.
 3. Use `$wynxx-backlog-ingestion` to summarize and map the backlog to AI-SDLC candidate inputs.
 4. Human reviews the candidate mapping.
@@ -185,7 +185,7 @@ MCP tools must not:
 - publish Confluence pages before approval
 - create GitHub branches, commits, or PRs before approval
 - overwrite Git-owned artifacts from Jira, Confluence, or Wynxx
-- treat Wynxx, Jira, or Confluence as the source of truth
+- treat Wynxx, Jira, or Confluence as synchronized views or inputs rather than source of truth
 - bypass GitHub Actions validation or branch protection
 
 ## Related Documents

@@ -4,15 +4,15 @@
 
 This foundation defines how GitHub Actions, Jira, Confluence, and Sonar support the AI SDLC framework without changing lifecycle order, skills, artifact ownership, or source-of-truth rules.
 
-Git remains the source of truth for framework guidance, delivery artifacts, traceability, validation, release evidence, and source code. Integrations publish, track, or enforce evidence that originates in Git.
+Git remains the source of truth for framework guidance, delivery artifacts, traceability, validation, release evidence, and source code. Integrations publish, track, or enforce evidence that originates in Git, and external systems are synchronized views rather than source of truth.
 
 ## System Responsibilities
 
 | System | Responsibility | Not Responsible For |
 | --- | --- | --- |
 | GitHub Actions | Run validation scripts, contract checks, build/test checks, and optional Sonar quality evidence on pull requests and protected branches. | Replacing human approvals or rewriting delivery artifacts. |
-| Jira | Track workflow, ownership, blockers, approvals, sprint planning, implementation slices, defects, decisions, and releases. | Storing canonical requirements, design, tests, validation evidence, or release notes. |
-| Confluence | Publish stakeholder-facing summaries generated from Git-owned artifacts. | Becoming the source of truth for capability or feature delivery artifacts. |
+| Jira | Track workflow, ownership, blockers, approvals, sprint planning, implementation slices, defects, decisions, and releases as a synchronized view. | Storing canonical requirements, design, tests, validation evidence, or release notes. |
+| Confluence | Publish stakeholder-facing summaries generated from Git-owned artifacts as a synchronized view. | Becoming the source of truth for capability or feature delivery artifacts. |
 | Sonar | Provide code quality and security evidence when code and project configuration are available. | Approving architecture, business behavior, release readiness, or lifecycle progression. |
 
 ## GitHub Actions Foundation

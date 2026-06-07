@@ -54,7 +54,7 @@ Subagents must not return full raw payloads, long descriptions, full Confluence 
 
 Purpose:
 
-- Read Wynxx backlog candidates.
+- Read Wynxx Story Creator backlog candidates.
 - Return normalized Epic, Feature, Story, Task, and Test Case summaries.
 - Support `$wynxx-backlog-ingestion` without creating AI-SDLC artifacts directly.
 
@@ -74,8 +74,8 @@ Not allowed:
 - create specification automatically
 - modify Git artifacts
 - create Jira tickets
-- fetch the entire Wynxx backlog by default
-- treat Wynxx as source of truth
+- fetch the entire Wynxx Story Creator backlog by default
+- treat Wynxx as a synchronized backlog-candidate input rather than source of truth
 
 Compact output focus:
 
@@ -141,7 +141,7 @@ Allowed operations:
 
 Not allowed:
 
-- treat Confluence page body as source of truth
+- treat Confluence page body as a synchronized published-view input rather than source of truth
 - publish unapproved artifacts
 - fetch full page bodies unless publishing or comparing
 - overwrite a page without version comparison
@@ -193,7 +193,7 @@ Compact output focus:
 
 - Do not fetch full Jira issue descriptions unless required.
 - Do not fetch full Confluence page bodies unless publishing or comparing.
-- Do not fetch entire Wynxx backlog by default.
+- Do not fetch entire Wynxx Story Creator backlog by default.
 - Do not fetch full GitHub Actions logs unless diagnosing a failed check.
 - Use project, capability, feature, issue type, status, branch, PR, or date filters.
 - Limit responses to the active demo scope.
@@ -233,7 +233,7 @@ Main Codex Agent
 
 Example delegated requests:
 
-- "Read Wynxx backlog `CARDS-123` and return candidate feature summaries only."
+- "Read Wynxx Story Creator backlog `CARDS-123` and return candidate feature summaries only."
 - "Check whether Jira already has a Story for Git artifact path `domains/cards/.../intent.md`."
 - "Publish this approved validation summary to the existing Confluence page and return page ID plus link."
 - "Read PR 42 and latest AI SDLC Validation workflow status."

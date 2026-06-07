@@ -7,7 +7,7 @@
 ## Scope
 
 - Demo feature: Card Replacement
-- Excluded: Wynxx MCP
+- Excluded: Wynxx Story Creator MCP
 - Focus: framework artifacts, Jira REST adapter, Confluence REST adapter, GitHub Actions evidence script, traceability, validation scripts, and Control Tower dashboard
 
 ## Scenarios Executed

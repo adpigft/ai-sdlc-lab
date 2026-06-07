@@ -1,14 +1,14 @@
-# Wynxx Backlog Ingestion
+# Wynxx Story Creator Backlog Ingestion
 
 ## Purpose
 
 Wynxx Story Creator is a backlog candidate source for the AI-SDLC lab.
 
-It is not the source of truth. It provides candidate work items that must be reviewed before any Git-owned AI-SDLC artifact is created.
+It is a synchronized backlog-candidate view, not the source of truth. It provides candidate work items that must be reviewed before any Git-owned AI-SDLC artifact is created.
 
 ## Role In The Flow
 
-- Wynxx supplies backlog candidates for discovery and review.
+- Wynxx supplies backlog candidates for discovery and review as synchronized input.
 - Git remains the source of truth after human approval.
 - Jira and Confluence are not created or updated automatically from Wynxx.
 - AI-SDLC intent, specification, design, implementation, validation, and release artifacts are not created automatically from Wynxx.
@@ -25,14 +25,14 @@ It is not the source of truth. It provides candidate work items that must be rev
 
 ## Read-Only Smoke Test Status
 
-`codex mcp list` shows `wynxx` is registered and enabled in Codex:
+`codex mcp list` shows `wynxx` is registered and enabled in Codex for Wynxx Story Creator intake:
 
 - Command: `npx`
 - Args: `-y @wynxx/mcp --instance playground.gft.aid.services.gft.com`
 - Auth status in Codex registry: `Unsupported`
 - Enabled tools in Codex registry: not enumerated
 
-The installed `@wynxx/mcp` package exposes these tools in the server code path:
+The installed `@wynxx/mcp` package exposes these tools in the server code path for Wynxx Story Creator intake:
 
 ### Safe read-only tools
 
@@ -124,7 +124,7 @@ AI-SDLC artifacts must not be created from Wynxx candidate input until a human a
 
 ## Notes
 
-- Preserve Wynxx source IDs in any future normalized ingestion output.
+- Preserve Wynxx Story Creator source IDs in any future normalized ingestion output.
 - Use read-only MCP operations only for backlog discovery.
 - Do not create Jira tickets, Confluence pages, or Git artifacts automatically from Wynxx output.
 
