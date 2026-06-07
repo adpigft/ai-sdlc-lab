@@ -52,8 +52,32 @@ The context governance foundations are documented in:
 - `framework/08-context-quality/context-quality-model.md`
 - `framework/09-context-packaging/context-package-model.md`
 - `framework/10-context-observability/context-observability-model.md`
+- `framework/12-impact-analysis/impact-analysis-model.md`
+- `framework/13-pr-review/spec-aware-pr-review-model.md`
+- `framework/14-harness-catalog/harness-catalog.md`
+- `framework/15-agentops/agentops-model.md`
 
 The Control Tower dashboard has a future path to show context health using additive fields only.
+
+The framework also includes a future Enterprise Productionization Layer documented in:
+
+- `framework/16-ai-governance/ai-governance-model.md`
+- `framework/16-ai-governance/model-risk-management.md`
+- `framework/17-enterprise-rollout/enterprise-rollout-model.md`
+- `framework/17-enterprise-rollout/squad-adoption-playbook.md`
+- `framework/18-operating-model/operating-model.md`
+- `framework/18-operating-model/change-management-model.md`
+- `framework/19-cost-management/token-economics-model.md`
+- `framework/19-cost-management/model-routing-strategy.md`
+- `framework/20-access-control/rbac-model.md`
+- `framework/21-platform-architecture/platform-reference-architecture.md`
+- `framework/21-platform-architecture/context-registry-architecture.md`
+- `framework/22-compliance/compliance-evidence-model.md`
+- `framework/22-compliance/audit-trail-model.md`
+- `framework/23-adoption-training/training-curriculum.md`
+- `framework/23-adoption-training/certification-model.md`
+- `framework/30-tool-adapters/tool-adapter-model.md`
+- `framework/31-gui-authoring/gui-authoring-model.md`
 
 ---
 
@@ -93,7 +117,28 @@ framework
 ├── 07-templates
 ├── 08-context-quality
 ├── 09-context-packaging
-└── 10-context-observability
+├── 10-context-observability
+├── 11-smoke-tests
+├── 12-impact-analysis
+├── 13-pr-review
+├── 14-harness-catalog
+├── 15-agentops
+├── 16-ai-governance
+├── 17-enterprise-rollout
+├── 18-operating-model
+├── 19-cost-management
+├── 20-access-control
+├── 21-platform-architecture
+├── 22-compliance
+├── 23-adoption-training
+├── 24-knowledge-management
+├── 25-accelerator-catalog
+├── 26-portfolio-management
+├── 27-dependency-management
+├── 28-multi-agent-collaboration
+├── 29-ai-evaluation
+├── 30-tool-adapters
+└── 31-gui-authoring
 ```
 
 ---

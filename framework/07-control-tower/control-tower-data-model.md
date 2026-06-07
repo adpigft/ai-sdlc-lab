@@ -22,6 +22,16 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
 - `framework/09-context-packaging/context-package-model.md`
 - `framework/10-context-observability/context-observability-model.md`
 - `framework/10-context-observability/context-drift-model.md`
+- `framework/12-impact-analysis/impact-analysis-model.md`
+- `framework/13-pr-review/spec-aware-pr-review-model.md`
+- `framework/14-harness-catalog/harness-catalog.md`
+- `framework/15-agentops/agentops-model.md`
+- `framework/24-knowledge-management/knowledge-management-model.md`
+- `framework/25-accelerator-catalog/accelerator-catalog-model.md`
+- `framework/26-portfolio-management/portfolio-governance-model.md`
+- `framework/27-dependency-management/dependency-model.md`
+- `framework/28-multi-agent-collaboration/agent-collaboration-model.md`
+- `framework/29-ai-evaluation/evaluation-framework.md`
 
 ## JSON Schema Example
 
@@ -101,6 +111,39 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
       "contextSecurityFindings": 0,
       "contextEvalStatus": "Not available",
       "contextLastReviewed": "",
+      "impactRisk": "Not available",
+      "impactedArtifacts": [],
+      "contextVersionStatus": "Not available",
+      "driftStatus": "Not available",
+      "prReviewStatus": "Not available",
+      "harnessType": "Not available",
+      "agentRunHealth": "Not available",
+      "agentReworkCount": 0,
+      "tokenBudgetStatus": "Not available",
+      "portfolio": {
+        "portfolioManager": "Not available",
+        "program": "Not available"
+      },
+      "program": {
+        "programManager": "Not available"
+      },
+      "dependencies": [],
+      "knowledge": {
+        "knowledgeScore": "Not available",
+        "knowledgePackages": []
+      },
+      "accelerators": [],
+      "agentCollaboration": {
+        "pattern": "Not available",
+        "confidence": "Not available"
+      },
+      "evaluation": {
+        "specScore": "Not available",
+        "contextScore": "Not available",
+        "architectureScore": "Not available",
+        "prScore": "Not available",
+        "deliveryScore": "Not available"
+      },
       "links": {
         "gitIntentPath": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/intent/intent.md",
         "gitSpecificationPath": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/specification/specification.md",
@@ -123,11 +166,6 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
         "release": "",
         "workflowState": "",
         "openapi": ""
-      },
-      "evidence": {
-        "validationReport": "",
-        "validationStatus": "Not available",
-        "validationSummary": ""
       }
     }
   ]
@@ -152,6 +190,24 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
   - `contextSecurityFindings`
   - `contextEvalStatus`
   - `contextLastReviewed`
+- Future operational fields are also reserved and should remain additive:
+  - `impactRisk`
+  - `impactedArtifacts`
+  - `contextVersionStatus`
+  - `driftStatus`
+  - `prReviewStatus`
+  - `harnessType`
+  - `agentRunHealth`
+  - `agentReworkCount`
+  - `tokenBudgetStatus`
+- Future enterprise-scale fields are also reserved and should remain additive:
+  - `portfolio`
+  - `program`
+  - `dependencies`
+  - `knowledge`
+  - `accelerators`
+  - `agentCollaboration`
+  - `evaluation`
 - `traceabilityId`, `jiraKey`, and `confluencePageId` are read from the traceability matrix when available.
 - `quality.validationStatus` is a summary of local validation evidence only.
 - `interventions` is a convenience list for PM review and does not change workflow state.

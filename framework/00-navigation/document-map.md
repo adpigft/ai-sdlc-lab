@@ -16,8 +16,28 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 | Skill context adapter | `framework/02-context-control/context/skill-context-adapter.md` | `framework/02-context-control/context/stage-context-packs.md`, `framework/02-context-control/context/context-pack-model.md` |
 | Artifact placement adapter | `framework/03-delivery-governance/artifact-placement-model.md` | `README.md`, `AGENTS.md`, `framework/07-templates/` |
 | Context quality foundation | `framework/08-context-quality/context-quality-model.md` | `framework/08-context-quality/skill-review-rubric.md`, `framework/08-context-quality/llm-judge-rubrics.md`, `framework/08-context-quality/task-eval-model.md` |
-| Context packaging foundation | `framework/09-context-packaging/context-package-model.md` | `framework/09-context-packaging/context-registry-model.md`, `scripts/context/README.md` |
-| Context observability foundation | `framework/10-context-observability/context-observability-model.md` | `framework/10-context-observability/context-drift-model.md`, `framework/10-context-observability/context-flywheel.md` |
+| Context packaging foundation | `framework/09-context-packaging/context-package-model.md` | `framework/09-context-packaging/context-registry-model.md`, `framework/09-context-packaging/context-versioning-policy.md`, `framework/09-context-packaging/context-manifest-model.md`, `scripts/context/README.md` |
+| Context observability foundation | `framework/10-context-observability/context-observability-model.md` | `framework/10-context-observability/context-drift-model.md`, `framework/10-context-observability/context-drift-detection-policy.md`, `framework/10-context-observability/context-flywheel.md` |
+| Impact analysis foundation | `framework/12-impact-analysis/impact-analysis-model.md` | `framework/12-impact-analysis/change-impact-workflow.md` |
+| Spec-aware PR review foundation | `framework/13-pr-review/spec-aware-pr-review-model.md` | `framework/13-pr-review/pr-review-rubric.md`, `framework/13-pr-review/pr-review-feedback-loop.md` |
+| Harness catalog | `framework/14-harness-catalog/harness-catalog.md` | `framework/14-harness-catalog/harness-selection-model.md` |
+| AgentOps foundation | `framework/15-agentops/agentops-model.md` | `framework/15-agentops/agent-run-log-schema.md`, `scripts/agentops/README.md` |
+| Enterprise AI governance | `framework/16-ai-governance/ai-governance-model.md` | `framework/16-ai-governance/model-risk-management.md` |
+| Enterprise rollout model | `framework/17-enterprise-rollout/enterprise-rollout-model.md` | `framework/17-enterprise-rollout/squad-adoption-playbook.md` |
+| Operating model | `framework/18-operating-model/operating-model.md` | `framework/18-operating-model/change-management-model.md` |
+| Cost management | `framework/19-cost-management/token-economics-model.md` | `framework/19-cost-management/model-routing-strategy.md` |
+| Access control | `framework/20-access-control/rbac-model.md` | `framework/20-access-control/` |
+| Platform architecture | `framework/21-platform-architecture/platform-reference-architecture.md` | `framework/21-platform-architecture/context-registry-architecture.md` |
+| Compliance | `framework/22-compliance/compliance-evidence-model.md` | `framework/22-compliance/audit-trail-model.md` |
+| Adoption and training | `framework/23-adoption-training/training-curriculum.md` | `framework/23-adoption-training/certification-model.md` |
+| Knowledge management | `framework/24-knowledge-management/knowledge-management-model.md` | `framework/24-knowledge-management/knowledge-registry-model.md`, `framework/24-knowledge-management/enterprise-memory-model.md` |
+| Accelerator catalog | `framework/25-accelerator-catalog/accelerator-catalog-model.md` | `framework/25-accelerator-catalog/reuse-maturity-model.md` |
+| Portfolio management | `framework/26-portfolio-management/portfolio-governance-model.md` | `framework/26-portfolio-management/control-tower-scaling-model.md`, `framework/26-portfolio-management/squad-operating-model.md` |
+| Dependency management | `framework/27-dependency-management/dependency-model.md` | `framework/27-dependency-management/dependency-graph-model.md`, `framework/27-dependency-management/dependency-risk-model.md` |
+| Multi-agent collaboration | `framework/28-multi-agent-collaboration/agent-collaboration-model.md` | `framework/28-multi-agent-collaboration/context-handoff-model.md`, `framework/28-multi-agent-collaboration/conflict-resolution-model.md` |
+| AI evaluation framework | `framework/29-ai-evaluation/evaluation-framework.md` | `framework/29-ai-evaluation/quality-score-model.md`, `framework/29-ai-evaluation/eval-catalog.md`, `framework/29-ai-evaluation/continuous-improvement-flywheel.md` |
+| Tool adapter layer | `framework/30-tool-adapters/tool-adapter-model.md` | `framework/30-tool-adapters/tool-change-resilience.md` |
+| GUI authoring | `framework/31-gui-authoring/gui-authoring-model.md` | `framework/31-gui-authoring/artifact-editing-workflow.md` |
 | Support skills | `.codex/skills/capability-onboarding/SKILL.md`, `.codex/skills/source-ingestion/SKILL.md`, `.codex/skills/repo-discovery/SKILL.md`, `.codex/skills/artifact-review/SKILL.md`, `.codex/skills/wynxx-backlog-ingestion/SKILL.md` | `framework/01-lifecycle/skill-orchestration-adapter.md`, `framework/02-context-control/context/skill-context-adapter.md`, `framework/03-delivery-governance/artifact-placement-model.md` |
 | Workflow state | `framework/01-lifecycle/workflow/workflow-state-guide.md` | `framework/01-lifecycle/workflow-state/state-machine.md`, `framework/01-lifecycle/workflow/workflow-state-template.yaml` |
 | Capability artifact naming | `README.md` | `AGENTS.md`, `framework/01-lifecycle/workflow/workflow-state-guide.md`, `framework/07-templates/` |
@@ -59,6 +79,10 @@ Git remains the source of truth. Jira tracks workflow. Confluence publishes revi
 - Do not redefine the domain/capability/feature hierarchy outside `README.md` and `framework/03-delivery-governance/multi-squad/domain-ownership-model.md`; link to it.
 - Do not duplicate implementation placement rules outside `framework/03-delivery-governance/service-architecture/implementation-placement-model.md`; link to it.
 - Do not duplicate context routing rules outside `framework/02-context-control/context/context-pack-model.md`; link to it.
+- Do not duplicate context versioning, manifest, drift, impact analysis, PR review, harness, or AgentOps rules outside their canonical documents; link to them.
+- Do not duplicate AI governance, enterprise rollout, operating model, cost management, access control, platform architecture, compliance, or adoption and training rules outside their canonical documents; link to them.
+- Do not duplicate knowledge management, accelerator catalog, portfolio management, dependency management, multi-agent collaboration, or AI evaluation rules outside their canonical documents; link to them.
+- Do not duplicate tool adapter or GUI authoring rules outside their canonical documents; link to them.
 - Do not duplicate source artifact content in indexes; indexes are navigation aids only.
 - Do not duplicate source artifact content in capability summaries; summaries are navigation aids only.
 - Do not duplicate prompt pattern rules in skills or artifacts; link to `framework/01-lifecycle/prompt-patterns/` when execution structure is needed.
