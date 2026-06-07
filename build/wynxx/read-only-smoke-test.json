@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-06-07T06:22:20Z",
+  "auth": {
+    "status": "ok"
+  },
+  "target": {
+    "projectName": "MSB POC - Project 02 (Tr - MSB POC)",
+    "backlogName": "Wynxx POC - BRD V3 - NBO PROJECT - Document 1"
+  },
+  "project": {
+    "id": 14,
+    "name": "MSB POC - Project 02 (Tr - MSB POC)",
+    "description": "Complete template with all standard fields for backlog creation",
+    "backlogCount": 1
+  },
+  "backlog": {
+    "id": 44,
+    "name": "Wynxx POC - BRD v3 - NBO PROJECT - Document 1 (Epic level) created Feb 25",
+    "status": "ERROR",
+    "itemCounts": {
+      "total": 50,
+      "byType": {
+        "EPIC": 4,
+        "FEATURE": 15,
+        "USER_STORY": 7,
+        "TASK": 14,
+        "TEST_CASE": 10
+      },
+      "byStatus": {
+        "Unknown": 50
+      }
+    },
+    "hierarchySummary": {
+      "rootItems": 4,
+      "typeCounts": {
+        "EPIC": 4,
+        "FEATURE": 15,
+        "USER_STORY": 7,
+        "TASK": 14,
+        "TEST_CASE": 10
+      },
+      "statusCounts": {
+        "Unknown": 50
+      }
+    }
+  },
+  "sampleWorkItem": {
+    "id": 770,
+    "title": "Credential Lifecycle Management",
+    "type": "EPIC",
+    "status": null
+  },
+  "toolsCalled": [
+    "authenticate",
+    "list_backlogs",
+    "get_project",
+    "get_backlog",
+    "get_work_item"
+  ],
+  "writesPerformed": false
+}
