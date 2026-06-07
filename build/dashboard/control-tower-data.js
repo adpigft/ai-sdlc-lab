@@ -1,5 +1,5 @@
 window.__CONTROL_TOWER_DATA__ = {
-  "generatedAt": "2026-06-07T04:01:41.459657+00:00",
+  "generatedAt": "2026-06-07T04:59:29.058038+00:00",
   "summary": {
     "totalFeatures": 4,
     "blockedFeatures": 1,
@@ -70,7 +70,7 @@ window.__CONTROL_TOWER_DATA__ = {
         "gitTestsPath": "",
         "gitValidationPath": "",
         "gitReleasePath": "",
-        "jiraUrl": "",
+        "jiraUrl": "https://adpi04.atlassian.net/browse/SCRUM-1",
         "confluenceUrl": "https://adpi04.atlassian.net/wiki/spaces/AISDLC/pages/688129"
       },
       "interventions": [],
@@ -139,7 +139,7 @@ window.__CONTROL_TOWER_DATA__ = {
         "gitTestsPath": "domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/tests/acceptance.feature",
         "gitValidationPath": "domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/validation/validation-report.md",
         "gitReleasePath": "",
-        "jiraUrl": "",
+        "jiraUrl": "https://adpi04.atlassian.net/browse/JIRA-KHQRREV-001",
         "confluenceUrl": "https://adpi04.atlassian.net/wiki/spaces/AISDLC/pages/CONF-PAY-KHQRREV-SPEC"
       },
       "interventions": [
@@ -211,7 +211,7 @@ window.__CONTROL_TOWER_DATA__ = {
         "gitTestsPath": "domains/payments/capabilities/payment-initiation/features/khqr-payment/tests/acceptance.feature",
         "gitValidationPath": "domains/payments/capabilities/payment-initiation/features/khqr-payment/validation/validation-report.md",
         "gitReleasePath": "domains/payments/capabilities/payment-initiation/features/khqr-payment/release/release-notes.md",
-        "jiraUrl": "",
+        "jiraUrl": "https://adpi04.atlassian.net/browse/JIRA-KHQR-010",
         "confluenceUrl": "https://adpi04.atlassian.net/wiki/spaces/AISDLC/pages/CONF-PAY-KHQR-SPEC"
       },
       "interventions": [
@@ -282,7 +282,7 @@ window.__CONTROL_TOWER_DATA__ = {
         "gitTestsPath": "domains/payments/capabilities/payment-refund/features/qr-refund/tests/acceptance.feature",
         "gitValidationPath": "",
         "gitReleasePath": "",
-        "jiraUrl": "",
+        "jiraUrl": "https://adpi04.atlassian.net/browse/JIRA-QRREF-001",
         "confluenceUrl": ""
       },
       "interventions": [

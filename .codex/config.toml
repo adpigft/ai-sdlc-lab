@@ -14,38 +14,81 @@ git_source_of_truth = true
 github_actions_ci_record = true
 mcp_optional = true
 
-# Optional Jira MCP placeholder.
-# Enable only in an enterprise environment with approved credentials.
-[mcp_servers.jira]
+# Optional Atlassian MCP server for Jira and Confluence.
+# Enable only in an enterprise environment with approved read-only credentials.
+[mcp_servers.atlassian]
 enabled = false
-command = "jira-mcp-server"
-args = []
+command = "sh"
+args = [
+  "-lc",
+  '''
+  : "${ATLASSIAN_SITE_URL:?ATLASSIAN_SITE_URL is required}"
+  : "${ATLASSIAN_EMAIL:?ATLASSIAN_EMAIL is required}"
+  : "${ATLASSIAN_API_TOKEN:?ATLASSIAN_API_TOKEN is required}"
+  : "${JIRA_PROJECT_KEY:?JIRA_PROJECT_KEY is required}"
+  : "${CONFLUENCE_SPACE_KEY:?CONFLUENCE_SPACE_KEY is required}"
 
-[mcp_servers.jira.env]
-JIRA_BASE_URL = "${JIRA_BASE_URL}"
-JIRA_EMAIL = "${JIRA_EMAIL}"
-JIRA_API_TOKEN = "${JIRA_API_TOKEN}"
+  exec docker run --rm -i \
+    -e "JIRA_URL=${ATLASSIAN_SITE_URL}" \
+    -e "JIRA_USERNAME=${ATLASSIAN_EMAIL}" \
+    -e "JIRA_API_TOKEN=${ATLASSIAN_API_TOKEN}" \
+    -e "JIRA_PROJECTS_FILTER=${JIRA_PROJECT_KEY}" \
+    -e "CONFLUENCE_URL=${ATLASSIAN_SITE_URL}/wiki" \
+    -e "CONFLUENCE_USERNAME=${ATLASSIAN_EMAIL}" \
+    -e "CONFLUENCE_API_TOKEN=${ATLASSIAN_API_TOKEN}" \
+    -e "CONFLUENCE_SPACES_FILTER=${CONFLUENCE_SPACE_KEY}" \
+    -e "READ_ONLY_MODE=true" \
+    -e "TRANSPORT=stdio" \
+    -e "MCP_LOGGING_STDOUT=false" \
+    -e "MCP_VERBOSE=false" \
+    -e "MCP_VERY_VERBOSE=false" \
+    -e "FASTMCP_SHOW_SERVER_BANNER=false" \
+    -e "FASTMCP_LOG_ENABLED=false" \
+    -e "FASTMCP_ENABLE_RICH_LOGGING=false" \
+    -e "FASTMCP_ENABLE_RICH_TRACEBACKS=false" \
+    -e "FASTMCP_CHECK_FOR_UPDATES=off" \
+    -e "TOOLSETS=jira_issues,jira_fields,jira_transitions,confluence_pages,confluence_comments" \
+    ghcr.io/sooperset/mcp-atlassian:latest
+  ''',
+]
 
-# Optional Confluence MCP placeholder.
-# Confluence is for collaboration and publication, not the canonical source of truth.
-[mcp_servers.confluence]
-enabled = false
-command = "confluence-mcp-server"
-args = []
-
-[mcp_servers.confluence.env]
-CONFLUENCE_BASE_URL = "${CONFLUENCE_BASE_URL}"
-CONFLUENCE_EMAIL = "${CONFLUENCE_EMAIL}"
-CONFLUENCE_API_TOKEN = "${CONFLUENCE_API_TOKEN}"
-
-# Optional GitHub MCP placeholder.
+# Optional GitHub MCP server.
 # GitHub MCP may assist with PRs/issues, but GitHub Actions remains the CI gate record.
 [mcp_servers.github]
 enabled = false
-command = "github-mcp-server"
-args = []
+command = "sh"
+args = [
+  "-lc",
+  '''
+  : "${GITHUB_PERSONAL_ACCESS_TOKEN:?GITHUB_PERSONAL_ACCESS_TOKEN is required}"
+
+  exec docker run --rm -i \
+    -e "GITHUB_PERSONAL_ACCESS_TOKEN" \
+    -e "GITHUB_READ_ONLY" \
+    -e "GITHUB_TOOLSETS" \
+    ghcr.io/github/github-mcp-server \
+    --read-only
+  ''',
+]
 
 [mcp_servers.github.env]
 GITHUB_TOKEN = "${GITHUB_TOKEN}"
 GITHUB_OWNER = "${GITHUB_OWNER}"
 GITHUB_REPO = "${GITHUB_REPO}"
+GITHUB_PERSONAL_ACCESS_TOKEN = "${GITHUB_TOKEN}"
+GITHUB_READ_ONLY = "1"
+GITHUB_TOOLSETS = "repos,actions"
+
+# Optional Wynxx MCP server for read-only backlog candidate ingestion.
+[mcp_servers.wynxx]
+enabled = true
+command = "npx"
+args = [
+  "-y",
+  "@wynxx/mcp",
+  "--instance",
+  "playground.gft.aid.services.gft.com"
+]
+
+[mcp_servers.wynxx.env]
+"npm_config_@wynxx:registry" = "https://pkgs.dev.azure.com/gft-assets/ai-impact-feed/_packaging/ai-impact-feed/npm/registry/"

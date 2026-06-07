@@ -24,9 +24,14 @@ Expected environment variables:
 
 | Integration | Variables |
 | --- | --- |
-| Jira | `JIRA_BASE_URL`, `JIRA_EMAIL`, `JIRA_API_TOKEN` |
-| Confluence | `CONFLUENCE_BASE_URL`, `CONFLUENCE_EMAIL`, `CONFLUENCE_API_TOKEN` |
+| Atlassian Jira and Confluence | `ATLASSIAN_SITE_URL`, `ATLASSIAN_EMAIL`, `ATLASSIAN_API_TOKEN`, `JIRA_PROJECT_KEY`, `CONFLUENCE_SPACE_KEY` |
 | GitHub | `GITHUB_TOKEN`, `GITHUB_OWNER`, `GITHUB_REPO` |
+
+The local Atlassian MCP entry uses `mcp-atlassian` as a single Jira and Confluence server. It maps the standardized local variables to server-native `JIRA_*` and `CONFLUENCE_*` variables at startup, keeps `READ_ONLY_MODE=true`, and explicitly exposes:
+
+```text
+TOOLSETS=jira_issues,jira_fields,jira_transitions,confluence_pages,confluence_comments
+```
 
 ## Enablement Checklist
 
