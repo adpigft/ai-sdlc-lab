@@ -32,15 +32,15 @@
       </div>
 
       <nav class="sidebar-nav">
-        <a href="#pm-intervention" class="nav-link active" data-nav-link="pm-intervention">Home</a>
-        <a href="#pm-intervention" class="nav-link" data-nav-link="pm-intervention">Control Tower</a>
-        <a href="#pm-intervention" class="nav-link" data-nav-link="pm-intervention">PM Intervention</a>
+        <a href="#pm-intervention" class="nav-link active" data-nav-link="pm-intervention">PM Intervention</a>
+        <a href="#executive-summary" class="nav-link" data-nav-link="executive-summary">Executive Summary</a>
         <a href="#delivery-pipeline" class="nav-link" data-nav-link="delivery-pipeline">Delivery Pipeline</a>
         <a href="#approval-queue" class="nav-link" data-nav-link="approval-queue">Approval Queue</a>
         <a href="#squad-view" class="nav-link" data-nav-link="squad-view">Squad View</a>
         <a href="#traceability" class="nav-link" data-nav-link="traceability">Traceability</a>
         <a href="#quality-gates" class="nav-link" data-nav-link="quality-gates">Quality Gates</a>
         <a href="#governance" class="nav-link" data-nav-link="governance">Governance</a>
+        <a href="#context-health" class="nav-link" data-nav-link="context-health">Context Health</a>
       </nav>
 
       <div class="sidebar-footer">
@@ -63,16 +63,22 @@
             <p class="lede">Governed delivery view across features, squads, Jira, Confluence and GitHub evidence.</p>
           </div>
           <div class="topbar-meta">
-            <span class="pill pill-blue">Git source of truth</span>
-            <span class="pill pill-purple">Jira workflow tracking</span>
-            <span class="pill pill-muted">Confluence published views</span>
-            <span class="pill pill-muted">GitHub Actions evidence</span>
-            <span id="refresh-mode" class="timestamp">Loading refresh mode...</span>
+            <div class="topbar-actions">
+              <button id="refresh-dashboard" class="refresh-button" type="button">Refresh Dashboard</button>
+              <span id="refresh-mode" class="timestamp">Loading refresh mode...</span>
+            </div>
+            <div class="topbar-pills">
+              <span class="pill pill-blue">Git source of truth</span>
+              <span class="pill pill-purple">Jira workflow tracking</span>
+              <span class="pill pill-muted">Confluence published views</span>
+              <span class="pill pill-muted">GitHub Actions evidence</span>
+            </div>
           </div>
         </div>
       </header>
 
       <div class="refresh-banner" id="refresh-note"></div>
+      <div id="executive-kpis" class="kpi-strip" aria-label="Executive KPI strip"></div>
 
       <main class="content">
         <section class="section section-prominent" id="pm-intervention">
@@ -178,6 +184,30 @@
               <p>Local HTTP viewing reloads the generated JSON every 30 seconds. File viewing uses the generated wrapper data.</p>
             </article>
           </div>
+          <div class="workflow-ownership-panel">
+            <div class="section-head section-head-compact">
+              <div>
+                <p class="section-kicker">Workflow Ownership</p>
+                <h2>AI-SDLC ownership and approval matrix</h2>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="table matrix-table" id="ownership-matrix"></table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="context-health">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Context Health</p>
+              <h2>Future signal for packaged context quality</h2>
+            </div>
+          </div>
+          <div class="context-health-note">
+            Context health is a future Control Tower signal based on context quality, packaging, drift, and observability.
+          </div>
+          <div id="context-health-grid" class="context-health-grid"></div>
         </section>
       </main>
     </div>

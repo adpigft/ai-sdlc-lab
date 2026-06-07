@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-06T13:50:25.870850+00:00",
+  "generatedAt": "2026-06-07T04:01:41.459657+00:00",
   "summary": {
     "totalFeatures": 4,
     "blockedFeatures": 1,
@@ -33,7 +33,7 @@
       "testId": "TEST-CARDREP-001",
       "state": "Draft for Architect Review",
       "ownerRole": "Cards Squad",
-      "daysInState": 0,
+      "daysInState": 1,
       "blocked": false,
       "blockedReason": "",
       "nextGate": "Architect Review",
@@ -43,7 +43,7 @@
         "approver_role": "Solution Architect",
         "next_gate": "Architect Review",
         "blocked_reason": "",
-        "days_in_state": 0,
+        "days_in_state": 1,
         "last_updated": "2026-06-05T15:24:44+00:00",
         "expected_max_days": 2,
         "pm_intervention_trigger": false
@@ -102,7 +102,7 @@
       "testId": "TEST-KHQRREV-001",
       "state": "Blocked",
       "ownerRole": "Digital Payments Product Owner",
-      "daysInState": 2,
+      "daysInState": 3,
       "blocked": true,
       "blockedReason": "Release is blocked because only Slice 1 is validated; remaining slices, release notes, CI evidence, and release approval are not complete.",
       "nextGate": "remaining_slice_implementation",
@@ -112,7 +112,7 @@
         "approver_role": "Developer Lead",
         "next_gate": "remaining_slice_implementation",
         "blocked_reason": "Release is blocked because only Slice 1 is validated; remaining slices, release notes, CI evidence, and release approval are not complete.",
-        "days_in_state": 2,
+        "days_in_state": 3,
         "last_updated": "2026-06-04T02:57:01+00:00",
         "expected_max_days": 5,
         "pm_intervention_trigger": true
@@ -174,7 +174,7 @@
       "testId": "TEST-KHQR-001",
       "state": "Design Ready",
       "ownerRole": "Digital Payments Product Owner",
-      "daysInState": 2,
+      "daysInState": 3,
       "blocked": false,
       "blockedReason": "",
       "nextGate": "Architect Review",
@@ -184,10 +184,10 @@
         "approver_role": "DevSecOps / Platform",
         "next_gate": "Architect Review",
         "blocked_reason": "",
-        "days_in_state": 2,
+        "days_in_state": 3,
         "last_updated": "2026-06-04T02:57:01+00:00",
         "expected_max_days": 2,
-        "pm_intervention_trigger": false
+        "pm_intervention_trigger": true
       },
       "jiraKey": "JIRA-KHQR-010",
       "confluencePageId": "CONF-PAY-KHQR-SPEC",
@@ -214,7 +214,9 @@
         "jiraUrl": "",
         "confluenceUrl": "https://adpi04.atlassian.net/wiki/spaces/AISDLC/pages/CONF-PAY-KHQR-SPEC"
       },
-      "interventions": [],
+      "interventions": [
+        "stale-state"
+      ],
       "paths": {
         "intent": "domains/payments/capabilities/payment-initiation/features/khqr-payment/intent/intent.md",
         "specification": "domains/payments/capabilities/payment-initiation/features/khqr-payment/specification/specification.md",
@@ -243,7 +245,7 @@
       "testId": "TEST-QRREF-001",
       "state": "Architecture context approved for API contract design",
       "ownerRole": "Digital Payments Product Owner",
-      "daysInState": 2,
+      "daysInState": 3,
       "blocked": false,
       "blockedReason": "",
       "nextGate": "Validation Review",
@@ -253,7 +255,7 @@
         "approver_role": "Developer Lead",
         "next_gate": "Validation Review",
         "blocked_reason": "",
-        "days_in_state": 2,
+        "days_in_state": 3,
         "last_updated": "2026-06-04T02:57:01+00:00",
         "expected_max_days": 5,
         "pm_intervention_trigger": true

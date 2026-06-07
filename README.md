@@ -39,6 +39,24 @@ The framework is designed for:
 
 ---
 
+# Context Foundations
+
+Context is treated as a governed asset in this framework.
+
+The context lifecycle is:
+
+Create -> Validate -> Package -> Distribute -> Observe -> Improve
+
+The context governance foundations are documented in:
+
+- `framework/08-context-quality/context-quality-model.md`
+- `framework/09-context-packaging/context-package-model.md`
+- `framework/10-context-observability/context-observability-model.md`
+
+The Control Tower dashboard has a future path to show context health using additive fields only.
+
+---
+
 # Repository Structure
 
 ```text
@@ -72,7 +90,10 @@ framework
 ├── 04-engineering-standards
 ├── 05-platform-bootstrap
 ├── 06-tool-integrations
-└── 07-templates
+├── 07-templates
+├── 08-context-quality
+├── 09-context-packaging
+└── 10-context-observability
 ```
 
 ---

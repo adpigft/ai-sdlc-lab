@@ -18,6 +18,10 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
 - `domains/**/features/**/workflow-state.yaml`
 - `traceability/traceability-matrix.md`
 - `framework/07-control-tower/workflow-ownership-matrix.md`
+- `framework/08-context-quality/context-quality-model.md`
+- `framework/09-context-packaging/context-package-model.md`
+- `framework/10-context-observability/context-observability-model.md`
+- `framework/10-context-observability/context-drift-model.md`
 
 ## JSON Schema Example
 
@@ -90,6 +94,13 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
         "validationSummary": "",
         "githubValidationEvidence": ""
       },
+      "contextHealthScore": 0,
+      "contextPackages": [],
+      "contextDriftCount": 0,
+      "staleContextPackages": 0,
+      "contextSecurityFindings": 0,
+      "contextEvalStatus": "Not available",
+      "contextLastReviewed": "",
       "links": {
         "gitIntentPath": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/intent/intent.md",
         "gitSpecificationPath": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/specification/specification.md",
@@ -133,6 +144,14 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
 - `framework/07-control-tower/workflow-ownership-matrix.md` is the source of thresholds, owner-role defaults, approver-role defaults, and PM intervention rules when workflow-state data is incomplete.
 - If the matrix cannot be parsed cleanly, the generator uses a small internal fallback mapping derived from the same matrix and preserves backward-compatible output.
 - `workflow.expected_max_days` and `workflow.pm_intervention_trigger` are derived governance fields used by the dashboard for staleness and intervention surfacing.
+- Future context health fields are reserved for the Control Tower dashboard and should remain additive:
+  - `contextHealthScore`
+  - `contextPackages`
+  - `contextDriftCount`
+  - `staleContextPackages`
+  - `contextSecurityFindings`
+  - `contextEvalStatus`
+  - `contextLastReviewed`
 - `traceabilityId`, `jiraKey`, and `confluencePageId` are read from the traceability matrix when available.
 - `quality.validationStatus` is a summary of local validation evidence only.
 - `interventions` is a convenience list for PM review and does not change workflow state.
