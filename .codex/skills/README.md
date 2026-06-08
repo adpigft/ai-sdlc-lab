@@ -13,6 +13,12 @@ Support skills are also reusable procedures. They assist the lifecycle but are n
 - `capability-onboarding`
 - `source-ingestion`
 - `repo-discovery`
+- `discovery-engineering`
+- `intent-extraction`
+- `specification-extraction`
+- `context-extraction`
+- `gap-analysis`
+- `impact-analysis`
 - `artifact-review`
 - `wynxx-backlog-ingestion`
 - `decision`

@@ -1,0 +1,452 @@
+[
+  {
+    "skill_name": "artifact-review",
+    "path": ".codex/skills/artifact-review/SKILL.md",
+    "previous_score": 86,
+    "updated_score": 90,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Could use one more concrete artifact-path example"
+    ],
+    "recommended_next_fixes": [
+      "Keep the review checklist concise and example-driven"
+    ],
+    "strengths": [
+      "Clear review flow",
+      "Explicit human approval boundary"
+    ],
+    "delta": 4
+  },
+  {
+    "skill_name": "capability-onboarding",
+    "path": ".codex/skills/capability-onboarding/SKILL.md",
+    "previous_score": 91,
+    "updated_score": 92,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Slightly example-light"
+    ],
+    "recommended_next_fixes": [
+      "Add a compact output example if needed"
+    ],
+    "strengths": [
+      "Strong intake questions",
+      "Clear ownership and artifact structure"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "change-request",
+    "path": ".codex/skills/change-request/SKILL.md",
+    "previous_score": 87,
+    "updated_score": 90,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Targeted-path example could be clearer"
+    ],
+    "recommended_next_fixes": [
+      "Add one sample impacted-artifact block"
+    ],
+    "strengths": [
+      "Approval-gated updates",
+      "Good impact-analysis framing"
+    ],
+    "delta": 3
+  },
+  {
+    "skill_name": "context-extraction",
+    "path": ".codex/skills/context-extraction/SKILL.md",
+    "previous_score": 91,
+    "updated_score": 92,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Still depends on careful current-state vs target-state separation"
+    ],
+    "recommended_next_fixes": [
+      "Preserve the current-state / target-state split"
+    ],
+    "strengths": [
+      "Strong legacy-context capture",
+      "Clear output categories"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "decision",
+    "path": ".codex/skills/decision/SKILL.md",
+    "previous_score": 88,
+    "updated_score": 90,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Broad by nature; can drift if not tied to ADR discipline"
+    ],
+    "recommended_next_fixes": [
+      "Keep decisions tied to explicit records"
+    ],
+    "strengths": [
+      "Governed decision handling",
+      "Useful for architecture and delivery choices"
+    ],
+    "delta": 2
+  },
+  {
+    "skill_name": "defect-fix",
+    "path": ".codex/skills/defect-fix/SKILL.md",
+    "previous_score": 87,
+    "updated_score": 89,
+    "classification": "Pilot Ready",
+    "remaining_issues": [
+      "Still execution-sensitive and approval-bound"
+    ],
+    "recommended_next_fixes": [
+      "Keep scope tight and avoid broad refactors"
+    ],
+    "strengths": [
+      "Strong RCA loop",
+      "Good regression emphasis"
+    ],
+    "delta": 2
+  },
+  {
+    "skill_name": "design",
+    "path": ".codex/skills/design/SKILL.md",
+    "previous_score": 92,
+    "updated_score": 93,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Minimal remaining issues"
+    ],
+    "recommended_next_fixes": [
+      "Keep design outputs crisp and bounded"
+    ],
+    "strengths": [
+      "Strong design scope",
+      "Clear governance and artifact structure"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "discovery-engineering",
+    "path": ".codex/skills/discovery-engineering/SKILL.md",
+    "previous_score": 92,
+    "updated_score": 93,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Could use one more evidence example in practice"
+    ],
+    "recommended_next_fixes": [
+      "Continue emphasizing evidence over inference"
+    ],
+    "strengths": [
+      "Read-only evidence-first model",
+      "Clear evidence vs inference split"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "domain-onboarding",
+    "path": ".codex/skills/domain-onboarding/SKILL.md",
+    "previous_score": 91,
+    "updated_score": 92,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Slightly example-light"
+    ],
+    "recommended_next_fixes": [
+      "Keep boundary and ownership capture explicit"
+    ],
+    "strengths": [
+      "Strong domain boundary capture",
+      "Useful integration and ownership framing"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "feedback-capture",
+    "path": ".codex/skills/feedback-capture/SKILL.md",
+    "previous_score": 85,
+    "updated_score": 88,
+    "classification": "Pilot Ready",
+    "remaining_issues": [
+      "Still broad enough to become a catch-all"
+    ],
+    "recommended_next_fixes": [
+      "Keep follow-up tied to a clear owner and artifact"
+    ],
+    "strengths": [
+      "Good follow-up capture model",
+      "Helpful example output"
+    ],
+    "delta": 3
+  },
+  {
+    "skill_name": "gap-analysis",
+    "path": ".codex/skills/gap-analysis/SKILL.md",
+    "previous_score": 90,
+    "updated_score": 91,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Depends on target-state quality"
+    ],
+    "recommended_next_fixes": [
+      "Keep severity and owner classification explicit"
+    ],
+    "strengths": [
+      "Good modernization delta model",
+      "Clear severity/owner framing"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "impact-analysis",
+    "path": ".codex/skills/impact-analysis/SKILL.md",
+    "previous_score": 91,
+    "updated_score": 92,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Low residual risk"
+    ],
+    "recommended_next_fixes": [
+      "Continue requiring traceability inputs where available"
+    ],
+    "strengths": [
+      "Strong change-impact discipline",
+      "Clear owner visibility"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "implementation",
+    "path": ".codex/skills/implementation/SKILL.md",
+    "previous_score": 89,
+    "updated_score": 90,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Scope discipline still depends on upstream approvals"
+    ],
+    "recommended_next_fixes": [
+      "Keep implementation slices narrow"
+    ],
+    "strengths": [
+      "Slice-based delivery control",
+      "Strong evidence expectations"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "intent",
+    "path": ".codex/skills/intent/SKILL.md",
+    "previous_score": 92,
+    "updated_score": 93,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Minimal remaining issues"
+    ],
+    "recommended_next_fixes": [
+      "Keep business outcome and exclusions explicit"
+    ],
+    "strengths": [
+      "Clear discovery questions",
+      "Strong approval gate and scope control"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "intent-extraction",
+    "path": ".codex/skills/intent-extraction/SKILL.md",
+    "previous_score": 91,
+    "updated_score": 92,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Confidence discipline still matters"
+    ],
+    "recommended_next_fixes": [
+      "Continue labeling recovered content clearly"
+    ],
+    "strengths": [
+      "Recovered-intent framing is clear",
+      "Confidence handling is explicit"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "pr-review",
+    "path": ".codex/skills/pr-review/SKILL.md",
+    "previous_score": 92,
+    "updated_score": 93,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Minimal remaining issues"
+    ],
+    "recommended_next_fixes": [
+      "Keep review scope and approval gates explicit"
+    ],
+    "strengths": [
+      "Well-governed review flow",
+      "Traceability awareness"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "release",
+    "path": ".codex/skills/release/SKILL.md",
+    "previous_score": 89,
+    "updated_score": 90,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Still evidence-dependent by design"
+    ],
+    "recommended_next_fixes": [
+      "Keep release claims tied to traceability and validation"
+    ],
+    "strengths": [
+      "Clear release readiness shape",
+      "Strong rollback and monitoring expectations"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "repo-discovery",
+    "path": ".codex/skills/repo-discovery/SKILL.md",
+    "previous_score": 84,
+    "updated_score": 87,
+    "classification": "Pilot Ready",
+    "remaining_issues": [
+      "Open-ended repository analysis can vary in depth"
+    ],
+    "recommended_next_fixes": [
+      "Add small output examples and evidence anchors"
+    ],
+    "strengths": [
+      "Useful bootstrap skill",
+      "Clear inspection areas"
+    ],
+    "delta": 3
+  },
+  {
+    "skill_name": "source-ingestion",
+    "path": ".codex/skills/source-ingestion/SKILL.md",
+    "previous_score": 85,
+    "updated_score": 88,
+    "classification": "Pilot Ready",
+    "remaining_issues": [
+      "Summary quality still depends on evidence discipline"
+    ],
+    "recommended_next_fixes": [
+      "Keep extraction notes and confidence visible"
+    ],
+    "strengths": [
+      "Practical external-doc intake",
+      "Helpful sample output"
+    ],
+    "delta": 3
+  },
+  {
+    "skill_name": "specification",
+    "path": ".codex/skills/specification/SKILL.md",
+    "previous_score": 92,
+    "updated_score": 93,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Minimal remaining issues"
+    ],
+    "recommended_next_fixes": [
+      "Keep requirements explicit and testable"
+    ],
+    "strengths": [
+      "Strong conversion from intent to requirements",
+      "Clear quality gates"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "specification-extraction",
+    "path": ".codex/skills/specification-extraction/SKILL.md",
+    "previous_score": 91,
+    "updated_score": 92,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Inferred items still need careful labeling"
+    ],
+    "recommended_next_fixes": [
+      "Preserve the evidence/inference split"
+    ],
+    "strengths": [
+      "Good current-state requirement recovery",
+      "Clear evidence handling"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "test-design",
+    "path": ".codex/skills/test-design/SKILL.md",
+    "previous_score": 91,
+    "updated_score": 92,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Minimal remaining issues"
+    ],
+    "recommended_next_fixes": [
+      "Keep negative and NFR coverage explicit"
+    ],
+    "strengths": [
+      "Broad test coverage expectations",
+      "Good security and NFR scope"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "traceability-review",
+    "path": ".codex/skills/traceability-review/SKILL.md",
+    "previous_score": 91,
+    "updated_score": 92,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Minor judgment calls may remain on mapping completeness"
+    ],
+    "recommended_next_fixes": [
+      "Keep source-reference mapping explicit"
+    ],
+    "strengths": [
+      "Strong end-to-end traceability discipline",
+      "Git-owned evidence alignment"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "validation",
+    "path": ".codex/skills/validation/SKILL.md",
+    "previous_score": 91,
+    "updated_score": 92,
+    "classification": "Enterprise Ready",
+    "remaining_issues": [
+      "Minimal remaining issues"
+    ],
+    "recommended_next_fixes": [
+      "Keep validation evidence strong and reviewable"
+    ],
+    "strengths": [
+      "Evidence-based validation workflow",
+      "Clear release-readiness expectations"
+    ],
+    "delta": 1
+  },
+  {
+    "skill_name": "wynxx-backlog-ingestion",
+    "path": ".codex/skills/wynxx-backlog-ingestion/SKILL.md",
+    "previous_score": 84,
+    "updated_score": 88,
+    "classification": "Pilot Ready",
+    "remaining_issues": [
+      "Still integration-specific and MCP-dependent"
+    ],
+    "recommended_next_fixes": [
+      "Preserve Story Creator references and keep Tasks/Test Cases reference-only"
+    ],
+    "strengths": [
+      "Strong source-reference guardrails",
+      "Useful candidate-input mapping"
+    ],
+    "delta": 4
+  }
+]

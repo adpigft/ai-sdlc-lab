@@ -76,6 +76,16 @@ When this skill is used inside this repository, context loading, artifact placem
 
 QA approval is required before implementation or validation depends on the test design.
 
+## Do Not
+
+- Do not modify external systems unless explicitly approved.
+- Do not create, update, delete, or transition Jira, Confluence, GitHub, Wynxx Story Creator, or source-code artifacts unless the skill explicitly allows it and the user approves.
+- Do not expose secrets, tokens, credentials, or sensitive data.
+- Do not fabricate missing requirements, evidence, source references, or approval status.
+- Do not treat inferred content as confirmed fact.
+- Do not bypass validation, traceability, approval, or stop-for-review rules.
+- Do not claim test design is execution evidence.
+
 ## Standard Response Format
 
 Created/Updated:

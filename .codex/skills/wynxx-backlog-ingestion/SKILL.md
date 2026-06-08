@@ -97,6 +97,12 @@ Mapping is advisory until reviewed. Do not create framework artifacts automatica
 - Candidate test design inputs
 - Recommended next framework skill
 
+## Example Output
+
+- Project: `MSB POC - Project 02`
+- Backlog: `Wynxx POC - BRD v3 - NBO PROJECT - Document 1`
+- Next: `$intent`
+
 ## Artifact Structure
 
 1. Source Inventory
@@ -154,8 +160,9 @@ Approval is required before:
 - Do not modify domain artifacts.
 - Do not modify source code.
 - Do not modify lifecycle.
-- Do not treat Wynxx as the source of truth.
+- Do not treat Wynxx Story Creator as the source of truth.
 - Do not silently resolve hierarchy conflicts.
+- Do not import Tasks and Test Cases as first-class AI-SDLC delivery artifacts without explicit approval.
 
 ## Standard Response Format
 

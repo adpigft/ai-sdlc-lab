@@ -81,6 +81,17 @@ When this skill is used inside this repository, context loading, artifact placem
 
 The root cause and correction path require owner approval before artifacts or code are changed. QA approval is expected before closure.
 
+## Do Not
+
+- Do not modify external systems unless explicitly approved.
+- Do not create, update, delete, or transition Jira, Confluence, GitHub, Wynxx Story Creator, or source-code artifacts unless the skill explicitly allows it and the user approves.
+- Do not expose secrets, tokens, credentials, or sensitive data.
+- Do not fabricate missing requirements, evidence, source references, or approval status.
+- Do not treat inferred content as confirmed fact.
+- Do not bypass validation, traceability, approval, or stop-for-review rules.
+- Do not change code outside approved scope.
+- Do not perform broad refactoring unless explicitly approved.
+
 ## Standard Response Format
 
 Created/Updated:

@@ -86,6 +86,16 @@ Artifact Structure
 
 Architect approval is required for design. Impacted service, frontend, shared asset, API, event, security, or operations owners must review where their area is affected.
 
+## Do Not
+
+- Do not modify external systems unless explicitly approved.
+- Do not create, update, delete, or transition Jira, Confluence, GitHub, Wynxx Story Creator, or source-code artifacts unless the skill explicitly allows it and the user approves.
+- Do not expose secrets, tokens, credentials, or sensitive data.
+- Do not fabricate missing requirements, evidence, source references, or approval status.
+- Do not treat inferred content as confirmed fact.
+- Do not bypass validation, traceability, approval, or stop-for-review rules.
+- Do not change source code.
+
 ## Standard Response Format
 
 Created/Updated:

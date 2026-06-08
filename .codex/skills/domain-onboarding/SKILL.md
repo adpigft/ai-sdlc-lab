@@ -89,6 +89,16 @@ When this skill is used inside this repository, context loading, domain artifact
 
 Domain owner and solution architect review are expected before capabilities or features are created from the new domain context.
 
+## Do Not
+
+- Do not modify external systems unless explicitly approved.
+- Do not create, update, delete, or transition Jira, Confluence, GitHub, Wynxx Story Creator, or source-code artifacts unless the skill explicitly allows it and the user approves.
+- Do not expose secrets, tokens, credentials, or sensitive data.
+- Do not fabricate missing requirements, evidence, source references, or approval status.
+- Do not treat inferred content as confirmed fact.
+- Do not bypass validation, traceability, approval, or stop-for-review rules.
+- Do not change source code.
+
 ## Standard Response Format
 
 Created/Updated:

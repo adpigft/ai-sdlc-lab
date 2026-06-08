@@ -46,6 +46,12 @@ When this skill is used inside this repository, context loading, source handling
 - Recommended target artifact list
 - Human review notes
 
+## Example Output
+
+- Source Type: `confluence`
+- Extracted Notes: `business intent`, `requirements`, `test hints`
+- Follow-up: `review before artifact creation`
+
 ## Artifact Structure
 
 1. Source Inventory
@@ -76,6 +82,16 @@ When this skill is used inside this repository, context loading, source handling
 ## Human Approval Expectations
 
 Human review is required before source-ingested content is treated as delivery input.
+
+## Do Not
+
+- Do not modify external systems unless explicitly approved.
+- Do not create, update, delete, or transition Jira, Confluence, GitHub, Wynxx Story Creator, or source-code artifacts unless the skill explicitly allows it and the user approves.
+- Do not expose secrets, tokens, credentials, or sensitive data.
+- Do not fabricate missing requirements, evidence, source references, or approval status.
+- Do not treat inferred content as confirmed fact.
+- Do not bypass validation, traceability, approval, or stop-for-review rules.
+- Do not claim source-ingested material is approved delivery input.
 
 ## Standard Response Format
 

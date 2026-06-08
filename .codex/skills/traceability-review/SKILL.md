@@ -78,6 +78,16 @@ When this skill is used inside this repository, context loading, artifact placem
 
 BA, Architect, QA, and impacted owners should review traceability before implementation, validation, or release gates depend on it.
 
+## Do Not
+
+- Do not modify external systems unless explicitly approved.
+- Do not create, update, delete, or transition Jira, Confluence, GitHub, Wynxx Story Creator, or source-code artifacts unless the skill explicitly allows it and the user approves.
+- Do not expose secrets, tokens, credentials, or sensitive data.
+- Do not fabricate missing requirements, evidence, source references, or approval status.
+- Do not treat inferred content as confirmed fact.
+- Do not bypass validation, traceability, approval, or stop-for-review rules.
+- Do not approve traceability automatically.
+
 ## Standard Response Format
 
 Created/Updated:

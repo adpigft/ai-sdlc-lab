@@ -47,6 +47,12 @@ When this skill is used inside this repository, context loading, artifact placem
 - Proposed correction or follow-up plan
 - Traceability impact where applicable
 
+## Example Output
+
+- Classification: `defect`
+- Owner: `QA`
+- Follow-up: `raise change request`
+
 ## Artifact Structure
 
 1. Feedback Source
@@ -76,6 +82,16 @@ When this skill is used inside this repository, context loading, artifact placem
 ## Human Approval Expectations
 
 Artifact owner approval is required before corrections are applied. Customer, risk, security, or release owners may be required depending on impact.
+
+## Do Not
+
+- Do not modify external systems unless explicitly approved.
+- Do not create, update, delete, or transition Jira, Confluence, GitHub, Wynxx Story Creator, or source-code artifacts unless the skill explicitly allows it and the user approves.
+- Do not expose secrets, tokens, credentials, or sensitive data.
+- Do not fabricate missing requirements, evidence, source references, or approval status.
+- Do not treat inferred content as confirmed fact.
+- Do not bypass validation, traceability, approval, or stop-for-review rules.
+- Do not perform unrelated rewrites.
 
 ## Standard Response Format
 

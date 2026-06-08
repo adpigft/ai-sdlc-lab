@@ -134,6 +134,7 @@ framework
 ├── 21-platform-architecture
 ├── 22-compliance
 ├── 23-adoption-training
+├── 24-discovery-engineering
 ├── 24-knowledge-management
 ├── 25-accelerator-catalog
 ├── 26-portfolio-management
@@ -438,6 +439,12 @@ Intent
 | $capability-onboarding | Create or update capability context under an existing domain |
 | $source-ingestion | Convert external source material into AI-readable summaries |
 | $repo-discovery | Extract repository standards and conventions |
+| $discovery-engineering | Analyze an existing application in read-only mode and extract current-state understanding |
+| $intent-extraction | Recover business intent from an existing application |
+| $specification-extraction | Extract current-state requirements from an existing application |
+| $context-extraction | Extract legacy modernization context from an existing application |
+| $gap-analysis | Compare current state with target-state goals and identify modernization gaps |
+| $impact-analysis | Assess change impact across requirements, APIs, data, tests, and integrations |
 | $artifact-review | Review AI-generated artifacts before human approval |
 | $wynxx-backlog-ingestion | Ingest Wynxx Story Creator backlogs into reviewable AI SDLC candidate inputs |
 
@@ -448,6 +455,12 @@ These skills support the lifecycle but are not lifecycle stages:
 - `$capability-onboarding` for creating or updating capability context under an existing domain.
 - `$source-ingestion` for converting external source material into AI-readable summaries.
 - `$repo-discovery` for extracting standards and conventions from an existing repository.
+- `$discovery-engineering` for reading an existing application and extracting current-state facts without modifying source code.
+- `$intent-extraction` for recovering business intent from existing behavior and documentation.
+- `$specification-extraction` for extracting current-state functional and non-functional requirements from observed behavior.
+- `$context-extraction` for capturing legacy modernization context, dependencies, constraints, and assumptions.
+- `$gap-analysis` for comparing current state with target-state goals and identifying modernization gaps.
+- `$impact-analysis` for assessing major change impact before modernization proceeds.
 - `$artifact-review` for reviewing AI-generated artifacts before human approval.
 - `$wynxx-backlog-ingestion` for ingesting Wynxx Story Creator backlogs into candidate intent, specification, implementation slice, and test design inputs without making Wynxx Story Creator a source of truth.
 
