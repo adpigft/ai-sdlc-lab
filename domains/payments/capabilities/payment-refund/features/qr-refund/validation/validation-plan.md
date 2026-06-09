@@ -6,7 +6,7 @@
 | --- | --- |
 | Validation Plan ID | VALPLAN-QRREF-001 |
 | Intent ID | INT-QRREF-001 |
-| Spec ID | SPEC-QRREF-001 |
+| Requirements ID | REQ-QRREF-001 |
 | Context ID | CTX-QRREF-001 |
 | Traceability ID | TRACE-QRREF-001 |
 | Jira Epic | JIRA-QRREF-001 |
@@ -22,7 +22,7 @@
 | Artifact | Path | Approval Status |
 | --- | --- | --- |
 | Intent | `domains/payments/capabilities/payment-refund/features/qr-refund/intent/intent.md` | Approved |
-| Specification | `domains/payments/capabilities/payment-refund/features/qr-refund/specification/specification.md` | Approved |
+| Requirements | `domains/payments/capabilities/payment-refund/features/qr-refund/requirements/requirements.md` | Approved |
 | Architecture Context | `domains/payments/capabilities/payment-refund/features/qr-refund/design/design.md` | Approved |
 | API Contract | `domains/payments/capabilities/payment-refund/features/qr-refund/contracts/openapi.yaml` | Approved |
 | Acceptance Tests | `domains/payments/capabilities/payment-refund/features/qr-refund/tests/acceptance.feature` | Approved |
@@ -161,7 +161,7 @@ Required evidence:
 Release validation may start only when:
 
 - Implementation exists and is linked to approved QR Refund artifacts.
-- Intent, specification, architecture context, API contract, acceptance tests, and traceability are approved.
+- Intent, requirements, architecture context, API contract, acceptance tests, and traceability are approved.
 - All must-fix pre-implementation traceability gaps are resolved or explicitly approved for deferral.
 - `ADR-QRREF-001`, `ADR-QRREF-003`, `ADR-QRREF-004`, and `ADR-QRREF-006` are approved before implementation-dependent validation.
 - OpenAPI contract validation is configured in CI or local validation evidence exists.

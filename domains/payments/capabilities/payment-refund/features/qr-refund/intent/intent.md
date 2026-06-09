@@ -11,7 +11,7 @@
 | Capability | QR Refund |
 | MVP Scope | Full refunds for completed KHQR payments |
 | Owner | Digital Payments Product Owner |
-| Status | Intent approved for artifact creation; pending specification approval |
+| Status | Intent approved for artifact creation; pending requirements approval |
 | Created | 2026-06-01 |
 
 ## Problem Statement
@@ -239,4 +239,4 @@ Report consumers:
 
 ## Next Step
 
-Proceed to specification only after human approval to continue from intent to `$specification`.
+Proceed to requirements only after human approval to continue from intent to `$requirements`.

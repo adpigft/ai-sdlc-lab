@@ -10,7 +10,7 @@ Define the main drift types that should be detected when context is reused over 
 | --- | --- | --- | --- | --- | --- |
 | code-spec drift | Source code changed but intent/spec/design did not move with it. | Compare Git diff, traceability, and validation deltas. | High | Developer Lead | Refresh spec/design and revalidate. |
 | API-contract drift | API implementation and contract diverge. | Compare OpenAPI, code, and validation evidence. | High | Solution Architect | Update the contract or implementation and rerun checks. |
-| test-spec drift | Tests no longer match approved requirements. | Compare test scenarios, spec, and failing validations. | Medium | QA Lead | Update tests or specification and rerun evals. |
+| test-spec drift | Tests no longer match approved requirements. | Compare test scenarios, requirements, and failing validations. | Medium | QA Lead | Update tests or requirements and rerun evals. |
 | Jira-Git drift | Jira status or links differ from Git-owned truth. | Compare Jira references with Git artifacts and traceability. | Medium | Delivery Lead | Resynchronize Jira tracking and traceability. |
 | Confluence-Git drift | Published pages differ from Git-owned summary. | Compare Confluence references with Git-built artifacts. | Medium | Delivery Lead | Republish from Git-owned content. |
 | context-version drift | A package version is old relative to the approved source. | Compare package version, expiry, and last reviewed date. | Medium | Context Owner | Repackage and reapprove. |

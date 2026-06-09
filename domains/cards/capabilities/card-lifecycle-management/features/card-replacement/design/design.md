@@ -5,7 +5,7 @@
 | Field | Value |
 | --- | --- |
 | Design ID | DES-CARDREP-001 |
-| Spec ID | SPEC-CARDREP-001 |
+| Requirements ID | REQ-CARDREP-001 |
 | Intent ID | INT-CARDREP-001 |
 | Domain | Cards |
 | Capability | Card Lifecycle Management |
@@ -13,7 +13,7 @@
 | Owner | Cards Squad |
 | Status | Draft for Architect Review |
 | Source Intent | `domains/cards/capabilities/card-lifecycle-management/features/card-replacement/intent/intent.md` |
-| Source Specification | `domains/cards/capabilities/card-lifecycle-management/features/card-replacement/specification/specification.md` |
+| Source Requirements | `domains/cards/capabilities/card-lifecycle-management/features/card-replacement/requirements/requirements.md` |
 | Source Capability Context | `domains/cards/capabilities/card-lifecycle-management/capability-context.md` |
 
 ## 1. Solution Overview

@@ -6,14 +6,14 @@
 | --- | --- |
 | Context ID | CTX-KHQRREV-001 |
 | Intent ID | INT-KHQRREV-001 |
-| Spec ID | SPEC-KHQRREV-001 |
+| Requirements ID | REQ-KHQRREV-001 |
 | Jira Epic | JIRA-KHQRREV-001 |
 | Confluence Page | CONF-PAY-KHQRREV-CONTEXT |
 | Domain | Payments |
 | Capability | KHQR Payment Reversal |
 | Status | Architecture approved for test design |
 | Source Intent | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/intent/intent.md` |
-| Source Spec | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/specification/specification.md` |
+| Source Requirements | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/requirements/requirements.md` |
 
 ## Architecture Summary
 
@@ -110,7 +110,7 @@ KHQR Payment Reversal does not own:
 | ADR-KHQRREV-002 | Reversal owns a separate reversal aggregate from KHQR payment and QR Refund. | Accepted by architecture approval | Reversal is a bank/system correction, not a merchant refund or customer payment state. Separate ownership prevents refund/reversal reporting ambiguity. | Traceability and reporting must identify reversal separately from refund. |
 | ADR-KHQRREV-003 | Idempotency and original-payment reversal uniqueness are enforced inside KHQR Payment Reversal. | Accepted by architecture approval | API gateway idempotency alone cannot guarantee one reversal per original payment or protect processor/ledger coordination. | Implementation must include idempotency store, request fingerprint, and unique active reversal per original payment. |
 | ADR-KHQRREV-004 | Processor-ledger split outcomes remain locally traceable and operations-visible; no automatic compensating command is attempted without approved retry policy. | Accepted by architecture approval | Processor and ledger outcomes can diverge. Automatic compensation can worsen financial inconsistency without operation-specific policy. | Test design must cover processor-success/ledger-unknown, ledger-success/processor-unknown, processor-failure, ledger-failure, and both-success. |
-| ADR-KHQRREV-005 | Retry is excluded from MVP execution until retry policy is approved. | Accepted by architecture approval | Specification allows retry only after rules are approved. Keeping retry out of first architecture baseline avoids uncontrolled repeated money movement. | Test design should verify retry is rejected or disabled until policy approval. |
+| ADR-KHQRREV-005 | Retry is excluded from MVP execution until retry policy is approved. | Accepted by architecture approval | Requirements allow retry only after rules are approved. Keeping retry out of first architecture baseline avoids uncontrolled repeated money movement. | Test design should verify retry is rejected or disabled until policy approval. |
 | ADR-KHQRREV-006 | Notifications are out of MVP until Product/Compliance approve scope and templates. | Accepted by architecture approval | Reversal is operations correction and may require careful customer/merchant communication. | Test design should not require notification evidence before scope approval. |
 
 ## Conceptual Flow: Reversal Request And Approval

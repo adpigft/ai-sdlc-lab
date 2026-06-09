@@ -51,7 +51,7 @@ Shared lifecycle flow assumptions:
 6. The capability triggers customer-safe notification requests where notification is in scope for the feature.
 7. The capability records audit evidence for material lifecycle actions.
 
-Feature-level intent, specification, design, tests, validation, and release artifacts will define each flow in detail.
+Feature-level intent, requirements, design, tests, validation, and release artifacts will define each flow in detail.
 
 ## Shared APIs
 
@@ -124,7 +124,7 @@ Final state names and transitions must be approved during feature design.
 - Rewards
 - Notification implementation
 - Customer Profile management
-- Feature-level intent, specification, design, tests, validation, release, or workflow state
+- Feature-level intent, requirements, design, tests, validation, release, or workflow state
 - Source code
 
 ## Open Questions

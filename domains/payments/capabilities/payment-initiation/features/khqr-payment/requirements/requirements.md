@@ -4,7 +4,7 @@
 
 | Field | Value |
 | --- | --- |
-| Spec ID | SPEC-KHQR-001 |
+| Requirements ID | REQ-KHQR-001 |
 | Intent ID | INT-KHQR-001 |
 | Jira Epic | JIRA-KHQR-001 |
 | Confluence Page | CONF-PAY-KHQR-SPEC |
@@ -64,7 +64,7 @@ The KHQR payment capability allows an authenticated mobile banking customer to s
 
 | Gate | Jira Placeholder | Required Approver | Status |
 | --- | --- | --- | --- |
-| Product specification approval | JIRA-KHQR-050 | Product Owner | Pending |
+| Product requirements approval | JIRA-KHQR-050 | Product Owner | Pending |
 | Architecture approval | JIRA-KHQR-051 | Payments Architect | Pending |
 | QA testability approval | JIRA-KHQR-052 | QA Lead | Pending |
 | Security and risk approval | JIRA-KHQR-053 | Security and Risk Lead | Pending |

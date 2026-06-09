@@ -269,7 +269,7 @@ domains/cards/
 
 `requirements/requirements.md` contains functional requirements, non-functional requirements, acceptance criteria, business rules, and edge cases.
 
-The framework calls this artifact `requirements`, but it is equivalent to the requirements artifact in frameworks such as Kiro. Do not create a separate `requirements/` folder.
+The framework calls this artifact `requirements`, and `requirements/` is the canonical live artifact folder. Do not use `specification/` as the canonical live folder.
 
 ---
 

@@ -122,7 +122,7 @@ Customers need a secure and convenient way to replace lost, stolen, or damaged c
 | Question | Owner | Impact |
 | --- | --- | --- |
 | Who is the named Product Owner for Card Replacement? | Cards Squad / Product leadership | Required for ongoing approval evidence. |
-| Who is the named Business Analyst for Card Replacement? | Cards Squad / Product leadership | Required for specification ownership. |
+| Who is the named Business Analyst for Card Replacement? | Cards Squad / Product leadership | Required for requirements ownership. |
 | Who is the named Cards Domain Owner? | Product / Technology leadership | Required before final domain approval. |
 | Who is the named Cards Architect? | Architecture leadership | Required before design approval. |
 | Which Card Processor implementation is in scope for pilot replacement? | Cards Squad / Card Processor owner | Affects design, integration tests, and validation. |

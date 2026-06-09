@@ -89,7 +89,7 @@ Cross-domain changes require impacted domain owner review.
 
 ## Owned APIs
 
-Planned APIs, subject to capability-level specification and architecture approval:
+Planned APIs, subject to capability-level requirements and architecture approval:
 
 | API | Purpose | Owner | Status |
 | --- | --- | --- | --- |
@@ -201,7 +201,7 @@ Shared asset changes require owner and impacted consumer approval before impleme
 
 ## Out Of Scope
 
-- Capability-specific intent, specification, architecture, tests, validation, release, and workflow state.
+- Capability-specific intent, requirements, architecture, tests, validation, release, and workflow state.
 - Source code.
 - App, service, library, or platform folder creation.
 - Card processor implementation internals.

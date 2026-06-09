@@ -7,7 +7,7 @@ This model defines future rules for selecting models by task type and risk.
 ## Routing Rules
 
 - small task -> cheap model
-- specification -> mid-tier model
+- requirements -> mid-tier model
 - architecture -> premium model
 - validation -> specialized model
 

@@ -1,36 +1,36 @@
-# KHQR Payment Reversal Specification
+# KHQR Payment Reversal Requirements
 
 ## Metadata
 
 | Field | Value |
 | --- | --- |
-| Spec ID | SPEC-KHQRREV-001 |
+| Requirements ID | REQ-KHQRREV-001 |
 | Intent ID | INT-KHQRREV-001 |
 | Jira Epic | JIRA-KHQRREV-001 |
 | Confluence Page | CONF-PAY-KHQRREV-SPEC |
 | Domain | Payments |
 | Capability | KHQR Payment Reversal |
 | MVP Scope | Operations-initiated full reversal of completed, not-finally-settled KHQR payments due to processor, ledger, or system error |
-| Status | Specification approved with conditions for architecture review |
+| Status | Requirements approved with conditions for architecture review |
 | Source Intent | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/intent/intent.md` |
 
 ## Summary
 
 The KHQR Payment Reversal capability enables authorized bank operations users to reverse a completed KHQR payment when a processor, ledger, or system error requires operational correction before final settlement. The MVP supports full amount reversal only, requires maker-checker approval, prevents duplicate reversal execution, requires both processor and ledger reversal outcomes, and preserves audit and reconciliation evidence.
 
-This specification does not define architecture, API contracts, QA test design, implementation slices, or application code.
+This requirements artifact does not define architecture, API contracts, QA test design, implementation slices, or application code.
 
 ## Requirement Gaps Carried Forward
 
-These gaps do not block a draft specification, but they must be resolved before downstream architecture, API design, test design, implementation, validation, or release as indicated.
+These gaps do not block a draft requirements artifact, but they must be resolved before downstream architecture, API design, test design, implementation, validation, or release as indicated.
 
 | Gap ID | Gap | Required Resolution |
 | --- | --- | --- |
-| GAP-KHQRREV-001 | Exact definition of "not yet finally settled" was required before specification approval. | Resolved in this specification by the settlement eligibility rule. |
+| GAP-KHQRREV-001 | Exact definition of "not yet finally settled" was required before requirements approval. | Resolved in this requirements artifact by the settlement eligibility rule. |
 | GAP-KHQRREV-002 | Settlement cutoff source of truth is not approved. | Architecture and Finance decision before architecture approval. |
 | GAP-KHQRREV-003 | Processor-ledger split outcome behavior is not approved. | Architecture, Finance, and Operations decision before implementation. |
 | GAP-KHQRREV-004 | Retry rules for `Reversal Pending` and `Reversal Failed` are not approved. | Operations and Architecture decision before test design finalization. |
-| GAP-KHQRREV-005 | Reversal reason-code catalog was required before specification approval. | Resolved in this specification by the MVP reversal reason-code catalog. |
+| GAP-KHQRREV-005 | Reversal reason-code catalog was required before requirements approval. | Resolved in this requirements artifact by the MVP reversal reason-code catalog. |
 | GAP-KHQRREV-006 | Customer or merchant notification scope is not approved. | Product and Compliance decision before test design finalization. |
 | GAP-KHQRREV-007 | Reversal completion time and reconciliation success targets are not approved. | Product, Finance, Operations, and QA decision before validation planning. |
 
@@ -206,7 +206,7 @@ Free-text reason notes may be captured for operations evidence, but they do not 
 
 ## API And Contract Notes
 
-- API contract is not created by this specification.
+- API contract is not created by these requirements.
 - Operations reversal endpoints are likely required, but endpoint design belongs to the architecture/API stage.
 - Authentication must use bank-approved operations identity.
 - Authorization must distinguish maker, checker, status-view, retry, and investigation entitlements where applicable.
@@ -232,7 +232,7 @@ The capability must support metrics, logs, traces, alerts, and audit evidence fo
 
 ## Jira Story Guidance
 
-Create Jira Stories only after specification approval. Suggested Story candidates:
+Create Jira Stories only after requirements approval. Suggested Story candidates:
 
 | Story | Scope |
 | --- | --- |
@@ -246,11 +246,11 @@ Create Jira Stories only after specification approval. Suggested Story candidate
 
 | Question | Owner | Jira | Required Before | Status |
 | --- | --- | --- | --- | --- |
-| What is the exact definition of "not yet finally settled"? | Finance Lead / Payments Architect | JIRA-KHQRREV-004 | Specification approval | Resolved in settlement eligibility rule |
+| What is the exact definition of "not yet finally settled"? | Finance Lead / Payments Architect | JIRA-KHQRREV-004 | Requirements approval | Resolved in settlement eligibility rule |
 | Which system is the settlement cutoff source of truth? | Finance Lead / Payments Architect | JIRA-KHQRREV-004 | Architecture approval | Open |
 | What should happen when processor reversal succeeds but ledger reversal fails, or ledger reversal succeeds but processor reversal fails? | Payments Architect / Finance Lead / Operations Lead | JIRA-KHQRREV-033 | Architecture approval | Open |
 | Are retries allowed for `Reversal Pending` or `Reversal Failed`, and what limits apply? | Operations Lead / Payments Architect | JIRA-KHQRREV-042 | Test design finalization | Open |
-| What reversal reason codes are required for MVP? | Product Owner / Operations Lead | JIRA-KHQRREV-028 | Specification approval | Resolved in MVP reversal reason-code catalog |
+| What reversal reason codes are required for MVP? | Product Owner / Operations Lead | JIRA-KHQRREV-028 | Requirements approval | Resolved in MVP reversal reason-code catalog |
 | Are customer or merchant notifications in scope for MVP reversal outcomes? | Product Owner / Compliance Lead | JIRA-KHQRREV-043 | Test design finalization | Open |
 | What completion-time and reconciliation-rate targets apply? | Product Owner / Finance Lead / QA Lead | JIRA-KHQRREV-050 | Validation planning | Open |
 
@@ -258,8 +258,8 @@ Create Jira Stories only after specification approval. Suggested Story candidate
 
 | Gate | Jira Placeholder | Required Approver | Status |
 | --- | --- | --- | --- |
-| Product specification approval | JIRA-KHQRREV-060 | Product Owner | Approved |
-| BA specification approval | JIRA-KHQRREV-061 | Business Analyst | Approved |
+| Product requirements approval | JIRA-KHQRREV-060 | Product Owner | Approved |
+| BA requirements approval | JIRA-KHQRREV-061 | Business Analyst | Approved |
 | Architecture feasibility review | JIRA-KHQRREV-062 | Payments Architect | Pending |
 | QA testability review | JIRA-KHQRREV-063 | QA Lead | Pending |
 | Security and risk review | JIRA-KHQRREV-064 | Security and Risk Lead | Pending |
@@ -268,4 +268,4 @@ Create Jira Stories only after specification approval. Suggested Story candidate
 
 ## Next Step
 
-BA / PO approval is required before architecture, API design, test design, Jira Story creation, implementation planning, or source code work begins. After specification approval, use `$architecture` and `$test-design`; create Jira Stories from approved business capability slices rather than one Story per requirement.
+BA / PO approval is required before architecture, API design, test design, Jira Story creation, implementation planning, or source code work begins. After requirements approval, use `$architecture` and `$test-design`; create Jira Stories from approved business capability slices rather than one Story per requirement.

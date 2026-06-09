@@ -4,25 +4,25 @@
 
 | Field | Value |
 | --- | --- |
-| Spec ID | SPEC-QRREF-001 |
+| Requirements ID | REQ-QRREF-001 |
 | Intent ID | INT-QRREF-001 |
 | Jira Epic | JIRA-QRREF-001 |
 | Confluence Page | CONF-PAY-QRREF-SPEC |
 | Domain | Payments |
 | Capability | QR Refund |
 | MVP Scope | Full refunds for completed KHQR payments |
-| Status | Specification approved for architecture context |
+| Status | Requirements approved for architecture context |
 | Source Intent | `domains/payments/capabilities/payment-refund/features/qr-refund/intent/intent.md` |
 
 ## Summary
 
 The QR Refund capability enables merchants and authorized bank operations users to initiate full refunds for completed KHQR payments. The MVP must prevent duplicate refund execution, enforce refund eligibility, support operations override with maker-checker approval, notify customers of successful and failed refunds, provide operational transparency, and support end-of-day reconciliation.
 
-No architecture, API contract, test implementation, or application code is defined by this specification.
+No architecture, API contract, test implementation, or application code is defined by these requirements.
 
 ## Requirement Gaps Carried Forward
 
-These gaps are not blockers for a draft specification, but they must be resolved before architecture approval, API design, or implementation:
+These gaps are not blockers for a draft requirements artifact, but they must be resolved before architecture approval, API design, or implementation:
 
 | Gap ID | Gap | Required Resolution |
 | --- | --- | --- |
@@ -222,7 +222,7 @@ These gaps are not blockers for a draft specification, but they must be resolved
 
 | Gate | Jira Placeholder | Required Approver | Status |
 | --- | --- | --- | --- |
-| Specification approval | JIRA-QRREF-050 | Product Owner / BA | Approved by user chat confirmation on 2026-06-01 |
+| Requirements approval | JIRA-QRREF-050 | Product Owner / BA | Approved by user chat confirmation on 2026-06-01 |
 | QA testability review | JIRA-QRREF-051 | QA Lead | Pending |
 | Architecture readiness review | JIRA-QRREF-052 | Payments Architect | Pending |
 | Risk and compliance review | JIRA-QRREF-053 | Security and Risk Lead / Compliance Lead | Pending |
@@ -230,4 +230,4 @@ These gaps are not blockers for a draft specification, but they must be resolved
 
 ## Next Step
 
-Proceed to architecture context only after this specification is reviewed and approved. Do not create architecture, API contracts, tests, or application code from this draft without human approval.
+Proceed to architecture context only after these requirements are reviewed and approved. Do not create architecture, API contracts, tests, or application code from this draft without human approval.

@@ -59,7 +59,7 @@ Retail mobile banking customers need to pay KHQR merchants by scanning a QR code
 
 - Customer authentication and session controls are provided by the mobile banking platform.
 - Funding account eligibility is determined by core banking account services.
-- QR parsing follows the approved KHQR payload specification used by the bank.
+- QR parsing follows the approved KHQR payload requirements used by the bank.
 - Fraud and sanctions screening may hold or reject payments before execution.
 - Payment processor status can be asynchronous and may temporarily remain pending.
 - All sample data in SDLC artifacts must be synthetic or masked.

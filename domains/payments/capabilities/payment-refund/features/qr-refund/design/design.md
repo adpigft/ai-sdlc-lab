@@ -6,14 +6,14 @@
 | --- | --- |
 | Context ID | CTX-QRREF-001 |
 | Intent ID | INT-QRREF-001 |
-| Spec ID | SPEC-QRREF-001 |
+| Requirements ID | REQ-QRREF-001 |
 | Jira Epic | JIRA-QRREF-001 |
 | Confluence Page | CONF-PAY-QRREF-CONTEXT |
 | Domain | Payments |
 | Capability | QR Refund |
 | Status | Architecture context approved for API contract design |
 | Source Intent | `domains/payments/capabilities/payment-refund/features/qr-refund/intent/intent.md` |
-| Source Spec | `domains/payments/capabilities/payment-refund/features/qr-refund/specification/specification.md` |
+| Source Requirements | `domains/payments/capabilities/payment-refund/features/qr-refund/requirements/requirements.md` |
 
 ## Architecture Summary
 

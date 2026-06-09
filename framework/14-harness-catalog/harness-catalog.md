@@ -13,7 +13,7 @@ They help the framework choose the right context, skill sequence, validation gat
 - Purpose: start a new feature from intent
 - Entry criteria: approved intent and target feature scope
 - Required context packages: enterprise, domain, capability, feature
-- Skills invoked: intent, specification, design, test-design, implementation, validation
+- Skills invoked: intent, requirements, design, test-design, implementation, validation
 - Tools used: local repo, validations, traceability checks
 - Validation gates: intent, spec, design, tests, traceability, release
 - Outputs: approved feature artifacts and execution plan

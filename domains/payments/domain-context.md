@@ -160,8 +160,8 @@ Use for failed, stuck, or unresolved financial flows.
 
 Use for new or changed Payments capabilities.
 
-- Capture intent before specification.
-- Approve specification before architecture and test design.
+- Capture intent before requirements.
+- Approve requirements before architecture and test design.
 - Map APIs, tests, validation, and release evidence to requirements.
 - Keep Jira for work and approval tracking.
 - Keep Git as the source of truth for approved artifacts.

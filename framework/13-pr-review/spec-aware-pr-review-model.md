@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Spec-aware PR review checks whether the pull request still matches approved intent, specification, design, tests, and release expectations.
+Requirements-aware PR review checks whether the pull request still matches approved intent, requirements, design, tests, and release expectations.
 
 It supplements normal code review with governance checks.
 
@@ -38,7 +38,7 @@ It supplements normal code review with governance checks.
 
 ### LLM Judge Checks
 
-- specification clarity
+- requirements clarity
 - design consistency
 - release risk explanation quality
 - review comment usefulness

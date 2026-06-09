@@ -1,10 +1,10 @@
-# Card Replacement Specification
+# Card Replacement Requirements
 
 ## Metadata
 
 | Field | Value |
 | --- | --- |
-| Spec ID | SPEC-CARDREP-001 |
+| Requirements ID | REQ-CARDREP-001 |
 | Intent ID | INT-CARDREP-001 |
 | Jira Epic | TBD |
 | Domain | Cards |
@@ -18,20 +18,20 @@
 
 Card Replacement enables eligible customers and operations users to request replacement of lost, stolen, or damaged cards through approved digital channels. The pilot supports Mobile App and Operations Portal journeys, requires address confirmation, blocks Lost and Stolen cards, preserves audit and traceability evidence, and provides replacement status visibility.
 
-This specification defines requirements only. It does not create design, API contracts, tests, implementation, validation, release artifacts, or source code.
+This requirements artifact defines requirements only. It does not create design, API contracts, tests, implementation, validation, release artifacts, or source code.
 
 ## Requirement Gaps Carried Forward
 
-These gaps do not block draft specification creation, but they must be resolved before the downstream stage indicated.
+These gaps do not block draft requirements creation, but they must be resolved before the downstream stage indicated.
 
 | Gap ID | Gap | Required Resolution |
 | --- | --- | --- |
-| GAP-CARDREP-001 | Product Owner and Business Analyst names are unresolved. | Required before specification approval. |
+| GAP-CARDREP-001 | Product Owner and Business Analyst names are unresolved. | Required before requirements approval. |
 | GAP-CARDREP-002 | Cards Domain Owner is unresolved. | Required before final domain approval and owner escalation. |
 | GAP-CARDREP-003 | Cards Architect is unresolved. | Architect assignment is required for design approval, not for design creation. |
 | GAP-CARDREP-004 | Euronet Card Processor is the assumed pilot processor. Card Replacement owns the pilot replacement journey and directly coordinates required processor blocking for Lost and Stolen replacement reasons. | Design must confirm Euronet integration details, error handling, and evidence requirements. |
 | GAP-CARDREP-005 | Notification expectations for Lost, Stolen, and Damaged replacement are unresolved. | Required before notification requirements, design, or tests are approved. |
-| GAP-CARDREP-006 | Customer-safe and operations-only status values are approved for specification baseline. | Design must map internal transitions to these approved status values. |
+| GAP-CARDREP-006 | Customer-safe and operations-only status values are approved for requirements baseline. | Design must map internal transitions to these approved status values. |
 
 ## Actors
 
@@ -94,8 +94,8 @@ These gaps do not block draft specification creation, but they must be resolved 
 | BR-CARDREP-001 | Pilot replacement reasons are Lost Card, Stolen Card, and Damaged Card only. | Approved intent | FR-CARDREP-004, FR-CARDREP-005 |
 | BR-CARDREP-002 | Mobile App and Operations Portal are the only pilot channels. | Approved intent | FR-CARDREP-001, FR-CARDREP-002, FR-CARDREP-003 |
 | BR-CARDREP-003 | Address confirmation is required before replacement request submission. | Approved intent | FR-CARDREP-006, FR-CARDREP-007 |
-| BR-CARDREP-004 | Lost Card and Stolen Card replacement require Card Replacement to coordinate direct Card Processor blocking of the existing card. | Approved intent and specification review decision | FR-CARDREP-008, FR-CARDREP-009, FR-CARDREP-020 |
-| BR-CARDREP-005 | Damaged Card replacement does not require card blocking for the pilot unless Card Processor rules require it. | Approved intent and specification review decision | FR-CARDREP-010 |
+| BR-CARDREP-004 | Lost Card and Stolen Card replacement require Card Replacement to coordinate direct Card Processor blocking of the existing card. | Approved intent and requirements review decision | FR-CARDREP-008, FR-CARDREP-009, FR-CARDREP-020 |
+| BR-CARDREP-005 | Damaged Card replacement does not require card blocking for the pilot unless Card Processor rules require it. | Approved intent and requirements review decision | FR-CARDREP-010 |
 | BR-CARDREP-006 | No replacement fee applies during the pilot. | Approved intent | FR-CARDREP-011 |
 | BR-CARDREP-007 | Maker-checker approval is not required during the pilot. | Approved intent | FR-CARDREP-012 |
 | BR-CARDREP-008 | Branch-assisted replacement and Web Banking replacement are out of scope. | Approved intent | FR-CARDREP-003 |
@@ -197,14 +197,14 @@ Design must define internal transitions and API mapping without exposing operati
 - Maker-checker approval is not required during the pilot.
 - Mobile App and Operations Portal are the only pilot channels.
 - Notification Capability and Customer Profile Capability are consumed dependencies and are not owned by this feature.
-- Detailed Euronet Card Processor integration behavior is not decided in this specification.
+- Detailed Euronet Card Processor integration behavior is not decided in this requirements artifact.
 
 ## Open Questions
 
 | Question | Owner | Due Date | Status |
 | --- | --- | --- | --- |
-| Who is the named Product Owner for Card Replacement? | Cards Squad / Product leadership | Before specification approval | Open |
-| Who is the named Business Analyst for Card Replacement? | Cards Squad / Product leadership | Before specification approval | Open |
+| Who is the named Product Owner for Card Replacement? | Cards Squad / Product leadership | Before requirements approval | Open |
+| Who is the named Business Analyst for Card Replacement? | Cards Squad / Product leadership | Before requirements approval | Open |
 | Who is the named Cards Domain Owner? | Product / Technology leadership | Before final domain approval | Open |
 | Who is the named Cards Architect? | Architecture leadership | Required for design approval, not design creation | Open |
 | What Euronet Card Processor integration details, error mappings, and evidence fields are required for pilot replacement and blocking? | Cards Squad / Card Processor owner | Before design approval | Open |

@@ -14,8 +14,8 @@ This playbook describes how different roles adopt the future enterprise rollout 
 ## BA
 
 - Responsibilities: requirements clarity, traceability, acceptance quality
-- Skills required: specification, context review, review discipline
-- Onboarding path: intent, specification, traceability, governance
+- Skills required: requirements, context review, review discipline
+- Onboarding path: intent, requirements, traceability, governance
 - Common mistakes: incomplete requirements, weak acceptance criteria
 
 ## SA

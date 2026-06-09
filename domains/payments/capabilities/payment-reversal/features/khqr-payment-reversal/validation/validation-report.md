@@ -9,7 +9,7 @@
 | Domain | Payments |
 | Jira Epic | JIRA-KHQRREV-001 |
 | Source Intent | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/intent/intent.md` |
-| Source Spec | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/specification/specification.md` |
+| Source Requirements | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/requirements/requirements.md` |
 | Source Context | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/design/design.md` |
 | Source API | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/contracts/openapi.yaml` |
 | Source Tests | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/tests/acceptance.feature` |
@@ -145,4 +145,3 @@ Reason:
 - only Slice 1 is implemented and validated
 - downstream execution, validation, and release evidence are still missing
 - release approval cannot be requested until the remaining slices are implemented and validated
-

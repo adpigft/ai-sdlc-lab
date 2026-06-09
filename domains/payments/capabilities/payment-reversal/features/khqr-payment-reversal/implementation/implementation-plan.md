@@ -6,7 +6,7 @@
 | --- | --- |
 | Implementation Plan ID | IMPLPLAN-KHQRREV-001 |
 | Intent ID | INT-KHQRREV-001 |
-| Spec ID | SPEC-KHQRREV-001 |
+| Requirements ID | REQ-KHQRREV-001 |
 | Context ID | CTX-KHQRREV-001 |
 | Jira Epic | JIRA-KHQRREV-001 |
 | Confluence Page | CONF-PAY-KHQRREV-IMPLEMENTATION |
@@ -22,7 +22,7 @@
 | --- | --- | --- |
 | Domain Context | `domains/payments/domain-context.md` | Reviewed |
 | Intent | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/intent/intent.md` | Approved |
-| Specification | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/specification/specification.md` | Approved |
+| Requirements | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/requirements/requirements.md` | Approved |
 | Architecture Context | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/design/design.md` | Approved |
 | API Contract | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/contracts/openapi.yaml` | Approved |
 | Acceptance Tests | `domains/payments/capabilities/payment-reversal/features/khqr-payment-reversal/tests/acceptance.feature` | Approved |

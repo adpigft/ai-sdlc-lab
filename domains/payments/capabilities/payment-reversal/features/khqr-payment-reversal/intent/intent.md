@@ -11,7 +11,7 @@
 | Capability | KHQR Payment Reversal |
 | MVP Scope | Operations-initiated full reversal of completed, not-finally-settled KHQR payments due to processor, ledger, or system error |
 | Owner | Digital Payments Product Owner |
-| Status | Intent approved for artifact creation; pending specification approval |
+| Status | Intent approved for artifact creation; pending requirements approval |
 | Created | 2026-06-01 |
 
 ## Problem Statement
@@ -31,7 +31,7 @@ Bank operations users need a controlled way to reverse completed KHQR payments w
 
 | Metric | Target |
 | --- | --- |
-| Reversal completion time | Target to be approved during specification or architecture review |
+| Reversal completion time | Target to be approved during requirements or architecture review |
 | Reconciliation success rate | Target to be approved by Finance and Operations |
 | Duplicate reversal prevention | 100% duplicate reversal prevention for approved command paths |
 | Audit completeness | 100% of material reversal events and approval decisions audited |
@@ -183,10 +183,10 @@ Reconciliation must identify matched, mismatched, pending, and failed reversal o
 | What is the exact definition of "not yet finally settled"? | Finance Lead / Payments Architect | Resolved in `SPEC-KHQRREV-001` settlement eligibility rule |
 | Which system is the settlement cutoff source of truth? | Finance Lead / Payments Architect | Architecture approval |
 | What should happen when processor reversal succeeds but ledger reversal fails, or ledger reversal succeeds but processor reversal fails? | Payments Architect / Finance Lead / Operations Lead | Architecture approval |
-| Are retries allowed for `Reversal Pending` or `Reversal Failed`, and what limits apply? | Operations Lead / Payments Architect | Specification approval |
+| Are retries allowed for `Reversal Pending` or `Reversal Failed`, and what limits apply? | Operations Lead / Payments Architect | Requirements approval |
 | What reversal reason codes are required for MVP? | Product Owner / Operations Lead | Resolved in `SPEC-KHQRREV-001` MVP reason-code catalog |
-| Are customer or merchant notifications in scope for MVP reversal outcomes? | Product Owner / Compliance Lead | Specification approval |
-| What completion-time and reconciliation-rate targets apply? | Product Owner / Finance Lead / QA Lead | Specification approval |
+| Are customer or merchant notifications in scope for MVP reversal outcomes? | Product Owner / Compliance Lead | Requirements approval |
+| What completion-time and reconciliation-rate targets apply? | Product Owner / Finance Lead / QA Lead | Requirements approval |
 
 ## Human Approval Gate
 
@@ -203,4 +203,4 @@ The intent is approved for artifact creation based on explicit user approval in 
 
 ## Next Step
 
-After PO / BA approval to proceed, use `$specification` to create the KHQR Payment Reversal specification. When workflow-state is adopted, prepare `workflow-state.yaml` to move from `intent_review` to `specification_review`.
+After PO / BA approval to proceed, use `$requirements` to create the KHQR Payment Reversal requirements. When workflow-state is adopted, prepare `workflow-state.yaml` to move from `intent_review` to `requirements_review`.

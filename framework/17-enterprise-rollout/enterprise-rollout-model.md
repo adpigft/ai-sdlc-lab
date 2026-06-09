@@ -22,7 +22,7 @@ It is a progression model, not a mandatory deployment plan.
 
 ### Level 2 - Spec Driven
 
-- Entry criteria: approved intent and specification discipline exists
+- Entry criteria: approved intent and requirements discipline exists
 - Success criteria: delivery follows structured requirements
 - KPIs: spec coverage, traceability coverage, rework reduction
 
