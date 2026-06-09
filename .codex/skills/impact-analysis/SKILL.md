@@ -1,24 +1,24 @@
 ---
 name: impact-analysis
-description: Assess change impact on requirements, APIs, data model, code, tests, integrations, and release readiness.
+description: Assess implementation impact across requirements, code, tests, integrations, and delivery readiness.
 ---
 
 # Impact Analysis Skill
 
 ## Purpose
 
-Assess the impact of proposed changes on requirements, APIs, data model, code, tests, integrations, and release readiness before a major change proceeds.
+Assess the impact of proposed changes on requirements, architecture, code, tests, integrations, operations, and release readiness before a major change proceeds.
 
 ## When To Use
 
-Use `$impact-analysis` when a proposed change needs an impact assessment before modernization continues.
+Use `$impact-analysis` when a proposed change needs an impact assessment before implementation planning or implementation continues.
 
 ## Inputs Needed
 
 - Current-state and target-state artifacts
 - Traceability where available
 - Proposed change description
-- Affected systems, APIs, data, tests, and integrations
+- Affected systems, APIs, data, tests, integrations, and operational concerns
 - Known owners or stakeholders
 
 ## Framework Adapter
@@ -33,29 +33,36 @@ When this skill is used inside this repository, context loading, artifact placem
 ## Procedure
 
 1. Identify the proposed change and the affected scope.
-2. Trace the impact across requirements, APIs, data, code, tests, integrations, and release readiness.
-3. Identify impacted artifacts, tests, integrations, and owners.
-4. Record recommended next actions and residual risk.
-5. Mark unresolved high-impact changes as not ready to proceed.
+2. Trace the impact across requirements, components, data, APIs, integrations, tests, operations, and implementation sequencing.
+3. Identify impacted artifacts, owners, risks, and dependencies.
+4. Classify residual risk and whether the change is ready to continue.
+5. Do not create the implementation plan itself.
 
 ## Outputs Produced
 
 - Change impact assessment
-- Impacted artifacts
-- Impacted tests
+- Impacted components
+- Impacted data
+- Impacted APIs
 - Impacted integrations
-- Impact risk summary
+- Impacted tests
+- Impacted operations
+- Implementation sequencing
+- Risk impact summary
+- Impact traceability
 
 ## Artifact Structure
 
-1. Change Summary
-2. Impacted Requirements
-3. Impacted APIs / Data / Code
-4. Impacted Tests
-5. Impacted Integrations
-6. Impacted Owners
-7. Risk Summary
-8. Recommended Next Actions
+1. Impact Analysis
+2. Component Impact
+3. Data Impact
+4. API Impact
+5. Integration Impact
+6. Testing Impact
+7. Operational Impact
+8. Implementation Sequencing
+9. Risk Impact
+10. Impact Traceability
 
 ## Quality Checks
 
@@ -68,6 +75,7 @@ When this skill is used inside this repository, context loading, artifact placem
 
 - The change scope is missing or ambiguous.
 - The user asks to bypass impact assessment for a major change.
+- The requested work is actually implementation planning.
 
 ## Human Approval Expectations
 
@@ -82,6 +90,7 @@ Human review is required before impact analysis is treated as approval to procee
 - Do not treat inferred content as confirmed fact.
 - Do not bypass validation, traceability, approval, or stop-for-review rules.
 - Do not treat impact analysis as implementation approval.
+- Do not create implementation plans.
 
 ## Standard Response Format
 

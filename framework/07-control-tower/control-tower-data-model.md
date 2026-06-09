@@ -9,7 +9,7 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
 ## Source Inputs
 
 - `domains/**/features/**/intent/intent.md`
-- `domains/**/features/**/specification/specification.md`
+- `domains/**/features/**/requirements/requirements.md`
 - `domains/**/features/**/design/design.md`
 - `domains/**/features/**/tests/acceptance.feature`
 - `domains/**/features/**/contracts/openapi.yaml`
@@ -63,7 +63,7 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
       "feature": "Card Replacement",
       "featureId": "FEAT-CARDREP-001",
       "intentId": "INT-CARDREP-001",
-      "specId": "SPEC-CARDREP-001",
+      "requirementsId": "REQ-CARDREP-001",
       "designId": "DES-CARDREP-001",
       "testId": "TEST-CARDREP-001",
       "state": "Draft for Architect Review",
@@ -89,7 +89,7 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
       "focus": true,
       "quality": {
         "intentPresent": true,
-        "specificationPresent": true,
+        "requirementsPresent": true,
         "designPresent": true,
         "testsPresent": false,
         "openapiPresent": false,
@@ -138,7 +138,7 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
         "confidence": "Not available"
       },
       "evaluation": {
-        "specScore": "Not available",
+        "requirementsScore": "Not available",
         "contextScore": "Not available",
         "architectureScore": "Not available",
         "prScore": "Not available",
@@ -146,7 +146,7 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
       },
       "links": {
         "gitIntentPath": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/intent/intent.md",
-        "gitSpecificationPath": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/specification/specification.md",
+        "gitRequirementsPath": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/requirements/requirements.md",
         "gitDesignPath": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/design/design.md",
         "gitTestsPath": "",
         "gitValidationPath": "",
@@ -159,7 +159,7 @@ The dashboard is read-only. It consumes Git-owned artifacts, local traceability,
       ],
       "paths": {
         "intent": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/intent/intent.md",
-        "specification": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/specification/specification.md",
+        "requirements": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/requirements/requirements.md",
         "design": "domains/cards/capabilities/card-lifecycle-management/features/card-replacement/design/design.md",
         "tests": "",
         "validation": "",

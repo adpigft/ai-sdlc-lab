@@ -24,7 +24,7 @@ The capability folder contains:
 - shared business flow, APIs, events, integrations, and state model when applicable
 - `features/<feature>/` delivery folders
 
-Features own the AI-SDLC delivery lifecycle: intent, specification, design, test-design, implementation, pr-review, validation, release, and feedback.
+Features own the AI-SDLC delivery lifecycle: intent, requirements, design, test-design, implementation, pr-review, validation, release, and feedback.
 
 Example:
 

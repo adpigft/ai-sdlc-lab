@@ -12,7 +12,7 @@ Use this mapping when reading existing artifacts, older dashboards, or legacy wo
 | --- | --- |
 | `idea` | Candidate Imported |
 | `intent_review` | Intent Draft |
-| `specification_review` | Specification Draft |
+| `requirements_review` | Requirements Draft |
 | `design_review` | Design Approved |
 | `test_review` | Validation Passed |
 | `implementation_ready` | Ready for Build |

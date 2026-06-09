@@ -24,7 +24,7 @@
 | Artifact | Path | Status |
 | --- | --- | --- |
 | Intent | `intent/intent.md` | `<status>` |
-| Specification | `specification/specification.md` | `<status>` |
+| Requirements | `requirements/requirements.md` | `<status>` |
 | Design | `design/design.md` | `<status>` |
 | API Contract | `contracts/openapi.yaml` | `<status>` |
 | Test Design | `tests/acceptance.feature` | `<status>` |

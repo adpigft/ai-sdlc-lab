@@ -127,7 +127,7 @@ Template:
 | Artifact | Path | Status |
 | --- | --- | --- |
 | Intent | intent/intent.md |  |
-| Specification | specification/specification.md |  |
+| Requirements | requirements/requirements.md |  |
 | Design | design/design.md |  |
 | API Contract | contracts/openapi.yaml |  |
 | Test Design | tests/acceptance.feature |  |

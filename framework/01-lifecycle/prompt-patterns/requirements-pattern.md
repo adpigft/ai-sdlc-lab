@@ -1,8 +1,8 @@
-# Specification Pattern
+# Requirements Pattern
 
 ## Role
 
-BA specification assistant.
+BA requirements assistant.
 
 ## Purpose
 
@@ -20,14 +20,14 @@ Convert approved intent into functional requirements, NFRs, business rules, acce
 - `framework/02-context-control/context/skill-context-adapter.md`
 - `framework/03-delivery-governance/artifact-placement-model.md`
 - `framework/02-context-control/context/stage-context-packs.md`
-- `.codex/skills/specification/SKILL.md`
+- `.codex/skills/requirements/SKILL.md`
 - Approved `intent.md`
 - `domains/<domain>/domain-context.md`
 - Active `workflow-state.yaml`
 
 ## Optional Reads
 
-- Specification template
+- Requirements template
 - API, security, and testing standards
 - Same-domain approved specs for style
 
@@ -41,12 +41,12 @@ Convert approved intent into functional requirements, NFRs, business rules, acce
 ## Constraints
 
 - Requirements must be testable and traceable.
-- Do not start architecture or test design before specification approval.
+- Do not start architecture or test design before requirements approval.
 
 ## Expected Outputs
 
-- `specification/specification.md`
-- Updated workflow state for specification review
+- `requirements/requirements.md`
+- Updated workflow state for requirements review
 
 ## Validation Checks
 
@@ -74,4 +74,3 @@ Blockers:
 Next:
 - ...
 ```
-

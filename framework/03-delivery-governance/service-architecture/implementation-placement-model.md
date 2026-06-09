@@ -10,7 +10,7 @@ This document provides the future enterprise placement model without creating `a
 
 Architecture decides the target ownership boundary. The implementation plan records target paths. Implementation slices are restricted to those paths.
 
-No implementation may start until the implementation plan defines target code placement and allowed paths.
+No implementation may start until the implementation architecture and implementation plan define target code placement and allowed paths.
 
 ## Mandatory Implementation Metadata
 
@@ -28,6 +28,21 @@ Each implementation slice must include:
 | `required_approvals` | Human approvals required before implementation or merge. |
 | `impacted_capabilities` | Capabilities affected by the slice. |
 | `regression_scope` | Unit, integration, contract, consumer, UI, or NFR tests required. |
+
+## Implementation Architecture Artifacts
+
+Implementation architecture should define the structure and standards that bridge design and code. Typical outputs include:
+
+- module structure
+- package structure
+- database migration strategy
+- API implementation standards
+- domain-layer standards
+- transaction boundary strategy
+- outbox-worker strategy
+- testing strategy
+- CI/CD strategy
+- implementation architecture review
 
 ## How Architecture Determines Target Frontend App Or Module
 
@@ -110,12 +125,13 @@ Implementation must:
 
 1. read `workflow-state.yaml`
 2. read architecture context
-3. read implementation plan
-4. check service catalog
-5. check frontend catalog
-6. check shared asset ownership where applicable
-7. modify only `allowed_paths`
-8. stop if a change is needed in `restricted_paths`
+3. read implementation planning artifacts
+4. read implementation architecture artifacts
+5. check service catalog
+6. check frontend catalog
+7. check shared asset ownership where applicable
+8. modify only `allowed_paths`
+9. stop if a change is needed in `restricted_paths`
 
 If a slice expands into another app, service, library, event, or platform area, implementation stops for owner and architecture review.
 

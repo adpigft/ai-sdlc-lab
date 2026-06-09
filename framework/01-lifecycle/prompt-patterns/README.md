@@ -18,8 +18,14 @@ Use the pattern that matches the active command or lifecycle stage:
 
 - `domain-onboarding-pattern.md`
 - `intent-pattern.md`
-- `specification-pattern.md`
+- `requirements-pattern.md`
 - `design-pattern.md`
+- `modernization-readiness-review-pattern.md`
+- `design-input-review-pattern.md`
+- `implementation-readiness-pattern.md`
+- `implementation-planning-pattern.md`
+- `vertical-slice-planning-pattern.md`
+- `implementation-architecture-pattern.md`
 - `test-design-pattern.md`
 - `implementation-pattern.md`
 - `pr-review-pattern.md`

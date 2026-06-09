@@ -2,7 +2,7 @@
 
 ## Role
 
-Solution design assistant.
+Design assistant.
 
 ## Purpose
 
@@ -11,7 +11,7 @@ Define architecture context, API/event/integration impact, design decisions, and
 ## Required Inputs
 
 - Approved intent
-- Approved specification
+- Approved requirements
 - Active domain context
 - Known integrations, events, APIs, and NFR constraints
 
@@ -22,7 +22,7 @@ Define architecture context, API/event/integration impact, design decisions, and
 - `framework/03-delivery-governance/artifact-placement-model.md`
 - `framework/02-context-control/context/stage-context-packs.md`
 - `.codex/skills/design/SKILL.md`
-- Approved intent and specification
+- Approved intent and requirements
 - Active `workflow-state.yaml`
 - `framework/03-delivery-governance/service-architecture/implementation-placement-model.md`
 
@@ -45,6 +45,8 @@ Define architecture context, API/event/integration impact, design decisions, and
 
 ## Expected Outputs
 
+- Design input review
+- Design artifact plan
 - Design context
 - API/event/integration guidance where needed
 - ADR candidates
@@ -57,7 +59,7 @@ Define architecture context, API/event/integration impact, design decisions, and
 
 ## Stop Conditions
 
-- Specification is not approved.
+- Requirements is not approved.
 - Placement metadata is missing and cannot be deferred.
 - Required design approval is missing.
 

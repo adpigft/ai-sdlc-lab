@@ -74,11 +74,12 @@ Next Command:
 
 Review should return:
 
-- blocking findings
-- major findings
-- minor findings
-- open questions
-- recommendation
+- strengths
+- weaknesses
+- risks
+- recommendations
+- go/no-go recommendation
+- readiness score
 
 Review does not approve.
 

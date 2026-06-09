@@ -54,8 +54,8 @@
     "delta": 3
   },
   {
-    "skill_name": "context-extraction",
-    "path": ".codex/skills/context-extraction/SKILL.md",
+    "skill_name": "design",
+    "path": ".codex/skills/design/SKILL.md",
     "previous_score": 91,
     "updated_score": 92,
     "classification": "Enterprise Ready",
@@ -126,8 +126,8 @@
     "delta": 1
   },
   {
-    "skill_name": "discovery-engineering",
-    "path": ".codex/skills/discovery-engineering/SKILL.md",
+    "skill_name": "discovery",
+    "path": ".codex/skills/discovery/SKILL.md",
     "previous_score": 92,
     "updated_score": 93,
     "classification": "Enterprise Ready",
@@ -252,8 +252,8 @@
     "delta": 1
   },
   {
-    "skill_name": "intent-extraction",
-    "path": ".codex/skills/intent-extraction/SKILL.md",
+    "skill_name": "intent",
+    "path": ".codex/skills/intent/SKILL.md",
     "previous_score": 91,
     "updated_score": 92,
     "classification": "Enterprise Ready",
@@ -342,26 +342,8 @@
     "delta": 3
   },
   {
-    "skill_name": "specification",
-    "path": ".codex/skills/specification/SKILL.md",
-    "previous_score": 92,
-    "updated_score": 93,
-    "classification": "Enterprise Ready",
-    "remaining_issues": [
-      "Minimal remaining issues"
-    ],
-    "recommended_next_fixes": [
-      "Keep requirements explicit and testable"
-    ],
-    "strengths": [
-      "Strong conversion from intent to requirements",
-      "Clear quality gates"
-    ],
-    "delta": 1
-  },
-  {
-    "skill_name": "specification-extraction",
-    "path": ".codex/skills/specification-extraction/SKILL.md",
+    "skill_name": "requirements",
+    "path": ".codex/skills/requirements/SKILL.md",
     "previous_score": 91,
     "updated_score": 92,
     "classification": "Enterprise Ready",
@@ -432,8 +414,8 @@
     "delta": 1
   },
   {
-    "skill_name": "wynxx-backlog-ingestion",
-    "path": ".codex/skills/wynxx-backlog-ingestion/SKILL.md",
+    "skill_name": "backlog-ingestion",
+    "path": ".codex/skills/backlog-ingestion/SKILL.md",
     "previous_score": 84,
     "updated_score": 88,
     "classification": "Pilot Ready",

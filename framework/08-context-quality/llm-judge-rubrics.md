@@ -20,13 +20,13 @@ Deterministic checks validate facts. LLM judges validate whether the artifact is
 
 Judge whether the intent is business-clear, bounded, and reviewable.
 
-## Specification Quality
+## Requirements Quality
 
-Judge whether the specification is actionable, testable, and traceable to intent.
+Judge whether the requirements are actionable, testable, and traceable to intent.
 
 ## Design Quality
 
-Judge whether the design is feasible, secure, consistent with the specification, and sufficiently detailed to support implementation.
+Judge whether the design is feasible, secure, consistent with the requirements, and sufficiently detailed to support implementation.
 
 ## Test Quality
 

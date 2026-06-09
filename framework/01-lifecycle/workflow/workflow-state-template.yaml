@@ -32,7 +32,7 @@ current_artifact:
 
 artifacts:
   intent: ""
-  specification: ""
+  requirements: ""
   architecture: ""
   api_contract: ""
   test_design: ""
@@ -61,7 +61,7 @@ approval_gates:
     approval_reference: ""
     approved_at: ""
     conditions: []
-  specification_approval:
+  requirements_approval:
     status: pending
     required_approvers:
       - Product Owner

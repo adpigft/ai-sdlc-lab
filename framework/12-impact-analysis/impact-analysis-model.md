@@ -4,12 +4,12 @@
 
 Impact analysis assesses the effect of mid-project changes and major changes before they move forward.
 
-It answers a simple question: what breaks, what needs review, and who must approve the next step.
+It answers a simple question: what breaks, what needs review, what sequencing changes are required, and who must approve the next step.
 
 ## Inputs
 
 - changed intent
-- changed specification
+- changed requirements
 - changed design
 - changed API contract
 - changed code
@@ -23,13 +23,16 @@ It answers a simple question: what breaks, what needs review, and who must appro
 ## Impact Categories
 
 - requirement impact
+- component impact
 - API impact
-- data model impact
+- integration impact
+- data impact
 - code impact
 - test impact
+- operational impact
 - security impact
 - release impact
-- context package impact
+- implementation sequencing impact
 
 ## Output Model
 
@@ -39,6 +42,8 @@ An impact assessment should identify:
 - impacted artifacts
 - impacted tests
 - impacted owners
+- implementation sequencing
+- risks
 - recommended next action
 
 ## Gate Rule
@@ -53,8 +58,9 @@ If the assessment is incomplete, the change remains in review and must not be tr
 2. Compare the change to approved artifacts and workflow state.
 3. Identify downstream artifacts and owners.
 4. Classify the impact category or categories.
-5. Decide whether the change is minor, in-flight, major, or post-release.
-6. Record the recommended next action and required approvals.
+5. Separate confirmed, assumption-based, and deferred impacts when needed.
+6. Decide whether the change is minor, in-flight, major, or post-release.
+7. Record the recommended next action, sequencing, and required approvals.
 
 ## Notes
 

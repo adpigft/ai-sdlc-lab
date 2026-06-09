@@ -10,7 +10,7 @@ Define a lightweight JSON schema for agent run telemetry and review feedback.
 {
   "agent_run_id": "run-20260607-001",
   "feature_id": "FEAT-CARDREP-001",
-  "workflow_state": "Specification Approved",
+  "workflow_state": "Requirements Approved",
   "skill_id": "implementation",
   "context_manifest_id": "ctx-manifest-card-replacement",
   "model": "GPT-4o",
@@ -21,7 +21,7 @@ Define a lightweight JSON schema for agent run telemetry and review feedback.
   "inputs": {
     "artifacts": [
       "intent",
-      "specification",
+      "requirements",
       "design"
     ]
   },

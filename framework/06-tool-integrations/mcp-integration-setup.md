@@ -144,7 +144,7 @@ Wynxx Story Creator backlog candidate
 → AI-SDLC review
 → Intent approval
 → Create Jira ticket
-→ Generate specification/design
+→ Generate requirements/design
 → Publish Confluence
 → Run GitHub validation
 → Update Jira lifecycle
@@ -154,11 +154,11 @@ Detailed flow:
 
 1. Use `wynxx` MCP to read a Wynxx Story Creator backlog candidate.
 2. Use `wynxx-backlog-agent` to return compact candidate backlog summaries.
-3. Use `$wynxx-backlog-ingestion` to summarize and map the backlog to AI-SDLC candidate inputs.
+3. Use `$backlog-ingestion` to summarize and map the backlog to AI-SDLC candidate inputs.
 4. Human reviews the candidate mapping.
 5. Use `$intent` only after the user approves moving from candidate backlog input to Git-owned intent work.
 6. After intent approval, use `jira-lifecycle-agent` to create or update the approved Jira demo ticket when explicitly instructed.
-7. Continue with `$specification`, `$design`, and later lifecycle stages using Git-owned artifacts.
+7. Continue with `$requirements`, `$design`, and later lifecycle stages using Git-owned artifacts.
 8. Use `confluence-publisher-agent` to publish Confluence summaries only from reviewed Git artifacts and only after approval.
 9. Use `github-evidence-agent` to read GitHub validation through GitHub Actions.
 10. Use `jira-lifecycle-agent` to update Jira lifecycle tracking from Git-owned workflow state and validation evidence.
@@ -194,5 +194,5 @@ MCP tools must not:
 - `framework/06-tool-integrations/integration-configuration-guide.md`
 - `framework/06-tool-integrations/mcp-subagent-architecture.md`
 - `framework/06-tool-integrations/ai-sdlc-portal-mvp.md`
-- `.codex/skills/wynxx-backlog-ingestion/SKILL.md`
+- `.codex/skills/backlog-ingestion/SKILL.md`
 - `.codex/config.toml`

@@ -11,15 +11,16 @@ Translate approved requirements into a reviewable solution design without starti
 
 ## When To Use
 
-Use `$design` after specification approval and before implementation. Use it whenever architecture, API, event, integration, data, security, operational, or placement decisions are needed.
+Use `$design` after requirements approval and before implementation. Use it whenever architecture, API, event, integration, data, security, operational, or placement decisions are needed. For brownfield work, use it as the target solution design mode after readiness and requirements are approved.
 
 ## Inputs Needed
 
-- Approved intent and specification
+- Approved intent and requirements
 - Domain or system context
 - Integration, data, security, compliance, and operational constraints
 - Relevant standards and existing decisions
 - Known implementation ownership or placement constraints
+- Mode hint for greenfield or brownfield design
 
 ## Framework Adapter
 
@@ -37,13 +38,15 @@ When this skill is used inside this repository, context loading, artifact placem
 3. Identify API, event, and integration contracts that must be created or changed.
 4. Address security, privacy, audit, observability, availability, performance, and failure handling.
 5. Identify material decisions and produce decision records when needed.
-6. Define implementation placement or explicitly state why no code placement is required yet.
-7. Define implementation slices only after design choices are stable enough to review.
-8. Stop for architect and impacted-owner review before implementation depends on the design.
+6. For brownfield design, run a design-input review and use a design-artifact plan to select mandatory, conditional, project-specific, or not-required artifacts.
+7. Define implementation placement or explicitly state why no code placement is required yet.
+8. Define implementation slices only after design choices are stable enough to review.
+9. Stop for architect and impacted-owner review before implementation depends on the design.
 
 ## Outputs Produced
 
 - Design artifact or design update
+- Brownfield design-input review and design-artifact plan when applicable
 - API, event, integration, data, security, and operational design guidance
 - Decision candidates or decision records when needed
 - Placement and ownership metadata when implementation may be impacted
@@ -65,6 +68,8 @@ Artifact Structure
 10. Observability
 11. ADR References
 12. Open Questions
+13. Design Input Review
+14. Design Artifact Plan
 
 ## Quality Checks
 
@@ -77,7 +82,7 @@ Artifact Structure
 
 ## Stop Conditions
 
-- Specification approval is missing.
+- Requirements approval is missing.
 - Material design decisions are unresolved.
 - Required owner, API, event, integration, or placement information is missing.
 - The user asks to implement before required design approvals exist.

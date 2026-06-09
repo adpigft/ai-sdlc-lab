@@ -17,14 +17,18 @@ Current-state extraction converts evidence from the source application into stru
 
 ## Required Artifacts
 
-- current-state-discovery.md
-- architecture-overview.md
-- application-inventory.md
-- api-inventory.md
-- data-model.md
-- business-rules.md
-- integration-map.md
-- technology-stack.md
+- `current-state-discovery.md`
+- `quick-scan.md`
+- `business-rules-catalog.md`
+- `application-inventory.md`
+- `architecture-overview.md`
+- `api-inventory.md`
+- `data-model.md`
+- `state-machine.md`
+- `integration-inventory.md`
+- `domain-decomposition.md`
+- `technical-debt.md`
+- `discovery-evidence.md`
 
 ## Evidence Rules
 
@@ -32,10 +36,10 @@ Current-state extraction converts evidence from the source application into stru
 - If evidence is partial, state the limit of confidence.
 - If evidence is absent, record an unknown rather than inventing a fact.
 - Distinguish current-state extraction from target-state recommendations.
+- Separate evidence from inference and current-state from target-state thinking.
 
 ## Confidence Guidance
 
 - High: direct evidence from code, configuration, or documentation.
 - Medium: evidence plus a small amount of inference.
 - Low: mostly inferred from behavior or indirect signals.
-

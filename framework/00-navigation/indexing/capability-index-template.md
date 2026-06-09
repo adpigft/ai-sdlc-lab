@@ -26,7 +26,7 @@ Navigation aid for one capability. This index helps users and AI agents find the
 | Stage | Artifact | Path | Status Source |
 | --- | --- | --- | --- |
 | Intent | `intent.md` | `intent/intent.md` | `workflow-state.yaml` |
-| Specification | `spec.md` | `specification/specification.md` | `workflow-state.yaml` |
+| Requirements | `spec.md` | `requirements/requirements.md` | `workflow-state.yaml` |
 | Design | `context.md` | `design/design.md` | `workflow-state.yaml` |
 | API Contract | `openapi.yaml` | `contracts/openapi.yaml` | `workflow-state.yaml` |
 | Test Design | `acceptance.feature` | `tests/acceptance.feature` | `workflow-state.yaml` |

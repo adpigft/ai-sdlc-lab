@@ -81,17 +81,17 @@ Stop conditions:
 - insufficient intent discovery
 - missing PO / BA approval
 
-## Specification
+## Requirements
 
 Purpose: convert approved intent into requirements, rules, NFRs, and acceptance criteria.
 
 Required reads:
 
-- `.codex/skills/specification/SKILL.md`
+- `.codex/skills/requirements/SKILL.md`
 - approved `intent/intent.md`
 - `domains/<domain>/domain-context.md`
 - `workflow-state.yaml`
-- `framework/07-templates/spec-template.md`
+- `framework/07-templates/requirements-template.md`
 
 Optional reads:
 
@@ -108,7 +108,7 @@ Forbidden reads:
 
 Expected outputs:
 
-- `specification/specification.md`
+- `requirements/requirements.md`
 - updated workflow state after approval gates where applicable
 
 Stop conditions:
@@ -125,7 +125,7 @@ Required reads:
 
 - `.codex/skills/design/SKILL.md`
 - approved intent
-- approved specification
+- approved requirements
 - `domains/<domain>/domain-context.md`
 - `workflow-state.yaml`
 - `framework/03-delivery-governance/service-architecture/implementation-placement-model.md`
@@ -154,7 +154,7 @@ Expected outputs:
 
 Stop conditions:
 
-- specification is not approved
+- requirements is not approved
 - material decisions are unresolved
 - target placement cannot be defined or explicitly deferred
 
@@ -165,7 +165,7 @@ Purpose: define acceptance, negative, integration, security, and NFR scenarios.
 Required reads:
 
 - `.codex/skills/test-design/SKILL.md`
-- approved specification
+- approved requirements
 - architecture context
 - API contract when available
 - `domains/<domain>/domain-context.md`
@@ -204,7 +204,7 @@ Required reads:
 - `workflow-state.yaml`
 - `domains/<domain>/domain-context.md`
 - approved intent
-- approved specification
+- approved requirements
 - approved design
 - approved API contract when applicable
 - approved tests

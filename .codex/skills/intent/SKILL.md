@@ -11,7 +11,7 @@ Discover and document why the work is needed, who it serves, what outcome it sho
 
 ## When To Use
 
-Use `$intent` when a user wants to start a new business outcome, product capability, feature, or materially new scope.
+Use `$intent` when a user wants to start a new business outcome, product capability, feature, materially new scope, or a brownfield target-state definition.
 
 ## Inputs Needed
 
@@ -22,6 +22,7 @@ Use `$intent` when a user wants to start a new business outcome, product capabil
 - Constraints, assumptions, dependencies, and risks
 - Relevant domain or business context, when available
 - Optional work-management or stakeholder references
+- Mode hint when the work is greenfield or brownfield
 
 ## Framework Adapter
 
@@ -36,15 +37,17 @@ When this skill is used inside this repository, context loading, artifact placem
 1. Ask focused discovery questions before creating or updating artifacts.
 2. Clarify users, outcomes, scope, exclusions, constraints, assumptions, dependencies, risks, and success measures.
 3. Check whether similar existing business outcomes or reusable patterns should influence the intent.
-4. Summarize the intent in plain business language.
-5. Identify missing inputs and open questions.
-6. Stop for PO / BA review before treating the intent as approved.
-7. Do not generate requirements, design, tests, or code from unapproved intent.
+4. For brownfield work, capture current-state summary, target-state vision, first-release scope, target operating model, policy decisions, and confidence.
+5. Summarize the intent in plain business language.
+6. Identify missing inputs and open questions.
+7. Stop for PO / BA review before treating the intent as approved.
+8. Do not generate requirements, design, tests, or code from unapproved intent.
 
 ## Outputs Produced
 
 - Intent discovery summary
 - Intent artifact containing business outcome, scope, exclusions, stakeholders, assumptions, dependencies, risks, success measures, and open questions
+- Brownfield intent update when a target-state definition is required
 - Review request for PO / BA approval
 
 ## Artifact Structure
@@ -59,6 +62,12 @@ When this skill is used inside this repository, context loading, artifact placem
 8. Risks
 9. Success Measures
 10. Open Questions
+11. Current-State Summary
+12. Target-State Vision
+13. First-Release Scope
+14. Target Operating Model
+15. Policy Decisions
+16. Confidence Assessment
 
 ## Quality Checks
 
@@ -79,7 +88,7 @@ When this skill is used inside this repository, context loading, artifact placem
 
 ## Human Approval Expectations
 
-PO / BA approval is required before this intent is used as the basis for specification, design, tests, implementation, validation, or release work.
+PO / BA approval is required before this intent is used as the basis for requirements, design, tests, implementation, validation, or release work.
 
 ## Do Not
 

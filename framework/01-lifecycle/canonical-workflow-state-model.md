@@ -6,9 +6,11 @@ Define the canonical workflow states used across the AI-SDLC framework.
 
 This model is the stable reference for governance, the Control Tower, and workflow-state interpretation.
 
+Brownfield modernization may introduce additional supporting review and planning artifacts, but the canonical workflow here remains the source of truth for lifecycle state interpretation.
+
 ## Canonical Workflow
 
-Candidate Imported -> Intent Draft -> Intent Approved -> Specification Draft -> Specification Approved -> Design Approved -> Ready for Build -> In Development -> Validation Passed -> Release Ready -> Released
+Candidate Imported -> Intent Draft -> Intent Approved -> Requirements Draft -> Requirements Approved -> Design Approved -> Ready for Build -> In Development -> Validation Passed -> Release Ready -> Released
 
 ## State Definitions
 
@@ -31,20 +33,20 @@ Candidate Imported -> Intent Draft -> Intent Approved -> Specification Draft -> 
 - Owner role: Business Analyst
 - Approver role: Product Owner
 - Entry criteria: intent is complete enough for approval
-- Exit criteria: specification drafting may begin
+- Exit criteria: requirements drafting may begin
 
-### Specification Draft
+### Requirements Draft
 
 - Owner role: Business Analyst
 - Approver role: Product Owner
 - Entry criteria: approved intent exists
-- Exit criteria: specification is reviewed and approved
+- Exit criteria: requirements are reviewed and approved
 
-### Specification Approved
+### Requirements Approved
 
 - Owner role: Business Analyst
 - Approver role: Product Owner
-- Entry criteria: specification is complete and reviewable
+- Entry criteria: requirements are complete and reviewable
 - Exit criteria: design work may begin
 
 ### Design Approved

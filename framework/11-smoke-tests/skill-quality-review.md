@@ -17,7 +17,7 @@ The portfolio moved from **pilot ready overall** to **enterprise ready overall**
 
 ### Lifecycle skills
 - `intent`
-- `specification`
+- `requirements`
 - `design`
 - `test-design`
 - `implementation`
@@ -36,13 +36,18 @@ The portfolio moved from **pilot ready overall** to **enterprise ready overall**
 - `defect-fix`
 - `feedback-capture`
 - `traceability-review`
-- `wynxx-backlog-ingestion`
+- `backlog-ingestion`
 
-### Brownfield modernization skills
-- `discovery-engineering`
-- `intent-extraction`
-- `specification-extraction`
-- `context-extraction`
+### Brownfield and modernization skills
+- `discovery`
+- `modernization-readiness`
+- `intent`
+- `requirements`
+- `design`
+- `implementation-readiness`
+- `implementation-planning`
+- `vertical-slice-planning`
+- `implementation-architecture`
 - `gap-analysis`
 - `impact-analysis`
 
@@ -53,28 +58,30 @@ The portfolio moved from **pilot ready overall** to **enterprise ready overall**
 | `artifact-review` | 86 | 90 | +4 | Enterprise Ready | Could use one more concrete artifact-path example | Keep the review checklist concise and example-driven |
 | `capability-onboarding` | 91 | 92 | +1 | Enterprise Ready | Slightly example-light | Add a compact output example if needed |
 | `change-request` | 87 | 90 | +3 | Enterprise Ready | Targeted-path example could be clearer | Add one sample impacted-artifact block |
-| `context-extraction` | 91 | 92 | +1 | Enterprise Ready | Still depends on careful current-state vs target-state separation | Preserve the current-state / target-state split |
+| `design` | 92 | 93 | +1 | Enterprise Ready | Minimal remaining issues | Keep design outputs crisp and bounded |
 | `decision` | 88 | 90 | +2 | Enterprise Ready | Broad by nature; can drift if not tied to ADR discipline | Keep decisions tied to explicit records |
 | `defect-fix` | 87 | 89 | +2 | Pilot Ready | Still execution-sensitive and approval-bound | Keep scope tight and avoid broad refactors |
-| `design` | 92 | 93 | +1 | Enterprise Ready | Minimal remaining issues | Keep design outputs crisp and bounded |
-| `discovery-engineering` | 92 | 93 | +1 | Enterprise Ready | Could use one more evidence example in practice | Continue emphasizing evidence over inference |
+| `discovery` | 92 | 93 | +1 | Enterprise Ready | Could use one more evidence example in practice | Continue emphasizing evidence over inference |
 | `domain-onboarding` | 91 | 92 | +1 | Enterprise Ready | Slightly example-light | Keep boundary and ownership capture explicit |
 | `feedback-capture` | 85 | 88 | +3 | Pilot Ready | Still broad enough to become a catch-all | Keep follow-up tied to a clear owner and artifact |
 | `gap-analysis` | 90 | 91 | +1 | Enterprise Ready | Depends on target-state quality | Keep severity and owner classification explicit |
 | `impact-analysis` | 91 | 92 | +1 | Enterprise Ready | Low residual risk | Continue requiring traceability inputs where available |
 | `implementation` | 89 | 90 | +1 | Enterprise Ready | Scope discipline still depends on upstream approvals | Keep implementation slices narrow |
 | `intent` | 92 | 93 | +1 | Enterprise Ready | Minimal remaining issues | Keep business outcome and exclusions explicit |
-| `intent-extraction` | 91 | 92 | +1 | Enterprise Ready | Confidence discipline still matters | Continue labeling recovered content clearly |
+| `modernization-readiness` | 91 | 92 | +1 | Enterprise Ready | Confidence discipline still matters | Continue labeling readiness criteria clearly |
 | `pr-review` | 92 | 93 | +1 | Enterprise Ready | Minimal remaining issues | Keep review scope and approval gates explicit |
 | `release` | 89 | 90 | +1 | Enterprise Ready | Still evidence-dependent by design | Keep release claims tied to traceability and validation |
 | `repo-discovery` | 84 | 87 | +3 | Pilot Ready | Open-ended repository analysis can vary in depth | Add small output examples and evidence anchors |
 | `source-ingestion` | 85 | 88 | +3 | Pilot Ready | Summary quality still depends on evidence discipline | Keep extraction notes and confidence visible |
-| `specification` | 92 | 93 | +1 | Enterprise Ready | Minimal remaining issues | Keep requirements explicit and testable |
-| `specification-extraction` | 91 | 92 | +1 | Enterprise Ready | Inferred items still need careful labeling | Preserve the evidence/inference split |
+| `requirements` | 92 | 93 | +1 | Enterprise Ready | Minimal remaining issues | Keep requirements explicit and testable |
+| `implementation-readiness` | 91 | 92 | +1 | Enterprise Ready | Inferred items still need careful labeling | Preserve the evidence/inference split |
+| `implementation-planning` | 91 | 92 | +1 | Enterprise Ready | Planning can drift if scope is vague | Keep slice scope and dependencies explicit |
+| `vertical-slice-planning` | 91 | 92 | +1 | Enterprise Ready | Vertical slices need tight traceability | Keep frontend/backend/data/API coverage explicit |
+| `implementation-architecture` | 91 | 92 | +1 | Enterprise Ready | Architecture can become too prescriptive | Keep it focused on build structures and standards |
 | `test-design` | 91 | 92 | +1 | Enterprise Ready | Minimal remaining issues | Keep negative and NFR coverage explicit |
 | `traceability-review` | 91 | 92 | +1 | Enterprise Ready | Minor judgment calls may remain on mapping completeness | Keep source-reference mapping explicit |
 | `validation` | 91 | 92 | +1 | Enterprise Ready | Minimal remaining issues | Keep validation evidence strong and reviewable |
-| `wynxx-backlog-ingestion` | 84 | 88 | +4 | Pilot Ready | Still integration-specific and MCP-dependent | Preserve Story Creator references and keep Tasks/Test Cases reference-only |
+| `backlog-ingestion` | 84 | 88 | +4 | Pilot Ready | Still integration-specific and MCP-dependent | Preserve source references and keep Tasks/Test Cases reference-only |
 
 ## 5. Top Strengths
 
@@ -87,13 +94,13 @@ The portfolio moved from **pilot ready overall** to **enterprise ready overall**
 ## 6. Common Weaknesses
 
 - Some support skills are still intentionally broader than the core lifecycle skills.
-- `repo-discovery`, `source-ingestion`, `feedback-capture`, and `wynxx-backlog-ingestion` still depend heavily on operator judgment.
+- `repo-discovery`, `source-ingestion`, `feedback-capture`, and `backlog-ingestion` still depend heavily on operator judgment.
 - A few skills would benefit from one more concrete output sample or artifact skeleton.
 - The most execution-adjacent skills still require disciplined upstream approvals to stay safe.
 
 ## 7. High-Risk Skills
 
-- `wynxx-backlog-ingestion`
+- `backlog-ingestion`
 - `repo-discovery`
 - `source-ingestion`
 - `feedback-capture`
@@ -107,20 +114,18 @@ All skills are acceptable for demo usage within their intended scope. The most p
 - `artifact-review`
 - `capability-onboarding`
 - `change-request`
-- `context-extraction`
-- `decision`
 - `design`
-- `discovery-engineering`
+- `decision`
+- `discovery`
 - `domain-onboarding`
 - `gap-analysis`
 - `impact-analysis`
 - `implementation`
 - `intent`
-- `intent-extraction`
+- `modernization-readiness`
 - `pr-review`
 - `release`
-- `specification`
-- `specification-extraction`
+- `requirements`
 - `test-design`
 - `traceability-review`
 - `validation`
@@ -132,13 +137,13 @@ The following skills remain Pilot Ready but are still the most likely to benefit
 - `repo-discovery`
 - `source-ingestion`
 - `feedback-capture`
-- `wynxx-backlog-ingestion`
+- `backlog-ingestion`
 
 ## 10. Recommended Fixes
 
 1. Add one more compact example output block to the broad support skills if they are used frequently.
 2. Keep evidence-versus-inference language tight in `repo-discovery`, `source-ingestion`, and `feedback-capture`.
-3. Continue preserving Story Creator source references in `wynxx-backlog-ingestion`.
+3. Continue preserving source references in `backlog-ingestion`.
 4. Keep execution-adjacent skills tightly bounded to approved scope.
 
 ## 11. Recommended Skill Quality Gates

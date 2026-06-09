@@ -14,7 +14,7 @@ This state machine coordinates lifecycle progress only. It does not replace Git 
 | --- | --- | --- |
 | `idea` | Raw capability idea or intake exists. | `intent` |
 | `intent_review` | Intent is being drafted or reviewed for approval. | `intent` |
-| `specification_review` | Specification is being drafted or reviewed for approval. | `specification` |
+| `requirements_review` | Requirements is being drafted or reviewed for approval. | `requirements` |
 | `design_review` | Design, API considerations, decisions, and implementation planning are being drafted or reviewed. | `design` |
 | `test_review` | QA test design is being drafted or reviewed. | `test-design` |
 | `implementation_ready` | Approved requirements, design, tests, and traceability are ready for implementation slicing. | `implementation` |
@@ -29,8 +29,8 @@ This state machine coordinates lifecycle progress only. It does not replace Git 
 
 | Approval Event | From State | To State | Next Skill |
 | --- | --- | --- | --- |
-| `intent_approval` | `intent_review` | `specification_review` | `specification` |
-| `specification_approval` | `specification_review` | `design_review` | `design` |
+| `intent_approval` | `intent_review` | `requirements_review` | `requirements` |
+| `requirements_approval` | `requirements_review` | `design_review` | `design` |
 | `design_approval` | `design_review` | `test_review` | `test-design` |
 | `test_design_approval` | `test_review` | `implementation_ready` | `implementation` |
 | `implementation_start_approval` | `implementation_ready` | `implementation_in_progress` | `implementation` |
@@ -55,8 +55,8 @@ Example:
 
 ```text
 Intent approval received for payments/qr-refund.
-Transition: intent_review -> specification_review.
-Next skill: specification.
+Transition: intent_review -> requirements_review.
+Next skill: requirements.
 ```
 
 ## Blocking Rules

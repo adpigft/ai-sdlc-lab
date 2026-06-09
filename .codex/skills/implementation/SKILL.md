@@ -7,15 +7,15 @@ description: Implement one approved slice at a time using tests, focused code ch
 
 ## Purpose
 
-Implement the smallest approved delivery slice while preserving approved scope, design intent, test coverage, and reviewability.
+Implement the smallest approved delivery slice while preserving approved scope, design intent, implementation architecture, test coverage, and reviewability.
 
 ## When To Use
 
-Use `$implementation` only after required intent, specification, design, test design, traceability, and slice approval exist for the work being implemented.
+Use `$implementation` only after required intent, requirements, solution design, gap analysis, impact analysis, implementation readiness, implementation planning, vertical-slice planning, implementation architecture, traceability, and slice approval exist for the work being implemented.
 
 ## Inputs Needed
 
-- Approved intent, specification, design, tests, and traceability
+- Approved intent, requirements, solution design, tests, traceability, and implementation planning artifacts
 - Approved implementation slice or change scope
 - Coding, security, and testing standards
 - Existing source and test code for the approved scope
@@ -33,13 +33,13 @@ When this skill is used inside this repository, context loading, artifact placem
 ## Procedure
 
 1. Confirm upstream approvals and slice scope before reading or editing source code.
-2. Understand the approved requirements, design, tests, and expected evidence.
-3. Explain proposed module/package impact, domain model impact, service flow, and changed files before coding when not already approved.
+2. Understand the approved requirements, design, implementation architecture, tests, and expected evidence.
+3. Explain proposed module/package impact, domain model impact, service flow, changed files, and implementation sequence before coding when not already approved.
 4. Implement one approved slice at a time.
 5. Prefer TDD where practical: failing test, implementation, passing test, focused refactor.
 6. Update or add tests for changed behavior.
 7. Avoid broad rewrites and unrelated refactors.
-8. Stop and report specification, design, ownership, or test gaps instead of coding around them.
+8. Stop and report requirements, design, ownership, placement, or test gaps instead of coding around them.
 9. Prepare implementation evidence for review.
 
 ## Outputs Produced
@@ -55,9 +55,10 @@ When this skill is used inside this repository, context loading, artifact placem
 2. Slices
 3. Target Components
 4. Target Files
-5. Testing Approach
-6. Risks
-7. Open Questions
+5. Implementation Sequence
+6. Testing Approach
+7. Risks
+8. Open Questions
 
 ## Quality Checks
 
@@ -71,10 +72,10 @@ When this skill is used inside this repository, context loading, artifact placem
 ## Stop Conditions
 
 - Upstream approvals are missing.
-- Approved scope or target ownership is unclear.
+- Approved scope, target ownership, or implementation architecture is unclear.
 - Required placement or path constraints are missing in frameworks that enforce them.
 - The requested implementation expands beyond the approved slice.
-- A requirement, design, or test gap blocks correct implementation.
+- A requirement, design, implementation-readiness, or test gap blocks correct implementation.
 
 ## Human Approval Expectations
 

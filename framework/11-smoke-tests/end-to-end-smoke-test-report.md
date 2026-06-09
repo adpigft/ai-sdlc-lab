@@ -119,7 +119,7 @@ It is not fully demo-ready for live end-to-end Jira, Confluence, and GitHub evid
 - Confluence read result:
   - Space `AISDLC` validated successfully
   - Page `688129` read successfully
-  - Title: `[AI-SDLC DEMO] Card Replacement Specification`
+  - Title: `[AI-SDLC DEMO] Card Replacement Requirements`
   - Source references present: yes
 - GitHub evidence result:
   - `gh auth status` succeeded for the active `adpigft` account

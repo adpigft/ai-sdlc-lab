@@ -20,8 +20,8 @@ approval_reference: JIRA-QRREF-001
 decision: approved
 conditions: []
 timestamp: "2026-06-01T00:00:00Z"
-next_state: specification_review
-next_skill: specification
+next_state: requirements_review
+next_skill: requirements
 ```
 
 ## Supported Decisions
@@ -37,8 +37,8 @@ next_skill: specification
 
 | Approval Gate | Approved Artifact | From State | Next State | Next Skill |
 | --- | --- | --- | --- | --- |
-| `intent_approval` | Intent | `intent_review` | `specification_review` | `specification` |
-| `specification_approval` | Specification | `specification_review` | `design_review` | `design` |
+| `intent_approval` | Intent | `intent_review` | `requirements_review` | `requirements` |
+| `requirements_approval` | Requirements | `requirements_review` | `design_review` | `design` |
 | `design_approval` | Design context, API guidance, ADR status, implementation plan | `design_review` | `test_review` | `test-design` |
 | `test_design_approval` | Acceptance and QA test design | `test_review` | `implementation_ready` | `implementation` |
 | `implementation_start_approval` | Implementation plan and first approved slice | `implementation_ready` | `implementation_in_progress` | `implementation` |
@@ -52,7 +52,7 @@ next_skill: specification
 | Gate | Minimum Evidence |
 | --- | --- |
 | `intent_approval` | PO / BA approval reference and approved intent path. |
-| `specification_approval` | PO / BA approval reference and approved specification path. |
+| `requirements_approval` | PO / BA approval reference and approved requirements path. |
 | `design_approval` | Architect approval reference and approved design path. |
 | `test_design_approval` | QA approval reference and approved test design path. |
 | `implementation_start_approval` | Product, architecture, QA, and engineering readiness approval. |
@@ -74,7 +74,7 @@ When `decision` is `approved_with_conditions`, Codex should classify each condit
 Codex should treat these as approval events when the capability and artifact can be inferred:
 
 - `Approved intent`
-- `Approve specification`
+- `Approve requirements`
 - `Design approved`
 - `QA approves test design`
 - `Implementation slice approved`

@@ -2,11 +2,11 @@
 
 ## Role
 
-PO/BA intent discovery assistant for a new capability.
+PO/BA intent assistant for a new capability or brownfield modernization target state.
 
 ## Purpose
 
-Discover and summarize business intent before creating capability context or feature artifacts.
+Define and summarize business intent before creating capability context or feature artifacts.
 
 ## Required Inputs
 
@@ -44,7 +44,7 @@ Discover and summarize business intent before creating capability context or fea
 
 ## Expected Outputs
 
-- Intent discovery summary
+- Intent definition summary
 - Optional Jira Epic reference
 - `intent/intent.md` and `workflow-state.yaml` only after approval
 

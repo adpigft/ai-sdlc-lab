@@ -10,7 +10,7 @@ Use this document to decide what testing is needed, who owns it, which tests sho
 
 | Test Type | Purpose | Typical Evidence | Primary Stage |
 | --- | --- | --- | --- |
-| Acceptance tests | Validate approved business behavior, scenarios, and edge cases from the specification. | `tests/acceptance.feature`, validation report, traceability rows | `$test-design`, `$validation` |
+| Acceptance tests | Validate approved business behavior, scenarios, and edge cases from the requirements. | `tests/acceptance.feature`, validation report, traceability rows | `$test-design`, `$validation` |
 | Unit tests | Validate isolated domain rules, calculations, state transitions, and error handling. | Source test files, coverage output, PR evidence | `$implementation`, `$pr-review` |
 | Integration tests | Validate service, database, queue, external processor, ledger, notification, or fraud-service boundaries. | Integration test output, mocked or sandbox dependency evidence | `$implementation`, `$validation` |
 | Contract tests | Validate API, event, and schema compatibility between producers and consumers. | OpenAPI validation, schema checks, consumer/provider evidence | `$design`, `$test-design`, `$pr-review` |
@@ -102,7 +102,7 @@ CI/CD validates evidence. It does not replace required human approvals.
 
 AI may assist testing by:
 
-- Drafting acceptance scenarios from approved intent and specification.
+- Drafting acceptance scenarios from approved intent and requirements.
 - Suggesting negative, boundary, security, integration, resilience, and NFR scenarios.
 - Proposing unit and integration test cases from approved design and implementation plans.
 - Reviewing traceability gaps between requirements, tests, implementation, and validation evidence.
@@ -142,7 +142,7 @@ Automation candidates should be recorded in feature test design, implementation 
 | Skill | Testing Strategy Use |
 | --- | --- |
 | `$intent` | Capture business outcomes, risk areas, exclusions, and validation expectations at a high level. Do not design tests prematurely. |
-| `$specification` | Define testable functional requirements, NFRs, business rules, edge cases, and acceptance criteria. |
+| `$requirements` | Define testable functional requirements, NFRs, business rules, edge cases, and acceptance criteria. |
 | `$design` | Identify test-impacting APIs, events, integrations, data, state transitions, security controls, resilience behavior, and observability needs. |
 | `$test-design` | Create acceptance, negative, integration, contract, security, regression, and NFR scenarios from approved requirements and design. Assess automation candidates. |
 | `$implementation` | Add or update approved automated tests for the active implementation slice and collect local evidence. |

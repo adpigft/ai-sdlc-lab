@@ -12,7 +12,7 @@ AI output is untrusted until reviewed, tested, and approved by accountable human
 
 | Area | Review Questions |
 | --- | --- |
-| Scope | Does the change stay inside approved intent, specification, design, and implementation plan? |
+| Scope | Does the change stay inside approved intent, requirements, design, and implementation plan? |
 | Traceability | Does the change link to requirements, design decisions, tests, validation evidence, and Jira where applicable? |
 | Architecture | Does it preserve clean architecture, ownership boundaries, and allowed paths? |
 | Security | Does it avoid sensitive-data leakage, weak auth, unsafe defaults, and secret exposure? |
@@ -44,5 +44,5 @@ PR review must record:
 
 ## Human Accountability
 
-AI does not approve intent, specification, design, tests, implementation, validation, release, security risk, architecture decisions, or production changes. Accountable owners remain responsible for final approval.
+AI does not approve intent, requirements, design, tests, implementation, validation, release, security risk, architecture decisions, or production changes. Accountable owners remain responsible for final approval.
 

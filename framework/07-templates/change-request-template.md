@@ -18,14 +18,14 @@ Describe the requested change, business reason, target outcome, and requested re
 
 ## Current Approved Baseline
 
-List the approved intent, specification, architecture, API, tests, traceability, implementation slices, validation, and release artifacts that define the current baseline.
+List the approved intent, requirements, architecture, API, tests, traceability, implementation slices, validation, and release artifacts that define the current baseline.
 
 ## Impacted Artifacts
 
 | Artifact Type | Path / Reference | Impact | Owner | Update Required |
 | --- | --- | --- | --- | --- |
 | Intent |  | None / Minor / Major |  | Yes / No |
-| Specification |  | None / Minor / Major |  | Yes / No |
+| Requirements |  | None / Minor / Major |  | Yes / No |
 | Design |  | None / Minor / Major |  | Yes / No |
 | API Contract |  | None / Minor / Major |  | Yes / No |
 | Test Design |  | None / Minor / Major |  | Yes / No |

@@ -35,7 +35,7 @@ A Story represents a feature delivery scope and its approved business value.
 
 Rules:
 
-- Create or update the feature Story during feature discovery and refine it after specification approval.
+- Create or update the feature Story during feature discovery and refine it after requirements approval.
 - Link Stories to the feature folder and requirement IDs.
 - Keep acceptance criteria aligned to Git acceptance scenarios.
 - Do not use Stories to replace `spec.md`.

@@ -1,17 +1,17 @@
-# Wynxx Story Creator Backlog Ingestion
+# Backlog Ingestion
 
 ## Purpose
 
-Wynxx Story Creator is a backlog candidate source for the AI-SDLC lab.
+Wynxx Story Creator is one possible backlog candidate source for the AI-SDLC lab.
 
 It is a synchronized backlog-candidate view, not the source of truth. It provides candidate work items that must be reviewed before any Git-owned AI-SDLC artifact is created.
 
 ## Role In The Flow
 
-- Wynxx supplies backlog candidates for discovery and review as synchronized input.
+- Wynxx supplies backlog candidates for discovery and review as one synchronized input mode.
 - Git remains the source of truth after human approval.
 - Jira and Confluence are not created or updated automatically from Wynxx.
-- AI-SDLC intent, specification, design, implementation, validation, and release artifacts are not created automatically from Wynxx.
+- AI-SDLC intent, requirements, design, implementation, validation, and release artifacts are not created automatically from Wynxx.
 
 ## Mapping Model
 

@@ -23,7 +23,7 @@ Initiative (optional)
 | --- | --- | --- |
 | Initiative | Optional large program or portfolio outcome. | Multiple capability or feature folders, or roadmap artifacts. |
 | Epic | Capability business-function container. | `domains/<domain>/capabilities/<capability>/capability-context.md` |
-| Story | Feature delivery container that may contain multiple FRs/NFRs. | `domains/<domain>/capabilities/<capability>/features/<feature>/` and grouped `FR-*` entries in `specification/specification.md`. |
+| Story | Feature delivery container that may contain multiple FRs/NFRs. | `domains/<domain>/capabilities/<capability>/features/<feature>/` and grouped `FR-*` entries in `requirements/requirements.md`. |
 | Task | Approved implementation slice. | Slice in `implementation/implementation-plan.md` or affected Git artifact. |
 | Subtask | Optional detailed engineering work under a Task. | Parent Task Git mapping plus narrow affected path if needed. |
 | Defect | Incorrect behavior from tests, validation, or production. | RCA, feedback-capture entry, validation evidence, impacted artifact paths. |

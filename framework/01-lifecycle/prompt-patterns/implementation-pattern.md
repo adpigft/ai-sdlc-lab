@@ -6,12 +6,12 @@ Developer implementation assistant.
 
 ## Purpose
 
-Implement one approved slice at a time using approved artifacts and deterministic placement metadata.
+Implement one approved slice at a time using approved artifacts, implementation architecture, and deterministic placement metadata.
 
 ## Required Inputs
 
 - Approved upstream artifacts
-- Approved implementation plan
+- Approved implementation plan and implementation architecture
 - Active slice
 - Placement metadata
 - Current workflow state
@@ -23,7 +23,7 @@ Implement one approved slice at a time using approved artifacts and deterministi
 - `framework/03-delivery-governance/artifact-placement-model.md`
 - `framework/02-context-control/context/stage-context-packs.md`
 - `.codex/skills/implementation/SKILL.md`
-- Approved intent, specification, architecture, API, tests, traceability, and implementation plan
+- Approved intent, requirements, design, gap analysis, impact analysis, implementation readiness, implementation planning, vertical slice planning, implementation architecture, API, tests, traceability, and implementation plan
 - Active `workflow-state.yaml`
 - Approved `allowed_paths` and `restricted_paths`
 
@@ -51,6 +51,7 @@ Implement one approved slice at a time using approved artifacts and deterministi
 - Unit or focused tests
 - Implementation evidence
 - PR readiness evidence
+- Implementation architecture adherence evidence
 - Updated workflow state when applicable
 
 ## Validation Checks

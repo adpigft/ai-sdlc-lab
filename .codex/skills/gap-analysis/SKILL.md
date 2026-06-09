@@ -1,25 +1,26 @@
 ---
 name: gap-analysis
-description: Compare current-state extracted artifacts with target-state goals and identify modernization gaps.
+description: Compare current-state discovery with target requirements and design to identify modernization gaps.
 ---
 
 # Gap Analysis Skill
 
 ## Purpose
 
-Compare current-state extracted artifacts with target-state goals and identify the gaps, retained behavior, changed behavior, removed behavior, and new behavior needed for modernization.
+Compare current-state discovery artifacts with approved target requirements and solution design to identify modernization gaps, including confirmed, assumption-based, and deferred gaps.
 
 ## When To Use
 
-Use `$gap-analysis` after discovery, intent extraction, specification extraction, and context extraction when the user needs a structured modernization delta.
+Use `$gap-analysis` after discovery, intent definition, requirements definition, and solution design when the user needs a structured modernization delta.
 
 ## Inputs Needed
 
 - Current-state discovery
-- Recovered intent
-- Current-state specification
-- Legacy context
+- Approved intent
+- Approved requirements
+- Solution design
 - Target-state goals or constraints
+- Current-state evidence
 
 ## Framework Adapter
 
@@ -32,49 +33,55 @@ When this skill is used inside this repository, context loading, artifact placem
 
 ## Procedure
 
-1. Compare the current-state artifacts with the target-state goals.
-2. Identify business, technical, data, integration, security, and operational gaps.
-3. Classify each gap by severity and owner role.
-4. Separate retained behavior, changed behavior, removed behavior, and new behavior.
+1. Compare current-state discovery artifacts with approved target artifacts.
+2. Identify business, capability, architecture, data, API, business-rule, operational, and implementation-readiness gaps.
+3. Classify each gap as confirmed, assumption-based, or deferred.
+4. Separate capability, architecture, data, API, business-rule, operational, and implementation-readiness perspectives.
 5. Capture modernization risks and assumptions.
 6. Stop before creating an implementation plan.
 
 ## Outputs Produced
 
 - Gap analysis summary
-- Retained behavior list
-- Changed behavior list
-- Removed behavior list
-- New behavior list
-- Modernization risks
+- Capability gap analysis
+- Architecture gap analysis
+- Data gap analysis
+- API gap analysis
+- Business rule gap analysis
+- Operational gap analysis
+- Implementation readiness gaps
+- Gap traceability
 
 ## Artifact Structure
 
 1. Gap Analysis
-2. Retained Behavior
-3. Changed Behavior
-4. Removed Behavior
-5. New Behavior
-6. Risk Register
-7. Severity
-8. Owner Role
-9. Evidence and Assumptions
+2. Capability Gap Analysis
+3. Architecture Gap Analysis
+4. Data Gap Analysis
+5. API Gap Analysis
+6. Business Rule Gap Analysis
+7. Operational Gap Analysis
+8. Implementation Readiness Gaps
+9. Confirmed Gaps
+10. Assumption-Based Gaps
+11. Deferred Gaps
+12. Gap Traceability
 
 ## Quality Checks
 
 - Gaps are categorized consistently.
-- Severity and owner role are explicit.
-- Retained and changed behaviors are not mixed together.
+- Confirmed, assumption-based, and deferred gaps are separated.
+- Architecture, data, API, business-rule, and operational perspectives are visible.
 - No implementation plan is created.
 
 ## Stop Conditions
 
-- Target-state goals are missing or too vague to compare.
+- Target-state artifacts are missing or too vague to compare.
 - The user asks for implementation planning instead of gap analysis.
 
 ## Human Approval Expectations
 
-Human review is required before gap analysis is used to justify target-state specification, design, or implementation work.
+Human review is required before gap analysis is used to justify target-state requirements, design, or implementation work.
 
 ## Do Not
 

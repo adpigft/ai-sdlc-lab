@@ -10,7 +10,7 @@ It is a governance model, not an execution script.
 
 - Owner: feature owner
 - Approver: feature approver
-- Required artifacts: impacted intent, spec, design, tests, traceability
+- Required artifacts: impacted intent, requirements, design, tests, traceability
 - Validation gates: targeted regression, traceability check, local validation
 - Jira action: update existing issue or note impact if the issue exists
 - Confluence action: update published summary only if approved by process
@@ -20,8 +20,8 @@ It is a governance model, not an execution script.
 
 - Owner: BA / feature lead
 - Approver: BA / PO and design reviewer when design changes
-- Required artifacts: updated specification, impact analysis, traceability delta
-- Validation gates: spec review, design delta review, test impact review
+- Required artifacts: updated requirements, impact analysis, traceability delta
+- Validation gates: requirements review, design delta review, test impact review
 - Jira action: mark change scope on the existing story or linked issue
 - Confluence action: keep published pages synchronized after approval
 - Control Tower visibility: show as an in-flight change requiring review
@@ -50,8 +50,8 @@ It is a governance model, not an execution script.
 
 - Owner: domain or capability owner
 - Approver: architecture, QA, and operations owners as needed
-- Required artifacts: current-state context, impact analysis, compatibility notes, traceability
-- Validation gates: brownfield discovery, dependency review, compatibility checks, regression coverage
+- Required artifacts: current-state context, modernization readiness review, gap analysis, impact analysis, compatibility notes, traceability
+- Validation gates: brownfield discovery, readiness review, dependency review, compatibility checks, regression coverage
 - Jira action: keep the change linked to the existing work container
 - Confluence action: maintain the synced published view after approval
 - Control Tower visibility: show as a brownfield change with context and dependency risk

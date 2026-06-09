@@ -17,7 +17,7 @@ Jira state shows work-management progress. Git state and artifacts show what was
 | Drafting | Git artifact is being drafted. |
 | In Review | Human approval is pending. |
 | Approved | Gate is approved. |
-| Ready for Build | Specification, design, test-design, and traceability are approved. |
+| Ready for Build | Requirements, design, test-design, and traceability are approved. |
 | In Progress | Active delivery work is underway. |
 | In Validation | QA validation is underway. |
 | Ready for Release | Validation is approved and release readiness is pending. |
@@ -31,7 +31,7 @@ Jira state shows work-management progress. Git state and artifacts show what was
 | --- | --- | --- |
 | `idea` | Intake | Epic or intake reference only. |
 | `intent_review` | Discovery / In Review | `intent.md` draft or approved intent gate. |
-| `specification_review` | Drafting / In Review | `spec.md` draft or approved specification gate. |
+| `requirements_review` | Drafting / In Review | `spec.md` draft or approved requirements gate. |
 | `design_review` | Drafting / In Review | `context.md`, API guidance, ADR status, implementation planning. |
 | `test_review` | Drafting / In Review | `acceptance.feature` or QA test design artifact. |
 | `implementation_ready` | Ready for Build | Approved traceability and implementation slice plan. |

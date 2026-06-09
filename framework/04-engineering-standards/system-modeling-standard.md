@@ -11,7 +11,7 @@ Define reusable system modeling standards for C4 diagrams, sequence diagrams, an
 - Keep diagrams logical unless deployment topology is the subject.
 - Name actors, systems, services, datastores, queues, and external providers consistently with domain and capability language.
 - Do not put full JSON payloads, raw SQL, implementation loops, or framework internals in architecture diagrams.
-- Link diagrams to approved intent, specification, design, API contracts, event contracts, or decisions where applicable.
+- Link diagrams to approved intent, requirements, design, API contracts, event contracts, or decisions where applicable.
 
 ## C4 Model Standards
 

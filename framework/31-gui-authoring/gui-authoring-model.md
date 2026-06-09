@@ -14,7 +14,7 @@ GUI authoring provides a user interface for editing Git-owned artifacts without 
 
 - Feature workspace
 - Intent editor
-- Specification editor
+- Requirements editor
 - Design editor
 - Test editor
 - Traceability explorer

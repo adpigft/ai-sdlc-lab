@@ -27,7 +27,7 @@ Wynxx Story Creator generates backlog candidates from PRD, BRD, and discovery in
 
 Do not import Wynxx Story Creator Tasks and Test Cases as first-class AI-SDLC delivery artifacts.
 
-AI-SDLC generates implementation slices and validation artifacts after Intent, Specification, and Design are approved.
+AI-SDLC generates implementation slices and validation artifacts after Intent, Requirements, and Design are approved.
 
 ## Resilience Rule
 

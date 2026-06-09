@@ -50,7 +50,7 @@ Recommended path:
 domains/<domain>/capabilities/<capability>/features/<feature>/artifact-index.md
 ```
 
-It should point to intent, specification, architecture, contracts, tests, implementation plan, validation, release, workflow state, traceability references, and feedback references.
+It should point to intent, requirements, architecture, contracts, tests, implementation plan, validation, release, workflow state, traceability references, and feedback references.
 
 ## Recommended Usage
 

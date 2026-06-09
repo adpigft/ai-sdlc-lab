@@ -35,7 +35,7 @@ selected_packages:
     version: 1.1.0
 source_provenance:
   - git: domains/cards/capabilities/card-lifecycle-management/capability-context.md
-  - git: domains/cards/capabilities/card-lifecycle-management/features/card-replacement/specification/specification.md
+  - git: domains/cards/capabilities/card-lifecycle-management/features/card-replacement/requirements/requirements.md
 last_reviewed: 2026-06-07T00:00:00Z
 approved_by:
   - BA

@@ -1,10 +1,10 @@
-# Specification Template
+# Requirements Template
 
 ## Metadata
 
 | Field | Value |
 | --- | --- |
-| Spec ID | SPEC-YYYY-NNN |
+| Requirements ID | REQ-YYYY-NNN |
 | Intent ID | INT-YYYY-NNN |
 | Jira Epic | PAY-000 |
 | Capability |  |

@@ -70,7 +70,7 @@ Required source links on payloads:
 - `capability-context.md`
 - `workflow-state.yaml`
 - `intent/intent.md`
-- `specification/specification.md`
+- `requirements/requirements.md`
 - `design/design.md`
 - `tests/acceptance.feature`
 - `implementation/implementation-plan.md`

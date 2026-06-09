@@ -35,11 +35,21 @@ If these checks fail, report the smallest missing prerequisite and stop before r
 | Command | Must Confirm Before Proceeding |
 | --- | --- |
 | `$domain-onboarding` | Domain does not already exist, or update approval exists. |
+| `$discovery` | Current-state sources, scope, and read-only access are available. |
+| `$modernization-readiness` | Discovery outputs, evidence, and limitations are available. |
 | `$intent` | `domains/<domain>/domain-context.md` exists. |
-| `$specification` | Intent exists and intent approval is recorded. |
-| `$design` | Specification exists and specification approval is recorded. |
-| `$test-design` | Specification approval and architecture context exist; API contract exists when applicable. |
-| `$implementation` | Architecture, test design, traceability, implementation plan, placement metadata, `allowed_paths`, and required approvals exist. |
+| `$requirements` | Approved intent exists. |
+| `$design` | Requirements exist and requirements approval is recorded. |
+| `$test-design` | Requirements approval and architecture context exist; API contract exists when applicable. |
+| `$modernization-readiness-review` | Discovery outputs, evidence, and limitations are available. |
+| `$design-input-review` | Discovery, intent, and requirements evidence are available. |
+| `$gap-analysis` | Current-state discovery and approved target-state artifacts exist. |
+| `$impact-analysis` | Gap analysis or equivalent change context exists. |
+| `$implementation-readiness` | Gap analysis, impact analysis, and approval context exist. |
+| `$implementation-planning` | Implementation readiness inputs exist and slice scope is known. |
+| `$vertical-slice-planning` | Implementation planning inputs exist and business slice scope is known. |
+| `$implementation-architecture` | Vertical slice plan and placement direction exist. |
+| `$implementation` | Architecture, test design, traceability, implementation plan, implementation architecture, placement metadata, `allowed_paths`, and required approvals exist. |
 | `$pr-review` | Implementation evidence, changed file list, placement metadata, `allowed_paths`, and `restricted_paths` exist. |
 | `$validation` | Implementation evidence exists and can map to approved tests and requirements. |
 | `$release` | Validation evidence, release notes, CI evidence, and release approval package exist; no release blockers remain. |

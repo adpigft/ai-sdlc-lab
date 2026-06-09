@@ -25,7 +25,7 @@ Initiative
 -> Capability
 -> Feature / Story
 -> Intent
--> Specification
+-> Requirements
 -> Story
 -> Implementation Slice
 -> Task/Subtask
@@ -57,7 +57,7 @@ Rules:
 
 - A Story is a business capability slice.
 - A Story may contain multiple FRs and NFRs.
-- FRs and NFRs live in Git specification.
+- FRs and NFRs live in Git requirements.
 - Story acceptance criteria summarize Git acceptance tests.
 - If FR scope changes, use change control before implementation.
 

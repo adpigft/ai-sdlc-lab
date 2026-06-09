@@ -1,8 +1,8 @@
-# Workflow 01: Intent To Specification
+# Workflow 01: Intent To Requirements
 
 ## Purpose
 
-Convert a stakeholder request into an approved, traceable specification candidate.
+Convert a stakeholder request into an approved, traceable requirements candidate.
 
 ## Inputs
 
@@ -16,19 +16,19 @@ Convert a stakeholder request into an approved, traceable specification candidat
 2. Capture intent using `framework/07-templates/intent-template.md`.
 3. Identify stakeholders, customers, operations teams, risk owners, and approval owners.
 4. Record payment-specific assumptions, such as rails, limits, currency, QR format, settlement behavior, fees, notifications, and reconciliation needs.
-5. Convert intent into requirements and acceptance criteria using `framework/07-templates/spec-template.md`.
+5. Convert intent into requirements and acceptance criteria using `framework/07-templates/requirements-template.md`.
 6. Add Jira references to the traceability matrix.
 7. List open questions and classify them as product, architecture, QA, security, legal, compliance, or operations.
-8. Request human approval to proceed to spec review.
-9. After approval, update or prepare `workflow-state.yaml` so the capability can move from `intent_review` to `specification_review` when workflow-state is adopted.
+8. Request human approval to proceed to requirements review.
+9. After approval, update or prepare `workflow-state.yaml` so the capability can move from `intent_review` to `requirements_review` when workflow-state is adopted.
 
 ## Outputs
 
 - Intent artifact.
-- Draft specification.
+- Draft requirements.
 - Initial traceability rows.
 - Open question list.
 
 ## Human Gate
 
-Product owner approval in Jira is required before the specification review workflow starts.
+Product owner approval in Jira is required before the requirements review workflow starts.

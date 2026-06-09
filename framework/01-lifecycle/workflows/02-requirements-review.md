@@ -1,8 +1,8 @@
-# Workflow 02: Specification Review
+# Workflow 02: Requirements Review
 
 ## Purpose
 
-Assess whether a specification is complete, testable, secure, operable, and ready for implementation planning.
+Assess whether requirements are complete, testable, secure, operable, and ready for implementation planning.
 
 ## Reviewers
 
@@ -23,11 +23,11 @@ Assess whether a specification is complete, testable, secure, operable, and read
 6. Confirm tests can be derived from the acceptance criteria.
 7. Update traceability for reviewed requirements, controls, and review evidence.
 8. Record approvals, required changes, or rejected scope in Jira.
-9. After approval, update or prepare `workflow-state.yaml` so the capability can move from `specification_review` to `design_review` when workflow-state is adopted.
+9. After approval, update or prepare `workflow-state.yaml` so the capability can move from `requirements_review` to `design_review` when workflow-state is adopted.
 
 ## Outputs
 
-- Reviewed specification.
+- Reviewed requirements.
 - Review gate record using `framework/07-templates/review-gate-template.md`.
 - Updated traceability matrix.
 - ADR request if a major architecture decision is discovered.

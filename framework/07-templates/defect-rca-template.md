@@ -35,7 +35,7 @@ Primary root cause classification:
 | Artifact Type | Path / Reference | Impact | Owner | Update Required |
 | --- | --- | --- | --- | --- |
 | Intent |  | None / Minor / Major |  | Yes / No |
-| Specification |  | None / Minor / Major |  | Yes / No |
+| Requirements |  | None / Minor / Major |  | Yes / No |
 | Design |  | None / Minor / Major |  | Yes / No |
 | API Contract |  | None / Minor / Major |  | Yes / No |
 | Test Design |  | None / Minor / Major |  | Yes / No |

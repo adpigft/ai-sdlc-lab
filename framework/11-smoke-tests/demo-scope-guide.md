@@ -10,7 +10,7 @@ This keeps the client demo focused on the validated delivery path and avoids sur
 
 - Wynxx
 - Intent
-- Specification
+- Requirements
 - Context
 - Traceability
 - Validation

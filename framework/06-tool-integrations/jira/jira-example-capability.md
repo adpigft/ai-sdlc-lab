@@ -12,7 +12,7 @@ This is an example operating model. The source-of-truth business artifacts remai
 Idea
 -> Epic
 -> Intent
--> Specification
+-> Requirements
 -> Design
 -> Story Breakdown
 -> Slice Planning
@@ -58,7 +58,7 @@ Git links:
 | Artifact | Link |
 | --- | --- |
 | Intent | `domains/payments/capabilities/payment-refund/features/qr-refund/intent/intent.md` |
-| Specification | `domains/payments/capabilities/payment-refund/features/qr-refund/specification/specification.md` |
+| Requirements | `domains/payments/capabilities/payment-refund/features/qr-refund/requirements/requirements.md` |
 | Design | `domains/payments/capabilities/payment-refund/features/qr-refund/design/design.md` |
 | API Contract | `domains/payments/capabilities/payment-refund/features/qr-refund/contracts/openapi.yaml` |
 | Acceptance Tests | `domains/payments/capabilities/payment-refund/features/qr-refund/tests/acceptance.feature` |
@@ -81,20 +81,20 @@ Approval gate:
 | --- | --- | --- | --- |
 | Intent approved | `JIRA-QRREF-001` | Product Owner / BA | `intent/intent.md` Human Approval section |
 
-## Specification
+## Requirements
 
 | Field | Example |
 | --- | --- |
-| Spec ID | `SPEC-QRREF-001` |
+| Requirements ID | `REQ-QRREF-001` |
 | Jira Approval | `JIRA-QRREF-050` |
-| Git Artifact | `domains/payments/capabilities/payment-refund/features/qr-refund/specification/specification.md` |
+| Git Artifact | `domains/payments/capabilities/payment-refund/features/qr-refund/requirements/requirements.md` |
 | Status | Approved for architecture context |
 
 Approval gate:
 
 | Gate | Jira ID | Approver | Git Evidence |
 | --- | --- | --- | --- |
-| Specification approved | `JIRA-QRREF-050` | Product Owner / BA | `specification/specification.md` Human Approval section |
+| Requirements approved | `JIRA-QRREF-050` | Product Owner / BA | `requirements/requirements.md` Human Approval section |
 
 ## Architecture
 
@@ -126,10 +126,10 @@ Stories represent business capability slices. A Story is not one Functional Requ
 
 | Story ID | Story | Example FR Mapping | Git Source |
 | --- | --- | --- | --- |
-| `JIRA-QRREF-020` | Merchant Refund Creation | `FR-QRREF-001`, `FR-QRREF-003`, `FR-QRREF-004`, `FR-QRREF-005`, `FR-QRREF-006`, `FR-QRREF-007`, `FR-QRREF-008`, `FR-QRREF-009`, `FR-QRREF-010`, `FR-QRREF-020` | `specification/specification.md` |
-| `JIRA-QRREF-021` | Operations Refund and Override | `FR-QRREF-002`, `FR-QRREF-012`, `FR-QRREF-014`, `FR-QRREF-020` | `specification/specification.md` |
-| `JIRA-QRREF-035` | Refund Status Tracking | `FR-QRREF-016`, `NFR-QRREF-007` | `specification/specification.md`, `contracts/openapi.yaml` |
-| `JIRA-QRREF-037` | Reconciliation and Reporting | `FR-QRREF-018`, `FR-QRREF-019`, `NFR-QRREF-008` | `specification/specification.md`, `implementation/implementation-plan.md` |
+| `JIRA-QRREF-020` | Merchant Refund Creation | `FR-QRREF-001`, `FR-QRREF-003`, `FR-QRREF-004`, `FR-QRREF-005`, `FR-QRREF-006`, `FR-QRREF-007`, `FR-QRREF-008`, `FR-QRREF-009`, `FR-QRREF-010`, `FR-QRREF-020` | `requirements/requirements.md` |
+| `JIRA-QRREF-021` | Operations Refund and Override | `FR-QRREF-002`, `FR-QRREF-012`, `FR-QRREF-014`, `FR-QRREF-020` | `requirements/requirements.md` |
+| `JIRA-QRREF-035` | Refund Status Tracking | `FR-QRREF-016`, `NFR-QRREF-007` | `requirements/requirements.md`, `contracts/openapi.yaml` |
+| `JIRA-QRREF-037` | Reconciliation and Reporting | `FR-QRREF-018`, `FR-QRREF-019`, `NFR-QRREF-008` | `requirements/requirements.md`, `implementation/implementation-plan.md` |
 
 Approval gate:
 
@@ -258,6 +258,6 @@ Do:
 Do not:
 
 - Treat one Story as one FR.
-- Implement directly from Epic without specification, design, tests, and traceability.
+- Implement directly from Epic without requirements, design, tests, and traceability.
 - Create source code before approval gates are satisfied.
 - Close Release without validation evidence and human approval.

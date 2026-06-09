@@ -11,7 +11,7 @@ The portal is a workflow interface over Git, not a replacement repository, docum
 | Role | Portal Responsibility |
 | --- | --- |
 | Product Owner | Review intent, business scope, exclusions, success measures, and approve business gates. |
-| Business Analyst | Edit and review intent, specification, acceptance criteria, business rules, and open questions. |
+| Business Analyst | Edit and review intent, requirements, acceptance criteria, business rules, and open questions. |
 | Solution Architect | Review and approve design, API, event, integration, placement, and architecture decisions. |
 | QA Lead | Review and approve test design, validation evidence, defects, and release-quality recommendations. |
 | Developer Lead | Review implementation plans, code-impact summaries, PR evidence, and technical readiness. |

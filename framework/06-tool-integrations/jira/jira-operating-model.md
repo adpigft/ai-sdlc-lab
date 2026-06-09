@@ -10,7 +10,7 @@ Define how Jira supports AI-native software delivery while Git remains the sourc
 
 | System | Source Of Truth For |
 | --- | --- |
-| Git | Intent, specification, design, API contracts, tests, ADRs, implementation plans, PR review evidence, validation reports, release notes, traceability. |
+| Git | Intent, requirements, design, API contracts, tests, ADRs, implementation plans, PR review evidence, validation reports, release notes, traceability. |
 | Jira | Ownership, delivery status, approvals, sprint planning, dependencies, blockers, work management. |
 | Confluence | Stakeholder-facing published summaries, operating model pages, management communication. |
 
@@ -20,7 +20,7 @@ Define how Jira supports AI-native software delivery while Git remains the sourc
 Idea
 -> Epic
 -> Intent
--> Specification
+-> Requirements
 -> Design
 -> Test Design
 -> Story Breakdown
@@ -60,7 +60,7 @@ Important rules:
 
 - A Jira Story is not equal to one Functional Requirement.
 - A Story may contain multiple FRs.
-- FRs live in Git specification.
+- FRs live in Git requirements.
 - Feature artifacts map to Jira Stories.
 - Implementation slices map to Jira Tasks.
 - PR review is normally per slice or PR.
@@ -101,7 +101,7 @@ Do:
 
 - Use Jira to show ownership, status, blockers, sprint scope, and approval evidence.
 - Link every meaningful Jira item to Git paths or stable artifact IDs.
-- Create Stories after specification approval.
+- Create Stories after requirements approval.
 - Create Tasks after implementation slices are defined.
 - Use Decision issues for unresolved choices that block design, tests, implementation, PR review, validation, or release.
 - Keep Confluence summaries linked back to Git and Jira.
@@ -110,6 +110,6 @@ Do not:
 
 - Use Jira as the canonical store for requirements.
 - Treat one Story as one FR.
-- Create implementation Tasks before approved intent, specification, design, tests, and traceability.
+- Create implementation Tasks before approved intent, requirements, design, tests, and traceability.
 - Use Jira status to override missing Git evidence, failed CI, failed quality gates, or missing validation.
 - Store secrets, credentials, customer data, or sensitive operational data in Jira.

@@ -11,7 +11,7 @@ Approval gates:
 ```text
 Idea accepted
 -> Intent approved
--> Specification approved
+-> Requirements approved
 -> Design approved
 -> Test design approved
 -> Traceability approved
@@ -29,7 +29,7 @@ Jira records approval status and approver evidence. Git stores the approved arti
 | --- | --- | --- | --- |
 | Idea accepted | Epic or intake status | Optional discovery notes | Product Owner |
 | Intent approved | Epic approval field or approval issue | `intent/intent.md` | Product Owner / BA |
-| Specification approved | Story creation approval or approval issue | `specification/specification.md` | Product Owner / BA |
+| Requirements approved | Story creation approval or approval issue | `requirements/requirements.md` | Product Owner / BA |
 | Design approved | Decision or design approval issue | `design/design.md`, ADRs, API guidance | Solution Architect |
 | Test design approved | QA approval Task | `tests/acceptance.feature` | QA Lead |
 | Traceability approved | traceability-review task | `traceability/traceability-matrix.md` | BA / Architect / QA Lead |
@@ -54,7 +54,7 @@ QR Refund approval examples:
 | Gate | Jira Placeholder | Git Artifact | Status |
 | --- | --- | --- | --- |
 | Intent approved | `JIRA-QRREF-001` | `intent/intent.md` | Approved by chat confirmation in lab context. |
-| Specification approved | `JIRA-QRREF-050` | `specification/specification.md` | Approved by chat confirmation in lab context. |
+| Requirements approved | `JIRA-QRREF-050` | `requirements/requirements.md` | Approved by chat confirmation in lab context. |
 | Design approved | `JIRA-QRREF-060` | `design/design.md` | Approved by chat confirmation in lab context. |
 | traceability-review | `JIRA-QRREF-070` | `traceability/traceability-matrix.md` | Pending. |
 | Implementation plan approval | `JIRA-QRREF-090` | `implementation/implementation-plan.md` | Pending. |

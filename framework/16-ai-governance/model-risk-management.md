@@ -16,13 +16,13 @@ It is optional and future-state.
 - Owner: AI governance owner
 - Monitoring: review findings, validation failures, user feedback
 
-### Specification Drift
+### Requirements Drift
 
 - Likelihood: medium
 - Impact: high
-- Controls: traceability, spec-aware review, context versioning, impact analysis
+- Controls: traceability, requirements-aware review, context versioning, impact analysis
 - Owner: product / BA owner
-- Monitoring: spec review comments, traceability gaps, change impact checks
+- Monitoring: requirements review comments, traceability gaps, change impact checks
 
 ### Context Drift
 

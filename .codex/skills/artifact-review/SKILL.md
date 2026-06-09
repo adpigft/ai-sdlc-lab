@@ -11,7 +11,7 @@ Review the quality of an AI-generated artifact before human approval.
 
 ## When To Use
 
-Use `$artifact-review` when intent, specification, design, test-design, implementation-plan, PR review, validation report, release notes, or decision records need quality review.
+Use `$artifact-review` when intent, requirements, design, test design, implementation plan, PR review, validation report, release notes, decision records, or brownfield readiness artifacts need quality review.
 
 ## Inputs Needed
 
@@ -32,42 +32,53 @@ When this skill is used inside this repository, context loading, review expectat
 
 1. Identify the artifact type and review scope.
 2. Compare the artifact against approved upstream inputs and checklist criteria.
-3. Check completeness, correctness, traceability, consistency, risk, and missing information.
-4. Recommend corrections or approval readiness.
-5. Stop for human review before treating the artifact as approved.
+3. Review artifact quality, evidence quality, traceability quality, cross-artifact consistency, completeness, business-rule coverage, dependency impact, and readiness for the next phase.
+4. Identify strengths, weaknesses, risks, and recommendations.
+5. Produce a go/no-go recommendation and a readiness score.
+6. Stop for human review before treating the artifact as approved.
 
 ## Outputs Produced
 
-- Review findings
-- Missing information list
-- Required changes list
-- Approval readiness recommendation
+- Strengths
+- Weaknesses
+- Risks
+- Recommendations
+- Go/no-go recommendation
+- Readiness score
 
 ## Example Output
 
-- Review Scope: `intent.md`
-- Findings: `missing acceptance criteria`, `traceability gap`
+- Review Scope: `intent/intent.md`
+- Strengths: `clear scope boundary`
+- Weaknesses: `missing target operating model detail`
+- Risks: `unresolved policy decision`
 - Recommendation: `changes required`
+- Go/No-Go: `no-go`
+- Readiness Score: `62/100`
 
 ## Artifact Structure
 
 1. Review Scope
-2. Completeness Findings
-3. Correctness Findings
-4. Traceability Findings
-5. Consistency Findings
-6. Risk Findings
-7. Missing Information
-8. Recommendation
-9. Required Changes
-10. Approval Readiness
+2. Strengths
+3. Weaknesses
+4. Evidence Quality
+5. Traceability Quality
+6. Cross-Artifact Consistency
+7. Completeness
+8. Business-Rule Coverage
+9. Dependency Impact
+10. Readiness for Next Phase
+11. Risks
+12. Recommendations
+13. Go/No-Go Recommendation
+14. Readiness Score
 
 ## Quality Checks
 
 - Review scope is explicit.
 - Findings are separated from recommendations.
-- Missing information is visible.
-- Approval readiness is conservative.
+- Evidence quality is visible.
+- Readiness for the next phase is explicit.
 - AI does not approve artifacts.
 
 ## Stop Conditions
@@ -78,7 +89,7 @@ When this skill is used inside this repository, context loading, review expectat
 
 ## Human Approval Expectations
 
-Human approval is required after review; AI can recommend readiness but cannot approve.
+Human approval is required after review; AI can recommend readiness but cannot approve itself.
 
 ## Do Not
 

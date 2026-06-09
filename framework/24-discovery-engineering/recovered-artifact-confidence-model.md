@@ -24,4 +24,4 @@ Every recovered artifact should indicate:
 - inference used
 - confidence level
 - unresolved questions
-
+- discovery limitations when the evidence set is incomplete

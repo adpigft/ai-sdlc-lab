@@ -2,9 +2,9 @@
 
 ## Purpose
 
-Discovery engineering is the read-only analysis of an existing application to establish a reliable current-state baseline for brownfield modernization.
+Discovery is the read-only analysis of an existing application to establish a reliable current-state baseline for brownfield modernization.
 
-It is the first step in the brownfield flow and feeds recovered intent, current-state specification, legacy context, and gap analysis.
+It is the first step in the brownfield flow and feeds modernization readiness review, intent definition, specification definition, solution design, and gap analysis.
 
 ## Principles
 
@@ -12,18 +12,37 @@ It is the first step in the brownfield flow and feeds recovered intent, current-
 - Evidence first, inference second.
 - Current state is documented before target state is proposed.
 - Source code, configuration, APIs, and documentation are inspected but not modified.
-- Facts and assumptions are kept separate.
+- Evidence, inference, and target-state thinking are kept separate.
+- Discovery limitations are explicitly documented.
 
-## Primary Outputs
+## Required and Considered Outputs
 
-- Current-state discovery
-- Architecture overview
-- Application inventory
+Discovery should always produce or consider:
+
+- `quick-scan.md`
+- `business-rules-catalog.md`
+- `application-inventory.md`
+- `architecture-overview.md`
+- `api-inventory.md`
+- `data-model.md`
+- `state-machine.md`
+- `integration-inventory.md`
+- `domain-decomposition.md`
+- `technical-debt.md`
+- `current-state-discovery.md`
+- `discovery-evidence.md`
+
+The following supporting artifacts may also be produced when evidence depth justifies them:
+
+- current-state summary
+- architecture overview
+- application inventory
 - API inventory
-- Data model summary
-- Business rules summary
-- Integration map
-- Technology stack summary
+- data model summary
+- business rules summary
+- integration map
+- technology stack summary
+- limitations and assumptions log
 
 ## Evidence Model
 
@@ -56,6 +75,7 @@ Discovery should capture:
 - deployment assumptions
 - external dependencies
 - observed business rules
+- technical debt and modernization constraints
 
 ## Exclusions
 
@@ -66,4 +86,3 @@ Discovery engineering does not:
 - modify source code
 - create new business requirements
 - invent future-state architecture
-

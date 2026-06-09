@@ -31,5 +31,5 @@ Backend standards are Java-first: Java 21, Spring Boot 3.x, Gradle, OpenAPI Gene
 
 - These documents do not create implementation approval.
 - These documents do not add lifecycle stages or skills.
-- These documents do not replace feature-level intent, specification, design, test design, implementation plan, validation, or release artifacts.
+- These documents do not replace feature-level intent, requirements, design, test design, implementation plan, validation, or release artifacts.
 - These documents do not authorize domain artifact or source-code changes without the relevant lifecycle approval.

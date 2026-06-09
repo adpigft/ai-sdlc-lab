@@ -6,11 +6,11 @@ Define how generic Codex skills are used inside this AI-SDLC framework.
 
 Skills are reusable procedures. This adapter owns framework-specific lifecycle order, workflow-state behavior, approval gates, and navigation commands.
 
-## Canonical Lifecycle
+## Canonical Greenfield Lifecycle
 
 ```text
 intent
--> specification
+-> requirements
 -> design
 -> test-design
 -> implementation
@@ -19,12 +19,43 @@ intent
 -> release
 ```
 
+## Brownfield Modernization Flow
+
+Brownfield modernization adds optional phases before and around the canonical lifecycle. These phases are not mandatory for every project and should be used only when the work is an existing-application modernization effort.
+
+```text
+discovery
+-> discovery-review
+-> modernization-readiness-review
+-> intent
+-> intent-review
+-> requirements
+-> design-input-review
+-> design
+-> design-review
+-> gap-analysis
+-> impact-analysis
+-> implementation-readiness
+-> implementation-planning
+-> vertical-slice-planning
+-> implementation-architecture
+-> implementation
+-> pr-review
+-> validation
+-> release
+```
+
 Supporting skills:
 
-- `domain-onboarding` runs before `intent` when the domain does not exist.
+- `domain-onboarding` runs before intent work when the domain does not exist.
 - `capability-onboarding` runs before feature work when a parent capability context is needed under an existing domain.
 - `source-ingestion` converts external source documents into AI-readable summaries before delivery artifacts are created.
 - `repo-discovery` extracts conventions from an existing repository to inform standards and bootstrap decisions.
+- `discovery` analyzes an existing application in read-only mode and extracts current-state understanding.
+- `modernization-readiness` decides whether discovery is sufficient to begin brownfield modernization intent work.
+- `intent` defines the target business state for greenfield or brownfield work.
+- `requirements` converts approved intent into implementable requirements.
+- `design` defines the target solution, architecture context, and implementation placement direction.
 - `artifact-review` reviews AI-generated artifacts before human approval.
 - `change-request` performs impact analysis and routes only impacted work through the lifecycle.
 - `defect-fix` performs RCA and routes only impacted work through the lifecycle.
@@ -37,9 +68,21 @@ Supporting skills:
 | Current Skill | Normal Next Skill |
 | --- | --- |
 | `domain-onboarding` | `intent` after domain approval |
-| `intent` | `specification` |
-| `specification` | `design` and `test-design` |
-| `design` | `test-design` or `implementation` when test design and traceability are ready |
+| `discovery` | `discovery-review` or `modernization-readiness-review` |
+| `discovery-review` | `modernization-readiness-review` or `intent` |
+| `modernization-readiness-review` | `intent` or remediation work |
+| `intent` | `intent-review` |
+| `intent-review` | `requirements` |
+| `requirements` | `design-input-review` or `design` |
+| `design-input-review` | `design` |
+| `design` | `design-review` |
+| `design-review` | `gap-analysis` or `implementation-readiness` when design is sufficient |
+| `gap-analysis` | `impact-analysis` |
+| `impact-analysis` | `implementation-readiness` |
+| `implementation-readiness` | `implementation-planning` |
+| `implementation-planning` | `vertical-slice-planning` |
+| `vertical-slice-planning` | `implementation-architecture` |
+| `implementation-architecture` | `implementation` |
 | `test-design` | `traceability-review` or `implementation` |
 | `implementation` | `pr-review` |
 | `pr-review` | `validation` |
@@ -57,8 +100,16 @@ Supporting skills:
 | --- | --- |
 | Domain onboarding | Domain Owner / Solution Architect |
 | Intent | PO / BA |
-| Specification | BA / PO |
+| Requirements definition | BA / PO |
 | Design | Solution Architect and impacted owners |
+| Modernization readiness review | Solution Architect, BA, and impacted owners as needed |
+| Design input review | Solution Architect |
+| Gap analysis | Solution Architect and impacted owners as needed |
+| Impact analysis | Solution Architect, Developer Lead, QA, and impacted owners as needed |
+| Implementation readiness | Developer Lead and Solution Architect |
+| Implementation planning | Developer Lead and Solution Architect |
+| Vertical slice planning | Developer Lead and Solution Architect |
+| Implementation architecture | Developer Lead, Solution Architect, QA, and impacted owners as needed |
 | API, event, integration, or shared asset changes | Owning Architect / Platform / impacted producer-consumer owners |
 | Test design | QA |
 | Implementation slice start | Developer Lead / Architect / impacted owners |
@@ -83,6 +134,16 @@ When a skill creates or updates a framework-owned artifact, the framework adapte
 - `framework/01-lifecycle/workflow-state/approval-events.md`
 
 Generic skills should not duplicate workflow-state transition rules. They should produce outputs and evidence; this adapter decides how those outputs affect framework state.
+
+## Brownfield Support Notes
+
+- `discovery` produces current-state evidence only.
+- `modernization-readiness-review` determines whether the current-state understanding is sufficient for modernization work.
+- `intent` defines the target business state, not the implementation design.
+- `requirements` converts approved intent into requirements, not architecture.
+- `design` handles target solution design and can dynamically choose which artifacts to create.
+- `implementation-readiness`, `implementation-planning`, `vertical-slice-planning`, and `implementation-architecture` are bridge phases before code changes start.
+- Brownfield phases may be skipped when the current project already has approved upstream artifacts or when the work is greenfield.
 
 ## Status. Behavior
 

@@ -29,4 +29,4 @@ These standards are reserved for future application code. This baseline reposito
 
 ## Not Yet Active
 
-Application code must not be added until the intent, specification, review, traceability, and build gates have been completed for the target capability.
+Application code must not be added until the intent, requirements, review, traceability, and build gates have been completed for the target capability.

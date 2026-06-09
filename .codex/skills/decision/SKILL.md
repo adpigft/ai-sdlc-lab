@@ -11,7 +11,7 @@ Make material choices explicit by documenting context, options, selected decisio
 
 ## When To Use
 
-Use `$decision` when a design, technology, integration, security, data, operational, ownership, or release choice needs a decision record before downstream work can proceed.
+Use `$decision` when a design, business, technology, integration, security, data, operational, ownership, release, or assumption choice needs a decision record before downstream work can proceed.
 
 ## Inputs Needed
 
@@ -21,6 +21,7 @@ Use `$decision` when a design, technology, integration, security, data, operatio
 - Recommendation or selected option, if known
 - Consequences, risks, tradeoffs, and affected owners
 - Related artifacts, systems, APIs, events, releases, or work items where applicable
+- Whether the topic is an architecture decision, business decision, ADR candidate, or assumption decision
 
 ## Framework Adapter
 
@@ -35,8 +36,9 @@ When this skill is used inside this repository, context loading, artifact placem
 1. Determine whether a new decision record is needed or an existing decision should be reviewed.
 2. Capture context, constraints, options, selected option, rejected options, consequences, and risks.
 3. Identify impacted artifacts, owners, tests, implementation, validation, and release evidence.
-4. Mark unresolved material decisions as blockers.
-5. Ask for required owner or architect approval before treating the decision as accepted.
+4. Classify the decision as an architecture decision, business decision, ADR, or assumption decision.
+5. Mark unresolved material decisions as blockers.
+6. Ask for required owner or architect approval before treating the decision as accepted.
 
 ## Outputs Produced
 
@@ -45,14 +47,18 @@ When this skill is used inside this repository, context loading, artifact placem
 - Options, selected choice, consequences, and risks
 - Impacted artifact and follow-up list
 - Blocker or approval recommendation
+- ADR candidate or assumption record when appropriate
 
 ## Artifact Structure
 
 1. Context
 2. Decision
-3. Alternatives Considered
-4. Trade-offs
-5. Consequences
+3. Decision Type
+4. Alternatives Considered
+5. Trade-offs
+6. Consequences
+7. Assumptions
+8. ADR References
 
 ## Quality Checks
 
@@ -60,6 +66,7 @@ When this skill is used inside this repository, context loading, artifact placem
 - Options and rejected alternatives are documented.
 - Consequences and risks are visible.
 - Impacted artifacts and owners are identified.
+- Architecture, business, and assumption decisions are distinguished.
 - Implementation is blocked while material decisions remain unresolved.
 
 ## Stop Conditions

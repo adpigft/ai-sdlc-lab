@@ -10,7 +10,7 @@ Create acceptance, negative, integration, security, and NFR scenarios from appro
 
 ## Required Inputs
 
-- Approved specification
+- Approved requirements
 - Approved architecture context
 - API contract when applicable
 - Active workflow state
@@ -22,7 +22,7 @@ Create acceptance, negative, integration, security, and NFR scenarios from appro
 - `framework/03-delivery-governance/artifact-placement-model.md`
 - `framework/02-context-control/context/stage-context-packs.md`
 - `.codex/skills/test-design/SKILL.md`
-- Approved specification
+- Approved requirements
 - Design context
 - API contract when available
 - Active domain context

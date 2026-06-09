@@ -56,7 +56,7 @@ Purpose:
 
 - Read Wynxx Story Creator backlog candidates.
 - Return normalized Epic, Feature, Story, Task, and Test Case summaries.
-- Support `$wynxx-backlog-ingestion` without creating AI-SDLC artifacts directly.
+- Support `$backlog-ingestion` without creating AI-SDLC artifacts directly.
 
 Allowed operations:
 
@@ -71,7 +71,7 @@ Allowed operations:
 Not allowed:
 
 - create intent automatically
-- create specification automatically
+- create requirements automatically
 - modify Git artifacts
 - create Jira tickets
 - fetch the entire Wynxx Story Creator backlog by default
@@ -263,12 +263,12 @@ Human approval is still required before:
 - updating Jira lifecycle status
 - publishing Confluence pages
 - creating GitHub branches, commits, PRs, or releases
-- creating or updating AI-SDLC intent, specification, design, tests, implementation plan, validation, release, or workflow-state artifacts
+- creating or updating AI-SDLC intent, requirements, design, tests, implementation plan, validation, release, or workflow-state artifacts
 
 ## Related Documents
 
 - `framework/06-tool-integrations/mcp-integration-setup.md`
 - `framework/06-tool-integrations/integration-foundation.md`
 - `framework/06-tool-integrations/ai-sdlc-portal-mvp.md`
-- `.codex/skills/wynxx-backlog-ingestion/SKILL.md`
+- `.codex/skills/backlog-ingestion/SKILL.md`
 - `docs/subagents/subagent-workflows.md`

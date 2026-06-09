@@ -2,11 +2,11 @@
 
 ## Overview
 
-AI-SDLC-LAB is a specification-driven AI-native delivery framework.
+AI-SDLC-LAB is a requirements-driven AI-native delivery framework.
 
 The framework enables teams to deliver software using:
 
-- Specifications as the source of truth
+- Requirements as the source of truth
 - Human ownership and approvals
 - AI-assisted execution
 - Continuous validation and traceability
@@ -30,7 +30,7 @@ The framework is designed for:
 
 # Core Principles
 
-1. Specifications are the primary delivery artifact. In this framework, specification means requirements.
+1. Requirements are the primary delivery artifact.
 2. Human roles own decisions and approvals.
 3. AI assists execution but does not replace accountability.
 4. Every change must be traceable.
@@ -171,7 +171,7 @@ Each feature contains:
 
 ```text
 intent/
-specification/
+requirements/
 design/
 contracts/
 tests/
@@ -182,7 +182,7 @@ release/
 workflow-state.yaml
 ```
 
-Canonical feature artifact paths are `intent/intent.md`, `specification/specification.md`, `design/design.md`, `contracts/openapi.yaml`, `tests/acceptance.feature`, `implementation/implementation-plan.md`, `pr-review/pr-review-report.md`, `validation/validation-report.md`, `release/release-notes.md`, and `workflow-state.yaml`.
+Canonical feature artifact paths are `intent/intent.md`, `requirements/requirements.md`, `design/design.md`, `contracts/openapi.yaml`, `tests/acceptance.feature`, `implementation/implementation-plan.md`, `pr-review/pr-review-report.md`, `validation/validation-report.md`, `release/release-notes.md`, and `workflow-state.yaml`.
 
 ---
 
@@ -197,7 +197,7 @@ src/main/java/
 src/test/java/
 ```
 
-Source code is created only after specification, design, test-design, traceability, and implementation slice approval are complete.
+Source code is created only after requirements, design, test-design, traceability, and implementation slice approval are complete.
 
 ---
 
@@ -227,7 +227,7 @@ The capability folder contains:
 
 ## Feature
 
-A feature owns the AI-SDLC delivery lifecycle: intent, specification, design, test-design, implementation, pr-review, validation, release, and feedback.
+A feature owns the AI-SDLC delivery lifecycle: intent, requirements, design, test-design, implementation, pr-review, validation, release, and feedback.
 
 Example capability and features:
 
@@ -252,7 +252,7 @@ domains/cards/
         └── features/
             └── card-replacement/
                 ├── intent/intent.md
-                ├── specification/specification.md
+                ├── requirements/requirements.md
                 ├── design/design.md
                 ├── contracts/openapi.yaml
                 ├── tests/acceptance.feature
@@ -265,11 +265,11 @@ domains/cards/
 
 ---
 
-# Specification = Requirements
+# Requirements = Requirements
 
-`specification/specification.md` contains functional requirements, non-functional requirements, acceptance criteria, business rules, and edge cases.
+`requirements/requirements.md` contains functional requirements, non-functional requirements, acceptance criteria, business rules, and edge cases.
 
-The framework calls this artifact `specification`, but it is equivalent to the requirements artifact in frameworks such as Kiro. Do not create a separate `requirements/` folder.
+The framework calls this artifact `requirements`, but it is equivalent to the requirements artifact in frameworks such as Kiro. Do not create a separate `requirements/` folder.
 
 ---
 
@@ -280,7 +280,7 @@ The framework calls this artifact `specification`, but it is equivalent to the r
 | `domains/<domain>/domain-context.md` | Domain boundary, ownership, core services, integrations, events | Domain Owner / Solution Architect |
 | `domains/<domain>/capabilities/<capability>/capability-context.md` | Capability purpose, owned features, shared flows/APIs/events/integrations | Capability Owner / Solution Architect |
 | `intent/intent.md` | Why we are building this; business outcome, scope, exclusions | PO / BA |
-| `specification/specification.md` | What must be built; FRs, NFRs, acceptance criteria, business rules, edge cases | BA / PO |
+| `requirements/requirements.md` | What must be built; FRs, NFRs, acceptance criteria, business rules, edge cases | BA / PO |
 | `design/design.md` | Feature design; APIs, events, integrations, state model, placement metadata | Solution Architect |
 | `contracts/openapi.yaml` | API contract owned by the feature/service design | Solution Architect / Developer Lead |
 | `tests/acceptance.feature` | Behaviour scenarios and acceptance tests | QA / BA |
@@ -403,7 +403,7 @@ Every feature follows the same lifecycle.
 
 ```text
 Intent
-→ Specification
+→ Requirements
 → Design
 → Test Design
 → Implementation
@@ -427,7 +427,7 @@ Intent
 | Status. | Navigate current workflow state and next action |
 | Review. | Run quality review |
 | Approved. | Approve current stage |
-| $specification | Create or update specification |
+| $requirements | Create or update requirements definition |
 | $design | Create or update design |
 | $test-design | Create or update test design |
 | $implementation | Create or update implementation |
@@ -439,14 +439,19 @@ Intent
 | $capability-onboarding | Create or update capability context under an existing domain |
 | $source-ingestion | Convert external source material into AI-readable summaries |
 | $repo-discovery | Extract repository standards and conventions |
-| $discovery-engineering | Analyze an existing application in read-only mode and extract current-state understanding |
-| $intent-extraction | Recover business intent from an existing application |
-| $specification-extraction | Extract current-state requirements from an existing application |
-| $context-extraction | Extract legacy modernization context from an existing application |
+| $discovery | Analyze an existing application in read-only mode and extract current-state understanding |
+| $intent | Define the target business state for a new capability or brownfield modernization effort |
+| $requirements | Convert approved intent into implementable requirements |
+| $design | Design the target solution and implementation placement for the current capability |
 | $gap-analysis | Compare current state with target-state goals and identify modernization gaps |
 | $impact-analysis | Assess change impact across requirements, APIs, data, tests, and integrations |
+| $modernization-readiness | Assess whether discovery is sufficient to begin brownfield modernization intent work |
+| $implementation-readiness | Decide what must close before implementation planning or coding can begin |
+| $implementation-planning | Prepare the build-ready plan and slice sequence before implementation starts |
+| $vertical-slice-planning | Break implementation into vertically deliverable slices with complete traceability |
+| $implementation-architecture | Define the module, package, migration, testing, and CI/CD structures that bridge planning and implementation |
 | $artifact-review | Review AI-generated artifacts before human approval |
-| $wynxx-backlog-ingestion | Ingest Wynxx Story Creator backlogs into reviewable AI SDLC candidate inputs |
+| $backlog-ingestion | Ingest backlog sources into reviewable AI SDLC candidate inputs |
 
 ## Support Skills
 
@@ -455,14 +460,19 @@ These skills support the lifecycle but are not lifecycle stages:
 - `$capability-onboarding` for creating or updating capability context under an existing domain.
 - `$source-ingestion` for converting external source material into AI-readable summaries.
 - `$repo-discovery` for extracting standards and conventions from an existing repository.
-- `$discovery-engineering` for reading an existing application and extracting current-state facts without modifying source code.
-- `$intent-extraction` for recovering business intent from existing behavior and documentation.
-- `$specification-extraction` for extracting current-state functional and non-functional requirements from observed behavior.
-- `$context-extraction` for capturing legacy modernization context, dependencies, constraints, and assumptions.
+- `$discovery` for reading an existing application and extracting current-state facts without modifying source code.
+- `$intent` for defining the target business state from existing behavior, current-state context, and stakeholder direction.
+- `$requirements` for converting approved intent into implementable requirements.
+- `$design` for capturing solution design, architecture context, and implementation placement direction.
 - `$gap-analysis` for comparing current state with target-state goals and identifying modernization gaps.
 - `$impact-analysis` for assessing major change impact before modernization proceeds.
+- `$modernization-readiness` for deciding whether discovery is sufficient to begin modernization intent work.
+- `$implementation-readiness` for classifying what must close before implementation can begin.
+- `$implementation-planning` for preparing the build-ready plan and slice sequence before implementation starts.
+- `$vertical-slice-planning` for defining vertically deliverable slices with traceability.
+- `$implementation-architecture` for defining module, package, migration, testing, and CI/CD structures.
 - `$artifact-review` for reviewing AI-generated artifacts before human approval.
-- `$wynxx-backlog-ingestion` for ingesting Wynxx Story Creator backlogs into candidate intent, specification, implementation slice, and test design inputs without making Wynxx Story Creator a source of truth.
+- `$backlog-ingestion` for ingesting backlog sources into candidate intent, requirements, implementation slice, and test design inputs without making any external backlog system a source of truth.
 
 ---
 
@@ -470,7 +480,7 @@ These skills support the lifecycle but are not lifecycle stages:
 
 Use `$pr-review` after implementation and before `$validation`. PR review checks changed files, `allowed_paths`, coding standards, design adherence, API/event compatibility, test coverage, validation scripts, and traceability. It can recommend readiness, changes, or blockers, but human PR approval remains mandatory.
 
-Intent, specification, design, test-design, validation, and release are feature-level. Implementation may be delivered in one or more slices. PR review is normally per slice or PR. Feature validation and release happen after required slices are complete.
+Intent, requirements, design, test-design, validation, and release are feature-level. Implementation may be delivered in one or more slices. PR review is normally per slice or PR. Feature validation and release happen after required slices are complete.
 
 ---
 
@@ -555,7 +565,7 @@ Review checks:
 Example:
 
 ```text
-$specification
+$requirements
 
 Review.
 ```
@@ -622,9 +632,9 @@ This file controls delivery progress.
 Example:
 
 ```yaml
-current_skill: specification
+current_skill: requirements
 
-current_state: specification_draft
+current_state: requirements_draft
 
 next_skill: design
 ```
@@ -634,7 +644,7 @@ After approval:
 ```yaml
 current_skill: design
 
-current_state: specification_approved
+current_state: requirements_approved
 
 next_skill: design
 ```
@@ -649,7 +659,7 @@ $intent
 Review.
 Approved.
 
-$specification
+$requirements
 
 Review.
 Approved.
@@ -696,7 +706,7 @@ $change-request
 Review.
 Approved.
 
-$specification
+$requirements
 
 Review.
 Approved.
@@ -896,7 +906,7 @@ Generate:
 - Decisions
 - Releases
 
-Payloads link back to Git-owned domain context, capability context, workflow state, intent, specification, design, tests, implementation plan, validation report, and release notes where available.
+Payloads link back to Git-owned domain context, capability context, workflow state, intent, requirements, design, tests, implementation plan, validation report, and release notes where available.
 
 Future:
 
@@ -1000,7 +1010,7 @@ Rules:
 Before implementation:
 
 - Intent approved
-- Specification approved
+- Requirements approved
 - Design approved
 - API contract approved
 - Test design approved
@@ -1041,7 +1051,7 @@ Review:
 
 ```text
 intent/
-specification/
+requirements/
 design/
 contracts/
 tests/

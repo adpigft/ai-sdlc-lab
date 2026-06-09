@@ -16,7 +16,7 @@ Backlog -> Discovery -> Design -> Ready for Build -> In Progress -> PR Review ->
 | --- | --- |
 | Backlog | Accepted demand, defect, decision, or release work waiting to start. |
 | Discovery | Intent, impact analysis, RCA, or clarification work is active. |
-| Design | Specification, architecture, test design, decision, or implementation planning is active. |
+| Design | Requirements, architecture, test design, decision, or implementation planning is active. |
 | Ready for Build | Required approvals and traceability are complete enough for implementation. |
 | In Progress | Implementation, artifact update, RCA correction, or engineering task is underway. |
 | Validation | QA validation, evidence gathering, defect retest, or release verification is underway. |

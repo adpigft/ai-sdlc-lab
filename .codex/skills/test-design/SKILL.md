@@ -11,11 +11,11 @@ Define QA-owned test scenarios and coverage before implementation or validation 
 
 ## When To Use
 
-Use `$test-design` after specification approval and after enough design context exists to test the behavior, contracts, integrations, risks, and NFRs.
+Use `$test-design` after requirements approval and after enough design context exists to test the behavior, contracts, integrations, risks, and NFRs.
 
 ## Inputs Needed
 
-- Approved intent and specification
+- Approved intent and requirements
 - Design context and contracts where applicable
 - Business rules, edge cases, and NFR targets
 - Risk, security, performance, integration, and operational constraints

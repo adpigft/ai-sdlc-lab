@@ -16,7 +16,7 @@ Lifecycle:
 Idea
 -> Epic
 -> Intent
--> Specification
+-> Requirements Definition
 -> Design
 -> Test Design
 -> Story Breakdown
@@ -31,7 +31,7 @@ Source-of-truth split:
 
 | System | Owns |
 | --- | --- |
-| Git | Intent, specification, design, API contracts, tests, ADRs, implementation plans, PR review evidence, validation reports, release notes, traceability. |
+| Git | Intent, requirements, design, API contracts, tests, ADRs, implementation plans, PR review evidence, validation reports, release notes, traceability. |
 | Jira | Ownership, delivery status, approvals, sprint planning, dependencies, blockers, work management. |
 | Confluence | Published stakeholder summaries and management communication. |
 
@@ -41,8 +41,8 @@ Source-of-truth split:
 | --- | --- | --- | --- | --- | --- | --- |
 | Epic | After a capability is accepted for discovery. The Epic is the capability business-function container. | Product Owner accepts the capability, assigns owner roles, and confirms the domain. | Summarize the capability, check existing domain context and related capabilities, and propose the Epic shell and initial links. | Create Epic with owner, domain, capability name, status, dependencies, and capability context link. | Create or link `capability-context.md` when available. | Capability accepted. |
 | Intent | After discovery questions are answered and the PO/BA agrees the intent is ready to capture. | PO and BA confirm business outcome, scope boundaries, stakeholders, assumptions, and open questions. | Use `$intent` to structure discovery output and create the intent artifact for review. | Update Epic with intent status, approver, decision, and Git path. | Create or update `domains/<domain>/capabilities/<capability>/features/<feature>/intent/intent.md`. | Intent approved. |
-| Specification | After intent approval. | PO and BA approve functional requirements, NFRs, business rules, acceptance criteria, and unresolved questions. | Use `$specification` to derive requirements from approved intent and domain context. | Record specification review status and approval evidence. Do not create build Stories until specification approval. | Create or update `domains/<domain>/capabilities/<capability>/features/<feature>/specification/specification.md`. | Specification approved. |
-| Stories | During feature discovery and refined after specification approval. | PO, BA, and QA agree the feature scope and priority. | Map the feature Story to approved FR/NFR groups and acceptance scenario references. Do not map one Story to one FR by default. | Create or update Stories under the capability Epic, each linked to the feature folder, FR/NFR group, owner, priority, and dependencies. | Update traceability with Story keys mapped to feature artifacts and Git requirement IDs. The specification remains canonical. | Feature Story and traceability approved. |
+| Requirements Definition | After intent approval. | PO and BA approve functional requirements, NFRs, business rules, acceptance criteria, and unresolved questions. | Use `$requirements` to derive requirements from approved intent and domain context. | Record requirements review status and approval evidence. Do not create build Stories until requirements approval. | Create or update `domains/<domain>/capabilities/<capability>/features/<feature>/requirements/requirements.md`. | Requirements approved. |
+| Stories | During feature discovery and refined after requirements approval. | PO, BA, and QA agree the feature scope and priority. | Map the feature Story to approved FR/NFR groups and acceptance scenario references. Do not map one Story to one FR by default. | Create or update Stories under the capability Epic, each linked to the feature folder, FR/NFR group, owner, priority, and dependencies. | Update traceability with Story keys mapped to feature artifacts and Git requirement IDs. The requirements artifact remains canonical. | Feature Story and traceability approved. |
 | Implementation Slices | After design, test-design, and traceability are approved or during build readiness planning for an approved feature scope. | Architect, Dev Lead, QA Lead, and PO approve slice boundaries, dependencies, risks, and sequencing. | Use `$design` and `$implementation` to propose vertical slices, dependencies, tests, rollback concerns, and one-slice-at-a-time execution. | Record slice IDs as Tasks under the feature Story, and mark dependent work ready or blocked. | Create or update implementation planning artifacts such as `domains/<domain>/capabilities/<capability>/features/<feature>/implementation/implementation-plan.md`. | Implementation slice plan approved. |
 | Tasks/Subtasks | After implementation slices are approved and the work is ready for sprint planning. | Dev Lead and squad assign owners, sprint scope, estimates if used, and review responsibilities. | Break each approved slice into implementation Tasks and Subtasks, including tests, code, refactoring, documentation, and traceability evidence updates. | Create Tasks/Subtasks linked to the parent Story and Slice ID. Add PR placeholders, blockers, and dependency links. | No source code update until implementation is approved for the slice. Later PRs update `src/`, tests, and traceability as approved. | Task readiness and slice approval. |
 | Defects | When validation, testing, production monitoring, review, or stakeholder feedback identifies incorrect behavior. | Reporter, QA, PO, and owner triage severity, business impact, fix priority, and approval to proceed. | Use `$defect-fix` to perform RCA, classify root cause, identify impacted artifacts, and propose targeted fixes without broad regeneration. | Create Defect linked to affected Epic, Story, Slice, Release, PR, and validation evidence. Track RCA approval, fix approval, and retest status. | Create or update approved RCA, validation evidence, feedback-capture log entry, and traceability impact entries as applicable. | RCA approved, fix approved, and validation approved. |
@@ -77,22 +77,22 @@ After PO/BA discovery, the AI creates the Git intent artifact for review.
 
 Jira records the owner, status, approval decision, and link. Git stores the approved intent.
 
-### 3. Specification
+### 3. Requirements
 
-After intent approval, the BA specification is created in Git.
+After intent approval, the BA requirements is created in Git.
 
 | Field | Example |
 | --- | --- |
-| Specification ID | `SPEC-QRREF-001` |
+| Requirements ID | `SPEC-QRREF-001` |
 | Jira Approval | `JIRA-QRREF-050` |
-| Git Artifact | `domains/payments/capabilities/payment-refund/features/qr-refund/specification/specification.md` |
-| Approval Gate | Specification approved |
+| Git Artifact | `domains/payments/capabilities/payment-refund/features/qr-refund/requirements/requirements.md` |
+| Approval Gate | Requirements approved |
 
 Stories are not created as build-ready work until this gate is approved.
 
 ### 4. Stories
 
-After specification approval, Jira Stories are created as business capability slices.
+After requirements approval, Jira Stories are created as business capability slices.
 
 | Story ID | Story | Git Requirement Mapping |
 | --- | --- | --- |
@@ -101,7 +101,7 @@ After specification approval, Jira Stories are created as business capability sl
 | `JIRA-QRREF-035` | Refund Status Tracking | `FR-QRREF-016`, `NFR-QRREF-007` |
 | `JIRA-QRREF-037` | Reconciliation and Reporting | `FR-QRREF-018`, `FR-QRREF-019`, `NFR-QRREF-008` |
 
-A Story is not one FR. FRs stay in Git specification.
+A Story is not one FR. FRs stay in Git requirements.
 
 ### 5. Implementation Slices
 
@@ -189,7 +189,7 @@ The Release issue links included Stories, Defects, PRs, validation evidence, rol
 | --- | --- | --- | --- |
 | Idea accepted | Product Owner | Epic or intake status | Optional discovery notes |
 | Intent approved | Product Owner / BA | Epic approval field or approval issue | `intent/intent.md` |
-| Specification approved | Product Owner / BA | Specification approval issue | `specification/specification.md` |
+| Requirements approved | Product Owner / BA | Requirements approval issue | `requirements/requirements.md` |
 | Design approved | Solution Architect | Design approval or Decision issues | `design/design.md`, ADRs, API guidance |
 | Test design approved | QA Lead | QA approval Task | `tests/acceptance.feature` and related test design |
 | Traceability approved | BA / Architect / QA Lead | traceability-review task | `traceability/traceability-matrix.md` |
@@ -203,8 +203,8 @@ Do:
 
 - Create the Jira Epic early as a lightweight discovery and ownership container.
 - Create Git intent only after discovery produces enough business context.
-- Create Git specification only after intent approval.
-- Create Jira Stories only after specification approval.
+- Create Git requirements only after intent approval.
+- Create Jira Stories only after requirements approval.
 - Create implementation slices before Tasks/Subtasks.
 - Create Tasks/Subtasks only for approved slices.
 - Link Jira issues to stable Git paths and artifact IDs.
@@ -217,5 +217,5 @@ Do not:
 - Treat one Jira Story as one Functional Requirement.
 - Create implementation Tasks before approved slices exist.
 - Use Jira approvals to bypass missing Git evidence.
-- Generate source code before approved intent, specification, design, tests, traceability, and slice plan.
+- Generate source code before approved intent, requirements, design, tests, traceability, and slice plan.
 - Implement lifecycle automation from this design without a separate automation proposal and approval.

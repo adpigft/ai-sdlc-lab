@@ -10,7 +10,7 @@ The summary is not a source of truth.
 
 - Source artifacts remain authoritative.
 - `workflow-state.yaml` remains authoritative for lifecycle state, current skill, active artifact, pending gate, blockers, approvals, and next command.
-- Intent, specification, architecture, API contract, tests, implementation plan, validation report, release notes, traceability, and feedback artifacts remain authoritative for their own content.
+- Intent, requirements, architecture, API contract, tests, implementation plan, validation report, release notes, traceability, and feedback artifacts remain authoritative for their own content.
 - If a summary disagrees with a source artifact, treat the summary as stale and report the inconsistency.
 
 ## When A Capability Summary Is Useful
@@ -31,7 +31,7 @@ For a small lab capability, the summary is optional. For 3+ squads, it is recomm
 Generate a capability summary after the capability has enough source artifacts to summarize meaningfully, usually after one of these points:
 
 - intent and workflow state are created
-- specification is approved
+- requirements is approved
 - architecture and placement metadata are available
 - implementation plan is approved
 - validation evidence exists
@@ -69,7 +69,7 @@ Capability summaries should be generated or validated where possible. Manual sum
 A capability summary must not:
 
 - replace intent
-- replace specification
+- replace requirements
 - replace architecture or ADRs
 - replace API contracts
 - replace test design

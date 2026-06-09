@@ -13,7 +13,7 @@ Git remains the source of truth for standards, requirements, designs, contracts,
 | Change Type | Examples | Required Control |
 | --- | --- | --- |
 | Documentation | Standards, templates, design text | Review for consistency, links, and scope. |
-| Requirement | Intent or specification change | PO / BA approval and traceability update. |
+| Requirement | Intent or requirements change | PO / BA approval and traceability update. |
 | Architecture | Design, API, event, integration, state model | Architect and impacted-owner approval. |
 | API contract | OpenAPI operations, schemas, errors | API owner and consumer review. |
 | Event contract | Topic, schema, key, compatibility | Producer, consumer, and platform review. |
